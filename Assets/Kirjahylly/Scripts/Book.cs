@@ -5,15 +5,13 @@ using UnityEngine;
 public class Book : MonoBehaviour {
     private float distanceToCamera;
     private bool bookMoving = false;
-    private float moveSpeed = 15.0f;
+    private float moveSpeed = 7.0f;
 
     private Vector3 clickOffSet;
 
     private GameObject currHolder;
     private Vector3 targetPosition;
     private Quaternion targetRotation;
-
-    void Start() {}
 
     void OnMouseDown() {
         /*
@@ -33,12 +31,13 @@ public class Book : MonoBehaviour {
         */
         GameObject objectUnderMouse = GetObjectUnderMouse();
         if (objectUnderMouse) {
-            BookHolderInterface prevBookHolder = this.currHolder.GetComponent<BookHolderInterface>();
-            prevBookHolder.RemoveBook(this.gameObject);
-
-            BookHolderInterface newBookHolder = objectUnderMouse.GetComponent<BookHolderInterface>();
-            newBookHolder.AddBook(this.gameObject);
-            this.currHolder = objectUnderMouse;
+            BookHolderBase newBookHolder = objectUnderMouse.GetComponent<BookHolderBase>();
+            if (newBookHolder.CanHoldMoreBooks()) {
+                BookHolderBase prevBookHolder = this.currHolder.GetComponent<BookHolderBase>();
+                prevBookHolder.RemoveBook(this.gameObject);
+                newBookHolder.AddBook(this.gameObject);
+                this.currHolder = objectUnderMouse;
+            }
         }
         this.bookMoving = true;
     }

@@ -2,42 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Table : MonoBehaviour, BookHolderInterface {
-    public GameObject Book;
-    private List<GameObject> bookStack = new List<GameObject>();
-    private List<Vector3> bookPositions = new List<Vector3>{
-        new Vector3(-1.17799997f, 0.666999996f, -4.28399992f),
-        new Vector3(-1.17799997f, 0.842999995f, -4.28399992f),
-        new Vector3(-1.17799997f, 1.00699997f, -4.28399992f)
-    };
-    private Vector3 booksRotation = new Vector3(0f, 180f, 90f);
+public class Table : BookHolderBase {
+    public GameObject bookPrefab;
+    private int booksToGenerateCount = 10;
 
-    void Update() {}
+    void Start() {
+        /*
+            Generate books from the book prefab and give them random
+            position above the table off screen so they fly onto the table.
+            Add the books to table's bookStack.
+        */
 
-    void Start(){
-        GameObject[] books = GameObject.FindGameObjectsWithTag("Book");
-        foreach (GameObject book in books) {
+        // TODO: read words and correct categories from file
+        // and pass the information to book object.
+
+        for (int i = 0; i < booksToGenerateCount; ++i) {
+            Vector3 randomStartPosition = new Vector3(
+                Random.Range(-3.4f, 2.4f), // -3 - +3 from table's x value
+                Random.Range(5.0f, 7.0f), // + 5-7 from table's y value
+                -4.28399992f // table's z value
+            );
+            Quaternion startRotation = Quaternion.Euler(0f, 90f, 0f);
+            GameObject book = Instantiate(bookPrefab, randomStartPosition, startRotation);
+
             this.AddBook(book);
             Book bookScript = book.GetComponent<Book>();
             bookScript.SetCurrentHolder(this.gameObject);
         }
         this.UpdateBookPositions();
-    }
-
-    public void AddBook(GameObject book) {
-        this.bookStack.Add(book);
-        this.UpdateBookPositions();
-    }
-
-    public void RemoveBook(GameObject book) {
-        this.bookStack.Remove(book);
-        this.UpdateBookPositions();
-    }
-
-    public void UpdateBookPositions() {
-        for (int i = 0; i < this.bookStack.Count; ++i) {
-            Book bookScript = bookStack[i].GetComponent<Book>();
-            bookScript.SetNewTargetPositionAndRotation(bookPositions[i], booksRotation);
-        }
     }
 }
