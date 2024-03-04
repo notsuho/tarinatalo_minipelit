@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Table : BookHolderBase {
     public GameObject bookPrefab;
@@ -24,6 +25,18 @@ public class Table : BookHolderBase {
             );
             Quaternion startRotation = Quaternion.Euler(0f, 90f, 0f);
             GameObject book = Instantiate(bookPrefab, randomStartPosition, startRotation);
+
+            GameObject text = new GameObject();
+            text.transform.SetParent(book.transform);
+
+            TextMeshPro t = text.AddComponent<TextMeshPro>();
+            t.text = "testi";
+            t.fontSize = 40;
+
+            text.transform.localEulerAngles = new Vector3(0, 180, 90);
+            text.transform.localPosition = new Vector3(-0.0122f, -0.047f, 0.0785f);
+            text.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+            t.alignment = (TextAlignmentOptions)TextAnchor.MiddleCenter;
 
             this.AddBook(book);
             Book bookScript = book.GetComponent<Book>();
