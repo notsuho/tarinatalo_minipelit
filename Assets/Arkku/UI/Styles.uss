@@ -1,0 +1,99 @@
+.overlay {
+    height: 100%;
+}
+
+.play {
+    flex: 1;
+}
+
+.topbar {
+    height: 80px;
+    background-color: rgb(222, 214, 191);
+    align-items: center;
+    justify-content: center;
+    font-size: 200%;
+    color: rgb(94, 19, 19);
+}
+
+.option-buttons {
+    flex-direction: row;
+    justify-content: center;
+    flex: 1;
+}
+
+.left-button {
+    background-color: rgb(222, 214, 191);
+    border-radius: 8px;
+    width: 150px;
+    height: 50px;
+    color: rgb(94, 19, 19);
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 150%;
+}
+
+.right-button {
+    background-color: rgb(222, 214, 191);
+    border-radius: 8px;
+    width: 150px;
+    height: 50px;
+    color: rgb(94, 19, 19);
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 150%;
+}
+
+.sentence-section {
+    height: 100px;
+    align-items: center;
+}
+
+.sentence {
+    background-color: rgb(222, 214, 191);
+    color: rgb(94, 19, 19);
+    font-size: 200%;
+    padding: 1.5%;
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+.feedpack-panel {
+    display: none;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    position: absolute;
+    height: 500px;
+    width: 643px;
+    top: 13%;
+    background-color: rgb(188, 183, 174);
+    padding: 60px;
+   
+}
+
+.feedpack-text {
+    color: rgb(94, 19, 19);
+    font-size: 150%;
+    margin-bottom: 20px;
+    
+}
+
+.feedpack-explanation {
+    color: rgb(94, 19, 19);
+    font-size: 150%;
+    width: 100%;
+    white-space: normal;
+    flex-grow: 2;
+
+}
+
+.continue-button {
+    width: 150px;
+    height: 50px;
+    border-radius: 8px;
+    font-size: 150%;
+}
+
+
