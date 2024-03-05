@@ -6,14 +6,14 @@
             "word1": "kiireellinen",
             "word2": "kiireinen",
             "correctAnswer": "kiireellinen",
-            "explanation": "Lääkäri on voi olla kiireinen, leikkaus on kiireellinen"
+            "explanation": "Lääkäri voi olla kiireinen, leikkaus on kiireellinen."
         },
         {
             "sentence": "_____________ on ongelma monessa koulussa.",
             "word1": "kiusaus",
             "word2": "kiusaaminen",
             "correctAnswer": "kiusaaminen",
-            "explanation": "Kiusaaminen on sitä, kun joku kiusaa. Kiusaus tarkoittaa houkutusta"
+            "explanation": "Kiusaaminen on sitä, kun joku kiusaa. Kiusaus tarkoittaa houkutusta."
         },
         {
             "sentence": "Pidän ___________ tummasta suklaasta.",
@@ -21,6 +21,20 @@
             "word2": "erikoisesti",
             "correctAnswer": "erityisesti",
             "explanation": "Erityisesti viittaa juuri johonkin tiettyyn asiaan. Erikoisesti tarkoittaa omituisesti tai oudosti."
+        },
+        {
+            "sentence": "Maija muisti syntymäpäiväni! Hän on niin _____________.",
+            "word1": "ajatteleva",
+            "word2": "ajattelevainen",
+            "correctAnswer": "ajattelevainen",
+            "explanation": "Ajatteleva tarkoittaa ihmistä, joka ajattelee paljon erilaisia asioita. Ajattelevainen tarkoittaa ihmistä, joka ottaa muut huomioon."
+        },    
+        {
+            "sentence": "Hän oli täysin ___________ tulevista yllätysjuhlista.",
+            "word1": "tietämätön",
+            "word2": "tiedoton",
+            "correctAnswer": "tietämätön",
+            "explanation": "Tietämätön tarkoittaa, ettei tiedä jotain. Tiedoton tarkoittaa tajutonta eli tiedottomassa tilassa olevaa."
         }
     ]
 }

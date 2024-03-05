@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     private Label sentenceLabel;
     private Button leftButton;
     private Button rightButton;
-    private VisualElement feedpackPanel;
+    private VisualElement feedpackSection;
 
     private string sentence;
     private string leftWord;
@@ -23,15 +23,20 @@ public class UIManager : MonoBehaviour
         leftButton = root.Q<Button>("leftButton");
         rightButton = root.Q<Button>("rightButton");
 
-        feedpackPanel = root.Q<VisualElement>("feedpackPanel");
+        Button instructionButton = root.Q<Button>("gotItButton");
+        VisualElement instructions = root.Q<VisualElement>("instructions");
 
+        feedpackSection = root.Q<VisualElement>("feedpackSection");
         Button continueButton = root.Q<Button>("continueButton");
 
         leftButton.clicked += () => gameManager.CheckAnswer(leftWord);
         rightButton.clicked += () => gameManager.CheckAnswer(rightWord);
+        instructionButton.clicked += () => instructions.style.display = DisplayStyle.None;
         continueButton.clicked += () => ContinueGame();
+
     }
 
+   
     private void Update()
     {
        
@@ -67,18 +72,18 @@ public class UIManager : MonoBehaviour
 
     public void SetFeedpack(string feedpackFrase, string explanation)
     {
-        Label feedpackText = feedpackPanel.Q<Label>("feedpackText");
+        Label feedpackText = feedpackSection.Q<Label>("feedpackText");
         feedpackText.text = feedpackFrase;
 
-        Label feedpackExplanation = feedpackPanel.Q<Label>("feedpackExplanation");
+        Label feedpackExplanation = feedpackSection.Q<Label>("feedpackExplanation");
         feedpackExplanation.text = explanation; 
 
-        feedpackPanel.style.display = DisplayStyle.Flex;
+        feedpackSection.style.display = DisplayStyle.Flex;
     }
 
     private void ContinueGame ()
     {
-        feedpackPanel.style.display = DisplayStyle.None;
+        feedpackSection.style.display = DisplayStyle.None;
         gameManager.SetCurrentExercise();
     }
 }

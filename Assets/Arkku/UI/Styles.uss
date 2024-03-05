@@ -59,8 +59,17 @@
     padding-right: 4%;
 }
 
-.feedpack-panel {
+.feedpack-section {
     display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 70;
+}
+
+.feedpack-panel {
+   
     flex-direction: column;
     align-self: center;
     align-items: center;
@@ -70,14 +79,12 @@
     top: 13%;
     background-color: rgb(188, 183, 174);
     padding: 60px;
-   
 }
 
 .feedpack-text {
     color: rgb(94, 19, 19);
     font-size: 150%;
     margin-bottom: 20px;
-    
 }
 
 .feedpack-explanation {
@@ -86,7 +93,6 @@
     width: 100%;
     white-space: normal;
     flex-grow: 2;
-
 }
 
 .continue-button {
@@ -96,4 +102,27 @@
     font-size: 150%;
 }
 
+.instructions-section {
+    
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 70;
+}
 
+.instruction-panel {
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    position: absolute;
+    height: 505px;
+    width: 700px;
+    top: 15%;
+    background-color: rgb(188, 183, 174);
+    padding: 60px;
+}
+
+.instruction-text {
+    flex-grow: 1;
+}
