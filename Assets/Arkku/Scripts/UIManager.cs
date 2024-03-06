@@ -97,4 +97,10 @@ public class UIManager : MonoBehaviour
 
         feedpackSection.style.display = DisplayStyle.Flex;
     }
+
+    public void UpProgressBar(float value) 
+    {
+        ProgressBar progressBar = root.Q<ProgressBar>("progressBar");
+        progressBar.value += value;
+    }
 }

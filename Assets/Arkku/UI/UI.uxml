@@ -21,10 +21,13 @@
         </ui:VisualElement>
         <ui:VisualElement name="feedpackSection" class="feedpack-section">
             <ui:VisualElement name="feedpackPanel" class="feedpack-panel">
-                <ui:Label name="feedpackText" text="tämä on palaute" class="feedpack-text" />
-                <ui:Label name="feedpackExplanation" text="tämä on selitys" class="feedpack-explanation" />
+                <ui:Label name="feedpackText" class="feedpack-text" />
+                <ui:Label name="feedpackExplanation" class="feedpack-explanation" />
                 <ui:Button name="continueButton" text="Jatka" class="continue-button" />
             </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="progressBarContainer" class="progress-bar-container">
+            <ui:ProgressBar value="66.6" name="progressBar" class="progress-bar" style="background-image: resource(&apos;Images/HealthShadeGradient&apos;);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

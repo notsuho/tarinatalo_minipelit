@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
             ui.SetFeedpack("Oikein meni!", currentExercise.explanation);
             exercisesToAnswer.Remove(currentExercise);
             correctAnswers ++;
+            ui.UpProgressBar(6.6f);
         }
         else
         {

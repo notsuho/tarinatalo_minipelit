@@ -103,7 +103,7 @@
 }
 
 .instructions-section {
-    
+    display: none;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -126,3 +126,36 @@
 .instruction-text {
     flex-grow: 1;
 }
+
+.progress-bar-container {
+    position: absolute; 
+    top: 50%;
+    left: 75%;
+}
+
+.progress-bar {
+    rotate: 270deg; 
+    border-radius: 10px;
+     border-color: #2B3A55;
+     border-width:2px
+}
+
+.unity-progress-bar__container {
+    min-height: 40px;
+    min-width: 400px;
+    border-radius: 10px;
+}
+
+.unity-progress-bar__background {
+    border-radius: 10px;
+    background-color: rgba(229, 247, 255, 0.30);
+    border-color: rgb(229, 247, 255);
+}
+
+.unity-progress-bar__progress {
+    background-color: rgba(255, 223, 7, 0.8);
+    border-radius: 10px;
+}
+
+
+

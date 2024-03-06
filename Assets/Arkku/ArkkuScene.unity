@@ -705,13 +705,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.00031651903, y: -0.99963135, z: 0.023614936, w: 0.013398391}
-  m_LocalPosition: {x: -0, y: 2.71, z: 7.01}
+  m_LocalRotation: {x: -0.0008617093, y: -0.99976397, z: -0.017099956, w: 0.013374396}
+  m_LocalPosition: {x: -0, y: 2.178, z: 7.029}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 2.706, y: -178.462, z: 0.073}
+  m_LocalEulerAnglesHint: {x: -1.961, y: -178.468, z: 0.073}
 --- !u!1 &1035145985
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,6 +1056,8 @@ MonoBehaviour:
   myExcercises:
     exercises: []
   ui: {fileID: 1617662936}
+  numberOfExercisesToLoop: 7
+  numberOfCorrectAnswersNeeded: 5
 --- !u!4 &1671395771
 Transform:
   m_ObjectHideFlags: 0
@@ -1305,7 +1307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5abfc2d3b5ea5d64ca95d10d1a34b677, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.39
+      value: 3.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5abfc2d3b5ea5d64ca95d10d1a34b677, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1384,7 +1386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5abfc2d3b5ea5d64ca95d10d1a34b677, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.27
+      value: 4.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5abfc2d3b5ea5d64ca95d10d1a34b677, type: 3}
       propertyPath: m_LocalPosition.z
