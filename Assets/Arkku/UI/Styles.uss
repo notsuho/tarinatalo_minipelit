@@ -69,7 +69,6 @@
 }
 
 .feedpack-panel {
-   
     flex-direction: column;
     align-self: center;
     align-items: center;
@@ -79,6 +78,7 @@
     top: 13%;
     background-color: rgb(188, 183, 174);
     padding: 60px;
+    
 }
 
 .feedpack-text {

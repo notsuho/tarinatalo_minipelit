@@ -86,4 +86,15 @@ public class UIManager : MonoBehaviour
         feedpackSection.style.display = DisplayStyle.None;
         gameManager.SetCurrentExercise();
     }
+
+    public void DeclareWin () 
+    {
+        Label feedpackText = feedpackSection.Q<Label>("feedpackText");
+        feedpackText.text = "Läpäisit pelin!";
+
+        Label feedpackExplanation = feedpackSection.Q<Label>("feedpackExplanation");
+        feedpackExplanation.text = "Sait sanataiturin arvomerkin.<br><br>Pisteesi: 5000";
+
+        feedpackSection.style.display = DisplayStyle.Flex;
+    }
 }

@@ -10,26 +10,38 @@ public class GameManager : MonoBehaviour
     public ExerciseArray myExcercises;
 
     public UIManager ui;
+    public int numberOfExercisesToLoop;
+    public int numberOfCorrectAnswersNeeded;
 
 
-    private static List<Exercise> unansweredExercises;
+    private static List<Exercise> allExercises;
+    private static List<Exercise> exercisesToAnswer; 
     private Exercise currentExercise;
+    private Exercise previousExercise;
+    private int correctAnswers = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
+        //Haetaan harjoitukset JSONista
         myExcercises = JsonUtility.FromJson<ExerciseArray>(textJSON.text);
 
-        if (unansweredExercises == null || unansweredExercises.Count == 0)
+        //Arvotaan joukosta tietty määrä harjoituksia, joita pyöritetään pelissä
+        if (allExercises == null || allExercises.Count == 0)
         {
-            unansweredExercises = myExcercises.exercises.ToList<Exercise>();    
-        }
+            allExercises = myExcercises.exercises.ToList<Exercise>();  
 
+            exercisesToAnswer = new List<Exercise>();
+
+            for(int i = 0; i < numberOfExercisesToLoop; i++) {
+                int randomExerciseIndex = Random.Range(0, allExercises.Count);
+                exercisesToAnswer.Add(allExercises[randomExerciseIndex]);
+                allExercises.RemoveAt(randomExerciseIndex);
+            }  
+        }
         SetCurrentExercise();
  
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -37,27 +49,43 @@ public class GameManager : MonoBehaviour
 
     public void SetCurrentExercise ()
     {
-        if (unansweredExercises.Count > 0) { 
-            int randomExerciseIndex = Random.Range(0, unansweredExercises.Count);
-            currentExercise = unansweredExercises[randomExerciseIndex];
-
+        if (exercisesToAnswer.Count > 0) { 
+            
+            if(currentExercise == null) {
+                currentExercise = exercisesToAnswer[0];
+            } 
+            else 
+            {
+                while (previousExercise.Equals(currentExercise)) {
+                int randomExerciseIndex = Random.Range(0, exercisesToAnswer.Count);
+                currentExercise = exercisesToAnswer[randomExerciseIndex];
+                }
+            }
             ui.SetSentence(currentExercise.sentence);
             ui.SetLeftWord(currentExercise.word1);
             ui.SetRightWord(currentExercise.word2);
-            unansweredExercises.RemoveAt(randomExerciseIndex);
+            
         }
    
     }
 
     public void CheckAnswer (string answer)
     {
+        previousExercise = currentExercise;
+
         if (answer.Equals(currentExercise.correctAnswer)) 
         {
             ui.SetFeedpack("Oikein meni!", currentExercise.explanation);
+            exercisesToAnswer.Remove(currentExercise);
+            correctAnswers ++;
         }
         else
         {
             ui.SetFeedpack("Nyt ei osunut oikeaan.", currentExercise.explanation);
+        }
+
+        if(correctAnswers == numberOfCorrectAnswersNeeded) {
+            ui.DeclareWin();
         }
     }
 }
