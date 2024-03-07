@@ -24,15 +24,18 @@ public class UIManager : MonoBehaviour
         leftButton = root.Q<Button>("left-button");
         rightButton = root.Q<Button>("right-button");
 
-        Button instructionButton = root.Q<Button>("got-it-button");
+        Button gotItButton = root.Q<Button>("got-it-button");
         VisualElement instructions = root.Q<VisualElement>("instructions-section");
+
+        Button instructionButton = root.Q<Button>("instruction-button");
 
         feedpackSection = root.Q<VisualElement>("feedpack-section");
         Button continueButton = root.Q<Button>("continue-button");
 
         leftButton.clicked += () => gameManager.CheckAnswer(leftWord);
         rightButton.clicked += () => gameManager.CheckAnswer(rightWord);
-        instructionButton.clicked += () => instructions.style.display = DisplayStyle.None;
+        gotItButton.clicked += () => instructions.style.display = DisplayStyle.None;
+        instructionButton.clicked += () => instructions.style.display = DisplayStyle.Flex;
         continueButton.clicked += () => ContinueGame();
 
     }

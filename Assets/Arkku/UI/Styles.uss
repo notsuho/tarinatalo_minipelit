@@ -1,3 +1,7 @@
+:root {
+  --color-2: rgb(94, 19, 19);
+}
+
 .overlay {
     height: 100%;
 }
@@ -6,13 +10,26 @@
     flex: 1;
 }
 
-.topbar {
+#topbar {
     height: 80px;
     background-color: rgb(222, 214, 191);
     align-items: center;
     justify-content: center;
     font-size: 200%;
-    color: rgb(94, 19, 19);
+    color: var(--color-2);
+    flex-direction: row;    
+
+}
+
+#one-line-instruction {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+#instruction-button-section {
+    margin-right: 20px;
+    font-size: 80%;
 }
 
 .option-buttons {
@@ -26,7 +43,7 @@
     border-radius: 8px;
     min-width: 150px;
     height: 50px;
-    color: rgb(94, 19, 19);
+     color: var(--color-2);
     margin-top: 10%;
     margin-left: 10%;
     margin-right: 10%;
@@ -38,7 +55,7 @@
     border-radius: 8px;
     min-width: 150px;
     height: 50px;
-    color: rgb(94, 19, 19);
+     color: var(--color-2);
     margin-top: 10%;
     margin-left: 10%;
     margin-right: 10%;
@@ -52,7 +69,7 @@
 
 #sentence {
     background-color: rgb(222, 214, 191);
-    color: rgb(94, 19, 19);
+     color: var(--color-2);
     font-size: 200%;
     padding: 1.5%;
     padding-left: 4%;
@@ -81,24 +98,24 @@
 }
 
 #feedpack-text {
-    color: rgb(94, 19, 19);
+     color: var(--color-2);
     font-size: 150%;
     margin-bottom: 20px;
 }
 
 #feedpack-explanation {
-    color: rgb(94, 19, 19);
+    color: var(--color-2);
     font-size: 150%;
     width: 100%;
     white-space: normal;
     flex-grow: 2;
 }
 
-.continue-button {
+.panel-button {
     width: 150px;
     height: 50px;
     border-radius: 8px;
-    font-size: 150%;
+    font-size: 20px;
 }
 
 #instructions-section {
