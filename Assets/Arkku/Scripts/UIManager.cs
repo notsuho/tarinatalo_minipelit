@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -20,14 +21,14 @@ public class UIManager : MonoBehaviour
         root = GetComponent<UIDocument>().rootVisualElement;
 
         sentenceLabel = root.Q<Label>("sentence");
-        leftButton = root.Q<Button>("leftButton");
-        rightButton = root.Q<Button>("rightButton");
+        leftButton = root.Q<Button>("left-button");
+        rightButton = root.Q<Button>("right-button");
 
-        Button instructionButton = root.Q<Button>("gotItButton");
-        VisualElement instructions = root.Q<VisualElement>("instructions");
+        Button instructionButton = root.Q<Button>("got-it-button");
+        VisualElement instructions = root.Q<VisualElement>("instructions-section");
 
-        feedpackSection = root.Q<VisualElement>("feedpackSection");
-        Button continueButton = root.Q<Button>("continueButton");
+        feedpackSection = root.Q<VisualElement>("feedpack-section");
+        Button continueButton = root.Q<Button>("continue-button");
 
         leftButton.clicked += () => gameManager.CheckAnswer(leftWord);
         rightButton.clicked += () => gameManager.CheckAnswer(rightWord);
@@ -72,10 +73,10 @@ public class UIManager : MonoBehaviour
 
     public void SetFeedpack(string feedpackFrase, string explanation)
     {
-        Label feedpackText = feedpackSection.Q<Label>("feedpackText");
+        Label feedpackText = feedpackSection.Q<Label>("feedpack-text");
         feedpackText.text = feedpackFrase;
 
-        Label feedpackExplanation = feedpackSection.Q<Label>("feedpackExplanation");
+        Label feedpackExplanation = feedpackSection.Q<Label>("feedpack-explanation");
         feedpackExplanation.text = explanation; 
 
         feedpackSection.style.display = DisplayStyle.Flex;
@@ -89,18 +90,32 @@ public class UIManager : MonoBehaviour
 
     public void DeclareWin () 
     {
-        Label feedpackText = feedpackSection.Q<Label>("feedpackText");
+        Label feedpackText = feedpackSection.Q<Label>("feedpack-text");
         feedpackText.text = "Läpäisit pelin!";
 
-        Label feedpackExplanation = feedpackSection.Q<Label>("feedpackExplanation");
+        Label feedpackExplanation = feedpackSection.Q<Label>("feedpack-explanation");
         feedpackExplanation.text = "Sait sanataiturin arvomerkin.<br><br>Pisteesi: 5000";
 
         feedpackSection.style.display = DisplayStyle.Flex;
     }
 
-    public void UpProgressBar(float value) 
+    public void UpProgressBar(float value)
     {
-        ProgressBar progressBar = root.Q<ProgressBar>("progressBar");
+        ProgressBar progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value += value;
+        Debug.Log(progressBar.value);
+
+        /*VisualElement star3 = root.Q<VisualElement>("star3");
+        StyleBackground image  = Resources.Load<Texture2D>("star_yellow.png");
+        Debug.Log(image);*/
+
+        if (progressBar.value >= 98)
+        {
+            VisualElement star3 = root.Q<VisualElement>("star3");
+            star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_yellow");
+            //star3.style.backgroundImage = Background.FromSprite(Resources.Load<Sprite>("Images/star_yellow"));
+
+        }
+
     }
-}
+    }

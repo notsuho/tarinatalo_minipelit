@@ -21,10 +21,10 @@
     flex: 1;
 }
 
-.left-button {
+#left-button {
     background-color: rgb(222, 214, 191);
     border-radius: 8px;
-    width: 150px;
+    min-width: 150px;
     height: 50px;
     color: rgb(94, 19, 19);
     margin-top: 10%;
@@ -33,10 +33,10 @@
     font-size: 150%;
 }
 
-.right-button {
+#right-button {
     background-color: rgb(222, 214, 191);
     border-radius: 8px;
-    width: 150px;
+    min-width: 150px;
     height: 50px;
     color: rgb(94, 19, 19);
     margin-top: 10%;
@@ -50,7 +50,7 @@
     align-items: center;
 }
 
-.sentence {
+#sentence {
     background-color: rgb(222, 214, 191);
     color: rgb(94, 19, 19);
     font-size: 200%;
@@ -59,7 +59,7 @@
     padding-right: 4%;
 }
 
-.feedpack-section {
+#feedpack-section {
     display: none;
     position: absolute;
     height: 100%;
@@ -68,7 +68,7 @@
     opacity: 70;
 }
 
-.feedpack-panel {
+#feedpack-panel {
     flex-direction: column;
     align-self: center;
     align-items: center;
@@ -78,16 +78,15 @@
     top: 13%;
     background-color: rgb(188, 183, 174);
     padding: 60px;
-    
 }
 
-.feedpack-text {
+#feedpack-text {
     color: rgb(94, 19, 19);
     font-size: 150%;
     margin-bottom: 20px;
 }
 
-.feedpack-explanation {
+#feedpack-explanation {
     color: rgb(94, 19, 19);
     font-size: 150%;
     width: 100%;
@@ -102,7 +101,7 @@
     font-size: 150%;
 }
 
-.instructions-section {
+#instructions-section {
     display: none;
     position: absolute;
     height: 100%;
@@ -111,7 +110,7 @@
     opacity: 70;
 }
 
-.instruction-panel {
+#instruction-panel {
     flex-direction: column;
     align-self: center;
     align-items: center;
@@ -123,39 +122,84 @@
     padding: 60px;
 }
 
-.instruction-text {
+#instruction-text {
     flex-grow: 1;
 }
 
-.progress-bar-container {
-    position: absolute; 
-    top: 50%;
+#progress-bar-container {
+    position: absolute;
+    top: 45%;
     left: 75%;
+    rotate: 270deg;
+    height: 50px;
+    width: 420px;
+    
 }
 
-.progress-bar {
-    rotate: 270deg; 
+#progress-bar {
     border-radius: 10px;
-     border-color: #2B3A55;
-     border-width:2px
+    border-color: rgb(43, 58, 85);
+    border-width: 2px;
+    background-image: resource('Images/HealthShadeGradient');
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
 
 .unity-progress-bar__container {
-    min-height: 40px;
+    min-height: 46px;
     min-width: 400px;
     border-radius: 10px;
 }
 
 .unity-progress-bar__background {
     border-radius: 10px;
-    background-color: rgba(229, 247, 255, 0.30);
+    background-color: rgba(229, 247, 255, 0.6);
     border-color: rgb(229, 247, 255);
 }
 
 .unity-progress-bar__progress {
-    background-color: rgba(255, 223, 7, 0.8);
-    border-radius: 10px;
+    background-color: rgb(255, 233, 100);
+    background-image: resource('Images/HealthShadeGradient');
+    border-bottom-left-radius: 10px; 
+    border-top-left-radius: 10px;
 }
 
+#star-container {
+    position: absolute;
+   
+    height: 100%;
+    width: 100%;
+  
+}
 
+#star3 {
+    background-image: resource('Images/star_blank'); 
+    position: absolute; 
+    width: 70px; 
+    height: 70px; 
+    rotate: 90deg; 
+    left: 90%;
+    top:-15%;
+    
+}
 
+#star2 {
+    background-image: resource('Images/star_yellow'); 
+    position: absolute; 
+    width: 70px; 
+    height: 70px; 
+    rotate: 90deg; 
+    left: 57%;
+    top:-15%;
+}
+
+#star1 {
+    background-image: resource('Images/star_yellow'); 
+    position: absolute; 
+    width: 70px; 
+    height: 70px; 
+    rotate: 90deg; 
+    left: 24%;
+    top:-15%;
+}
