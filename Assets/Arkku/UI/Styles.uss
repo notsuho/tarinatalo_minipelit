@@ -1,4 +1,5 @@
 :root {
+  --color-1: red;
   --color-2: rgb(94, 19, 19);
 }
 
@@ -157,7 +158,7 @@
     border-radius: 10px;
     border-color: rgb(43, 58, 85);
     border-width: 2px;
-    background-image: resource('Images/HealthShadeGradient');
+    background-image: resource('Images/HealthShadeGradientBlack');
     position: absolute;
     height: 100%;
     width: 100%;
@@ -176,8 +177,8 @@
 }
 
 .unity-progress-bar__progress {
-    background-color: rgb(255, 233, 100);
-    background-image: resource('Images/HealthShadeGradient');
+    background-color: rgb(243, 187, 12);
+    background-image: resource('Images/HealthShadeGradientBlack');
     border-bottom-left-radius: 10px; 
     border-top-left-radius: 10px;
 }

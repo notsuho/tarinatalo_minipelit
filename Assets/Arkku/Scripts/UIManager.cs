@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     private Button leftButton;
     private Button rightButton;
     private VisualElement feedpackSection;
+    private ProgressBar progressBar;
 
     private string sentence;
     private string leftWord;
@@ -102,22 +103,17 @@ public class UIManager : MonoBehaviour
         feedpackSection.style.display = DisplayStyle.Flex;
     }
 
-    public void UpProgressBar(float value)
+    public void UpProgressBar(float points)
     {
-        ProgressBar progressBar = root.Q<ProgressBar>("progress-bar");
-        progressBar.value += value;
-        Debug.Log(progressBar.value);
-
-        /*VisualElement star3 = root.Q<VisualElement>("star3");
-        StyleBackground image  = Resources.Load<Texture2D>("star_yellow.png");
-        Debug.Log(image);*/
+        progressBar = root.Q<ProgressBar>("progress-bar");
+        progressBar.value = points;
+        Debug.Log("progress bar value: " + progressBar.value);
 
         if (progressBar.value >= 98)
         {
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_yellow");
-            //star3.style.backgroundImage = Background.FromSprite(Resources.Load<Sprite>("Images/star_yellow"));
-
+ 
         }
 
     }

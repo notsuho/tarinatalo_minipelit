@@ -18,7 +18,10 @@ public class GameManager : MonoBehaviour
     private static List<Exercise> exercisesToAnswer; 
     private Exercise currentExercise;
     private Exercise previousExercise;
-    private int correctAnswers = 0;
+    private float points = 66f;
+    private float pointsPerCorrectAnswer = 6.66f;
+    private float winningPointsLine = 99f;
+
 
     void Start()
     {
@@ -75,18 +78,22 @@ public class GameManager : MonoBehaviour
 
         if (answer.Equals(currentExercise.correctAnswer)) 
         {
-            ui.SetFeedpack("Oikein meni!", currentExercise.explanation);
+            points += pointsPerCorrectAnswer;
+            ui.UpProgressBar(points);
+
+            if(points < winningPointsLine) { 
+                ui.SetFeedpack("Oikein meni!", currentExercise.explanation);
+            }
             exercisesToAnswer.Remove(currentExercise);
-            correctAnswers ++;
-            ui.UpProgressBar(6.6f);
+            
         }
         else
         {
             ui.SetFeedpack("Nyt ei osunut oikeaan.", currentExercise.explanation);
         }
 
-        if(correctAnswers == numberOfCorrectAnswersNeeded) {
-            ui.DeclareWin();
+        if(points >= winningPointsLine) {
+            ui.Invoke("DeclareWin", 0.7f);
         }
     }
 }
