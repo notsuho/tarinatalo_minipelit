@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
         VisualElement instructions = root.Q<VisualElement>("instructions-section");
 
         Button instructionButton = root.Q<Button>("instruction-button");
+        Button exitButton = root.Q<Button>("exit-button");
 
         feedpackSection = root.Q<VisualElement>("feedpack-section");
         Button continueButton = root.Q<Button>("continue-button");
@@ -38,6 +39,7 @@ public class UIManager : MonoBehaviour
         gotItButton.clicked += () => instructions.style.display = DisplayStyle.None;
         instructionButton.clicked += () => instructions.style.display = DisplayStyle.Flex;
         continueButton.clicked += () => ContinueGame();
+        exitButton.clicked += () => Application.Quit();
 
     }
 

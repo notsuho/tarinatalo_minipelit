@@ -1,10 +1,13 @@
 :root {
-  --color-1: red;
-  --color-2: rgb(94, 19, 19);
+    --color-lt-text: rgb(186, 109, 86);
+    --color-dk-text: rgb(142, 89, 43);
+    --color: rgba(199, 194, 186, 0);
 }
 
 .overlay {
     height: 100%;
+    -unity-font: resource('Fonts/Nunito-Medium');
+    -unity-font-definition: initial;
 }
 
 .play {
@@ -13,24 +16,64 @@
 
 #topbar {
     height: 80px;
-    background-color: rgb(222, 214, 191);
+    background-color: rgba(0, 0, 0, 0);
     align-items: center;
     justify-content: center;
     font-size: 200%;
-    color: var(--color-2);
-    flex-direction: row;    
-
+    color: var(--color-dk-text);
+    flex-direction: row;
+    background-image: resource('Images/T_Frame_ButtonPaper_GUI');
+    -unity-slice-left: 70;
+    -unity-slice-right: 70;
+    -unity-slice-top: 70;
+    -unity-slice-bottom: 70;
+    -unity-slice-scale: 0.5px;
 }
 
 #one-line-instruction {
     flex-grow: 1;
     align-items: center;
     justify-content: center;
+    -unity-font: resource('Fonts/Nunito-Bold');
 }
 
-#instruction-button-section {
-    margin-right: 20px;
-    font-size: 80%;
+#button-section {
+    margin-right: 35px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    height: 75%;
+    width: 10%;
+}
+
+#instruction-button {
+    position: absolute;
+    background-image: resource('Images/T_Icon_Question');
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    right: 60px;
+    height: 40px;
+    width: 30px;
+}
+
+#instruction-button:hover {
+    height: 45px;
+    width: 33px;
+}
+
+#exit-button {
+    position: absolute;
+    background-image: resource('Images/T_Icon_Exit_GUI');
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    height: 40px;
+    width: 40px;
+    margin-left: 20px;
+}
+
+#exit-button:hover {
+    height: 45px;
+    width: 45px;
 }
 
 .option-buttons {
@@ -39,42 +82,42 @@
     flex: 1;
 }
 
-#left-button {
-    background-color: rgb(222, 214, 191);
+.word-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    background-image: resource('Images/T_Frame_SinglePaper_GUI');
     border-radius: 8px;
-    min-width: 150px;
-    height: 50px;
-     color: var(--color-2);
+    min-width: 200px;
+    height: 60px;
+    color: var(--color-dk-text);
     margin-top: 10%;
     margin-left: 10%;
     margin-right: 10%;
-    font-size: 150%;
+    font-size: 160%;
+    -unity-slice-left: 25;
+    -unity-slice-right: 25;
+    -unity-slice-top: 1;
+    -unity-slice-bottom: 1;
+    -unity-slice-scale: 0.5px;
 }
 
-#right-button {
-    background-color: rgb(222, 214, 191);
-    border-radius: 8px;
-    min-width: 150px;
-    height: 50px;
-     color: var(--color-2);
-    margin-top: 10%;
-    margin-left: 10%;
-    margin-right: 10%;
-    font-size: 150%;
-}
-
-.sentence-section {
+#sentence-section {
     height: 100px;
     align-items: center;
 }
 
 #sentence {
-    background-color: rgb(222, 214, 191);
-     color: var(--color-2);
+    color: var(--color-dk-text);
     font-size: 200%;
     padding: 1.5%;
     padding-left: 4%;
     padding-right: 4%;
+    background-image: resource('Images/T_Frame_ButtonPaper_GUI');
+    -unity-slice-left: 70;
+    -unity-slice-right: 70;
+    -unity-slice-top: 70;
+    -unity-slice-bottom: 70;
+    -unity-slice-scale: 0.5px;
 }
 
 #feedpack-section {
@@ -94,29 +137,60 @@
     height: 500px;
     width: 643px;
     top: 13%;
-    background-color: rgb(188, 183, 174);
+    background-image: resource('Images/T_Frame_ButtonPaper_GUI');
+    -unity-slice-left: 70;
+    -unity-slice-right: 70;
+    -unity-slice-top: 70;
+    -unity-slice-bottom: 70;
     padding: 60px;
 }
 
 #feedpack-text {
-     color: var(--color-2);
-    font-size: 150%;
+    color: var(--color-dk-text);
+    font-size: 180%;
     margin-bottom: 20px;
+    -unity-font: resource('Fonts/Nunito-Bold');
 }
 
 #feedpack-explanation {
-    color: var(--color-2);
+    color: var(--color-dk-text);
     font-size: 150%;
     width: 100%;
     white-space: normal;
     flex-grow: 2;
+    margin-left: 20px;
 }
 
 .panel-button {
-    width: 150px;
-    height: 50px;
+    width: 309px;
+    height: 60px;
     border-radius: 8px;
     font-size: 20px;
+    -unity-font: resource('Fonts/Nunito-Black');
+    color: var(--color-dk-text);
+    background-image: resource('Images/T_Frame_ButtonTransparent_GUI');
+    border-color: rgba(0, 0, 0, 0);
+    -unity-slice-left: 30;
+    -unity-slice-right: 30;
+    -unity-slice-bottom: 1;
+    -unity-slice-top: 1;
+    -unity-background-image-tint-color: rgb(219, 193, 160);
+    background-color: rgba(199, 194, 186, 0);
+}
+
+.panel-button:hover {
+    width: 309px;
+    height: 60px;
+    border-radius: 8px;
+    font-size: 20px;
+    color: var(--color-dk-text);
+    background-image: resource('Images/T_Frame_Button_GUI');
+    border-color: rgba(0, 0, 0, 0);
+    -unity-slice-left: 30;
+    -unity-slice-right: 30;
+    -unity-slice-bottom: 1;
+    -unity-slice-top: 1;
+    -unity-background-image-tint-color: rgb(219, 193, 160);
 }
 
 #instructions-section {
@@ -136,7 +210,11 @@
     height: 505px;
     width: 700px;
     top: 15%;
-    background-color: rgb(188, 183, 174);
+    background-image: resource('Images/T_Frame_ButtonPaper_GUI');
+    -unity-slice-left: 70;
+    -unity-slice-right: 70;
+    -unity-slice-top: 70;
+    -unity-slice-bottom: 70;
     padding: 60px;
 }
 
@@ -151,7 +229,6 @@
     rotate: 270deg;
     height: 50px;
     width: 420px;
-    
 }
 
 #progress-bar {
@@ -178,46 +255,55 @@
 
 .unity-progress-bar__progress {
     background-color: rgb(243, 187, 12);
-    background-image: resource('Images/HealthShadeGradientBlack');
-    border-bottom-left-radius: 10px; 
+    background-image: resource('Images/HealthShadeGradientSparklingDark');
+    border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
 }
 
 #star-container {
     position: absolute;
-   
     height: 100%;
     width: 100%;
-  
 }
 
 #star3 {
-    background-image: resource('Images/star_blank'); 
-    position: absolute; 
-    width: 70px; 
-    height: 70px; 
-    rotate: 90deg; 
+    background-image: resource('Images/star_blank');
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    rotate: 90deg;
     left: 90%;
-    top:-15%;
-    
+    top: -15%;
 }
 
 #star2 {
-    background-image: resource('Images/star_yellow'); 
-    position: absolute; 
-    width: 70px; 
-    height: 70px; 
-    rotate: 90deg; 
+    background-image: resource('Images/star_yellow');
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    rotate: 90deg;
     left: 57%;
-    top:-15%;
+    top: -15%;
 }
 
 #star1 {
-    background-image: resource('Images/star_yellow'); 
-    position: absolute; 
-    width: 70px; 
-    height: 70px; 
-    rotate: 90deg; 
+    background-image: resource('Images/star_yellow');
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    rotate: 90deg;
     left: 24%;
-    top:-15%;
+    top: -15%;
+}
+
+.divider {
+    background-image: resource('Images/T_BG_Header_GUI');
+    height: 15px;
+    width: 100%;
+    -unity-slice-left: 20;
+    -unity-slice-top: 0;
+    -unity-slice-right: 20;
+    -unity-slice-bottom: 0;
+    -unity-background-image-tint-color: var(--color-lt-text);
+    margin-bottom: 20px;
 }
