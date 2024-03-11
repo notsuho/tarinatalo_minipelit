@@ -7,10 +7,12 @@ public class Table : BookHolderBase {
     public GameObject bookPrefab;
     private int booksToGenerateCount = 10;
 
-    string []sanat1 = {"RYÖVÄTÄ", "VARASTAA", "KÄHVELTÄÄ"};
+    public string []sanat1 = {"RYÖVÄTÄ", "VARASTAA", "KÄHVELTÄÄ"};
     string []sanat2 = {"NUKKUA", "UINUA", "KOISIA"};
     string []sanat3 = {"JUKSATA", "NARUTTAA", "HUIJATA"};
     string []muut = {"KAIVATA"};
+
+    List<string> sanalista = new List<string>();
 
     void Start() {
         /*
@@ -21,6 +23,11 @@ public class Table : BookHolderBase {
 
         // TODO: read words and correct categories from file
         // and pass the information to book object.
+
+        sanalista.AddRange(sanat1);
+        sanalista.AddRange(sanat2);
+        sanalista.AddRange(sanat3);
+        sanalista.AddRange(muut);
 
         for (int i = 0; i < booksToGenerateCount; ++i) {
             Vector3 randomStartPosition = new Vector3(
@@ -33,17 +40,9 @@ public class Table : BookHolderBase {
 
             TextMeshPro text = book.GetComponentInChildren<TextMeshPro>();
 
-            if (i < 3){
-                text.text = sanat1[i];
-            }else if (i < 6){
-                text.text = sanat2[i - 3];
-            }else if (i < 9){
-                text.text = sanat3[i - 6];
-            }else{
-                text.text = muut[i - 9];
-            }
-            
-            
+            int index = Random.Range(0, sanalista.Count);
+            text.text = sanalista[index];
+            sanalista.RemoveAt(index);
 
             this.AddBook(book);
             Book bookScript = book.GetComponent<Book>();

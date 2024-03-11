@@ -13,6 +13,7 @@ public class Book : MonoBehaviour {
     private Vector3 targetPosition;
     private Quaternion targetRotation;
 
+
     void OnMouseDown() {
         /*
             Update variables related to calculating transforms to keep the book object
@@ -110,4 +111,6 @@ public class Book : MonoBehaviour {
         */
         this.currHolder = holder;
     }
+
+    
 }
