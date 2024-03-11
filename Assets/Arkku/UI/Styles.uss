@@ -1,7 +1,7 @@
 :root {
     --color-lt-text: rgb(186, 109, 86);
     --color-dk-text: rgb(142, 89, 43);
-    --color: rgba(199, 194, 186, 0);
+    --color-lt-accent: rgb(219, 193, 160);
 }
 
 .overlay {
@@ -134,7 +134,7 @@
     align-self: center;
     align-items: center;
     position: absolute;
-    height: 500px;
+    min-height: 500px;
     width: 643px;
     top: 13%;
     background-image: resource('Images/T_Frame_ButtonPaper_GUI');
@@ -146,7 +146,7 @@
 }
 
 #feedpack-text {
-    color: var(--color-dk-text);
+    color: var(--color-lt-text);
     font-size: 180%;
     margin-bottom: 20px;
     -unity-font: resource('Fonts/Nunito-Bold');
@@ -174,8 +174,9 @@
     -unity-slice-right: 30;
     -unity-slice-bottom: 1;
     -unity-slice-top: 1;
-    -unity-background-image-tint-color: rgb(219, 193, 160);
-    background-color: rgba(199, 194, 186, 0);
+    -unity-background-image-tint-color: var(--color-lt-accent); /*lines of the button*/
+    background-color: rgba(0, 0, 0, 0);
+    margin-top: 40px;
 }
 
 .panel-button:hover {
@@ -190,7 +191,7 @@
     -unity-slice-right: 30;
     -unity-slice-bottom: 1;
     -unity-slice-top: 1;
-    -unity-background-image-tint-color: rgb(219, 193, 160);
+    -unity-background-image-tint-color:  var(--color-lt-accent); /*lines and filling of the button*/
 }
 
 #instructions-section {

@@ -2,74 +2,74 @@
     "exercises": 
 	[
         {
-            "sentence": "Lääkärin täytyi tehdä ___________ leikkaus.",
+            "sentence": "Lääkärin täytyi tehdä <sprite name=\"line\"> leikkaus.",
             "word1": "kiireellinen",
             "word2": "kiireinen",
             "correctAnswer": "kiireellinen",
-            "explanation": "Lääkäri voi olla kiireinen, leikkaus on kiireellinen."
+            "explanation": "Leikkauksella oli kiire, lääkärillä ei.<br><br><mark=#dbc1a040>Kiireinen</mark> viittaa ihmiseen tai ajanjaksoon.<br><br><mark=#dbc1a040>Kiireellinen</mark> viittaa asiaan, joka täytyy hoitaa nopeasti."
         },
         {
-            "sentence": "_____________ on ongelma monessa koulussa.",
+            "sentence": "<sprite name=\"line\"> on ongelma monessa koulussa.",
             "word1": "kiusaus",
             "word2": "kiusaaminen",
             "correctAnswer": "kiusaaminen",
-            "explanation": "Kiusaaminen on sitä, kun joku kiusaa. <br><br>Kiusaus tarkoittaa houkutusta."
+            "explanation": "Monessa koulussa on ongelmana kiusaaminen, ei houkutukset.<br><br><mark=#dbc1a040>Kiusaaminen</mark> on sitä, kun joku kiusaa. <br><br><mark=#dbc1a040>Kiusaus</mark> tarkoittaa houkutusta tai viettelystä."
         },
         {
-            "sentence": "Pidän ___________ tummasta suklaasta.",
+            "sentence": "Pidän <sprite name=\"line\"> tummasta suklaasta.",
             "word1": "erityisesti",
             "word2": "erikoisesti",
             "correctAnswer": "erityisesti",
-            "explanation": "Erityisesti viittaa juuri johonkin tiettyyn asiaan.<br><br>Erikoisesti tarkoittaa omituisesti tai oudosti."
+            "explanation": "Puhuja piti juuri tummasta suklaasta, mutta siinä ei ole mitään erikoista. <br><br><mark=#dbc1a040>Erityisesti</mark> viittaa johonkin tiettyyn asiaan.<br><br><mark=#dbc1a040>Erikoisesti</mark> tarkoittaa omituisesti tai oudosti."
         },
         {
-            "sentence": "Maija muisti syntymäpäiväni! Hän on niin _____________.",
+            "sentence": "Maija muisti syntymäpäiväni! Hän on niin <sprite name=\"line\">.",
             "word1": "ajatteleva",
             "word2": "ajattelevainen",
             "correctAnswer": "ajattelevainen",
-            "explanation": "Ajatteleva tarkoittaa ihmistä, joka ajattelee paljon erilaisia asioita. <br><br>Ajattelevainen tarkoittaa ihmistä, joka ottaa muut huomioon."
+            "explanation": "Maija osoitti ajattelevansa muita ihmisiä, mutta hänen ajattelunsa laajuutta lause ei kommentoi.<br><br><mark=#dbc1a040>Ajatteleva</mark> tarkoittaa ihmistä, joka ajattelee paljon erilaisia asioita. <br><br><mark=#dbc1a040>Ajattelevainen</mark> tarkoittaa ihmistä, joka ottaa muut huomioon."
         },    
         {
-            "sentence": "Hän oli täysin ___________ tulevista yllätysjuhlista.",
+            "sentence": "Hän oli täysin <sprite name=\"line\"> tulevista yllätysjuhlista.",
             "word1": "tietämätön",
             "word2": "tiedoton",
             "correctAnswer": "tietämätön",
-            "explanation": "Tietämätön tarkoittaa, ettei tiedä jotain. <br><br>Tiedoton tarkoittaa tajutonta eli tiedottomassa tilassa olevaa."
+            "explanation": "Hän ei tiennyt yllätysjuhlista, mutta ei ollut kuitenkaan tiedottomassa tilassa.<br><br><mark=#dbc1a040>Tietämätön</mark> tarkoittaa, ettei tiedä jotain. <br><br><mark=#dbc1a040>Tiedoton</mark> tarkoittaa tajutonta eli tajuntansa menettänyttä."
         },
         {
-            "sentence": "Tänä vuonna aion __________ kielten opiskeluun.",
+            "sentence": "Tänä vuonna aion <sprite name=\"line\"> kielten opiskeluun.",
             "word1": "painostaa",
             "word2": "panostaa",
             "correctAnswer": "panostaa",
-            "explanation": "Panostaa tarkoittaa, että näkee vaivaa jonkun asian eteen.<br><br>Painostaminen on sitä, että yrittää saada jonkun toisen toimimaan tietyllä tavalla."
+            "explanation": "<mark=#dbc1a040>Panostaa</mark> tarkoittaa, että näkee vaivaa jonkun asian eteen.<br><br><mark=#dbc1a040>Painostaminen</mark> on sitä, että yrittää saada jonkun toisen toimimaan tietyllä tavalla."
         },
         {
-            "sentence": "Muistan hyvin sanaluokat, sillä opiskelimme niitä _____________ koulussa.",
+            "sentence": "Muistan hyvin sanaluokat, sillä opiskelimme niitä <sprite name=\"line\"> koulussa.",
             "word1": "hiljalleen",
             "word2": "hiljattain",
             "correctAnswer": "hiljattain",
-            "explanation": "Hiljattain tarkoittaa vasta eli äsken.<br><br>Hiljalleen tarkoittaa hitaasti."
+            "explanation": "Sanaluokat muistaa, kun ne on opiskeltu juuri äsken.<br><br><mark=#dbc1a040>Hiljattain</mark> tarkoittaa vasta eli äsken.<br><br><mark=#dbc1a040>Hiljalleen</mark> tarkoittaa hitaasti."
         }, 
         {
-            "sentence": "Toisten valintoja ei kannata ____________.",
+            "sentence": "Toisten valintoja ei kannata <sprite name=\"line\">.",
             "word1": "arvostella",
             "word2": "arvostaa",
             "correctAnswer": "arvostella",
-            "explanation": "Arvostaa tarkoittaa sitä, että pitää jotakin tärkeänä. <br><br>Arvostella tarkoittaa jonkun asian negatiivista arviointia."
+            "explanation": "<mark=#dbc1a040>Arvostaa</mark> tarkoittaa sitä, että pitää jotakin tärkeänä. <br><br><mark=#dbc1a040>Arvosteleminen</mark> tarkoittaa jonkun asian negatiivista arviointia."
         }, 
         {
-            "sentence": "Taikinan nostatus on tärkeä _________ pullan leipomisessa.",
+            "sentence": "Taikinan nostatus on tärkeä <sprite name=\"line\"> pullan leipomisessa.",
             "word1": "vaihe",
             "word2": "vaihde",
             "correctAnswer": "vaihe",
-            "explanation": "Vaihe tarkoittaa jonkun tapahtumasarjan osaa.<br><br>Vaihteita on autoissa ja polkupyörissä."
+            "explanation": "Pullan leipomisessa on vaiheita, ei vaihteita.<br><br><mark=#dbc1a040>Vaihe</mark> tarkoittaa jonkun tapahtumasarjan osaa.<br><br><mark=#dbc1a040>Vaihteita</mark> on autoissa ja polkupyörissä."
         },    
         {
-            "sentence": "Ihminen on ____________, jos uskonto on hänelle tärkeä asia elämässä.",
+            "sentence": "Ihminen on <sprite name=\"line\">, jos uskonto on hänelle tärkeä asia elämässä.",
             "word1": "uskollinen",
             "word2": "uskonnollinen",
             "correctAnswer": "uskonnollinen",
-            "explanation": "Uskonnollinen tarkoittaa uskontoon liittyvää. <br><br>Uskollinen tarkoitaa omistautunutta ja luotettavaa."
+            "explanation": "<mark=#dbc1a040>Uskonnollinen</mark> tarkoittaa uskontoon liittyvää. <br><br><mark=#dbc1a040>Uskollinen</mark> tarkoitaa omistautunutta ja luotettavaa."
         }
     ]
 }

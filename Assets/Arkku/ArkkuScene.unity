@@ -1056,7 +1056,7 @@ MonoBehaviour:
   myExcercises:
     exercises: []
   ui: {fileID: 1617662936}
-  numberOfExercisesToLoop: 7
+  numberOfExercisesToLoop: 10
   numberOfCorrectAnswersNeeded: 5
 --- !u!4 &1671395771
 Transform:
