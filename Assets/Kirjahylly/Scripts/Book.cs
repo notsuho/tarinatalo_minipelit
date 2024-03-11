@@ -13,6 +13,7 @@ public class Book : MonoBehaviour {
     private Vector3 targetPosition;
     private Quaternion targetRotation;
 
+    public int word_category;
 
     void OnMouseDown() {
         /*
@@ -112,5 +113,8 @@ public class Book : MonoBehaviour {
         this.currHolder = holder;
     }
 
+    public int GetWordCategory(){
+        return word_category;
+    }
     
 }
