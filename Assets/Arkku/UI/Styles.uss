@@ -120,7 +120,7 @@
     -unity-slice-scale: 0.5px;
 }
 
-#feedpack-section {
+#panel-section {
     display: none;
     position: absolute;
     height: 100%;
@@ -129,7 +129,7 @@
     opacity: 70;
 }
 
-#feedpack-panel {
+#panel {
     flex-direction: column;
     align-self: center;
     align-items: center;
@@ -145,14 +145,14 @@
     padding: 60px;
 }
 
-#feedpack-text {
+#panel-headline {
     color: var(--color-lt-text);
     font-size: 180%;
     margin-bottom: 20px;
     -unity-font: resource('Fonts/Nunito-Bold');
 }
 
-#feedpack-explanation {
+#panel-text {
     color: var(--color-dk-text);
     font-size: 150%;
     width: 100%;
@@ -161,7 +161,7 @@
     margin-left: 20px;
 }
 
-.panel-button {
+#panel-button {
     width: 309px;
     height: 60px;
     border-radius: 8px;
@@ -179,7 +179,7 @@
     margin-top: 40px;
 }
 
-.panel-button:hover {
+#panel-button:hover {
     width: 309px;
     height: 60px;
     border-radius: 8px;

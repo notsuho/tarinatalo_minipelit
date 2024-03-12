@@ -27,18 +27,12 @@
                 <ui:VisualElement name="star1" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="instructions-section">
-            <ui:VisualElement name="instruction-panel">
-                <ui:Label name="instruction-text" text="tässä on ohjeet" />
-                <ui:Button name="got-it-button" text="SELVÄ!" class="panel-button" />
-            </ui:VisualElement>
-        </ui:VisualElement>
-        <ui:VisualElement name="feedpack-section" >
-            <ui:VisualElement name="feedpack-panel">
-                <ui:Label name="feedpack-text" />
+        <ui:VisualElement name="panel-section" >
+            <ui:VisualElement name="panel">
+                <ui:Label name="panel-headline" />
                 <ui:VisualElement class="divider" />
-                <ui:Label name="feedpack-explanation" />
-                <ui:Button name="continue-button" text="JATKA" class="panel-button"  />
+                <ui:Label name="panel-text" />
+                <ui:Button name="panel-button"   />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

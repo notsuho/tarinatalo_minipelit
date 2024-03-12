@@ -10,12 +10,24 @@ public class UIManager : MonoBehaviour
     private Label sentenceLabel;
     private Button leftButton;
     private Button rightButton;
-    private VisualElement feedpackSection;
+    private VisualElement panelSection;
+    private Label panelHeadline;
+    private Label panelText;
+    private Button panelButton;
+    private VisualElement instructions;
     private ProgressBar progressBar;
 
     private string sentence;
     private string leftWord;
     private string rightWord;
+
+    private string continueButtonText = "<allcaps>jatka</allcaps>";
+    private string gotItButtonText = "<allcaps>selvä!</allcaps>";
+    private string endGameButtonText = "<allcaps>palaa pääpeliin</allcaps>";
+    private string instructionHeadlineText = "<allcaps>ohjeet</allcaps>";
+    private string instructionTextText = "Tässä on ohjeet";
+    private string winningHeadline = "Läpäisit pelin";
+    private string winningText = "Sait sanataiturin arvomerkin<br><br>Pisteesi: 5000";
 
     private void OnEnable()
     {
@@ -25,22 +37,21 @@ public class UIManager : MonoBehaviour
         leftButton = root.Q<Button>("left-button");
         rightButton = root.Q<Button>("right-button");
 
-        Button gotItButton = root.Q<Button>("got-it-button");
-        VisualElement instructions = root.Q<VisualElement>("instructions-section");
-
         Button instructionButton = root.Q<Button>("instruction-button");
         Button exitButton = root.Q<Button>("exit-button");
 
-        feedpackSection = root.Q<VisualElement>("feedpack-section");
-        Button continueButton = root.Q<Button>("continue-button");
+        panelSection = root.Q<VisualElement>("panel-section");
+        panelHeadline = panelSection.Q<Label>("panel-headline");
+        panelText = panelSection.Q<Label>("panel-text");
+        panelButton = panelSection.Q<Button>("panel-button");
+
+        SetInstructions();
 
         leftButton.clicked += () => gameManager.CheckAnswer(leftWord);
         rightButton.clicked += () => gameManager.CheckAnswer(rightWord);
-        gotItButton.clicked += () => instructions.style.display = DisplayStyle.None;
-        instructionButton.clicked += () => instructions.style.display = DisplayStyle.Flex;
-        continueButton.clicked += () => ContinueGame();
+        instructionButton.clicked += () => SetInstructions();
+        panelButton.clicked += () => SetPanelExit();
         exitButton.clicked += () => Application.Quit();
-
     }
 
    
@@ -62,6 +73,21 @@ public class UIManager : MonoBehaviour
         }
     }
 
+   
+
+    private void SetInstructions ()
+    {
+        instructions = root.Q<VisualElement>("panel-section");
+        Label instructionHeadline = instructions.Q<Label>("panel-headline");
+        instructionHeadline.text = instructionHeadlineText;
+        Label instructionText = instructions.Q<Label>("panel-text");
+        instructionText.text = instructionTextText;
+        Button gotItButton = instructions.Q<Button>("panel-button");
+        gotItButton.text = gotItButtonText;
+
+        instructions.style.display = DisplayStyle.Flex;
+    }
+
     public void SetSentence(string newSentence)
     {    
         sentence = newSentence;    
@@ -79,30 +105,45 @@ public class UIManager : MonoBehaviour
 
     public void SetFeedpack(string feedpackFrase, string explanation)
     {
-        Label feedpackText = feedpackSection.Q<Label>("feedpack-text");
-        feedpackText.text = feedpackFrase;
+        panelHeadline.text = feedpackFrase;
+        panelText.text = explanation;
 
-        Label feedpackExplanation = feedpackSection.Q<Label>("feedpack-explanation");
-        feedpackExplanation.text = explanation; 
+        panelButton.text = continueButtonText;
 
-        feedpackSection.style.display = DisplayStyle.Flex;
+        panelSection.style.display = DisplayStyle.Flex;
     }
+
+     private void SetPanelExit()
+        {
+            if (panelButton.text.Equals(continueButtonText))
+            {
+                ContinueGame();
+            }
+            else if (panelButton.text.Equals(endGameButtonText))
+            {
+                Application.Quit();
+            }
+            else
+            {
+                instructions.style.display = DisplayStyle.None;
+            }
+        }
 
     private void ContinueGame ()
     {
-        feedpackSection.style.display = DisplayStyle.None;
+        panelSection.style.display = DisplayStyle.None;
         gameManager.SetCurrentExercise();
     }
 
     public void DeclareWin () 
     {
-        Label feedpackText = feedpackSection.Q<Label>("feedpack-text");
-        feedpackText.text = "Läpäisit pelin!";
+        
+        panelHeadline.text = winningHeadline;
+        panelText.text = winningText;
 
-        Label feedpackExplanation = feedpackSection.Q<Label>("feedpack-explanation");
-        feedpackExplanation.text = "Sait sanataiturin arvomerkin.<br><br>Pisteesi: 5000";
+        panelButton.text = endGameButtonText;
 
-        feedpackSection.style.display = DisplayStyle.Flex;
+        panelSection.style.display = DisplayStyle.Flex;
     }
 
     public void UpProgressBar(float points)
