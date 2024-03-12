@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 3465503955823573998}
   - component: {fileID: 5968131529541326172}
   - component: {fileID: 137427674888050060}
+  - component: {fileID: -5376685634914094716}
   m_Layer: 0
   m_Name: Jam Jar Labeled
   m_TagString: Untagged
@@ -378,6 +379,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-5376685634914094716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3447532814585227846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49ac88629c8a0344da7798e80af5754e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 5059202093483505085}
+  jar: {fileID: 3447532814585227846}
+  jam: {fileID: 6921212197905763958}
+  red: {fileID: 2100000, guid: 6bb2812dba5db014abe8cfe66aac59a5, type: 2}
+  purple: {fileID: 2100000, guid: 5cdb3fca2a08b714ca0c95a524f06032, type: 2}
+  blue: {fileID: 2100000, guid: d8ade75e1ac61bf4892656cb2ae71abc, type: 2}
+  test: []
 --- !u!1 &4313814625429918384
 GameObject:
   m_ObjectHideFlags: 0
