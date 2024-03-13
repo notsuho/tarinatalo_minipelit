@@ -640,7 +640,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7935253118863716003}
   m_Layer: 0
-  m_Name: Jam Cabinet
+  m_Name: JamCabinet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -655,7 +655,7 @@ Transform:
   m_GameObject: {fileID: 8298255180957044904}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.76433, y: 7.9625, z: -4.61}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

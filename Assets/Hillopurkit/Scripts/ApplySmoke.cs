@@ -1,23 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class applySmoke : MonoBehaviour
+public class ApplySmoke : MonoBehaviour
 {
-    // Hoitaa savuefektin alkamisen siinä objektissa,
-    // mihin se on kiinnitetty
+    public ParticleSystem smokeEffect;
 
-    public ParticleSystem ps;
-
-    // Start is called before the first frame update
     void Start()
     {
-        ps.Play();
+        smokeEffect.Play();
+        StartCoroutine(DisappearAfterAWhile());
     }
 
-    // Update is called once per frame
-    void Update()
+    // Makes the GameObject disappear as a new round begins
+    private IEnumerator DisappearAfterAWhile()
     {
-
+        yield return new WaitForSeconds(GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().GetResettingTime());
+        Destroy(gameObject);
     }
 }
