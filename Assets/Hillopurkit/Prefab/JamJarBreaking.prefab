@@ -2899,7 +2899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 280f1fa7c1a3ad2499a52a0d3cb5eee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ps: {fileID: 7826312533373239944}
+  smokeEffect: {fileID: 7826312533373239944}
 --- !u!1 &4703018443487907076
 GameObject:
   m_ObjectHideFlags: 0
@@ -4510,7 +4510,7 @@ GameObject:
   - component: {fileID: 7826312533373239944}
   - component: {fileID: 8340709739754398507}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: SmokeEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
