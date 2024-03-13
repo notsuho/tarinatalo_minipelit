@@ -225,7 +225,7 @@
 
 #progress-bar-container {
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 75%;
     rotate: 270deg;
     height: 50px;
@@ -236,7 +236,7 @@
     border-radius: 10px;
     border-color: rgb(43, 58, 85);
     border-width: 2px;
-    background-image: resource('Images/HealthShadeGradientBlack');
+    background-image: resource('Images/ShadeGradientBlack');
     position: absolute;
     height: 100%;
     width: 100%;
@@ -255,8 +255,8 @@
 }
 
 .unity-progress-bar__progress {
-    background-color: rgb(243, 187, 12);
-    background-image: resource('Images/HealthShadeGradientSparklingDark');
+    background-color: rgba(243, 187, 12, 0);
+    background-image: resource('Images/BarFilling');
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
 }
@@ -270,31 +270,31 @@
 #star3 {
     background-image: resource('Images/star_blank');
     position: absolute;
-    width: 70px;
-    height: 70px;
+    width: 83px;
+    height: 83px;
     rotate: 90deg;
     left: 90%;
-    top: -15%;
+    top: -26%;
 }
 
 #star2 {
-    background-image: resource('Images/star_yellow');
+    background-image: resource('Images/star');
     position: absolute;
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     rotate: 90deg;
     left: 57%;
-    top: -15%;
+    top: -24%;
 }
 
 #star1 {
-    background-image: resource('Images/star_yellow');
+    background-image: resource('Images/star');
     position: absolute;
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     rotate: 90deg;
     left: 24%;
-    top: -15%;
+    top: -24%;
 }
 
 .divider {

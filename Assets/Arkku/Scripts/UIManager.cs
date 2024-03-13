@@ -156,7 +156,7 @@ public class UIManager : MonoBehaviour
         if (progressBar.value >= 98)
         {
             VisualElement star3 = root.Q<VisualElement>("star3");
-            star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_yellow");
+            star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
  
         }
 
