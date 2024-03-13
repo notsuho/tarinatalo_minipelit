@@ -132,6 +132,7 @@ public class UIManager : MonoBehaviour
     private void ContinueGame ()
     {
         panelSection.style.display = DisplayStyle.None;
+        gameManager.CheckIfGameEnded();
         gameManager.SetCurrentExercise();
     }
 

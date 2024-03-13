@@ -83,10 +83,10 @@ public class GameManager : MonoBehaviour
             points += pointsPerCorrectAnswer;
             ui.UpProgressBar(points);
 
-            if(points < pointsLineForWin) { 
-                ui.SetFeedpack(correctAnswerFeedpackText, currentExercise.explanation);
-            }
+           
+            ui.SetFeedpack(correctAnswerFeedpackText, currentExercise.explanation);
             exercisesToAnswer.Remove(currentExercise);
+            
             
         }
         else
@@ -94,7 +94,13 @@ public class GameManager : MonoBehaviour
             ui.SetFeedpack(wrongAnswerFeedpackText, currentExercise.explanation);
         }
 
-        if(points >= pointsLineForWin) {
+        
+    }
+
+    public void CheckIfGameEnded ()
+    {
+        if (points >= pointsLineForWin)
+        {
             ui.Invoke("DeclareWin", 0.7f);
         }
     }
