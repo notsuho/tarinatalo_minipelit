@@ -1057,7 +1057,8 @@ MonoBehaviour:
     exercises: []
   ui: {fileID: 1617662936}
   numberOfExercisesToLoop: 10
-  numberOfCorrectAnswersNeeded: 5
+  pointsPerCorrectAnswer: 6.66
+  pointsLineForWin: 99
 --- !u!4 &1671395771
 Transform:
   m_ObjectHideFlags: 0

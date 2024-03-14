@@ -174,7 +174,7 @@
     -unity-slice-right: 30;
     -unity-slice-bottom: 1;
     -unity-slice-top: 1;
-    -unity-background-image-tint-color: var(--color-lt-accent); /*lines of the button*/
+    -unity-background-image-tint-color: var(--color-lt-accent);
     background-color: rgba(0, 0, 0, 0);
     margin-top: 40px;
 }
@@ -186,12 +186,11 @@
     font-size: 20px;
     color: var(--color-dk-text);
     background-image: resource('Images/T_Frame_Button_GUI');
-    border-color: rgba(0, 0, 0, 0);
     -unity-slice-left: 30;
     -unity-slice-right: 30;
     -unity-slice-bottom: 1;
     -unity-slice-top: 1;
-    -unity-background-image-tint-color:  var(--color-lt-accent); /*lines and filling of the button*/
+    -unity-background-image-tint-color: var(--color-lt-accent);
 }
 
 #instructions-section {
@@ -225,7 +224,7 @@
 
 #progress-bar-container {
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 75%;
     rotate: 270deg;
     height: 50px;
@@ -236,7 +235,7 @@
     border-radius: 10px;
     border-color: rgb(43, 58, 85);
     border-width: 2px;
-    background-image: resource('Images/HealthShadeGradientBlack');
+    background-image: resource('Images/ShadeGradientBlack');
     position: absolute;
     height: 100%;
     width: 100%;
@@ -255,8 +254,8 @@
 }
 
 .unity-progress-bar__progress {
-    background-color: rgb(243, 187, 12);
-    background-image: resource('Images/HealthShadeGradientSparklingDark');
+    background-color: rgba(0, 0, 0, 0);
+    background-image: resource('Images/BarFilling');
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
 }
@@ -268,33 +267,40 @@
 }
 
 #star3 {
+    transition: 0.3s linear 0.2s;
     background-image: resource('Images/star_blank');
     position: absolute;
-    width: 70px;
-    height: 70px;
+    width: 83px;
+    height: 83px;
     rotate: 90deg;
     left: 90%;
-    top: -15%;
+    top: -26%;
 }
 
-#star2 {
-    background-image: resource('Images/star_yellow');
+.star2 {
+    background-image: resource('Images/star');
     position: absolute;
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     rotate: 90deg;
     left: 57%;
-    top: -15%;
+    top: -24%;
+}
+
+
+.star-scale-transition {
+    scale: 1.2 1.2;
+   
 }
 
 #star1 {
-    background-image: resource('Images/star_yellow');
+    background-image: resource('Images/star');
     position: absolute;
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     rotate: 90deg;
     left: 24%;
-    top: -15%;
+    top: -24%;
 }
 
 .divider {

@@ -11,16 +11,15 @@ public class GameManager : MonoBehaviour
 
     public UIManager ui;
     public int numberOfExercisesToLoop;
-    public int numberOfCorrectAnswersNeeded;
-
+   
 
     private static List<Exercise> allExercises;
     private static List<Exercise> exercisesToAnswer; 
     private Exercise currentExercise;
     private Exercise previousExercise;
     private float points = 66f;
-    private float pointsPerCorrectAnswer = 6.66f;
-    private float pointsLineForWin = 99f;
+    public float pointsPerCorrectAnswer = 6.66f;
+    public float pointsToWin = 99f;
     private string correctAnswerFeedpackText = "Oikein meni!";
     private string wrongAnswerFeedpackText = "Nyt ei osunut oikeaan";
 
@@ -81,12 +80,11 @@ public class GameManager : MonoBehaviour
         if (answer.Equals(currentExercise.correctAnswer)) 
         {
             points += pointsPerCorrectAnswer;
-            ui.UpProgressBar(points);
-
-            if(points < pointsLineForWin) { 
-                ui.SetFeedpack(correctAnswerFeedpackText, currentExercise.explanation);
-            }
+            
+            ui.SetFeedpack(correctAnswerFeedpackText, currentExercise.explanation);
             exercisesToAnswer.Remove(currentExercise);
+
+           
             
         }
         else
@@ -94,8 +92,24 @@ public class GameManager : MonoBehaviour
             ui.SetFeedpack(wrongAnswerFeedpackText, currentExercise.explanation);
         }
 
-        if(points >= pointsLineForWin) {
-            ui.Invoke("DeclareWin", 0.7f);
+        
+    }
+
+    public void CheckIfGameEnded ()
+    {
+        if (points >= pointsToWin)
+        {
+            ui.Invoke("DeclareWin", 3f);
         }
+    }
+
+    public float GetPoints()
+    {
+        return points;
+    }
+
+    public float GetPointsToWin ()
+    {
+        return pointsToWin;
     }
 }

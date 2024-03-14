@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -132,6 +133,8 @@ public class UIManager : MonoBehaviour
     private void ContinueGame ()
     {
         panelSection.style.display = DisplayStyle.None;
+        gameManager.CheckIfGameEnded();
+        UpProgressBar(gameManager.GetPoints(), gameManager.GetPointsToWin());
         gameManager.SetCurrentExercise();
     }
 
@@ -146,16 +149,20 @@ public class UIManager : MonoBehaviour
         panelSection.style.display = DisplayStyle.Flex;
     }
 
-    public void UpProgressBar(float points)
+    public void UpProgressBar(float points, float pointsToWin)
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = points;
         Debug.Log("progress bar value: " + progressBar.value);
 
-        if (progressBar.value >= 98)
+        if (progressBar.value >= pointsToWin)
         {
             VisualElement star3 = root.Q<VisualElement>("star3");
-            star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_yellow");
+            star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
+
+            //tähti suurenee ja pienenee    
+            star3.ToggleInClassList("star-scale-transition");
+            root.schedule.Execute(() => star3.ToggleInClassList("star-scale-transition")).StartingIn(500);
  
         }
 
