@@ -13,7 +13,7 @@
             </ui:VisualElement>
             <ui:VisualElement class="option-buttons">
                 <ui:Button name="left-button" text="sana 1" class="word-button" />
-                <ui:Button name="right-button" text="sana 2" class="word-button"/>
+                <ui:Button name="right-button" text="sana 2" class="word-button" />
             </ui:VisualElement>
             <ui:VisualElement name="sentence-section">
                 <ui:Label name="sentence" text="lause, johon sana laitetaan" />
@@ -23,16 +23,16 @@
             <ui:ProgressBar value="66.66" name="progress-bar" />
             <ui:VisualElement name="star-container">
                 <ui:VisualElement name="star3" />
-                <ui:VisualElement name="star2" />
+                <ui:VisualElement name="star2" class="star2" />
                 <ui:VisualElement name="star1" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="panel-section" >
+        <ui:VisualElement name="panel-section">
             <ui:VisualElement name="panel">
                 <ui:Label name="panel-headline" />
                 <ui:VisualElement class="divider" />
                 <ui:Label name="panel-text" />
-                <ui:Button name="panel-button"   />
+                <ui:Button name="panel-button" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
