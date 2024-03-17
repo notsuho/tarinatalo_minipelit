@@ -28,6 +28,8 @@ public class JarBehavior : MonoBehaviour
         {
             Debug.Log("Wrong.");
             //ANIM: jar doesn't break
+            var anim = GetComponent<Animation>();
+            anim.Play();
         }
     }
 }

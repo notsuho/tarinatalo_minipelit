@@ -256,6 +256,7 @@ GameObject:
   - component: {fileID: 3465503955823573998}
   - component: {fileID: 5968131529541326172}
   - component: {fileID: 6852159660738498337}
+  - component: {fileID: -103334487278100468}
   m_Layer: 0
   m_Name: JamJar
   m_TagString: Untagged
@@ -366,6 +367,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyedVersion: {fileID: 4506512596853896479, guid: f1e213213ab465447b288bf448d0e5a6, type: 3}
   SpawningOffset: {x: -1.2, y: 0, z: -1.2}
+--- !u!111 &-103334487278100468
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3447532814585227846}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: fbc1b2aa65f09c54888e7fbf96163edc, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: fbc1b2aa65f09c54888e7fbf96163edc, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &4313814625429918384
 GameObject:
   m_ObjectHideFlags: 0
