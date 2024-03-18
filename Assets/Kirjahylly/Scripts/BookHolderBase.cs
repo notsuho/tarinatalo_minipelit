@@ -32,5 +32,10 @@ public class BookHolderBase : MonoBehaviour {
         }
     }
 
-
+    public void ClearBooks() {
+        foreach (GameObject book in this.bookStack) {
+            Destroy(book);
+        }
+        this.bookStack.Clear();
+    }
 }

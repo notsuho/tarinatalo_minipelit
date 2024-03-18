@@ -1,0 +1,128 @@
+{
+    "bookset1": [
+        {
+            "word": "set1book1",
+            "category": 1
+        },
+        {
+            "word": "set1book1",
+            "category": 1
+        },
+        {
+            "word": "set1book1",
+            "category": 1
+        },
+        {
+            "word": "set1book2",
+            "category": 2
+        },
+        {
+            "word": "set1book2",
+            "category": 2
+        },
+        {
+            "word": "set1book2",
+            "category": 2
+        },
+        {
+            "word": "set1book3",
+            "category": 3
+        },
+        {
+            "word": "set1book3",
+            "category": 3
+        },
+        {
+            "word": "set1book3",
+            "category": 3
+        },
+        {
+            "word": "set1book8",
+            "category": 8
+        }
+    ],
+    "bookset2": [
+        {
+            "word": "set2book1",
+            "category": 1
+        },
+        {
+            "word": "set2book1",
+            "category": 1
+        },
+        {
+            "word": "set2book1",
+            "category": 1
+        },
+        {
+            "word": "set2book2",
+            "category": 2
+        },
+        {
+            "word": "set2book2",
+            "category": 2
+        },
+        {
+            "word": "set2book2",
+            "category": 2
+        },
+        {
+            "word": "set2book3",
+            "category": 3
+        },
+        {
+            "word": "set2book3",
+            "category": 3
+        },
+        {
+            "word": "set2book3",
+            "category": 3
+        },
+        {
+            "word": "set2book8",
+            "category": 8
+        }
+    ],
+    "bookset3": [
+        {
+            "word": "set3book1",
+            "category": 1
+        },
+        {
+            "word": "set3book1",
+            "category": 1
+        },
+        {
+            "word": "set3book1",
+            "category": 1
+        },
+        {
+            "word": "set3book2",
+            "category": 2
+        },
+        {
+            "word": "set3book2",
+            "category": 2
+        },
+        {
+            "word": "set3book2",
+            "category": 2
+        },
+        {
+            "word": "set3book3",
+            "category": 3
+        },
+        {
+            "word": "set3book3",
+            "category": 3
+        },
+        {
+            "word": "set3book3",
+            "category": 3
+        },
+        {
+            "word": "set3book8",
+            "category": 8
+        }
+    ]
+}
