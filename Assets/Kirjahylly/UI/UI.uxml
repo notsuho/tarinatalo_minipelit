@@ -1,0 +1,34 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Arkku/UI/Styles.uss?fileID=7433441132597879392&amp;guid=891ea1ec461cdf74797b78ee82c9df1c&amp;type=3#Styles" />
+    <ui:VisualElement class="overlay">
+        <ui:VisualElement class="play">
+            <ui:VisualElement name="topbar">
+                <ui:VisualElement name="one-line-instruction">
+                    <ui:Label text="Järjestä kirjat hyllyyn niiden merkityksen mukaan." />
+                </ui:VisualElement>
+                <ui:VisualElement name="button-section">
+                    <ui:Button name="instruction-button" />
+                    <ui:Button name="exit-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="option-buttons" />
+            <ui:VisualElement name="sentence-section" />
+        </ui:VisualElement>
+        <ui:VisualElement name="progress-bar-container">
+            <ui:ProgressBar value="66.66" name="progress-bar" />
+            <ui:VisualElement name="star-container">
+                <ui:VisualElement name="star3" />
+                <ui:VisualElement name="star2" class="star2" style="visibility: visible; display: flex; background-image: resource(&apos;Images/star_blank&apos;);" />
+                <ui:VisualElement name="star1" style="background-image: resource(&apos;Images/star_blank&apos;);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="panel-section">
+            <ui:VisualElement name="panel">
+                <ui:Label name="panel-headline" />
+                <ui:VisualElement class="divider" />
+                <ui:Label name="panel-text" />
+                <ui:Button name="panel-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
