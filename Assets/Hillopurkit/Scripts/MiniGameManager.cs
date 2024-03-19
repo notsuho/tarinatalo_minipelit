@@ -15,7 +15,6 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private int numberOfWrongs_round1 = 1;
     [SerializeField] private int numberOfWrongs_round2 = 1;
     [SerializeField] private int numberOfWrongs_round3 = 1;
-    [SerializeField] private float resettingTime = 3f;
     private const int JARS_PER_SHELF = 4;
     private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
@@ -216,13 +215,13 @@ public class MiniGameManager : MonoBehaviour
     /// </summary>
     public IEnumerator NextRound()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         cabinetAnimator.Play("CloseCabinetDoors");
-        yield return new WaitForSeconds(0.5f); // (animation duration)
+        yield return new WaitForSeconds(WaitTimes.DOOR_CLOSING_TIME); // (animation duration)
 
         cabinetAnimator.Play("CabinetShake");
-        yield return new WaitForSeconds(0.5f); // (animation duration)
+        yield return new WaitForSeconds(WaitTimes.DOOR_OPENING_TIME); // (animation duration)
 
         cabinetAnimator.Play("OpenCabinetDoors");
 
