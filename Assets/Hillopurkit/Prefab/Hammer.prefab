@@ -221,7 +221,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5407450171551736784}
-  - component: {fileID: 2562758534915176044}
+  - component: {fileID: 5698051637169044862}
+  - component: {fileID: 2252066396197789756}
   m_Layer: 0
   m_Name: Hammer
   m_TagString: Untagged
@@ -246,19 +247,37 @@ Transform:
   - {fileID: 4818424360166100198}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &2562758534915176044
-Animation:
+--- !u!95 &5698051637169044862
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7675474096328327179}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 32099b6293e9f0d4989d97fb42ebe0ba, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 32099b6293e9f0d4989d97fb42ebe0ba, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8d6a43d8526736e4e8a8b4552cdd2e82, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2252066396197789756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7675474096328327179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd65108e57e18f4fa4cab66cd736795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hammerAnimator: {fileID: 5698051637169044862}

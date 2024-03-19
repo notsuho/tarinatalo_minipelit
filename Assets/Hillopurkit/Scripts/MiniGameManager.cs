@@ -22,7 +22,8 @@ public class MiniGameManager : MonoBehaviour
 
     private void Start()
     {
-        // Tutorial text box stuff here
+        // Tutorial text box
+        // ANIM: Zoom into game view
         StartRound();
     }
 
