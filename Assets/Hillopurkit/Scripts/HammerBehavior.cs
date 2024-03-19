@@ -9,7 +9,7 @@ public class HammerBehavior : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             hammerAnimator.Play("HammerSwing");
-            Debug.Log("left click");
+            Debug.Log("left click hammer");
         }
     }
 }
