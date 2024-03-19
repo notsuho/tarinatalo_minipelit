@@ -7,6 +7,7 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private GameObject jar;
     [SerializeField] private GameObject firstShelf;
     [SerializeField] private GameObject secondShelf;
+    [SerializeField] private Animator cabinetAnimator;
     [SerializeField] private TextAsset synonymsList;
     [SerializeField] private int numberOfJars_round1 = 4;
     [SerializeField] private int numberOfJars_round2 = 6;
@@ -14,7 +15,7 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private int numberOfWrongs_round1 = 1;
     [SerializeField] private int numberOfWrongs_round2 = 1;
     [SerializeField] private int numberOfWrongs_round3 = 1;
-    [SerializeField] private float resettingTime = 3.0f;
+    [SerializeField] private float resettingTime = 3f;
     private const int JARS_PER_SHELF = 4;
     private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
@@ -23,8 +24,8 @@ public class MiniGameManager : MonoBehaviour
     private void Start()
     {
         // Tutorial text box
-        // ANIM: Zoom into game view
         StartRound();
+        cabinetAnimator.Play("OpenCabinetDoors");
     }
 
     /// <summary>
@@ -215,11 +216,15 @@ public class MiniGameManager : MonoBehaviour
     /// </summary>
     public IEnumerator NextRound()
     {
-        yield return new WaitForSeconds(GetResettingTime());
-        //(jar breaking animation done in JarBehavior)
-        //ANIM: congratulation message
-        //ANIM: door close
-        //ANIM: camera backs up
+        yield return new WaitForSeconds(1f);
+
+        cabinetAnimator.Play("CloseCabinetDoors");
+        yield return new WaitForSeconds(0.5f); // (animation duration)
+
+        cabinetAnimator.Play("CabinetShake");
+        yield return new WaitForSeconds(0.5f); // (animation duration)
+
+        cabinetAnimator.Play("OpenCabinetDoors");
 
         foreach (GameObject jar in jarsOfTheRound)
             Destroy(jar);
@@ -227,12 +232,5 @@ public class MiniGameManager : MonoBehaviour
         jarsOfTheRound.Clear();
 
         StartRound();
-        //ANIM: camera back into play position
-        //ANIM: doors open
-    }
-
-    public float GetResettingTime()
-    {
-        return resettingTime;
     }
 }

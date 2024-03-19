@@ -4,7 +4,7 @@ public class JarBehavior : MonoBehaviour
 {
     private bool isBreakable = false;
     public GameObject destroyedVersion;
-    public Vector3 SpawningOffset = new(-1.2f, 0, -1.2f);
+    public Vector3 SpawningOffset = new (-1.2f, 0, -1.2f);
 
     public void SetBreakability(bool _isBreakable)
     {

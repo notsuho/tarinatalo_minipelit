@@ -242,7 +242,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -9.75, y: 0.16, z: -1}
-  m_LocalScale: {x: 20, y: 1.75, z: 1}
+  m_LocalScale: {x: 20.5, y: 1.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1334506286260076298}
@@ -1013,7 +1013,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 10, y: 0.16, z: -1}
-  m_LocalScale: {x: 20, y: 1.75, z: 1}
+  m_LocalScale: {x: 20.5, y: 1.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5059926775411452400}
@@ -1099,7 +1099,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7935253118863716003}
   - component: {fileID: 6819649554642469366}
-  - component: {fileID: 5080645068377584105}
   m_Layer: 0
   m_Name: JamCabinet
   m_TagString: Untagged
@@ -1150,15 +1149,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5080645068377584105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8298255180957044904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0058b89d0618274f9d474ddc558bb21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!95 &220374288 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6819649554642469366, guid: 67b8bd3c33b2e304e8701f87cfe89b31, type: 3}
+  m_PrefabInstance: {fileID: 1134697242}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &371237315
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,6 +175,7 @@ MonoBehaviour:
   jar: {fileID: 3447532814585227846, guid: eb26c75068113b14ca6891d3bdb5fd84, type: 3}
   firstShelf: {fileID: 1134697244}
   secondShelf: {fileID: 1134697243}
+  cabinetAnimator: {fileID: 220374288}
   synonymsList: {fileID: 4900000, guid: 7c4ca09ca9562614ab38ccddf33f27de, type: 3}
   numberOfJars_round1: 4
   numberOfJars_round2: 6
@@ -438,6 +444,7 @@ PrefabInstance:
     - {fileID: 3709129794746848387, guid: 67b8bd3c33b2e304e8701f87cfe89b31, type: 3}
     - {fileID: 2092163550500994376, guid: 67b8bd3c33b2e304e8701f87cfe89b31, type: 3}
     - {fileID: 1348836299282963109, guid: 67b8bd3c33b2e304e8701f87cfe89b31, type: 3}
+    - {fileID: 5080645068377584105, guid: 67b8bd3c33b2e304e8701f87cfe89b31, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

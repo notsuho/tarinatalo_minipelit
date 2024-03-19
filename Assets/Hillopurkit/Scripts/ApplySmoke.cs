@@ -15,7 +15,7 @@ public class ApplySmoke : MonoBehaviour
     // Makes the GameObject disappear as a new round begins
     private IEnumerator DisappearAfterAWhile()
     {
-        yield return new WaitForSeconds(GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().GetResettingTime());
+        yield return new WaitForSeconds(2.5f);
         Destroy(gameObject);
     }
 }
