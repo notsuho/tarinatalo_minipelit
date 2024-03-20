@@ -15,7 +15,13 @@ public class Book : MonoBehaviour {
 
     public int word_category;
 
+    [SerializeField]
+    private bool locked = false;
+
     void OnMouseDown() {
+        if (locked){
+            return;
+        }
         /*
             Update variables related to calculating transforms to keep the book object
             under the mouse while moving.
@@ -27,6 +33,9 @@ public class Book : MonoBehaviour {
     }
 
     void OnMouseUp() {
+        if (locked){
+            return;
+        }
         /*
             Check if object under mouse can hold books.
             if it can, remove the book from its current holder and add it to the new holder.
@@ -57,7 +66,7 @@ public class Book : MonoBehaviour {
         /*
             Update book object position in scene while dragging.
         */
-        if (bookMoving) {
+        if (bookMoving || locked) {
             return;
         }
         
@@ -115,6 +124,10 @@ public class Book : MonoBehaviour {
 
     public int GetWordCategory(){
         return word_category;
+    }
+
+    public void setLocked(bool value){
+        locked = value;
     }
     
 }

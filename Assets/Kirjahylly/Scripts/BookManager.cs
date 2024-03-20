@@ -10,6 +10,12 @@ public class BookManager : MonoBehaviour {
     public GameObject table;
     public List<GameObject> bookRacks;
     public TextAsset wordsAndCategoriesJson;
+    public UIManager_Kirjahylly ui;
+
+    private float points = 0f;
+    public float pointsToWin = 33f;
+    private int total_rounds = 3;
+    private int current_round = 0;
 
     private int currentSetIndex = 0;
     private List<List<JsonBook>> bookSets = new List<List<JsonBook>>();
@@ -28,6 +34,7 @@ public class BookManager : MonoBehaviour {
     }
 
     void Start() {
+        ui.UpProgressBar(points, pointsToWin);
         this.LoadBookDataFromFile();
         this.ResetBooks();
 
@@ -90,8 +97,24 @@ public class BookManager : MonoBehaviour {
     void CheckLevelCompletion(object rack, System.EventArgs args) {
         bool levelCompleted = this.bookRacks.All(r => r.GetComponent<BookRack>().isCompleted);
         if (levelCompleted) {
-            this.ResetBooks();
+            points += 11f;
+            ui.UpProgressBar(points, pointsToWin);
+            Invoke("ResetBooks", 2);
+            current_round += 1;
+            if (current_round >= total_rounds){
+                Application.Quit();
+            }
         }
 
+    }
+
+    public float GetPoints()
+    {
+        return points;
+    }
+
+    public float GetPointsToWin ()
+    {
+        return pointsToWin;
     }
 }
