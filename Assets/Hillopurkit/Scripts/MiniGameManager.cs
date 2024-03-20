@@ -19,6 +19,10 @@ public class MiniGameManager : MonoBehaviour
     private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
     private readonly List<GameObject> jarsOfTheRound = new();
+    public HillopurkitUIManager ui;
+    private float points = 66f;
+    private float pointsPerCorrectAnswer = 11f;
+    private float pointsLineForWin = 99f;
 
     private void Start()
     {
@@ -231,5 +235,21 @@ public class MiniGameManager : MonoBehaviour
         jarsOfTheRound.Clear();
 
         StartRound();
+    }
+
+    public void BrokeCorrectJar (bool result) {
+        if (result == true) {
+            points += pointsPerCorrectAnswer;
+            ui.UpProgressBar(points);
+            ui.SetFeedback(true);
+        } else {
+            Debug.Log("Wrong.");
+            ui.SetFeedback(false);
+        }
+
+        if (points >= pointsLineForWin)
+        {
+            ui.Invoke("DeclareWin", 0.7f);
+        }
     }
 }

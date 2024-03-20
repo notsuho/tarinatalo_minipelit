@@ -17,6 +17,8 @@ public class JarBehavior : MonoBehaviour
         {
             Vector3 currentPosition = transform.position;
             Debug.Log("Correct!" + " (You broke: " + gameObject.name + ")");
+            //Call method to update UI/score in MiniGameManager
+            GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().BrokeCorrectJar(true);
             StartCoroutine(GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().NextRound());
             
             // Jar breaks
@@ -26,7 +28,9 @@ public class JarBehavior : MonoBehaviour
 
         else
         {
-            Debug.Log("Wrong.");
+            //Debug.Log("Wrong.");
+            //Call method to update UI/score in MiniGameManager
+            GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().BrokeCorrectJar(false);
             //ANIM: jar doesn't break
             var anim = GetComponent<Animation>();
             anim.Play();
