@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43894398, g: 0.48715645, b: 0.56741744, a: 1}
+  m_IndirectSpecularColor: {r: 0.4389443, g: 0.4871567, b: 0.5674182, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -225,7 +225,7 @@ MonoBehaviour:
   secondShelf: {fileID: 1134697243}
   cabinetAnimator: {fileID: 220374288}
   synonymsList: {fileID: 4900000, guid: 7c4ca09ca9562614ab38ccddf33f27de, type: 3}
-  numberOfJars_round1: 8
+  numberOfJars_round1: 4
   numberOfJars_round2: 6
   numberOfJars_round3: 8
   numberOfWrongs_round1: 1
@@ -638,7 +638,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5407450171551736784, guid: 5c95507408aab0844b99d727b6c71487, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5407450171551736784, guid: 5c95507408aab0844b99d727b6c71487, type: 3}
       propertyPath: m_LocalPosition.z

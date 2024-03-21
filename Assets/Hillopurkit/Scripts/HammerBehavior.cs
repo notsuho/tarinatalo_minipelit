@@ -3,13 +3,18 @@ using UnityEngine;
 public class HammerBehavior : MonoBehaviour
 {
     public Animator hammerAnimator;
+    private bool swingable = false;
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && swingable)
         {
             hammerAnimator.Play("HammerSwing");
-            Debug.Log("left click hammer");
         }
+    }
+
+    public void SetSwingable(bool _swingable)
+    {
+        swingable = _swingable;
     }
 }
