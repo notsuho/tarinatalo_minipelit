@@ -20,6 +20,10 @@ public class MiniGameManager : MonoBehaviour
     private int currentRound = 0;
     private readonly List<GameObject> jarsOfTheRound = new();
     private GameObject hammer;
+    public HillopurkitUIManager ui;
+    private float points = 66f;
+    private float pointsPerCorrectAnswer = 11f;
+    private float pointsLineForWin = 99f;
 
     /*
     private void Start()
@@ -259,5 +263,21 @@ public class MiniGameManager : MonoBehaviour
         else
             hammer.GetComponent<Animator>().Play("SlideHammerOutOfView");
 
+    }
+
+    public void BrokeCorrectJar (bool result) {
+        if (result == true) {
+            points += pointsPerCorrectAnswer;
+            ui.UpProgressBar(points);
+            ui.SetFeedback(true);
+        } else {
+            Debug.Log("Wrong.");
+            ui.SetFeedback(false);
+        }
+
+        if (points >= pointsLineForWin)
+        {
+            ui.Invoke("DeclareWin", 0.7f);
+        }
     }
 }

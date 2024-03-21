@@ -4,7 +4,7 @@
         <ui:VisualElement class="play">
             <ui:VisualElement name="topbar">
                 <ui:VisualElement name="one-line-instruction">
-                    <ui:Label text="Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki!" enable-rich-text="false" />
+                    <ui:Label text="Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki!" enable-rich-text="false" name="instructions" style="justify-content: center; align-self: center; align-items: center; flex-direction: column; flex-wrap: wrap; -unity-text-align: upper-center; white-space: normal;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="button-section">
                     <ui:Button name="instruction-button" />
