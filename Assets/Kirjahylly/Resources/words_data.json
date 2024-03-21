@@ -37,8 +37,48 @@
             "category": 3
         },
         {
-            "word": "set1book8",
+            "word": "maalari",
             "category": 8
+        },
+        {
+            "word": "polttoaine",
+            "category": 9
+        },
+        {
+            "word": "ikkuna",
+            "category": 10
+        },
+        {
+            "word": "tukehtua",
+            "category": 11
+        },
+        {
+            "word": "hinaaja",
+            "category": 12
+        },
+        {
+            "word": "kinkku",
+            "category": 13
+        },
+        {
+            "word": "linjat",
+            "category": 14
+        },
+        {
+            "word": "kalmari",
+            "category": 15
+        },
+        {
+            "word": "linkkuveitsi",
+            "category": 16
+        },
+        {
+            "word": "ottelu",
+            "category": 17
+        },
+        {
+            "word": "uskaltaa",
+            "category": 18
         }
     ],
     "bookset2": [

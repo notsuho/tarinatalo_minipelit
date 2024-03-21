@@ -16,23 +16,23 @@ public class BookHolderBase : MonoBehaviour {
         this.UpdateBookPositions();
     }
 
-    public void RemoveBook(GameObject book) {
+    public virtual void RemoveBook(GameObject book) {
         this.bookStack.Remove(book);
         this.UpdateBookPositions();
     }
 
-    public bool CanHoldMoreBooks() {
+    public virtual bool CanHoldMoreBooks() {
         return bookStack.Count < maxBookAmount;
     }
 
-    public void UpdateBookPositions() {
+    public virtual void UpdateBookPositions() {
         for (int i = 0; i < this.bookStack.Count; ++i) {
             Book bookScript = bookStack[i].GetComponent<Book>();
             bookScript.SetNewTargetPositionAndRotation(bookPositions[i], booksRotation);
         }
     }
 
-    public void ClearBooks() {
+    public virtual void ClearBooks() {
         foreach (GameObject book in this.bookStack) {
             Destroy(book);
         }

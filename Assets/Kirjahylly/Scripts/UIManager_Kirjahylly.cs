@@ -55,8 +55,6 @@ public class UIManager_Kirjahylly : MonoBehaviour
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = points;
-        Debug.Log("progress bar value: " + progressBar.value);
-        print(progressBar.value);
 
         if (progressBar.value >= pointsToWin)
         {
