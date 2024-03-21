@@ -7,6 +7,10 @@ public class Book : MonoBehaviour {
     private bool bookMoving = false;
     private float moveSpeed = 7.0f;
 
+    private Material book_glow_material;
+    private Material wrong_book_material;
+    private Material book_material;
+
     private Vector3 clickOffSet;
 
     private GameObject currHolder;
@@ -15,11 +19,14 @@ public class Book : MonoBehaviour {
 
     public int word_category;
 
-    [SerializeField]
-    private bool locked = false;
+    void Start() {
+        book_glow_material = Resources.Load("book_glow", typeof(Material)) as Material;
+        wrong_book_material = Resources.Load("wrong_books", typeof(Material)) as Material;
+        book_material = Resources.Load("books", typeof(Material)) as Material;
+    }
 
     void OnMouseDown() {
-        if (locked){
+        if (this.IsInCompletedRack()) {
             return;
         }
         /*
@@ -33,9 +40,6 @@ public class Book : MonoBehaviour {
     }
 
     void OnMouseUp() {
-        if (locked){
-            return;
-        }
         /*
             Check if object under mouse can hold books.
             if it can, remove the book from its current holder and add it to the new holder.
@@ -66,7 +70,7 @@ public class Book : MonoBehaviour {
         /*
             Update book object position in scene while dragging.
         */
-        if (bookMoving || locked) {
+        if (this.bookMoving || this.IsInCompletedRack()) {
             return;
         }
         
@@ -115,6 +119,12 @@ public class Book : MonoBehaviour {
         }
     }
 
+    bool IsInCompletedRack() {
+        return
+            this.currHolder.GetComponent<BookRack>() &&
+            this.currHolder.GetComponent<BookRack>().isCompleted;
+    }
+
     public void SetCurrentHolder(GameObject holder) {
         /*
             Only called when table is created to set initial holder
@@ -122,12 +132,20 @@ public class Book : MonoBehaviour {
         this.currHolder = holder;
     }
 
-    public int GetWordCategory(){
+    public int GetWordCategory() {
         return word_category;
     }
 
-    public void setLocked(bool value){
-        locked = value;
+    public void MakeBookGlow() {
+        this.gameObject.GetComponent<Renderer>().material = book_glow_material;
     }
-    
+
+    public void MakeBookRed() {
+        this.gameObject.GetComponent<Renderer>().material = wrong_book_material;
+        Invoke("RestoreBookColor", 0.75f);
+    }
+
+    void RestoreBookColor() {
+        this.gameObject.GetComponent<Renderer>().material = book_material;
+    }
 }
