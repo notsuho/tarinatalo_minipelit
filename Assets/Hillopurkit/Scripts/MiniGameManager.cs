@@ -19,16 +19,34 @@ public class MiniGameManager : MonoBehaviour
     private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
     private readonly List<GameObject> jarsOfTheRound = new();
+    private GameObject hammer;
     public HillopurkitUIManager ui;
     private float points = 66f;
     private float pointsPerCorrectAnswer = 11f;
     private float pointsLineForWin = 99f;
 
+    /*
     private void Start()
     {
-        // Tutorial text box
         StartRound();
         cabinetAnimator.Play("OpenCabinetDoors");
+    }
+    */
+
+    private void Start()
+    {
+        hammer = GameObject.Find("Hammer");
+    }
+
+    private void Update()
+    {
+        if(Input.anyKeyDown && currentRound == 0)
+        {
+            hammer.GetComponent<Animator>().Play("SlideHammerIntoView");
+            StartRound();
+            cabinetAnimator.Play("OpenCabinetDoors");
+            hammer.GetComponent<HammerBehavior>().SetSwingable(true);
+        }
     }
 
     /// <summary>
@@ -221,20 +239,30 @@ public class MiniGameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
+        hammer.GetComponent<HammerBehavior>().SetSwingable(false);
+
         cabinetAnimator.Play("CloseCabinetDoors");
         yield return new WaitForSeconds(WaitTimes.DOOR_CLOSING_TIME); // (animation duration)
 
-        cabinetAnimator.Play("CabinetShake");
-        yield return new WaitForSeconds(WaitTimes.DOOR_OPENING_TIME); // (animation duration)
 
-        cabinetAnimator.Play("OpenCabinetDoors");
+        if (currentRound <= 2) // None of this after round 3
+        {
+            cabinetAnimator.Play("CabinetShake");
+            yield return new WaitForSeconds(WaitTimes.DOOR_OPENING_TIME); // (animation duration)
 
-        foreach (GameObject jar in jarsOfTheRound)
-            Destroy(jar);
+            cabinetAnimator.Play("OpenCabinetDoors");
 
-        jarsOfTheRound.Clear();
+            foreach (GameObject jar in jarsOfTheRound)
+                Destroy(jar);
 
-        StartRound();
+            jarsOfTheRound.Clear();
+
+            StartRound();
+            hammer.GetComponent<HammerBehavior>().SetSwingable(true);
+        }
+        else
+            hammer.GetComponent<Animator>().Play("SlideHammerOutOfView");
+
     }
 
     public void BrokeCorrectJar (bool result) {
