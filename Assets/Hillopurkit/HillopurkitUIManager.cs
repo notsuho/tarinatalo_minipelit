@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 public class HillopurkitUIManager : MonoBehaviour
 {
 
-    public MiniGameManager gameManager;
+    public MiniGameManager miniGameManager;
     private VisualElement root;
     private VisualElement panelSection;
     private Label panelHeadline;
@@ -50,6 +50,9 @@ public class HillopurkitUIManager : MonoBehaviour
                                     + "Mutta purkkien joukkoon on eksynyt sana, joka ei kuulu joukkoon. "
                                     + "Etsi joukoon kuulumaton purkki, ja riko se vasaralla!";
 
+
+        miniGameManager.PauseGame();
+
         instructions = root.Q<VisualElement>("panel-section");
         Label instructionHeadline = instructions.Q<Label>("panel-headline");
         instructionHeadline.text = instructionHeadlineText;
@@ -63,17 +66,18 @@ public class HillopurkitUIManager : MonoBehaviour
 
     private void SetPanelExit()
     {
-        if (panelButton.text.Equals(continueButtonText))
+        if (panelButton.text.Equals(continueButtonText)) // aina false?
         {
             ContinueGame();
         }
-        else if (panelButton.text.Equals(endGameButtonText))
+        else if (panelButton.text.Equals(endGameButtonText)) // minipelin lopussa oleva nappi "Palaa pääpeliin"
         {
             Application.Quit();
         }
         else
         {
-            instructions.style.display = DisplayStyle.None;
+            instructions.style.display = DisplayStyle.None; // kysymysmerkistä poistuminen, pelin alku "Selvä!"
+            miniGameManager.UnpauseGame();
         }
     }
 
@@ -97,13 +101,12 @@ public class HillopurkitUIManager : MonoBehaviour
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = points;
-        Debug.Log("progress bar value: " + progressBar.value);
+        // Debug.Log("progress bar value: " + progressBar.value);
 
         if (progressBar.value >= 98)
         {
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_yellow");
-
         }
 
     }
@@ -113,7 +116,7 @@ public class HillopurkitUIManager : MonoBehaviour
         topText = root.Q<Label>("instructions");
         if (result == true)
         {
-            topText.text = ("Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki! \nRIKOIT OIKEAN PURKIN!");
+            topText.text = ("Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki! \nRIKOIT OIKEAN PURKIN!"); //tämän projektin purkkamaisin ratkaisu
         }
         else
         {

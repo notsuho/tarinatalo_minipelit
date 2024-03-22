@@ -15,44 +15,50 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private int numberOfWrongs_round1 = 1;
     [SerializeField] private int numberOfWrongs_round2 = 1;
     [SerializeField] private int numberOfWrongs_round3 = 1;
+    [SerializeField] private GameObject hammer;
     private const int JARS_PER_SHELF = 4;
     private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
     private readonly List<GameObject> jarsOfTheRound = new();
-    private GameObject hammer;
     public HillopurkitUIManager ui;
     private float points = 66f;
     private float pointsPerCorrectAnswer = 11f;
     private float pointsLineForWin = 99f;
 
-    /*
-    private void Start()
+    public static bool isGamePaused = true;
+
+    public void PauseGame()
     {
-        StartRound();
+        // Debug.Log("Pause");
+        isGamePaused = true;
+        hammer.GetComponent<HammerBehavior>().SetSwingable(false);
+    }
+    public void UnpauseGame()
+    {
+        // Debug.Log("Continue");
+        hammer.GetComponent<HammerBehavior>().SetSwingable(true);
+        isGamePaused = false;
+
+        if (currentRound == 0)
+            StartFirstRound();
+    }
+
+
+    /// <summary>
+    /// Plays beginning animations and starts the first round.
+    /// </summary>
+    private void StartFirstRound()
+    {
+        hammer.GetComponent<Animator>().Play("SlideHammerIntoView");
+        SetUpJars();
         cabinetAnimator.Play("OpenCabinetDoors");
-    }
-    */
-
-    private void Start()
-    {
-        hammer = GameObject.Find("Hammer");
-    }
-
-    private void Update()
-    {
-        if(Input.anyKeyDown && currentRound == 0)
-        {
-            hammer.GetComponent<Animator>().Play("SlideHammerIntoView");
-            StartRound();
-            cabinetAnimator.Play("OpenCabinetDoors");
-            hammer.GetComponent<HammerBehavior>().SetSwingable(true);
-        }
+        hammer.GetComponent<HammerBehavior>().SetSwingable(true);
     }
 
     /// <summary>
-    /// Initiates and starts a round of the jar minigame. 
+    /// Instantiates and sets up a round's jars. 
     /// </summary>
-    private void StartRound()
+    private void SetUpJars()
     {
         int numberOfJars;
         int numberOfWrongs;
@@ -237,15 +243,16 @@ public class MiniGameManager : MonoBehaviour
     /// </summary>
     public IEnumerator NextRound()
     {
-        yield return new WaitForSeconds(2f);
+        if(currentRound != 2)
+            yield return new WaitForSeconds(2f);
 
-        hammer.GetComponent<HammerBehavior>().SetSwingable(false);
+        hammer.GetComponent<HammerBehavior>().SetSwingable(false); // no hammer swinging during transitions
 
         cabinetAnimator.Play("CloseCabinetDoors");
         yield return new WaitForSeconds(WaitTimes.DOOR_CLOSING_TIME); // (animation duration)
 
 
-        if (currentRound <= 2) // None of this after round 3
+        if (currentRound <= 2) // rounds 1 & 2
         {
             cabinetAnimator.Play("CabinetShake");
             yield return new WaitForSeconds(WaitTimes.DOOR_OPENING_TIME); // (animation duration)
@@ -257,20 +264,26 @@ public class MiniGameManager : MonoBehaviour
 
             jarsOfTheRound.Clear();
 
-            StartRound();
+            SetUpJars();
             hammer.GetComponent<HammerBehavior>().SetSwingable(true);
         }
-        else
+        else // round 3
+        {
             hammer.GetComponent<Animator>().Play("SlideHammerOutOfView");
+            PauseGame();
+        }
 
     }
 
     public void BrokeCorrectJar (bool result) {
-        if (result == true) {
+        if (result)
+        {
             points += pointsPerCorrectAnswer;
             ui.UpProgressBar(points);
             ui.SetFeedback(true);
-        } else {
+        }
+        else
+        {
             Debug.Log("Wrong.");
             ui.SetFeedback(false);
         }

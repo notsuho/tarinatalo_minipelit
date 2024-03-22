@@ -13,11 +13,13 @@ public class JarBehavior : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (MiniGameManager.isGamePaused)
+            return;
+
         if (isBreakable)
         {
             Vector3 currentPosition = transform.position;
-            Debug.Log("Correct!" + " (You broke: " + gameObject.name + ")");
-            //Call method to update UI/score in MiniGameManager
+            // Update UI/score in MiniGameManager
             GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().BrokeCorrectJar(true);
             StartCoroutine(GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().NextRound());
             
@@ -28,11 +30,10 @@ public class JarBehavior : MonoBehaviour
 
         else
         {
-            //Debug.Log("Wrong.");
-            //Call method to update UI/score in MiniGameManager
+            //Update UI/score in MiniGameManager
             GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().BrokeCorrectJar(false);
             //ANIM: jar doesn't break
-            var anim = GetComponent<Animation>();
+            Animation anim = GetComponent<Animation>();
             anim.Play();
         }
     }

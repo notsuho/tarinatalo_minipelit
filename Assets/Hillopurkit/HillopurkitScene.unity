@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa5227c57bfea334e951b07b1219e9df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 371237317}
+  miniGameManager: {fileID: 371237317}
 --- !u!95 &220374288 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6819649554642469366, guid: 67b8bd3c33b2e304e8701f87cfe89b31, type: 3}
@@ -245,7 +245,13 @@ MonoBehaviour:
   numberOfWrongs_round1: 1
   numberOfWrongs_round2: 1
   numberOfWrongs_round3: 1
+  hammer: {fileID: 447952566}
   ui: {fileID: 1600471}
+--- !u!1 &447952566 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7675474096328327179, guid: 5c95507408aab0844b99d727b6c71487, type: 3}
+  m_PrefabInstance: {fileID: 1551916911}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &530311749
 GameObject:
   m_ObjectHideFlags: 0
