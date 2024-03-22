@@ -105,7 +105,6 @@ public class BookManager : MonoBehaviour {
                 Application.Quit();
             }
         }
-
     }
 
     public float GetPoints()
