@@ -7,7 +7,6 @@ public class ApplySmoke : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("smoke effect");
         smokeEffect.Play();
         StartCoroutine(DisappearAfterAWhile());
     }
