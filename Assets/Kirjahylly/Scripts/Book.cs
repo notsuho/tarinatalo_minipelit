@@ -44,6 +44,10 @@ public class Book : MonoBehaviour {
             Check if object under mouse can hold books.
             if it can, remove the book from its current holder and add it to the new holder.
         */
+        if (this.bookMoving || this.IsInCompletedRack()) {
+            return;
+        }
+
         GameObject objectUnderMouse = GetObjectUnderMouse();
         if (objectUnderMouse) {
             BookHolderBase newBookHolder = objectUnderMouse.GetComponent<BookHolderBase>();
