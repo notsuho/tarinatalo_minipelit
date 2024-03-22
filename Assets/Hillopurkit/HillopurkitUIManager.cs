@@ -14,6 +14,8 @@ public class HillopurkitUIManager : MonoBehaviour
     private VisualElement instructions;
     private ProgressBar progressBar;
     private Label topText;
+    private Label clickedWrong;
+    private Label clickedRight;
 
     private string continueButtonText = "<allcaps>jatka</allcaps>";
     private string gotItButtonText = "<allcaps>selvä!</allcaps>";
@@ -33,6 +35,9 @@ public class HillopurkitUIManager : MonoBehaviour
         panelHeadline = panelSection.Q<Label>("panel-headline");
         panelText = panelSection.Q<Label>("panel-text");
         panelButton = panelSection.Q<Button>("panel-button");
+
+        clickedRight = root.Q<Label>("feedback-right");
+        clickedWrong = root.Q<Label>("feedback-wrong");
 
         SetInstructions();
 
@@ -114,13 +119,19 @@ public class HillopurkitUIManager : MonoBehaviour
     public void SetFeedback(bool result)
     {
         topText = root.Q<Label>("instructions");
+
         if (result == true)
         {
             topText.text = ("Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki! \nRIKOIT OIKEAN PURKIN!"); //tämän projektin purkkamaisin ratkaisu
+            clickedRight.visible = true;
+            clickedWrong.visible = false;
+
         }
         else
         {
             topText.text = ("Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki! \nVÄÄRÄ PURKKI, YRITÄ UUDESTAAN");
+            clickedWrong.visible = true;
+            clickedRight.visible = false;
         }
     }
 }
