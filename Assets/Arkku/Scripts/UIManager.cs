@@ -19,8 +19,11 @@ public class UIManager : MonoBehaviour
     private ProgressBar progressBar;
 
     private string sentence;
-    private string leftWord;
-    private string rightWord;
+
+    //public koska tarvitaan GameManagerissam,
+    //TODO: tee getterit
+    public string leftWord;
+    public string rightWord;
 
     private string continueButtonText = "<allcaps>jatka</allcaps>";
     private string gotItButtonText = "<allcaps>selvä!</allcaps>";
@@ -99,10 +102,12 @@ public class UIManager : MonoBehaviour
         leftWord = newLeftWord;
     }
 
+
     public void SetRightWord(string newRightWord)
     {
         rightWord = newRightWord;
     }
+
 
     public void SetFeedpack(string feedpackFrase, string explanation)
     {

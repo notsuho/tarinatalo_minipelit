@@ -22,10 +22,17 @@ public class GameManager : MonoBehaviour
     public float pointsToWin = 99f;
     private string correctAnswerFeedpackText = "Oikein meni!";
     private string wrongAnswerFeedpackText = "Nyt ei osunut oikeaan";
+    public Animator anim;
+    private AvainKontrolleri controller;
+    public GameObject rightKey;
+    public GameObject leftKey;
+    public GameObject chest;
 
 
     void Start()
     {
+        anim = gameObject.GetComponent<Animator>();
+        controller = FindObjectOfType<AvainKontrolleri>();
         //Haetaan harjoitukset JSONista
         myExcercises = JsonUtility.FromJson<ExerciseArray>(textJSON.text);
 
@@ -69,8 +76,25 @@ public class GameManager : MonoBehaviour
             ui.SetLeftWord(currentExercise.word1);
             ui.SetRightWord(currentExercise.word2);
             
+            
+            
         }
    
+    }
+
+    private void OpenChest()
+    {
+    chest.GetComponent<Animator>().SetTrigger("ArkunKansiAvaus");
+    }
+
+    private void CloseChest()
+    {
+    chest.GetComponent<Animator>().SetTrigger("ArkunKansiSulku");
+    }
+
+    private void ShowFeedback()
+    {
+    ui.SetFeedpack(correctAnswerFeedpackText, currentExercise.explanation);
     }
 
     public void CheckAnswer (string answer)
@@ -80,12 +104,29 @@ public class GameManager : MonoBehaviour
         if (answer.Equals(currentExercise.correctAnswer)) 
         {
             points += pointsPerCorrectAnswer;
+
+            //animaation laukaisu oikealle puolelle
+            if(ui.rightWord.Equals(currentExercise.correctAnswer))
+            {
+                rightKey.GetComponent<Animator>().SetTrigger("OikeaAvainAvaus");
+
+                //Tehty erillisinä funktioina ajastustoiminnon takia
+                Invoke("OpenChest", 1f);
+                Invoke("ShowFeedback", 3f);
+                Invoke("CloseChest", 4f);
+            }
+
+            //animaatio vasemmalle puolelle
+            if(ui.leftWord.Equals(currentExercise.correctAnswer))
+            {
+                leftKey.GetComponent<Animator>().SetTrigger("VasenAvainAvaus");
+                Invoke("OpenChest", 1f);
+                Invoke("ShowFeedback", 2.5f);
+                Invoke("CloseChest", 3f);
+            }
             
-            ui.SetFeedpack(correctAnswerFeedpackText, currentExercise.explanation);
             exercisesToAnswer.Remove(currentExercise);
 
-           
-            
         }
         else
         {
@@ -99,6 +140,7 @@ public class GameManager : MonoBehaviour
     {
         if (points >= pointsToWin)
         {
+            anim.SetTrigger("OikeaAvainAvaus");
             ui.Invoke("DeclareWin", 3f);
         }
     }
