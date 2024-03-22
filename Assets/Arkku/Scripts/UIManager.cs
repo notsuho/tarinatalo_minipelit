@@ -6,6 +6,9 @@ using UnityEngine.UIElements;
 public class UIManager : MonoBehaviour
 {
     public GameManager gameManager;
+    public float RenderTimeForCorrectAnswerFeedpack;
+    public float RenderTimeForDeclareWinFeedpack;
+
 
     private VisualElement root;
     private Label sentenceLabel;
@@ -32,6 +35,8 @@ public class UIManager : MonoBehaviour
     private string instructionTextText = "Tässä on ohjeet";
     private string winningHeadline = "Läpäisit pelin";
     private string winningText = "Sait sanataiturin arvomerkin<br><br>Pisteesi: 5000";
+    private string correctAnswerFeedpackText = "Oikein meni!";
+    private string wrongAnswerFeedpackText = "Nyt ei osunut oikeaan";
 
     private void OnEnable()
     {
@@ -51,8 +56,8 @@ public class UIManager : MonoBehaviour
 
         SetInstructions();
 
-        leftButton.clicked += () => gameManager.CheckAnswer(leftWord);
-        rightButton.clicked += () => gameManager.CheckAnswer(rightWord);
+        leftButton.clicked += () => CheckAnswer(leftWord);
+        rightButton.clicked += () => CheckAnswer(rightWord);
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => SetPanelExit();
         exitButton.clicked += () => Application.Quit();
@@ -115,7 +120,11 @@ public class UIManager : MonoBehaviour
         panelText.text = explanation;
 
         panelButton.text = continueButtonText;
+   
+    }
 
+    private void SetFeedpackPanelVisible()
+    {
         panelSection.style.display = DisplayStyle.Flex;
     }
 
@@ -133,19 +142,43 @@ public class UIManager : MonoBehaviour
             {
                 instructions.style.display = DisplayStyle.None;
             }
-        }
-
-    private void ContinueGame ()
-    {
-        panelSection.style.display = DisplayStyle.None;
-        gameManager.CheckIfGameEnded();
-        UpProgressBar(gameManager.GetPoints(), gameManager.GetPointsToWin());
-        gameManager.SetCurrentExercise();
     }
 
-    public void DeclareWin () 
+   private void ContinueGame()
     {
-        
+        panelSection.style.display = DisplayStyle.None;
+        bool gameEnded = gameManager.CheckIfGameEnded();
+        UpProgressBar(gameManager.GetPoints(), gameManager.GetPointsToWin());
+
+        if (gameEnded)
+        {
+            Invoke("DeclareWin", RenderTimeForDeclareWinFeedpack);
+        }
+        else
+        {
+            gameManager.SetCurrentExercise();
+        }
+    }
+
+    //FeedpackPanel asetaan täällä, viive oikeassa vastauksessa arkun animaatiota varten
+    private void CheckAnswer(string answer)
+    {
+
+        if (gameManager.IsAnswerCorrect(answer))
+        {
+            SetFeedpack(correctAnswerFeedpackText, gameManager.GetCurrentExplanation());
+            Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack); 
+        }
+        else
+        {
+            SetFeedpack(wrongAnswerFeedpackText, gameManager.GetCurrentExplanation());
+            SetFeedpackPanelVisible();
+        }
+    }
+
+    public void DeclareWin()
+    {
+
         panelHeadline.text = winningHeadline;
         panelText.text = winningText;
 

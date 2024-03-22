@@ -581,8 +581,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154c53ff93b1be84498bad116237cf2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: {fileID: 1721499710}
-  anim: {fileID: 0}
 --- !u!4 &796132442
 Transform:
   m_ObjectHideFlags: 0
@@ -1091,6 +1089,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1671395770}
+  RenderTimeForCorrectAnswerFeedpack: 3.3
+  RenderTimeForDeclareWinFeedpack: 3
   leftWord: 
   rightWord: 
 --- !u!1 &1671395769
@@ -1132,6 +1132,7 @@ MonoBehaviour:
   pointsToWin: 99
   anim: {fileID: 0}
   rightKey: {fileID: 1721499710}
+  leftKey: {fileID: 174543939}
   chest: {fileID: 1945985431}
 --- !u!4 &1671395771
 Transform:
