@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     private string correctAnswerFeedpackText = "Oikein meni!";
     private string wrongAnswerFeedpackText = "Nyt ei osunut oikeaan";
     public Animator anim;
-    private AvainKontrolleri controller;
     public GameObject rightKey;
     public GameObject leftKey;
     public GameObject chest;
@@ -32,7 +31,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
-        controller = FindObjectOfType<AvainKontrolleri>();
         //Haetaan harjoitukset JSONista
         myExcercises = JsonUtility.FromJson<ExerciseArray>(textJSON.text);
 
