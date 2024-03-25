@@ -49,6 +49,7 @@ public class MiniGameManager : MonoBehaviour
     /// </summary>
     private void StartFirstRound()
     {
+        currentRound++;
         hammer.GetComponent<Animator>().Play("SlideHammerIntoView");
         SetUpJars();
         cabinetAnimator.Play("OpenCabinetDoors");
@@ -63,7 +64,6 @@ public class MiniGameManager : MonoBehaviour
         int numberOfJars;
         int numberOfWrongs;
 
-        currentRound++;
 
         // How many jars this round
         switch (currentRound)
@@ -243,8 +243,7 @@ public class MiniGameManager : MonoBehaviour
     /// </summary>
     public IEnumerator NextRound()
     {
-        if(currentRound != 2)
-            yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f / currentRound);
 
         hammer.GetComponent<HammerBehavior>().SetSwingable(false); // no hammer swinging during transitions
 
@@ -264,6 +263,7 @@ public class MiniGameManager : MonoBehaviour
 
             jarsOfTheRound.Clear();
 
+            currentRound++;
             SetUpJars();
             hammer.GetComponent<HammerBehavior>().SetSwingable(true);
         }
@@ -272,7 +272,6 @@ public class MiniGameManager : MonoBehaviour
             hammer.GetComponent<Animator>().Play("SlideHammerOutOfView");
             PauseGame();
         }
-
     }
 
     public void BrokeCorrectJar (bool result) {
