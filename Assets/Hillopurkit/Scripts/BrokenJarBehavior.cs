@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class BrokenJarBehavior : MonoBehaviour
 {
-    public ParticleSystem dustCloud;
-    private readonly float explosionForce = 1000f;
+    [SerializeField] private ParticleSystem dustCloud;
+    [SerializeField] private readonly float explosionForce = 1000f;
 
     void Start()
     {
@@ -20,8 +20,6 @@ public class BrokenJarBehavior : MonoBehaviour
                                                                         + new Vector3(Random.Range(-0.33f, 0.33f), Random.Range(-0.33f, 0.33f), Random.Range(-0.33f, 0.33f)));
 
                 shard.GetComponent<Rigidbody>().AddForce(forceAmount, ForceMode.Impulse);
-
-                print(forceAmount);
             }
         }
 
