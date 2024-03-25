@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -124,14 +126,25 @@ public class HillopurkitUIManager : MonoBehaviour
         {
             topText.text = ("Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki! \nRIKOIT OIKEAN PURKIN!"); //tämän projektin purkkamaisin ratkaisu
             clickedRight.visible = true;
-            clickedWrong.visible = false;
+            //clickedWrong.visible = false;
+            StartCoroutine(FeedbackTurnOffDelay(clickedRight));
+            //clickedRight.visible = false;
 
         }
         else
         {
             topText.text = ("Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki! \nVÄÄRÄ PURKKI, YRITÄ UUDESTAAN");
             clickedWrong.visible = true;
-            clickedRight.visible = false;
+            //clickedRight.visible = false;
+            StartCoroutine(FeedbackTurnOffDelay(clickedWrong));
+            //clickedWrong.visible = false;
         }
+    }
+
+    public IEnumerator FeedbackTurnOffDelay(Label feedbackMsg) {
+        Debug.Log("Waiting...");
+        yield return new WaitForSeconds(2f);
+        feedbackMsg.visible = false;
+        
     }
 }
