@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5983185064095300146}
   - component: {fileID: 4344946191765690593}
   m_Layer: 0
-  m_Name: SmokePuff
+  m_Name: DustCloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 8518905492365922414}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.67, y: 0.059740424, z: 0.91}
-  m_LocalScale: {x: 0.15, y: 0.2, z: 0.15}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.12, y: 0.12, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,7 +41,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8518905492365922414}
   serializedVersion: 8
-  lengthInSec: 1.5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 2
   cullingMode: 0
@@ -664,7 +664,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 0
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
