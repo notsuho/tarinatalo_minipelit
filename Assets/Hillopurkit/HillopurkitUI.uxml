@@ -4,7 +4,7 @@
         <ui:VisualElement class="play">
             <ui:VisualElement name="topbar" style="flex-basis: 15%;">
                 <ui:VisualElement name="one-line-instruction" style="justify-content: center; top: 0; height: 144px;">
-                    <ui:Label text="Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki!" enable-rich-text="false" name="instructions" style="justify-content: center; align-self: center; align-items: center; flex-direction: column; flex-wrap: wrap; -unity-text-align: upper-center; white-space: normal; height: 114px; top: 10px;" />
+                    <ui:Label text="Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki!" enable-rich-text="false" name="instructions" style="justify-content: center; align-self: center; align-items: center; flex-direction: column; flex-wrap: wrap; -unity-text-align: upper-center; white-space: normal; height: 40px; top: 10px; margin-bottom: 20px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="button-section">
                     <ui:Button name="instruction-button" />
@@ -14,6 +14,10 @@
             <ui:VisualElement name="Feedback" style="flex-grow: 1; min-width: 1920px; width: 1288px; height: 570px; left: 0; top: 0;">
                 <ui:Label tabindex="-1" text="Oikein!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="feedback-right" style="left: -510px; top: 430px; right: 0; bottom: 30px; font-size: 75px; -unity-text-align: upper-center; color: rgb(18, 218, 33); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 1.5px; visibility: hidden; display: flex;" />
                 <ui:Label tabindex="-1" text="Väärin!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="feedback-wrong" style="left: -230px; top: 315px; right: 0; bottom: 30%; font-size: 75px; -unity-text-align: upper-center; color: rgb(217, 63, 57); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 1.5px; visibility: hidden;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Click-tally" style="flex-grow: 1; margin-right: 0; height: -680px; -unity-text-outline-color: rgb(0, 0, 0); width: 350px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); transform-origin: center;">
+                <ui:Label tabindex="-1" text="Särjetyt purkit: 0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="click-tally-right" style="margin-bottom: 4px; bottom: 5px; right: 0; font-size: 28px;" />
+                <ui:Label tabindex="-1" text="Väärät arvaukset: 0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="click-tally-wrong" style="margin-bottom: 4px; bottom: 5px; font-size: 28px;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="progress-bar-container" style="align-self: auto; align-items: stretch; top: 50%;">

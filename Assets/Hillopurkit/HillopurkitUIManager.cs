@@ -16,6 +16,7 @@ public class HillopurkitUIManager : MonoBehaviour
     private VisualElement instructions;
     private ProgressBar progressBar;
     private Label topText;
+    private Label tallyText;
     private Label clickedWrong;
     private Label clickedRight;
 
@@ -96,8 +97,14 @@ public class HillopurkitUIManager : MonoBehaviour
     public void DeclareWin()
     {
 
+        int[] tally = miniGameManager.GetTally();
+        int total = tally[0] + tally[1];
+
         panelHeadline.text = winningHeadline;
-        panelText.text = winningText;
+        panelText.text = winningText
+            + ("\nArvausten määrä: " + total)
+            + ("\nOikeat arvaukset: " + tally[0])
+            + ("\nVäärät arvaukset: " + tally[1]);
 
         panelButton.text = endGameButtonText;
 
@@ -120,30 +127,32 @@ public class HillopurkitUIManager : MonoBehaviour
 
     public void SetFeedback(bool result)
     {
-        topText = root.Q<Label>("instructions");
+        //topText = root.Q<Label>("instructions");
+
+        int[] tally = miniGameManager.GetTally();
 
         if (result == true)
         {
-            topText.text = ("Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki! \nRIKOIT OIKEAN PURKIN!"); //tämän projektin purkkamaisin ratkaisu
+            //topText.text = ("Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki! \nRIKOIT OIKEAN PURKIN!"); //tämän projektin purkkamaisin ratkaisu
+            tallyText = root.Q<Label>("click-tally-right");
+            tallyText.text = ("Särjetyt purkit: " + tally[0]);
             clickedRight.visible = true;
-            //clickedWrong.visible = false;
             StartCoroutine(FeedbackTurnOffDelay(clickedRight));
-            //clickedRight.visible = false;
 
         }
         else
         {
-            topText.text = ("Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki! \nVÄÄRÄ PURKKI, YRITÄ UUDESTAAN");
+            //topText.text = ("Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki! \nVÄÄRÄ PURKKI, YRITÄ UUDESTAAN");
+            tallyText = root.Q<Label>("click-tally-wrong");
+            tallyText.text = ("Väärät arvaukset: " + tally[1]);
             clickedWrong.visible = true;
-            //clickedRight.visible = false;
             StartCoroutine(FeedbackTurnOffDelay(clickedWrong));
-            //clickedWrong.visible = false;
         }
     }
 
     public IEnumerator FeedbackTurnOffDelay(Label feedbackMsg) {
         Debug.Log("Waiting...");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         feedbackMsg.visible = false;
         
     }
