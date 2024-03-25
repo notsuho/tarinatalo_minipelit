@@ -13,11 +13,12 @@ public class UIManager_Kirjahylly : MonoBehaviour
     private Label panelText;
     private Button panelButton;
     private VisualElement instructions;
+    private Label feedback;
     private ProgressBar progressBar;
 
     private string gotItButtonText = "<allcaps>selvä!</allcaps>";
     private string instructionHeadlineText = "<allcaps>ohjeet</allcaps>";
-    private string instructionTextText = "Tässä on ohjeet";
+    private string instructionTextText = "Kirjat ovat sekaisin. Järjestä kirjat hyllyyn niiden merkityksen perusteella.";
 
     private void OnEnable()
     {
@@ -68,4 +69,12 @@ public class UIManager_Kirjahylly : MonoBehaviour
         }
 
     }
+
+    public bool InstructionsShown(){
+        if (instructions.style.display == DisplayStyle.Flex){
+            return true;
+        }
+        return false;
     }
+
+}

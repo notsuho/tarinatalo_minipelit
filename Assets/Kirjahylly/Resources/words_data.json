@@ -37,132 +37,128 @@
             "category": 3
         },
         {
-            "word": "maalari",
+            "word": "vaappua",
             "category": 8
         },
         {
-            "word": "polttoaine",
+            "word": "puhista",
             "category": 9
         },
         {
-            "word": "ikkuna",
+            "word": "uskaltaa",
             "category": 10
         },
         {
             "word": "tukehtua",
             "category": 11
-        },
-        {
-            "word": "hinaaja",
-            "category": 12
-        },
-        {
-            "word": "kinkku",
-            "category": 13
-        },
-        {
-            "word": "linjat",
-            "category": 14
-        },
-        {
-            "word": "kalmari",
-            "category": 15
-        },
-        {
-            "word": "linkkuveitsi",
-            "category": 16
-        },
-        {
-            "word": "ottelu",
-            "category": 17
-        },
-        {
-            "word": "uskaltaa",
-            "category": 18
         }
     ],
     "bookset2": [
         {
-            "word": "set2book1",
+            "word": "tyhmä",
             "category": 1
         },
         {
-            "word": "set2book1",
+            "word": "typerä",
             "category": 1
         },
         {
-            "word": "set2book1",
+            "word": "hölmö",
             "category": 1
         },
         {
-            "word": "set2book2",
+            "word": "paha",
             "category": 2
         },
         {
-            "word": "set2book2",
+            "word": "häijy",
             "category": 2
         },
         {
-            "word": "set2book2",
+            "word": "ilkeä",
             "category": 2
         },
         {
-            "word": "set2book3",
+            "word": "huikea",
             "category": 3
         },
         {
-            "word": "set2book3",
+            "word": "mahtava",
             "category": 3
         },
         {
-            "word": "set2book3",
+            "word": "upea",
             "category": 3
         },
         {
-            "word": "set2book8",
+            "word": "uusi",
             "category": 8
+        },
+        {
+            "word": "outo",
+            "category": 9
+        },
+        {
+            "word": "viisas",
+            "category": 10
+        },
+        {
+            "word": "vaikea",
+            "category": 11
         }
     ],
     "bookset3": [
         {
-            "word": "set3book1",
+            "word": "säntillinen",
             "category": 1
         },
         {
-            "word": "set3book1",
+            "word": "täsmällinen",
             "category": 1
         },
         {
-            "word": "set3book1",
+            "word": "tarkka",
             "category": 1
         },
         {
-            "word": "set3book2",
+            "word": "huoleton",
             "category": 2
         },
         {
-            "word": "set3book2",
+            "word": "piittaamaton",
             "category": 2
         },
         {
-            "word": "set3book2",
+            "word": "välinpitämätön",
             "category": 2
         },
         {
-            "word": "set3book3",
+            "word": "surullinen",
             "category": 3
         },
         {
-            "word": "set3book3",
+            "word": "apea",
             "category": 3
         },
         {
-            "word": "set3book3",
+            "word": "alakuloinen",
             "category": 3
         },
         {
-            "word": "set3book8",
+            "word": "arvaamaton",
             "category": 8
+        },
+        {
+            "word": "hiljainen",
+            "category": 9
+        },
+        {
+            "word": "iloinen",
+            "category": 10
+        },
+        {
+            "word": "ynseä",
+            "category": 11
         }
     ]
 }

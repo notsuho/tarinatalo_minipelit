@@ -33,8 +33,9 @@ public class BookManager : MonoBehaviour {
         public List<JsonBook> bookset3 = new List<JsonBook>();
     }
 
-    void Start() {
+    IEnumerator Start() {
         ui.UpProgressBar(points, pointsToWin);
+        yield return new WaitUntil(() => !ui.InstructionsShown());
         this.LoadBookDataFromFile();
         this.ResetBooks();
 
