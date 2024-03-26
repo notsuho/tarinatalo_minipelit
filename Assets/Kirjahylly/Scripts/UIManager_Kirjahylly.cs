@@ -71,10 +71,7 @@ public class UIManager_Kirjahylly : MonoBehaviour
     }
 
     public bool InstructionsShown(){
-        if (instructions.style.display == DisplayStyle.Flex){
-            return true;
-        }
-        return false;
+        return instructions.style.display == DisplayStyle.Flex;
     }
 
 }
