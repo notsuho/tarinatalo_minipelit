@@ -31,7 +31,7 @@ public class HillopurkitUIManager : MonoBehaviour
     {
         root = GetComponent<UIDocument>().rootVisualElement;
 
-        UpProgressBar(0f); // reset progress bar UI to 0
+        ResetProgressBar();
 
         Button instructionButton = root.Q<Button>("instruction-button");
         Button exitButton = root.Q<Button>("exit-button");
@@ -122,21 +122,33 @@ public class HillopurkitUIManager : MonoBehaviour
         if (progressBar.value >= 33f)
         {
             VisualElement star1 = root.Q<VisualElement>("star1");
-            star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star_yellow");
+            star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
         }
 
         if (progressBar.value >= 66f)
         {
             VisualElement star2 = root.Q<VisualElement>("star2");
-            star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star_yellow");
+            star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
         }
 
         if (progressBar.value >= 98f)
         {
             VisualElement star3 = root.Q<VisualElement>("star3");
-            star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_yellow");
+            star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
         }
 
+    }
+
+    public void ResetProgressBar()
+    {
+        progressBar = root.Q<ProgressBar>("progress-bar");
+        progressBar.value = 0;
+        VisualElement star1 = root.Q<VisualElement>("star1");
+        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
+        VisualElement star2 = root.Q<VisualElement>("star2");
+        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
+        VisualElement star3 = root.Q<VisualElement>("star3");
+        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
     }
 
     public void SetFeedback(bool result)

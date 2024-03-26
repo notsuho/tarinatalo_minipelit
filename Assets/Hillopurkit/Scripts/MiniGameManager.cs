@@ -22,7 +22,7 @@ public class MiniGameManager : MonoBehaviour
     private readonly List<GameObject> jarsOfTheRound = new();
     public HillopurkitUIManager ui;
     private float points = 0f;
-    private float pointsPerCorrectAnswer = 11f;
+    private float pointsPerCorrectAnswer = 33f;
     private float pointsLineForWin = 99f;
     private int jarClicksWrong;
     private int jarClicksRight;
