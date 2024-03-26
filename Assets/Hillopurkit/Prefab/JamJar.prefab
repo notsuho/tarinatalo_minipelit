@@ -573,6 +573,7 @@ GameObject:
   - component: {fileID: 4529404739690504591}
   - component: {fileID: 4538870096589186225}
   - component: {fileID: 8035442059732512476}
+  - component: {fileID: 4698174296616734537}
   m_Layer: 0
   m_Name: Jam
   m_TagString: Untagged
@@ -666,3 +667,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4698174296616734537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6921212197905763958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 766f86a7f1dac1c4a966d655fd7c64b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialList:
+  - {fileID: 2100000, guid: d8ade75e1ac61bf4892656cb2ae71abc, type: 2}
+  - {fileID: 2100000, guid: 86ea1346cbb80304ba2b8224032cf609, type: 2}
+  - {fileID: 2100000, guid: 53158010cf4f0a947a1744242854e4f8, type: 2}
+  - {fileID: 2100000, guid: 6bb2812dba5db014abe8cfe66aac59a5, type: 2}
