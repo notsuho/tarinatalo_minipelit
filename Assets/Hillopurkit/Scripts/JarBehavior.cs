@@ -4,7 +4,6 @@ public class JarBehavior : MonoBehaviour
 {
     private bool isBreakable = false;
     public GameObject destroyedVersion;
-    public Vector3 SpawningOffset = new (-1.2f, 0, -1.2f);
 
     public void SetBreakability(bool _isBreakable)
     {
@@ -24,7 +23,7 @@ public class JarBehavior : MonoBehaviour
             StartCoroutine(GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().NextRound());
             
             // Jar breaks
-            Instantiate(destroyedVersion, currentPosition + SpawningOffset, Quaternion.identity);
+            Instantiate(destroyedVersion, currentPosition, Quaternion.identity);
             gameObject.transform.position = currentPosition + new Vector3 (30, 0, 0);
         }
 
@@ -32,7 +31,6 @@ public class JarBehavior : MonoBehaviour
         {
             //Update UI/score in MiniGameManager
             GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().BrokeCorrectJar(false);
-            //ANIM: jar doesn't break
             Animation anim = GetComponent<Animation>();
             anim.Play();
         }

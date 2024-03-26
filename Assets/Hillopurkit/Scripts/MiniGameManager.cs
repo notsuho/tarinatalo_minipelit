@@ -301,8 +301,10 @@ public class MiniGameManager : MonoBehaviour
         }
         else
         {
+
             Debug.Log("Wrong.");
             jarClicksWrong++;
+
             ui.SetFeedback(false);
         }
 
