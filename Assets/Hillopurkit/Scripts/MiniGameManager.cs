@@ -21,11 +21,25 @@ public class MiniGameManager : MonoBehaviour
     private int currentRound = 0;
     private readonly List<GameObject> jarsOfTheRound = new();
     public HillopurkitUIManager ui;
-    private float points = 66f;
-    private float pointsPerCorrectAnswer = 11f;
+    private float points = 0f;
+    private float pointsPerCorrectAnswer = 33f;
     private float pointsLineForWin = 99f;
+    private int jarClicksWrong;
+    private int jarClicksRight;
 
     public static bool isGamePaused = true;
+
+    public void ResetTally() {
+        jarClicksRight = 0;
+        jarClicksWrong = 0;
+    }
+
+    public int[] GetTally() {
+        int[] points = new int[2];
+        points[0] = jarClicksRight;
+        points[1] = jarClicksWrong;
+        return points;
+    }
 
     public void PauseGame()
     {
@@ -49,6 +63,8 @@ public class MiniGameManager : MonoBehaviour
     /// </summary>
     private void StartFirstRound()
     {
+        ResetTally();
+        ui.UpProgressBar(0f);
         currentRound++;
         hammer.GetComponent<Animator>().Play("SlideHammerIntoView");
         SetUpJars();
@@ -243,6 +259,7 @@ public class MiniGameManager : MonoBehaviour
     /// </summary>
     public IEnumerator NextRound()
     {
+
         yield return new WaitForSeconds(2f / currentRound);
 
         hammer.GetComponent<HammerBehavior>().SetSwingable(false); // no hammer swinging during transitions
@@ -279,10 +296,15 @@ public class MiniGameManager : MonoBehaviour
         {
             points += pointsPerCorrectAnswer;
             ui.UpProgressBar(points);
+            jarClicksRight++;
             ui.SetFeedback(true);
         }
         else
         {
+
+            Debug.Log("Wrong.");
+            jarClicksWrong++;
+
             ui.SetFeedback(false);
         }
 
