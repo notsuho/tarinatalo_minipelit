@@ -9,7 +9,6 @@ public class UIManager : MonoBehaviour
     public float RenderTimeForCorrectAnswerFeedpack;
     public float RenderTimeForDeclareWinFeedpack;
 
-
     private VisualElement root;
     private Label sentenceLabel;
     private Button leftButton;
@@ -31,8 +30,8 @@ public class UIManager : MonoBehaviour
     private string continueButtonText = "<allcaps>jatka</allcaps>";
     private string gotItButtonText = "<allcaps>selvä!</allcaps>";
     private string endGameButtonText = "<allcaps>palaa pääpeliin</allcaps>";
-    private string instructionHeadlineText = "<allcaps>ohjeet</allcaps>";
-    private string instructionTextText = "Tässä on ohjeet";
+    private string instructionHeadlineText = "<allcaps>Avaa arkku oikealla avaimella</allcaps>";
+    private string instructionTextText = "Jotkin sanat voivat muistuttaa toisiaan mutta tarkoittaa silti eri asiaa.<br><br>Päättele, kumpi annetuista sanoista sopii lauseeseen. Valitse oikea avain ja arkku aukeaa!  ";
     private string winningHeadline = "Läpäisit pelin";
     private string winningText = "Sait sanataiturin arvomerkin<br><br>Pisteesi: 5000";
     private string correctAnswerFeedpackText = "Oikein meni!";
