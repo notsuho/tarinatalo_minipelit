@@ -31,6 +31,8 @@ public class HillopurkitUIManager : MonoBehaviour
     {
         root = GetComponent<UIDocument>().rootVisualElement;
 
+        UpProgressBar(0f); // reset progress bar UI to 0
+
         Button instructionButton = root.Q<Button>("instruction-button");
         Button exitButton = root.Q<Button>("exit-button");
 
@@ -117,7 +119,19 @@ public class HillopurkitUIManager : MonoBehaviour
         progressBar.value = points;
         // Debug.Log("progress bar value: " + progressBar.value);
 
-        if (progressBar.value >= 98)
+        if (progressBar.value >= 33f)
+        {
+            VisualElement star1 = root.Q<VisualElement>("star1");
+            star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star_yellow");
+        }
+
+        if (progressBar.value >= 66f)
+        {
+            VisualElement star2 = root.Q<VisualElement>("star2");
+            star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star_yellow");
+        }
+
+        if (progressBar.value >= 98f)
         {
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_yellow");

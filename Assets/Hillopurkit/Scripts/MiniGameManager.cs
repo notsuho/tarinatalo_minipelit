@@ -21,7 +21,7 @@ public class MiniGameManager : MonoBehaviour
     private int currentRound = 0;
     private readonly List<GameObject> jarsOfTheRound = new();
     public HillopurkitUIManager ui;
-    private float points = 66f;
+    private float points = 0f;
     private float pointsPerCorrectAnswer = 11f;
     private float pointsLineForWin = 99f;
     private int jarClicksWrong;
@@ -64,6 +64,7 @@ public class MiniGameManager : MonoBehaviour
     private void StartFirstRound()
     {
         ResetTally();
+        ui.UpProgressBar(0f);
         currentRound++;
         hammer.GetComponent<Animator>().Play("SlideHammerIntoView");
         SetUpJars();
