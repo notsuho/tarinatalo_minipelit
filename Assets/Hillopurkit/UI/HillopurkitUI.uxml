@@ -20,12 +20,12 @@
                 <ui:Label tabindex="-1" text="Väärät arvaukset: 0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="click-tally-wrong" style="margin-bottom: 4px; bottom: 5px; font-size: 28px;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="progress-bar-container" style="align-self: auto; align-items: stretch; top: 50%;">
+        <ui:VisualElement name="progress-bar-container" style="left: 75%; position: relative; top: -45%;">
             <ui:ProgressBar value="66.66" name="progress-bar" />
             <ui:VisualElement name="star-container">
                 <ui:VisualElement name="star3" />
-                <ui:VisualElement name="star2" />
-                <ui:VisualElement name="star1" />
+                <ui:VisualElement name="star2" style="left: 55%; top: -25%;" />
+                <ui:VisualElement name="star1" style="left: 20%; top: -25%;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="panel-section">

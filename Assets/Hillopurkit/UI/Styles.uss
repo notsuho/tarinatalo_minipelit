@@ -1,0 +1,316 @@
+:root {
+    --color-lt-text: rgb(186, 109, 86);
+    --color-dk-text: rgb(142, 89, 43);
+    --color-lt-accent: rgb(219, 193, 160);
+}
+
+.overlay {
+    height: 100%;
+    -unity-font: resource('Fonts/Nunito-Medium');
+    -unity-font-definition: initial;
+}
+
+.play {
+    flex: 1;
+}
+
+#topbar {
+    height: 80px;
+    background-color: rgba(0, 0, 0, 0);
+    align-items: center;
+    justify-content: center;
+    font-size: 200%;
+    color: var(--color-dk-text);
+    flex-direction: row;
+    background-image: resource('Images/T_Frame_ButtonPaper_GUI');
+    -unity-slice-left: 70;
+    -unity-slice-right: 70;
+    -unity-slice-top: 70;
+    -unity-slice-bottom: 70;
+    -unity-slice-scale: 0.5px;
+}
+
+#one-line-instruction {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    -unity-font: resource('Fonts/Nunito-Bold');
+}
+
+#button-section {
+    margin-right: 35px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    height: 75%;
+    width: 10%;
+}
+
+#instruction-button {
+    position: absolute;
+    background-image: resource('Images/T_Icon_Question');
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    right: 60px;
+    height: 40px;
+    width: 30px;
+}
+
+#instruction-button:hover {
+    height: 45px;
+    width: 33px;
+}
+
+#exit-button {
+    position: absolute;
+    background-image: resource('Images/T_Icon_Exit_GUI');
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    height: 40px;
+    width: 40px;
+    margin-left: 20px;
+}
+
+#exit-button:hover {
+    height: 45px;
+    width: 45px;
+}
+
+.option-buttons {
+    flex-direction: row;
+    justify-content: center;
+    flex: 1;
+}
+
+.word-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    background-image: resource('Images/T_Frame_SinglePaper_GUI');
+    border-radius: 8px;
+    min-width: 200px;
+    height: 60px;
+    color: var(--color-dk-text);
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 160%;
+    -unity-slice-left: 25;
+    -unity-slice-right: 25;
+    -unity-slice-top: 1;
+    -unity-slice-bottom: 1;
+    -unity-slice-scale: 0.5px;
+}
+
+#sentence-section {
+    height: 100px;
+    align-items: center;
+}
+
+#sentence {
+    color: var(--color-dk-text);
+    font-size: 200%;
+    padding: 1.5%;
+    padding-left: 4%;
+    padding-right: 4%;
+    background-image: resource('Images/T_Frame_ButtonPaper_GUI');
+    -unity-slice-left: 70;
+    -unity-slice-right: 70;
+    -unity-slice-top: 70;
+    -unity-slice-bottom: 70;
+    -unity-slice-scale: 0.5px;
+}
+
+#panel-section {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 70;
+}
+
+#panel {
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    position: absolute;
+    min-height: 500px;
+    width: 643px;
+    top: 13%;
+    background-image: resource('Images/T_Frame_ButtonPaper_GUI');
+    -unity-slice-left: 70;
+    -unity-slice-right: 70;
+    -unity-slice-top: 70;
+    -unity-slice-bottom: 70;
+    padding: 60px;
+}
+
+#panel-headline {
+    color: var(--color-lt-text);
+    font-size: 180%;
+    margin-bottom: 20px;
+    -unity-font: resource('Fonts/Nunito-Bold');
+}
+
+#panel-text {
+    color: var(--color-dk-text);
+    font-size: 150%;
+    width: 100%;
+    white-space: normal;
+    flex-grow: 2;
+    margin-left: 20px;
+}
+
+#panel-button {
+    width: 309px;
+    height: 60px;
+    border-radius: 8px;
+    font-size: 20px;
+    -unity-font: resource('Fonts/Nunito-Black');
+    color: var(--color-dk-text);
+    background-image: resource('Images/T_Frame_ButtonTransparent_GUI');
+    border-color: rgba(0, 0, 0, 0);
+    -unity-slice-left: 30;
+    -unity-slice-right: 30;
+    -unity-slice-bottom: 1;
+    -unity-slice-top: 1;
+    -unity-background-image-tint-color: var(--color-lt-accent);
+    background-color: rgba(0, 0, 0, 0);
+    margin-top: 40px;
+}
+
+#panel-button:hover {
+    width: 309px;
+    height: 60px;
+    border-radius: 8px;
+    font-size: 20px;
+    color: var(--color-dk-text);
+    background-image: resource('Images/T_Frame_Button_GUI');
+    -unity-slice-left: 30;
+    -unity-slice-right: 30;
+    -unity-slice-bottom: 1;
+    -unity-slice-top: 1;
+    -unity-background-image-tint-color: var(--color-lt-accent);
+}
+
+#instructions-section {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 70;
+}
+
+#instruction-panel {
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    position: absolute;
+    height: 505px;
+    width: 700px;
+    top: 15%;
+    background-image: resource('Images/T_Frame_ButtonPaper_GUI');
+    -unity-slice-left: 70;
+    -unity-slice-right: 70;
+    -unity-slice-top: 70;
+    -unity-slice-bottom: 70;
+    padding: 60px;
+}
+
+#instruction-text {
+    flex-grow: 1;
+}
+
+#progress-bar-container {
+    position: absolute;
+    top: 50%;
+    left: 75%;
+    rotate: 270deg;
+    height: 50px;
+    width: 420px;
+}
+
+#progress-bar {
+    border-radius: 10px;
+    border-color: rgb(43, 58, 85);
+    border-width: 2px;
+    background-image: resource('Images/ShadeGradientBlack');
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.unity-progress-bar__container {
+    min-height: 46px;
+    min-width: 400px;
+    border-radius: 10px;
+}
+
+.unity-progress-bar__background {
+    border-radius: 10px;
+    background-color: rgba(229, 247, 255, 0.6);
+    border-color: rgb(229, 247, 255);
+}
+
+.unity-progress-bar__progress {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: resource('Images/BarFilling');
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+#star-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#star3 {
+    transition: 0.3s linear 0.2s;
+    background-image: resource('Images/star_blank');
+    position: absolute;
+    width: 83px;
+    height: 83px;
+    rotate: 90deg;
+    left: 90%;
+    top: -26%;
+}
+
+.star2 {
+    background-image: resource('Images/star');
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    rotate: 90deg;
+    left: 57%;
+    top: -24%;
+}
+
+
+.star-scale-transition {
+    scale: 1.2 1.2;
+   
+}
+
+#star1 {
+    background-image: resource('Images/star');
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    rotate: 90deg;
+    left: 24%;
+    top: -24%;
+}
+
+.divider {
+    background-image: resource('Images/T_BG_Header_GUI');
+    height: 15px;
+    width: 100%;
+    -unity-slice-left: 20;
+    -unity-slice-top: 0;
+    -unity-slice-right: 20;
+    -unity-slice-bottom: 0;
+    -unity-background-image-tint-color: var(--color-lt-text);
+    margin-bottom: 20px;
+}
