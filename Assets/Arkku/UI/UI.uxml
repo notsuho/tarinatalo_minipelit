@@ -20,10 +20,10 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="progress-bar-container">
-            <ui:ProgressBar value="66.66" name="progress-bar" />
+            <ui:ProgressBar value="12.6" name="progress-bar" />
             <ui:VisualElement name="star-container">
                 <ui:VisualElement name="star3" />
-                <ui:VisualElement name="star2" class="star2" />
+                <ui:VisualElement name="star2" />
                 <ui:VisualElement name="star1" />
             </ui:VisualElement>
         </ui:VisualElement>

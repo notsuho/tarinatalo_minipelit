@@ -277,8 +277,9 @@
     top: -26%;
 }
 
-.star2 {
-    background-image: resource('Images/star');
+#star2 {
+    transition: 0.3s linear 0.2s;
+	background-image: resource('Images/star');
     position: absolute;
     width: 80px;
     height: 80px;
@@ -294,7 +295,8 @@
 }
 
 #star1 {
-    background-image: resource('Images/star');
+    transition: 0.3s linear 0.2s;
+	background-image: resource('Images/star');
     position: absolute;
     width: 80px;
     height: 80px;
