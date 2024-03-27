@@ -3,10 +3,10 @@
     <ui:VisualElement class="overlay">
         <ui:VisualElement class="play">
             <ui:VisualElement name="topbar" style="flex-basis: 15%;">
-                <ui:VisualElement name="one-line-instruction" style="justify-content: center; top: 0; height: 144px;">
-                    <ui:Label text="Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki!" enable-rich-text="false" name="instructions" style="justify-content: center; align-self: center; align-items: center; flex-direction: column; flex-wrap: wrap; -unity-text-align: upper-center; white-space: normal; height: 40px; top: 10px; margin-bottom: 20px;" />
+                <ui:VisualElement name="one-line-instruction" style="justify-content: center; top: 0; height: auto; align-self: center;">
+                    <ui:Label text="Valitse sana, joka ei kuulu joukkoon." enable-rich-text="false" name="instructions" style="justify-content: center; align-self: center; align-items: center; flex-direction: column; flex-wrap: wrap; -unity-text-align: upper-center; white-space: normal; height: auto; top: 10px; margin-bottom: 20px; font-size: 28px;" />
                 </ui:VisualElement>
-                <ui:VisualElement name="button-section">
+                <ui:VisualElement name="button-section" style="width: 5%;">
                     <ui:Button name="instruction-button" />
                     <ui:Button name="exit-button" />
                 </ui:VisualElement>
@@ -32,7 +32,7 @@
             <ui:VisualElement name="panel">
                 <ui:Label name="panel-headline" />
                 <ui:VisualElement class="divider" />
-                <ui:Label name="panel-text" />
+                <ui:Label name="panel-text" style="-unity-text-align: upper-center;" />
                 <ui:Button name="panel-button" />
             </ui:VisualElement>
         </ui:VisualElement>
