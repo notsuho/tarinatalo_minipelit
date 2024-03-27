@@ -279,7 +279,7 @@
 
 #star2 {
     transition: 0.3s linear 0.2s;
-	background-image: resource('Images/star');
+    background-image: resource('Images/star_blank');
     position: absolute;
     width: 80px;
     height: 80px;
@@ -288,15 +288,13 @@
     top: -24%;
 }
 
-
 .star-scale-transition {
     scale: 1.2 1.2;
-   
 }
 
 #star1 {
     transition: 0.3s linear 0.2s;
-	background-image: resource('Images/star');
+    background-image: resource('Images/star_blank');
     position: absolute;
     width: 80px;
     height: 80px;

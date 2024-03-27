@@ -41,6 +41,12 @@ public class UIManager : MonoBehaviour
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = gameManager.GetPoints();
+
+        VisualElement star1 = root.Q<VisualElement>("star1");
+        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
+
+        VisualElement star2 = root.Q<VisualElement>("star2");
+        star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
     }
     private void OnEnable()
     {
@@ -195,7 +201,6 @@ public class UIManager : MonoBehaviour
 
     public void UpProgressBar(float points, float pointsToWin)
     {
-        progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = points;
         Debug.Log("progress bar value: " + progressBar.value);
 
