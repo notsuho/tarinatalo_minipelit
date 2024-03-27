@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class HillopurkitUIManager : MonoBehaviour
@@ -17,7 +18,7 @@ public class HillopurkitUIManager : MonoBehaviour
 
     private string continueButtonText = "<allcaps>jatka</allcaps>";
     private string gotItButtonText = "<allcaps>selvä!</allcaps>";
-    private string endGameButtonText = "<allcaps>palaa pääpeliin</allcaps>";
+    private string endGameButtonText = "<allcaps>seuraavaan peliin</allcaps>";
     private string instructionHeadlineText = "<allcaps>ohjeet</allcaps>";
     private string winningHeadline = "Läpäisit pelin!";
     private string winningText = "Löysit ja rikoit kaikki joukkoon kuulumattomat purkit!";
@@ -69,7 +70,7 @@ public class HillopurkitUIManager : MonoBehaviour
         }
         else if (panelButton.text.Equals(endGameButtonText))
         {
-            Application.Quit();
+            SceneManager.LoadScene("ArkkuScene");
         }
         else
         {

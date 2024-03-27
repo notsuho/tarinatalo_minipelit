@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class BookManager : MonoBehaviour {
     public GameObject bookPrefab;
@@ -103,7 +104,7 @@ public class BookManager : MonoBehaviour {
             Invoke("ResetBooks", 2);
             current_round += 1;
             if (current_round >= total_rounds){
-                Application.Quit();
+                SceneManager.LoadScene("HillopurkitScene");
             }
         }
     }
