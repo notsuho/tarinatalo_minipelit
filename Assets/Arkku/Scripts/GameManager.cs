@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        points = points;
         anim = gameObject.GetComponent<Animator>();
         
         //Haetaan harjoitukset JSONista
@@ -109,7 +110,7 @@ public class GameManager : MonoBehaviour
             {
                 leftKey.GetComponent<Animator>().SetTrigger("VasenAvainAvaus");
                 Invoke("OpenChest", 1f);
-                Invoke("CloseChest", 3f);
+                Invoke("CloseChest", 4f);
             }
 
             points += pointsPerCorrectAnswer;
@@ -127,12 +128,6 @@ public class GameManager : MonoBehaviour
 
     public bool CheckIfGameEnded ()
     {
-        if (points >= pointsToWin)
-        {
-            //mikä tämä on? Onko tarpeen? Arkkuhan aukeaa jo kun viimeinen vastaus on oikein. Koko ifin voi poistaa, jos tämä ei ole tarpeen
-            anim.SetTrigger("OikeaAvainAvaus");
-        }
-
         return points >= pointsToWin ? true : false;
     }
 
