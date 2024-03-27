@@ -277,8 +277,8 @@
     top: -26%;
 }
 
-.star2 {
-    background-image: resource('Images/star');
+#star2 {
+    background-image: resource('Images/star_blank');
     position: absolute;
     width: 80px;
     height: 80px;
@@ -294,7 +294,7 @@
 }
 
 #star1 {
-    background-image: resource('Images/star');
+    background-image: resource('Images/star_blank');
     position: absolute;
     width: 80px;
     height: 80px;
