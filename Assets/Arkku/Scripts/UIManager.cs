@@ -37,8 +37,15 @@ public class UIManager : MonoBehaviour
     private string correctAnswerFeedpackText = "Oikein meni!";
     private string wrongAnswerFeedpackText = "Nyt ei osunut oikeaan";
 
+    void Start()
+    {
+        progressBar = root.Q<ProgressBar>("progress-bar");
+        progressBar.value = gameManager.GetPoints();
+    }
     private void OnEnable()
     {
+        //testissä
+        
         root = GetComponent<UIDocument>().rootVisualElement;
 
         sentenceLabel = root.Q<Label>("sentence");
