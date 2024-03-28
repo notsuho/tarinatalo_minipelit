@@ -7,13 +7,19 @@ public class GameManager : MonoBehaviour
 
     public int points;
 
-    public void SetPoints(int newPoints)
-    {
-        points = newPoints;
-    }
 
     public int GetPoints()
     {
         return points;
+    }
+
+    public void AddPoints(int PointsToAdd)
+    {
+        points += PointsToAdd;
+    }
+
+    public void ReducePoints(int pointsToReduce)
+    {
+        points -= pointsToReduce;
     }
 }

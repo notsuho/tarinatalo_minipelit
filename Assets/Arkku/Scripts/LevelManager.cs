@@ -10,6 +10,8 @@ public class LevelManager : MonoBehaviour
     public ExerciseArray myExcercises;
 
     public GameManager gameManager;
+    public int pointPerCorrectAnswer;
+    public int pointsReduceForWrongAnswer;
 
     public UIManager ui;
     public int numberOfExercisesToLoop;
@@ -19,11 +21,11 @@ public class LevelManager : MonoBehaviour
     private Exercise currentExercise;
     private Exercise previousExercise;
 
-    public int points;
+    private int points;
 
-    private float progressBarValue = 66.66f;
-    public float progBarValueUpPerCorrectAnswer = 6.66f;
-    public float progBarValueToWin = 99f;
+    public float progressBarValue;
+    public float progBarValueUpPerCorrectAnswer;
+    public float progBarValueToWin;
 
     public Animator anim;
     public GameObject rightKey;
@@ -118,6 +120,8 @@ public class LevelManager : MonoBehaviour
                 Invoke("CloseChest", 4f);
             }
 
+            gameManager.AddPoints(pointPerCorrectAnswer);
+            Debug.Log("Pelin pisteet: " + gameManager.GetPoints());
             progressBarValue += progBarValueUpPerCorrectAnswer;
             exercisesToAnswer.Remove(currentExercise);
             return true;
@@ -125,6 +129,8 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
+            gameManager.ReducePoints(pointsReduceForWrongAnswer);
+            Debug.Log("Pelin pisteet: " + gameManager.GetPoints());
             return false;
         }
 

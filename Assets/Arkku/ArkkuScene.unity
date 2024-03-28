@@ -1172,10 +1172,13 @@ MonoBehaviour:
   myExcercises:
     exercises: []
   gameManager: {fileID: 1661738208}
+  pointPerCorrectAnswer: 66
+  pointsReduceForWrongAnswer: 30
   ui: {fileID: 1617662936}
   numberOfExercisesToLoop: 7
-  pointsPerCorrectAnswer: 6.66
-  pointsToWin: 99
+  progressBarValue: 66.6
+  progBarValueUpPerCorrectAnswer: 6.66
+  progBarValueToWin: 99
   anim: {fileID: 0}
   rightKey: {fileID: 1721499710}
   leftKey: {fileID: 174543939}
