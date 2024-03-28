@@ -1088,7 +1088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14204c2c8c2a734c9d5c9a210e7abc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1671395770}
+  levelManager: {fileID: 1671395770}
   RenderTimeForCorrectAnswerFeedpack: 3.3
   RenderTimeForDeclareWinFeedpack: 3
   leftWord: 
@@ -1105,7 +1105,7 @@ GameObject:
   - component: {fileID: 1671395770}
   - component: {fileID: 1671395772}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: LevelManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1127,7 +1127,7 @@ MonoBehaviour:
   myExcercises:
     exercises: []
   ui: {fileID: 1617662936}
-  numberOfExercisesToLoop: 10
+  numberOfExercisesToLoop: 7
   pointsPerCorrectAnswer: 6.66
   pointsToWin: 99
   anim: {fileID: 0}

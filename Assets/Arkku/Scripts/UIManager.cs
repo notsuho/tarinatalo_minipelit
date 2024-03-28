@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class UIManager : MonoBehaviour
 {
-    public GameManager gameManager;
+    public LevelManager levelManager;
     public float RenderTimeForCorrectAnswerFeedpack;
     public float RenderTimeForDeclareWinFeedpack;
 
@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
-        progressBar.value = gameManager.GetPoints();
+        progressBar.value = levelManager.GetPoints();
 
         VisualElement star1 = root.Q<VisualElement>("star1");
         star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
@@ -159,8 +159,8 @@ public class UIManager : MonoBehaviour
    private void ContinueGame()
     {
         panelSection.style.display = DisplayStyle.None;
-        bool gameEnded = gameManager.CheckIfGameEnded();
-        UpProgressBar(gameManager.GetPoints(), gameManager.GetPointsToWin());
+        bool gameEnded = levelManager.CheckIfGameEnded();
+        UpProgressBar(levelManager.GetPoints(), levelManager.GetPointsToWin());
 
         if (gameEnded)
         {
@@ -168,7 +168,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            gameManager.SetCurrentExercise();
+            levelManager.SetCurrentExercise();
         }
     }
 
@@ -176,14 +176,14 @@ public class UIManager : MonoBehaviour
     private void CheckAnswer(string answer)
     {
 
-        if (gameManager.IsAnswerCorrect(answer))
+        if (levelManager.IsAnswerCorrect(answer))
         {
-            SetFeedpack(correctAnswerFeedpackText, gameManager.GetCurrentExplanation());
+            SetFeedpack(correctAnswerFeedpackText, levelManager.GetCurrentExplanation());
             Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack); 
         }
         else
         {
-            SetFeedpack(wrongAnswerFeedpackText, gameManager.GetCurrentExplanation());
+            SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation());
             SetFeedpackPanelVisible();
         }
     }
