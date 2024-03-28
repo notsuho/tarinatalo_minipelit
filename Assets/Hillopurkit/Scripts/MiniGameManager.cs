@@ -15,7 +15,7 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private int numberOfWrongs_round1 = 1;
     [SerializeField] private int numberOfWrongs_round2 = 1;
     [SerializeField] private int numberOfWrongs_round3 = 1;
-    [SerializeField] private GameObject hammer;
+    public GameObject hammer;
     private const int JARS_PER_SHELF = 4;
     private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
@@ -37,26 +37,75 @@ public class MiniGameManager : MonoBehaviour
 
     public void UnpauseGame()
     {
-        hammer.GetComponent<HammerBehavior>().SetCanSwing(true);
         isGamePaused = false;
+        hammer.GetComponent<HammerBehavior>().SetCanSwing(true);
 
-        if (currentRound == 0)
-            StartFirstRound();
+        // This starts the game after tutorial screen.
+        if(currentRound == 0)
+        {
+            StartCoroutine(NextRound());
+        }
     }
 
+    /// <summary>
+    /// Sets up and starts the next round of jam jar minigame.
+    /// </summary>
+    public IEnumerator NextRound()
+    {
+        currentRound++;
+
+        if (currentRound == 1)
+            StartFirstRound();
+
+        else
+        {
+            yield return new WaitForSeconds(WaitTimes.CONGRATULATION_TIME);
+
+            cabinetAnimator.Play("CloseCabinetDoors");
+            yield return new WaitForSeconds(WaitTimes.DOOR_CLOSING_TIME); // (animation duration)
+
+
+            if (currentRound == 2 || currentRound == 3) // rounds 2 and 3
+            {
+                cabinetAnimator.Play("CabinetShake");
+                yield return new WaitForSeconds(WaitTimes.DOOR_OPENING_TIME); // (animation duration)
+
+                cabinetAnimator.Play("OpenCabinetDoors");
+
+                foreach (GameObject jar in jarsOfTheRound)
+                    Destroy(jar);
+
+                jarsOfTheRound.Clear();
+
+                SetUpJars();
+            }
+
+            else // Finishing up
+            {
+                hammer.GetComponent<HammerBehavior>().AnimateHammer("SlideHammerOutOfView");
+                PauseGame();
+            }
+        }
+
+        hammer.GetComponent<HammerBehavior>().SetCanSwing(true); // release the hammer as the final action
+    }
 
     /// <summary>
     /// Plays beginning animations and starts the first round.
     /// </summary>
     private void StartFirstRound()
     {
+        Debug.Log("Here");
+
+        // UI stuff
         ResetTally();
         ui.UpProgressBar(0f);
-        currentRound++;
-        hammer.GetComponent<HammerBehavior>().AnimateHammer("SlideHammerIntoView");
+
+        //Game logic and beginning animations
         SetUpJars();
+        hammer.GetComponent<HammerBehavior>().AnimateHammer("SlideHammerIntoView");
         cabinetAnimator.Play("OpenCabinetDoors");
-        hammer.GetComponent<HammerBehavior>().SetCanSwing(true);
+        UnpauseGame();
     }
 
     /// <summary>
@@ -66,7 +115,6 @@ public class MiniGameManager : MonoBehaviour
     {
         int numberOfJars;
         int numberOfWrongs;
-
 
         // How many jars this round
         switch (currentRound)
@@ -239,43 +287,6 @@ public class MiniGameManager : MonoBehaviour
         usedGroupIndexes.Add(groupIndex);
 
         return groupIndex;
-    }
-
-    /// <summary>
-    /// Sets up and starts the next round of jam jar minigame.
-    /// </summary>
-    public IEnumerator NextRound()
-    {
-        yield return new WaitForSeconds(WaitTimes.CONGRATULATION_TIME);
-
-        hammer.GetComponent<HammerBehavior>().SetCanSwing(false); // no hammer swinging during transitions
-
-        cabinetAnimator.Play("CloseCabinetDoors");
-        yield return new WaitForSeconds(WaitTimes.DOOR_CLOSING_TIME); // (animation duration)
-
-
-        if (currentRound <= 2) // rounds 1 & 2
-        {
-            cabinetAnimator.Play("CabinetShake");
-            yield return new WaitForSeconds(WaitTimes.DOOR_OPENING_TIME); // (animation duration)
-
-            cabinetAnimator.Play("OpenCabinetDoors");
-
-            foreach (GameObject jar in jarsOfTheRound)
-                Destroy(jar);
-
-            jarsOfTheRound.Clear();
-
-            currentRound++;
-            SetUpJars();
-            hammer.GetComponent<HammerBehavior>().SetCanSwing(true);
-        }
-
-        else // round 3
-        {
-            hammer.GetComponent<HammerBehavior>().AnimateHammer("SlideHammerOutOfView");
-            PauseGame();
-        }
     }
 
     public void BrokeCorrectJar (bool result)

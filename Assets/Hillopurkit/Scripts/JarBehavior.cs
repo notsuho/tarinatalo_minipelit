@@ -22,12 +22,14 @@ public class JarBehavior : MonoBehaviour
 
         if (IsCorrectAnswer)
         {
-            Vector3 currentPosition = transform.position;
+            miniGameManager.hammer.GetComponent<HammerBehavior>().SetCanSwing(false); // stop hammer from swinging until next round starts
             miniGameManager.BrokeCorrectJar(true); // update score
             StartCoroutine(miniGameManager.NextRound()); // start next round
             
+            // move out of the way and spawn in broken jar
+            Vector3 currentPosition = transform.position;
             Instantiate(brokenJar, currentPosition, Quaternion.identity);
-            gameObject.transform.position = currentPosition + new Vector3 (30, 0, 0); // move out of view until NextRound() despawns this jar.
+            gameObject.transform.position = currentPosition + new Vector3 (30, 0, 0); // NextRound() despawns the jar.
         }
         //
         else
