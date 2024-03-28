@@ -1,20 +1,50 @@
+using System.Collections;
 using UnityEngine;
 
 public class HammerBehavior : MonoBehaviour
 {
     public Animator hammerAnimator;
-    private bool swingable = false;
+    private bool canSwing = false;
+    Camera cam;
 
+    private void Start()
+    {
+        cam = Camera.main;
+    }
+
+    // Checks if player clicked on a jar and swings the hammer if they did.
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && swingable)
+        if (Input.GetMouseButtonDown(0) && canSwing)
         {
-            hammerAnimator.Play("HammerSwing");
+            Vector3 mousePosition = Input.mousePosition;
+            Ray ray = cam.ScreenPointToRay(mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.collider.gameObject.name.Equals("JamJar(Clone)"))
+                {
+                    AnimateHammer("HammerSwing");
+                    hit.collider.gameObject.GetComponent<JarBehavior>().HitByHammer();
+                }
+            }
         }
     }
 
-    public void SetSwingable(bool _swingable)
+    public IEnumerator WrongSwing()
     {
-        swingable = _swingable;
+        SetCanSwing(false);
+        yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_SHORT);
+        SetCanSwing(true);
+    }
+
+    // Plays an animation by the given string
+    public void AnimateHammer(string animationString)
+    {
+        hammerAnimator.Play(animationString);
+    }
+
+    public void SetCanSwing(bool _canSwing)
+    {
+        canSwing = _canSwing;
     }
 }
