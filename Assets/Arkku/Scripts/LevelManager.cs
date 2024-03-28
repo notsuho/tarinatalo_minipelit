@@ -9,17 +9,22 @@ public class LevelManager : MonoBehaviour
     public TextAsset textJSON;
     public ExerciseArray myExcercises;
 
+    public GameManager gameManager;
+
     public UIManager ui;
     public int numberOfExercisesToLoop;
    
-
     private static List<Exercise> allExercises;
     private static List<Exercise> exercisesToAnswer; 
     private Exercise currentExercise;
     private Exercise previousExercise;
-    private float points = 66f;
-    public float pointsPerCorrectAnswer = 6.66f;
-    public float pointsToWin = 99f;
+
+    public int points;
+
+    private float progressBarValue = 66.66f;
+    public float progBarValueUpPerCorrectAnswer = 6.66f;
+    public float progBarValueToWin = 99f;
+
     public Animator anim;
     public GameObject rightKey;
     public GameObject leftKey;
@@ -28,7 +33,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        points = points;
+        points = gameManager.GetPoints();
         anim = gameObject.GetComponent<Animator>();
         
         //Haetaan harjoitukset JSONista
@@ -113,7 +118,7 @@ public class LevelManager : MonoBehaviour
                 Invoke("CloseChest", 4f);
             }
 
-            points += pointsPerCorrectAnswer;
+            progressBarValue += progBarValueUpPerCorrectAnswer;
             exercisesToAnswer.Remove(currentExercise);
             return true;
 
@@ -128,17 +133,17 @@ public class LevelManager : MonoBehaviour
 
     public bool CheckIfGameEnded ()
     {
-        return points >= pointsToWin ? true : false;
+        return progressBarValue >= progBarValueToWin ? true : false;
     }
 
-    public float GetPoints()
+    public float GetProgressBarValue()
     {
-        return points;
+        return progressBarValue;
     }
 
-    public float GetPointsToWin ()
+    public float GetProgBarValueToWin ()
     {
-        return pointsToWin;
+        return progBarValueToWin;
     }
 
     public string GetCurrentExplanation()

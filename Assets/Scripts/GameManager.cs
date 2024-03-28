@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public int points;
+
+    public void SetPoints(int newPoints)
     {
-        
+        points = newPoints;
     }
 
-    // Update is called once per frame
-    void Update()
+    public int GetPoints()
     {
-        
+        return points;
     }
 }

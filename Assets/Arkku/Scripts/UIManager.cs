@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
-        progressBar.value = levelManager.GetPoints();
+        progressBar.value = levelManager.GetProgressBarValue();
 
         VisualElement star1 = root.Q<VisualElement>("star1");
         star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
@@ -160,7 +160,7 @@ public class UIManager : MonoBehaviour
     {
         panelSection.style.display = DisplayStyle.None;
         bool gameEnded = levelManager.CheckIfGameEnded();
-        UpProgressBar(levelManager.GetPoints(), levelManager.GetPointsToWin());
+        UpProgressBar(levelManager.GetProgressBarValue(), levelManager.GetProgBarValueToWin());
 
         if (gameEnded)
         {
@@ -199,12 +199,12 @@ public class UIManager : MonoBehaviour
         panelSection.style.display = DisplayStyle.Flex;
     }
 
-    public void UpProgressBar(float points, float pointsToWin)
+    public void UpProgressBar(float newProgressBarValue, float progBarValueToWin)
     {
-        progressBar.value = points;
+        progressBar.value = newProgressBarValue;
         Debug.Log("progress bar value: " + progressBar.value);
 
-        if (progressBar.value >= pointsToWin)
+        if (progressBar.value >= progBarValueToWin)
         {
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
