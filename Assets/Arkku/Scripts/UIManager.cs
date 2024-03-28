@@ -5,7 +5,9 @@ using UnityEngine.UIElements;
 
 public class UIManager : MonoBehaviour
 {
-    public GameManager gameManager;
+    public LevelManager levelManager;
+    public float RenderTimeForCorrectAnswerFeedpack;
+    public float RenderTimeForDeclareWinFeedpack;
 
     private VisualElement root;
     private Label sentenceLabel;
@@ -28,13 +30,28 @@ public class UIManager : MonoBehaviour
     private string continueButtonText = "<allcaps>jatka</allcaps>";
     private string gotItButtonText = "<allcaps>selvä!</allcaps>";
     private string endGameButtonText = "<allcaps>palaa pääpeliin</allcaps>";
-    private string instructionHeadlineText = "<allcaps>ohjeet</allcaps>";
-    private string instructionTextText = "Tässä on ohjeet";
+    private string instructionHeadlineText = "<allcaps>Avaa arkku oikealla avaimella</allcaps>";
+    private string instructionTextText = "Jotkin sanat voivat muistuttaa toisiaan mutta tarkoittaa silti eri asiaa.<br><br>Päättele, kumpi annetuista sanoista sopii lauseeseen. Valitse oikea avain ja arkku aukeaa!  ";
     private string winningHeadline = "Läpäisit pelin";
     private string winningText = "Sait sanataiturin arvomerkin<br><br>Pisteesi: 5000";
+    private string correctAnswerFeedpackText = "Oikein meni!";
+    private string wrongAnswerFeedpackText = "Nyt ei osunut oikeaan";
 
+    void Start()
+    {
+        progressBar = root.Q<ProgressBar>("progress-bar");
+        progressBar.value = levelManager.GetProgressBarValue();
+
+        VisualElement star1 = root.Q<VisualElement>("star1");
+        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
+
+        VisualElement star2 = root.Q<VisualElement>("star2");
+        star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
+    }
     private void OnEnable()
     {
+        //testissä
+        
         root = GetComponent<UIDocument>().rootVisualElement;
 
         sentenceLabel = root.Q<Label>("sentence");
@@ -51,8 +68,8 @@ public class UIManager : MonoBehaviour
 
         SetInstructions();
 
-        leftButton.clicked += () => gameManager.CheckAnswer(leftWord);
-        rightButton.clicked += () => gameManager.CheckAnswer(rightWord);
+        leftButton.clicked += () => CheckAnswer(leftWord);
+        rightButton.clicked += () => CheckAnswer(rightWord);
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => SetPanelExit();
         exitButton.clicked += () => Application.Quit();
@@ -115,7 +132,11 @@ public class UIManager : MonoBehaviour
         panelText.text = explanation;
 
         panelButton.text = continueButtonText;
+   
+    }
 
+    private void SetFeedpackPanelVisible()
+    {
         panelSection.style.display = DisplayStyle.Flex;
     }
 
@@ -133,19 +154,43 @@ public class UIManager : MonoBehaviour
             {
                 instructions.style.display = DisplayStyle.None;
             }
-        }
-
-    private void ContinueGame ()
-    {
-        panelSection.style.display = DisplayStyle.None;
-        gameManager.CheckIfGameEnded();
-        UpProgressBar(gameManager.GetPoints(), gameManager.GetPointsToWin());
-        gameManager.SetCurrentExercise();
     }
 
-    public void DeclareWin () 
+   private void ContinueGame()
     {
-        
+        panelSection.style.display = DisplayStyle.None;
+        bool gameEnded = levelManager.CheckIfGameEnded();
+        UpProgressBar(levelManager.GetProgressBarValue(), levelManager.GetProgBarValueToWin());
+
+        if (gameEnded)
+        {
+            Invoke("DeclareWin", RenderTimeForDeclareWinFeedpack);
+        }
+        else
+        {
+            levelManager.SetCurrentExercise();
+        }
+    }
+
+    //FeedpackPanel asetaan täällä, viive oikeassa vastauksessa arkun animaatiota varten
+    private void CheckAnswer(string answer)
+    {
+
+        if (levelManager.IsAnswerCorrect(answer))
+        {
+            SetFeedpack(correctAnswerFeedpackText, levelManager.GetCurrentExplanation());
+            Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack); 
+        }
+        else
+        {
+            SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation());
+            SetFeedpackPanelVisible();
+        }
+    }
+
+    public void DeclareWin()
+    {
+
         panelHeadline.text = winningHeadline;
         panelText.text = winningText;
 
@@ -154,13 +199,12 @@ public class UIManager : MonoBehaviour
         panelSection.style.display = DisplayStyle.Flex;
     }
 
-    public void UpProgressBar(float points, float pointsToWin)
+    public void UpProgressBar(float newProgressBarValue, float progBarValueToWin)
     {
-        progressBar = root.Q<ProgressBar>("progress-bar");
-        progressBar.value = points;
+        progressBar.value = newProgressBarValue;
         Debug.Log("progress bar value: " + progressBar.value);
 
-        if (progressBar.value >= pointsToWin)
+        if (progressBar.value >= progBarValueToWin)
         {
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");

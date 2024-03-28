@@ -4,24 +4,29 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     public TextAsset textJSON;
     public ExerciseArray myExcercises;
 
+    public GameManager gameManager;
+    public int pointPerCorrectAnswer;
+    public int pointsReduceForWrongAnswer;
+
     public UIManager ui;
     public int numberOfExercisesToLoop;
    
-
     private static List<Exercise> allExercises;
     private static List<Exercise> exercisesToAnswer; 
     private Exercise currentExercise;
     private Exercise previousExercise;
-    private float points = 66f;
-    public float pointsPerCorrectAnswer = 6.66f;
-    public float pointsToWin = 99f;
-    private string correctAnswerFeedpackText = "Oikein meni!";
-    private string wrongAnswerFeedpackText = "Nyt ei osunut oikeaan";
+
+    private int points;
+
+    public float progressBarValue;
+    public float progBarValueUpPerCorrectAnswer;
+    public float progBarValueToWin;
+
     public Animator anim;
     public GameObject rightKey;
     public GameObject leftKey;
@@ -30,7 +35,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        points = gameManager.GetPoints();
         anim = gameObject.GetComponent<Animator>();
+        
         //Haetaan harjoitukset JSONista
         myExcercises = JsonUtility.FromJson<ExerciseArray>(textJSON.text);
 
@@ -73,9 +80,7 @@ public class GameManager : MonoBehaviour
             ui.SetSentence(currentExercise.sentence);
             ui.SetLeftWord(currentExercise.word1);
             ui.SetRightWord(currentExercise.word2);
-            
-            
-            
+             
         }
    
     }
@@ -90,19 +95,13 @@ public class GameManager : MonoBehaviour
     chest.GetComponent<Animator>().SetTrigger("ArkunKansiSulku");
     }
 
-    private void ShowFeedback()
-    {
-    ui.SetFeedpack(correctAnswerFeedpackText, currentExercise.explanation);
-    }
-
-    public void CheckAnswer (string answer)
+ 
+    public bool IsAnswerCorrect (string answer)
     {
         previousExercise = currentExercise;
 
         if (answer.Equals(currentExercise.correctAnswer)) 
         {
-            points += pointsPerCorrectAnswer;
-
             //animaation laukaisu oikealle puolelle
             if(ui.rightWord.Equals(currentExercise.correctAnswer))
             {
@@ -110,7 +109,6 @@ public class GameManager : MonoBehaviour
 
                 //Tehty erillisinä funktioina ajastustoiminnon takia
                 Invoke("OpenChest", 1f);
-                Invoke("ShowFeedback", 3f);
                 Invoke("CloseChest", 4f);
             }
 
@@ -119,37 +117,44 @@ public class GameManager : MonoBehaviour
             {
                 leftKey.GetComponent<Animator>().SetTrigger("VasenAvainAvaus");
                 Invoke("OpenChest", 1f);
-                Invoke("ShowFeedback", 2.5f);
-                Invoke("CloseChest", 3f);
+                Invoke("CloseChest", 4f);
             }
-            
+
+            gameManager.AddPoints(pointPerCorrectAnswer);
+            Debug.Log("Pelin pisteet: " + gameManager.GetPoints());
+            progressBarValue += progBarValueUpPerCorrectAnswer;
             exercisesToAnswer.Remove(currentExercise);
+            return true;
 
         }
         else
         {
-            ui.SetFeedpack(wrongAnswerFeedpackText, currentExercise.explanation);
+            gameManager.ReducePoints(pointsReduceForWrongAnswer);
+            Debug.Log("Pelin pisteet: " + gameManager.GetPoints());
+            return false;
         }
 
         
     }
 
-    public void CheckIfGameEnded ()
+    public bool CheckIfGameEnded ()
     {
-        if (points >= pointsToWin)
-        {
-            anim.SetTrigger("OikeaAvainAvaus");
-            ui.Invoke("DeclareWin", 3f);
-        }
+        return progressBarValue >= progBarValueToWin ? true : false;
     }
 
-    public float GetPoints()
+    public float GetProgressBarValue()
     {
-        return points;
+        return progressBarValue;
     }
 
-    public float GetPointsToWin ()
+    public float GetProgBarValueToWin ()
     {
-        return pointsToWin;
+        return progBarValueToWin;
+    }
+
+    public string GetCurrentExplanation()
+    {
+        return currentExercise.explanation;
     }
 }
+
