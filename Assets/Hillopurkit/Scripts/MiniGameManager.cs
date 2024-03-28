@@ -32,12 +32,12 @@ public class MiniGameManager : MonoBehaviour
     public void PauseGame()
     {
         isGamePaused = true;
-        hammer.GetComponent<HammerBehavior>().SetSwingable(false);
+        hammer.GetComponent<HammerBehavior>().SetCanSwing(false);
     }
 
     public void UnpauseGame()
     {
-        hammer.GetComponent<HammerBehavior>().SetSwingable(true);
+        hammer.GetComponent<HammerBehavior>().SetCanSwing(true);
         isGamePaused = false;
 
         if (currentRound == 0)
@@ -53,10 +53,10 @@ public class MiniGameManager : MonoBehaviour
         ResetTally();
         ui.UpProgressBar(0f);
         currentRound++;
-        hammer.GetComponent<Animator>().Play("SlideHammerIntoView");
+        hammer.GetComponent<HammerBehavior>().AnimateHammer("SlideHammerIntoView");
         SetUpJars();
         cabinetAnimator.Play("OpenCabinetDoors");
-        hammer.GetComponent<HammerBehavior>().SetSwingable(true);
+        hammer.GetComponent<HammerBehavior>().SetCanSwing(true);
     }
 
     /// <summary>
@@ -248,7 +248,7 @@ public class MiniGameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(WaitTimes.CONGRATULATION_TIME);
 
-        hammer.GetComponent<HammerBehavior>().SetSwingable(false); // no hammer swinging during transitions
+        hammer.GetComponent<HammerBehavior>().SetCanSwing(false); // no hammer swinging during transitions
 
         cabinetAnimator.Play("CloseCabinetDoors");
         yield return new WaitForSeconds(WaitTimes.DOOR_CLOSING_TIME); // (animation duration)
@@ -268,11 +268,12 @@ public class MiniGameManager : MonoBehaviour
 
             currentRound++;
             SetUpJars();
-            hammer.GetComponent<HammerBehavior>().SetSwingable(true);
+            hammer.GetComponent<HammerBehavior>().SetCanSwing(true);
         }
+
         else // round 3
         {
-            hammer.GetComponent<Animator>().Play("SlideHammerOutOfView");
+            hammer.GetComponent<HammerBehavior>().AnimateHammer("SlideHammerOutOfView");
             PauseGame();
         }
     }

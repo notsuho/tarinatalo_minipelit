@@ -3,7 +3,7 @@ using UnityEngine;
 public class HammerBehavior : MonoBehaviour
 {
     public Animator hammerAnimator;
-    private bool swingable = false;
+    private bool canSwing = false;
     Camera cam;
 
     private void Start()
@@ -11,22 +11,29 @@ public class HammerBehavior : MonoBehaviour
         cam = Camera.main;
     }
 
+    // Checks if player clicked on a jar and swings the hammer if they did.
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && swingable)
+        if (Input.GetMouseButtonDown(0) && canSwing)
         {
             Vector3 mousePosition = Input.mousePosition;
             Ray ray = cam.ScreenPointToRay(mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                if(hit.collider.gameObject.name.Equals("JamJar(Clone)"))
-                    hammerAnimator.Play("HammerSwing");
+                if (hit.collider.gameObject.name.Equals("JamJar(Clone)"))
+                    AnimateHammer("HammerSwing");
             }
         }
     }
 
-    public void SetSwingable(bool _swingable)
+    // Plays an animation by the given string
+    public void AnimateHammer(string animationString)
     {
-        swingable = _swingable;
+        hammerAnimator.Play(animationString);
+    }
+
+    public void SetCanSwing(bool _canSwing)
+    {
+        canSwing = _canSwing;
     }
 }
