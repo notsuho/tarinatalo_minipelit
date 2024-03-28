@@ -10,8 +10,10 @@ public class JarBehavior : MonoBehaviour
         IsCorrectAnswer = _isCorrectAnswer;
     }
 
-    // Clicking on a correct jar breaks it and starts the next round. Wrong jar only wobbles. Only works when game is unpaused.
-    private void OnMouseDown()
+    // Activates from HammerBehavior when player clicks a jar.
+    // Clicking on a correct jar breaks it and starts the next round. Wrong jar only wobbles.
+    // Only works when game is unpaused.
+    public void HitByHammer()
     {
         if (MiniGameManager.isGamePaused)
             return;

@@ -21,7 +21,10 @@ public class HammerBehavior : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 if (hit.collider.gameObject.name.Equals("JamJar(Clone)"))
+                {
                     AnimateHammer("HammerSwing");
+                    hit.collider.gameObject.GetComponent<JarBehavior>().HitByHammer();
+                }
             }
         }
     }
