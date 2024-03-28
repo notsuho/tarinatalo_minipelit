@@ -54,7 +54,7 @@ public class MiniGameManager : MonoBehaviour
 
         else
         {
-            yield return new WaitForSeconds(WaitTimes.CONGRATULATION_TIME);
+            yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG);
 
             cabinetAnimator.Play("CloseCabinetDoors");
             yield return new WaitForSeconds(WaitTimes.DOOR_CLOSING_TIME); // animation duration

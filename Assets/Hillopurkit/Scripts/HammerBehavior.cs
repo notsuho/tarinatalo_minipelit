@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class HammerBehavior : MonoBehaviour
@@ -27,6 +28,13 @@ public class HammerBehavior : MonoBehaviour
                 }
             }
         }
+    }
+
+    public IEnumerator WrongSwing()
+    {
+        SetCanSwing(false);
+        yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_SHORT);
+        SetCanSwing(true);
     }
 
     // Plays an animation by the given string

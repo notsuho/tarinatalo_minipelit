@@ -19,11 +19,10 @@ public class JarBehavior : MonoBehaviour
             return;
 
         Score score = GameObject.Find("Score").GetComponent<Score>();
+        MiniGameManager miniGameManager = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>();
 
         if (IsCorrectAnswer)
         {
-            MiniGameManager miniGameManager = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>();
-
             miniGameManager.hammer.GetComponent<HammerBehavior>().SetCanSwing(false); // stop hammer from swinging until next round starts
             score.BrokeCorrectJar(true); // update score
             StartCoroutine(miniGameManager.NextRound()); // start next round
@@ -33,9 +32,10 @@ public class JarBehavior : MonoBehaviour
             Instantiate(brokenJar, currentPosition, Quaternion.identity);
             gameObject.transform.position = currentPosition + new Vector3 (30, 0, 0); // NextRound() despawns the jar.
         }
-        //
+
         else
         {
+            StartCoroutine(miniGameManager.hammer.GetComponent<HammerBehavior>().WrongSwing());
             score.BrokeCorrectJar(false); // update score
             GetComponent<Animator>().Play("WrongJar");
         }

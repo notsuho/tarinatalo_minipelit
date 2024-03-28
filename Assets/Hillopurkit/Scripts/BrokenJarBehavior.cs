@@ -31,7 +31,7 @@ public class BrokenJarBehavior : MonoBehaviour
     // Makes the GameObject disappear at as a new round begins.
     private IEnumerator DisappearAfterAWhile()
     {
-        yield return new WaitForSeconds(WaitTimes.CONGRATULATION_TIME + WaitTimes.DOOR_CLOSING_TIME);
+        yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG + WaitTimes.DOOR_CLOSING_TIME);
         Destroy(gameObject);
     }
 }

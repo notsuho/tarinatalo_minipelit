@@ -93,7 +93,7 @@ public class HillopurkitUIManager : MonoBehaviour
 
     public IEnumerator DeclareWin()
     {
-        yield return new WaitForSeconds(WaitTimes.CONGRATULATION_TIME);
+        yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG);
 
         int[] tally = score.GetTally();
         int total = tally[0] + tally[1];
@@ -168,7 +168,7 @@ public class HillopurkitUIManager : MonoBehaviour
 
     private IEnumerator FeedbackTurnOffDelay(Label feedbackMsg)
     {
-        yield return new WaitForSeconds(WaitTimes.CONGRATULATION_TIME);
+        yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_SHORT);
         feedbackMsg.visible = false;
     }
 }
