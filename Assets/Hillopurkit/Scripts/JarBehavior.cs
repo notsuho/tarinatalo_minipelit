@@ -18,12 +18,14 @@ public class JarBehavior : MonoBehaviour
         if (MiniGameManager.isGamePaused)
             return;
 
-        MiniGameManager miniGameManager = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>();
+        Score score = GameObject.Find("Score").GetComponent<Score>();
 
         if (IsCorrectAnswer)
         {
+            MiniGameManager miniGameManager = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>();
+
             miniGameManager.hammer.GetComponent<HammerBehavior>().SetCanSwing(false); // stop hammer from swinging until next round starts
-            miniGameManager.BrokeCorrectJar(true); // update score
+            score.BrokeCorrectJar(true); // update score
             StartCoroutine(miniGameManager.NextRound()); // start next round
             
             // move out of the way and spawn in broken jar
@@ -34,7 +36,7 @@ public class JarBehavior : MonoBehaviour
         //
         else
         {
-            miniGameManager.BrokeCorrectJar(false); // update score
+            score.BrokeCorrectJar(false); // update score
             GetComponent<Animator>().Play("WrongJar");
         }
     }

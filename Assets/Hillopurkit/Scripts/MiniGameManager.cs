@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MiniGameManager : MonoBehaviour
 {
+    public GameObject hammer;
     [SerializeField] private GameObject jar;
     [SerializeField] private GameObject firstShelf;
     [SerializeField] private GameObject secondShelf;
@@ -15,17 +16,11 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private int numberOfWrongs_round1 = 1;
     [SerializeField] private int numberOfWrongs_round2 = 1;
     [SerializeField] private int numberOfWrongs_round3 = 1;
-    public GameObject hammer;
+    private readonly int roundsTotal = 3;
     private const int JARS_PER_SHELF = 4;
     private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
     private readonly List<GameObject> jarsOfTheRound = new();
-    public HillopurkitUIManager ui;
-    private float points = 0f;
-    private float pointsPerCorrectAnswer = 33f;
-    private float pointsLineForWin = 99f;
-    private int jarClicksWrong;
-    private int jarClicksRight;
 
     public static bool isGamePaused = true;
 
@@ -62,13 +57,12 @@ public class MiniGameManager : MonoBehaviour
             yield return new WaitForSeconds(WaitTimes.CONGRATULATION_TIME);
 
             cabinetAnimator.Play("CloseCabinetDoors");
-            yield return new WaitForSeconds(WaitTimes.DOOR_CLOSING_TIME); // (animation duration)
+            yield return new WaitForSeconds(WaitTimes.DOOR_CLOSING_TIME); // animation duration
 
-
-            if (currentRound == 2 || currentRound == 3) // rounds 2 and 3
+            if (currentRound <= roundsTotal) // rounds 2 and 3
             {
                 cabinetAnimator.Play("CabinetShake");
-                yield return new WaitForSeconds(WaitTimes.DOOR_OPENING_TIME); // (animation duration)
+                yield return new WaitForSeconds(WaitTimes.CABINET_SHAKING_TIME); // animation duration
 
                 cabinetAnimator.Play("OpenCabinetDoors");
 
@@ -80,14 +74,15 @@ public class MiniGameManager : MonoBehaviour
                 SetUpJars();
             }
 
-            else // Finishing up
+            else // After last round
             {
                 hammer.GetComponent<HammerBehavior>().AnimateHammer("SlideHammerOutOfView");
                 PauseGame();
             }
         }
 
-        hammer.GetComponent<HammerBehavior>().SetCanSwing(true); // release the hammer as the final action
+        if(currentRound != roundsTotal + 1)  // release the hammer if there are more rounds left
+            hammer.GetComponent<HammerBehavior>().SetCanSwing(true);
     }
 
     /// <summary>
@@ -95,11 +90,8 @@ public class MiniGameManager : MonoBehaviour
     /// </summary>
     private void StartFirstRound()
     {
-        Debug.Log("Here");
-
         // UI stuff
-        ResetTally();
-        ui.UpProgressBar(0f);
+        GameObject.Find("Score").GetComponent<Score>().ClearScore();
 
         //Game logic and beginning animations
         SetUpJars();
@@ -287,43 +279,5 @@ public class MiniGameManager : MonoBehaviour
         usedGroupIndexes.Add(groupIndex);
 
         return groupIndex;
-    }
-
-    public void BrokeCorrectJar (bool result)
-    {
-        if (result)
-        {
-            points += pointsPerCorrectAnswer;
-            ui.UpProgressBar(points);
-            jarClicksRight++;
-            ui.SetFeedback(true);
-        }
-        else
-        {
-
-            Debug.Log("Wrong.");
-            jarClicksWrong++;
-
-            ui.SetFeedback(false);
-        }
-
-        if (points >= pointsLineForWin)
-        {
-            ui.Invoke("DeclareWin", 0.7f);
-        }
-    }
-
-    public void ResetTally()
-    {
-        jarClicksRight = 0;
-        jarClicksWrong = 0;
-    }
-
-    public int[] GetTally()
-    {
-        int[] points = new int[2];
-        points[0] = jarClicksRight;
-        points[1] = jarClicksWrong;
-        return points;
     }
 }

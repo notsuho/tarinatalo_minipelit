@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miniGameManager: {fileID: 371237317}
+  score: {fileID: 1243773863}
 --- !u!95 &220374288 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6819649554642469366, guid: 67b8bd3c33b2e304e8701f87cfe89b31, type: 3}
@@ -234,6 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3534daf795247f641a1ec9b8fb349b67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hammer: {fileID: 447952566}
   jar: {fileID: 3447532814585227846, guid: eb26c75068113b14ca6891d3bdb5fd84, type: 3}
   firstShelf: {fileID: 1134697244}
   secondShelf: {fileID: 1134697243}
@@ -245,8 +247,6 @@ MonoBehaviour:
   numberOfWrongs_round1: 1
   numberOfWrongs_round2: 1
   numberOfWrongs_round3: 1
-  hammer: {fileID: 447952566}
-  ui: {fileID: 1600471}
 --- !u!1 &447952566 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7675474096328327179, guid: 5c95507408aab0844b99d727b6c71487, type: 3}
@@ -527,6 +527,53 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5064717477000585850, guid: 67b8bd3c33b2e304e8701f87cfe89b31, type: 3}
   m_PrefabInstance: {fileID: 1134697242}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1243773862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1243773864}
+  - component: {fileID: 1243773863}
+  m_Layer: 0
+  m_Name: Score
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1243773863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243773862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9d516824a152e48ab1cc354c980db5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 1600471}
+  pointsPerCorrectAnswer: 33
+  winningPointLimit: 99
+--- !u!4 &1243773864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243773862}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1489943665
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,3 +964,4 @@ SceneRoots:
   - {fileID: 1551916911}
   - {fileID: 371237316}
   - {fileID: 1600470}
+  - {fileID: 1243773864}
