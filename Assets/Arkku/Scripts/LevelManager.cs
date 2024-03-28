@@ -4,22 +4,29 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     public TextAsset textJSON;
     public ExerciseArray myExcercises;
 
+    public GameManager gameManager;
+    public int pointPerCorrectAnswer;
+    public int pointsReduceForWrongAnswer;
+
     public UIManager ui;
     public int numberOfExercisesToLoop;
    
-
     private static List<Exercise> allExercises;
     private static List<Exercise> exercisesToAnswer; 
     private Exercise currentExercise;
     private Exercise previousExercise;
-    private float points = 66f;
-    public float pointsPerCorrectAnswer = 6.66f;
-    public float pointsToWin = 99f;
+
+    private int points;
+
+    public float progressBarValue;
+    public float progBarValueUpPerCorrectAnswer;
+    public float progBarValueToWin;
+
     public Animator anim;
     public GameObject rightKey;
     public GameObject leftKey;
@@ -28,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        points = points;
+        points = gameManager.GetPoints();
         anim = gameObject.GetComponent<Animator>();
         
         //Haetaan harjoitukset JSONista
@@ -113,13 +120,17 @@ public class GameManager : MonoBehaviour
                 Invoke("CloseChest", 4f);
             }
 
-            points += pointsPerCorrectAnswer;
+            gameManager.AddPoints(pointPerCorrectAnswer);
+            Debug.Log("Pelin pisteet: " + gameManager.GetPoints());
+            progressBarValue += progBarValueUpPerCorrectAnswer;
             exercisesToAnswer.Remove(currentExercise);
             return true;
 
         }
         else
         {
+            gameManager.ReducePoints(pointsReduceForWrongAnswer);
+            Debug.Log("Pelin pisteet: " + gameManager.GetPoints());
             return false;
         }
 
@@ -128,17 +139,17 @@ public class GameManager : MonoBehaviour
 
     public bool CheckIfGameEnded ()
     {
-        return points >= pointsToWin ? true : false;
+        return progressBarValue >= progBarValueToWin ? true : false;
     }
 
-    public float GetPoints()
+    public float GetProgressBarValue()
     {
-        return points;
+        return progressBarValue;
     }
 
-    public float GetPointsToWin ()
+    public float GetProgBarValueToWin ()
     {
-        return pointsToWin;
+        return progBarValueToWin;
     }
 
     public string GetCurrentExplanation()
