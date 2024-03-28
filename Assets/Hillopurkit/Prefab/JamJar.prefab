@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 3465503955823573998}
   - component: {fileID: 5968131529541326172}
   - component: {fileID: 6852159660738498337}
-  - component: {fileID: -103334487278100468}
+  - component: {fileID: 6252905912892204085}
   m_Layer: 0
   m_Name: JamJar
   m_TagString: Untagged
@@ -365,24 +365,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b7fe10032ea3d429343625be61cbdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyedVersion: {fileID: 4506512596853896479, guid: f1e213213ab465447b288bf448d0e5a6, type: 3}
-  SpawningOffset: {x: -1.2, y: 0, z: -1.2}
---- !u!111 &-103334487278100468
-Animation:
+  brokenJar: {fileID: 4506512596853896479, guid: f1e213213ab465447b288bf448d0e5a6, type: 3}
+--- !u!95 &6252905912892204085
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3447532814585227846}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: fbc1b2aa65f09c54888e7fbf96163edc, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: fbc1b2aa65f09c54888e7fbf96163edc, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98cda3df6258a4a44b6e76519d2e7f0e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4313814625429918384
 GameObject:
   m_ObjectHideFlags: 0

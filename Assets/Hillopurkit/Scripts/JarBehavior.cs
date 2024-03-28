@@ -2,37 +2,34 @@ using UnityEngine;
 
 public class JarBehavior : MonoBehaviour
 {
-    private bool isBreakable = false;
-    public GameObject destroyedVersion;
+    private bool IsCorrectAnswer = false;
+    [SerializeField] private GameObject brokenJar;
 
-    public void SetBreakability(bool _isBreakable)
+    public void SetIsCorrectAnswer(bool _isCorrectAnswer)
     {
-        isBreakable = _isBreakable;
+        IsCorrectAnswer = _isCorrectAnswer;
     }
 
+    // Clicking on a correct jar breaks it and starts the next round. Wrong jar only wobbles.
     private void OnMouseDown()
     {
         if (MiniGameManager.isGamePaused)
             return;
 
-        if (isBreakable)
+        if (IsCorrectAnswer)
         {
             Vector3 currentPosition = transform.position;
-            // Update UI/score in MiniGameManager
-            GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().BrokeCorrectJar(true);
-            StartCoroutine(GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().NextRound());
+            GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().BrokeCorrectJar(true); // update score
+            StartCoroutine(GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().NextRound()); // start next round
             
-            // Jar breaks
-            Instantiate(destroyedVersion, currentPosition, Quaternion.identity);
-            gameObject.transform.position = currentPosition + new Vector3 (30, 0, 0);
+            Instantiate(brokenJar, currentPosition, Quaternion.identity);
+            gameObject.transform.position = currentPosition + new Vector3 (30, 0, 0); // move out of view until NextRound() despawns this jar.
         }
-
+        //
         else
         {
-            //Update UI/score in MiniGameManager
-            GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().BrokeCorrectJar(false);
-            Animation anim = GetComponent<Animation>();
-            anim.Play();
+            GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().BrokeCorrectJar(false); // update score
+            GetComponent<Animator>().Play("WrongJar");
         }
     }
 }

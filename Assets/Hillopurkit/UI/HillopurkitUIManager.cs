@@ -1,12 +1,9 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class HillopurkitUIManager : MonoBehaviour
 {
-
     public MiniGameManager miniGameManager;
     private VisualElement root;
     private VisualElement panelSection;
@@ -54,12 +51,10 @@ public class HillopurkitUIManager : MonoBehaviour
 
     private void SetInstructions()
     {
-
         // Tälleen nyt, lopullisessa varmaan parempi jos luetaan txt tiedostosta tms. ohjeet
         string instructionTextText = "Kaappiin on kasattu hillopurkkeja, joiden kyljessä lukee synonyymejä. "
                                     + "Mutta purkkien joukkoon on eksynyt sana, joka ei kuulu joukkoon. "
                                     + "Etsi joukoon kuulumaton purkki, ja riko se vasaralla!";
-
 
         miniGameManager.PauseGame();
 
@@ -76,17 +71,19 @@ public class HillopurkitUIManager : MonoBehaviour
 
     private void SetPanelExit()
     {
-        if (panelButton.text.Equals(continueButtonText)) // aina false?
+        if (panelButton.text.Equals(continueButtonText)) // onko aina false?
         {
             ContinueGame();
         }
+
         else if (panelButton.text.Equals(endGameButtonText)) // minipelin lopussa oleva nappi "Palaa pääpeliin"
         {
             Application.Quit();
         }
+
         else
         {
-            instructions.style.display = DisplayStyle.None; // kysymysmerkistä poistuminen, pelin alku "Selvä!"
+            instructions.style.display = DisplayStyle.None; // kysymysmerkistä poistuminen, pelin alun "Selvä!"
             miniGameManager.UnpauseGame();
         }
     }
@@ -98,7 +95,6 @@ public class HillopurkitUIManager : MonoBehaviour
 
     public void DeclareWin()
     {
-
         int[] tally = miniGameManager.GetTally();
         int total = tally[0] + tally[1];
 
@@ -117,7 +113,6 @@ public class HillopurkitUIManager : MonoBehaviour
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = points;
-        // Debug.Log("progress bar value: " + progressBar.value);
 
         if (progressBar.value >= 33f)
         {
@@ -136,7 +131,6 @@ public class HillopurkitUIManager : MonoBehaviour
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
         }
-
     }
 
     public void ResetProgressBar()
@@ -176,10 +170,9 @@ public class HillopurkitUIManager : MonoBehaviour
         }
     }
 
-    public IEnumerator FeedbackTurnOffDelay(Label feedbackMsg) {
-        Debug.Log("Waiting...");
+    private IEnumerator FeedbackTurnOffDelay(Label feedbackMsg)
+    {
         yield return new WaitForSeconds(1f);
-        feedbackMsg.visible = false;
-        
+        feedbackMsg.visible = false;    
     }
 }

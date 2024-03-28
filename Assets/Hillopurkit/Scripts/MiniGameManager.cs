@@ -29,27 +29,14 @@ public class MiniGameManager : MonoBehaviour
 
     public static bool isGamePaused = true;
 
-    public void ResetTally() {
-        jarClicksRight = 0;
-        jarClicksWrong = 0;
-    }
-
-    public int[] GetTally() {
-        int[] points = new int[2];
-        points[0] = jarClicksRight;
-        points[1] = jarClicksWrong;
-        return points;
-    }
-
     public void PauseGame()
     {
-        // Debug.Log("Pause");
         isGamePaused = true;
         hammer.GetComponent<HammerBehavior>().SetSwingable(false);
     }
+
     public void UnpauseGame()
     {
-        // Debug.Log("Continue");
         hammer.GetComponent<HammerBehavior>().SetSwingable(true);
         isGamePaused = false;
 
@@ -211,7 +198,7 @@ public class MiniGameManager : MonoBehaviour
             }
 
             jar.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = label;
-            jar.GetComponent<JarBehavior>().SetBreakability(isBreakable);
+            jar.GetComponent<JarBehavior>().SetIsCorrectAnswer(isBreakable);
 
             jarsOfTheRound.Add(jar);
         }
@@ -259,8 +246,7 @@ public class MiniGameManager : MonoBehaviour
     /// </summary>
     public IEnumerator NextRound()
     {
-
-        yield return new WaitForSeconds(2f / currentRound);
+        yield return new WaitForSeconds(WaitTimes.CONGRATULATION_TIME);
 
         hammer.GetComponent<HammerBehavior>().SetSwingable(false); // no hammer swinging during transitions
 
@@ -291,7 +277,8 @@ public class MiniGameManager : MonoBehaviour
         }
     }
 
-    public void BrokeCorrectJar (bool result) {
+    public void BrokeCorrectJar (bool result)
+    {
         if (result)
         {
             points += pointsPerCorrectAnswer;
@@ -312,5 +299,19 @@ public class MiniGameManager : MonoBehaviour
         {
             ui.Invoke("DeclareWin", 0.7f);
         }
+    }
+
+    public void ResetTally()
+    {
+        jarClicksRight = 0;
+        jarClicksWrong = 0;
+    }
+
+    public int[] GetTally()
+    {
+        int[] points = new int[2];
+        points[0] = jarClicksRight;
+        points[1] = jarClicksWrong;
+        return points;
     }
 }

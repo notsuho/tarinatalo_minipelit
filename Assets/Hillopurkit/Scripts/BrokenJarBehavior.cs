@@ -4,7 +4,7 @@ using UnityEngine;
 public class BrokenJarBehavior : MonoBehaviour
 {
     [SerializeField] private ParticleSystem dustCloud;
-    [SerializeField] private readonly float explosionForce = 1000f;
+    [SerializeField] private float explosionForce = 1000f;
 
     void Start()
     {
