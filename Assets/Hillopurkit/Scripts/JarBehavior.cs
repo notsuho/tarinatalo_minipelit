@@ -2,37 +2,42 @@ using UnityEngine;
 
 public class JarBehavior : MonoBehaviour
 {
-    private bool isBreakable = false;
-    public GameObject destroyedVersion;
+    private bool IsCorrectAnswer = false;
+    [SerializeField] private GameObject brokenJar;
 
-    public void SetBreakability(bool _isBreakable)
+    public void SetIsCorrectAnswer(bool _isCorrectAnswer)
     {
-        isBreakable = _isBreakable;
+        IsCorrectAnswer = _isCorrectAnswer;
     }
 
-    private void OnMouseDown()
+    // Activates from HammerBehavior when player clicks a jar.
+    // Clicking on a correct jar breaks it and starts the next round. Wrong jar only wobbles.
+    // Only works when game is unpaused.
+    public void HitByHammer()
     {
         if (MiniGameManager.isGamePaused)
             return;
 
-        if (isBreakable)
+        Score score = GameObject.Find("Score").GetComponent<Score>();
+        MiniGameManager miniGameManager = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>();
+
+        if (IsCorrectAnswer)
         {
-            Vector3 currentPosition = transform.position;
-            // Update UI/score in MiniGameManager
-            GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().BrokeCorrectJar(true);
-            StartCoroutine(GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().NextRound());
+            miniGameManager.hammer.GetComponent<HammerBehavior>().SetCanSwing(false); // stop hammer from swinging until next round starts
+            score.BrokeCorrectJar(true); // update score
+            StartCoroutine(miniGameManager.NextRound()); // start next round
             
-            // Jar breaks
-            Instantiate(destroyedVersion, currentPosition, Quaternion.identity);
-            gameObject.transform.position = currentPosition + new Vector3 (30, 0, 0);
+            // move out of the way and spawn in broken jar
+            Vector3 currentPosition = transform.position;
+            Instantiate(brokenJar, currentPosition, Quaternion.identity);
+            gameObject.transform.position = currentPosition + new Vector3 (30, 0, 0); // NextRound() despawns the jar.
         }
 
         else
         {
-            //Update UI/score in MiniGameManager
-            GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().BrokeCorrectJar(false);
-            Animation anim = GetComponent<Animation>();
-            anim.Play();
+            StartCoroutine(miniGameManager.hammer.GetComponent<HammerBehavior>().WrongSwing());
+            score.BrokeCorrectJar(false); // update score
+            GetComponent<Animator>().Play("WrongJar");
         }
     }
 }

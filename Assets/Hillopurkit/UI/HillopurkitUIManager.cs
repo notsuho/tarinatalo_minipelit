@@ -1,13 +1,11 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class HillopurkitUIManager : MonoBehaviour
 {
-
     public MiniGameManager miniGameManager;
+    public Score score;
     private VisualElement root;
     private VisualElement panelSection;
     private Label panelHeadline;
@@ -15,17 +13,16 @@ public class HillopurkitUIManager : MonoBehaviour
     private Button panelButton;
     private VisualElement instructions;
     private ProgressBar progressBar;
-    private Label topText;
     private Label tallyText;
     private Label clickedWrong;
     private Label clickedRight;
 
-    private string continueButtonText = "<allcaps>jatka</allcaps>";
-    private string gotItButtonText = "<allcaps>selvä!</allcaps>";
-    private string endGameButtonText = "<allcaps>palaa pääpeliin</allcaps>";
-    private string instructionHeadlineText = "<allcaps>ohjeet</allcaps>";
-    private string winningHeadline = "Läpäisit pelin!";
-    private string winningText = "Löysit ja rikoit kaikki joukkoon kuulumattomat purkit!";
+    private readonly string continueButtonText = "<allcaps>jatka</allcaps>";
+    private readonly string gotItButtonText = "<allcaps>selvä!</allcaps>";
+    private readonly string endGameButtonText = "<allcaps>palaa pääpeliin</allcaps>";
+    private readonly string instructionHeadlineText = "<allcaps>ohjeet</allcaps>";
+    private readonly string winningHeadline = "Läpäisit pelin!";
+    private readonly string winningText = "Löysit ja rikoit kaikki joukkoon kuulumattomat purkit!";
 
     private void OnEnable()
     {
@@ -49,17 +46,13 @@ public class HillopurkitUIManager : MonoBehaviour
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => SetPanelExit();
         exitButton.clicked += () => Application.Quit();
-
     }
 
     private void SetInstructions()
     {
-
-        // Tälleen nyt, lopullisessa varmaan parempi jos luetaan txt tiedostosta tms. ohjeet
-        string instructionTextText = "Kaappiin on kasattu hillopurkkeja, joiden kyljessä lukee synonyymejä. "
+        string instructionTextText = "Kaappiin on kasattu hillopurkkeja, joiden kyljessä lukee synonyymejä. " //Siirrä tiedostoon myöhemmin
                                     + "Mutta purkkien joukkoon on eksynyt sana, joka ei kuulu joukkoon. "
                                     + "Etsi joukoon kuulumaton purkki, ja riko se vasaralla!";
-
 
         miniGameManager.PauseGame();
 
@@ -76,17 +69,19 @@ public class HillopurkitUIManager : MonoBehaviour
 
     private void SetPanelExit()
     {
-        if (panelButton.text.Equals(continueButtonText)) // aina false?
+        if (panelButton.text.Equals(continueButtonText)) // onko aina false?
         {
             ContinueGame();
         }
+
         else if (panelButton.text.Equals(endGameButtonText)) // minipelin lopussa oleva nappi "Palaa pääpeliin"
         {
             Application.Quit();
         }
+
         else
         {
-            instructions.style.display = DisplayStyle.None; // kysymysmerkistä poistuminen, pelin alku "Selvä!"
+            instructions.style.display = DisplayStyle.None; // kysymysmerkistä poistuminen, pelin alun "Selvä!"
             miniGameManager.UnpauseGame();
         }
     }
@@ -96,10 +91,11 @@ public class HillopurkitUIManager : MonoBehaviour
         panelSection.style.display = DisplayStyle.None;
     }
 
-    public void DeclareWin()
+    public IEnumerator DeclareWin()
     {
+        yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG);
 
-        int[] tally = miniGameManager.GetTally();
+        int[] tally = score.GetTally();
         int total = tally[0] + tally[1];
 
         panelHeadline.text = winningHeadline;
@@ -117,7 +113,6 @@ public class HillopurkitUIManager : MonoBehaviour
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = points;
-        // Debug.Log("progress bar value: " + progressBar.value);
 
         if (progressBar.value >= 33f)
         {
@@ -136,7 +131,6 @@ public class HillopurkitUIManager : MonoBehaviour
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
         }
-
     }
 
     public void ResetProgressBar()
@@ -146,29 +140,25 @@ public class HillopurkitUIManager : MonoBehaviour
         VisualElement star1 = root.Q<VisualElement>("star1");
         star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
         VisualElement star2 = root.Q<VisualElement>("star2");
-        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
+        star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
         VisualElement star3 = root.Q<VisualElement>("star3");
-        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
+        star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
     }
 
     public void SetFeedback(bool result)
     {
-        //topText = root.Q<Label>("instructions");
-
-        int[] tally = miniGameManager.GetTally();
+        int[] tally = score.GetTally();
 
         if (result == true)
         {
-            //topText.text = ("Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki! \nRIKOIT OIKEAN PURKIN!"); //tämän projektin purkkamaisin ratkaisu
             tallyText = root.Q<Label>("click-tally-right");
             tallyText.text = ("Särjetyt purkit: " + tally[0]);
             clickedRight.visible = true;
             StartCoroutine(FeedbackTurnOffDelay(clickedRight));
-
         }
+
         else
         {
-            //topText.text = ("Yhdessä hillopurkissa oleva sana ei kuulu joukkoon. Etsi se, ja klikkaa se rikki! \nVÄÄRÄ PURKKI, YRITÄ UUDESTAAN");
             tallyText = root.Q<Label>("click-tally-wrong");
             tallyText.text = ("Väärät arvaukset: " + tally[1]);
             clickedWrong.visible = true;
@@ -176,10 +166,9 @@ public class HillopurkitUIManager : MonoBehaviour
         }
     }
 
-    public IEnumerator FeedbackTurnOffDelay(Label feedbackMsg) {
-        Debug.Log("Waiting...");
-        yield return new WaitForSeconds(1f);
+    private IEnumerator FeedbackTurnOffDelay(Label feedbackMsg)
+    {
+        yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_SHORT);
         feedbackMsg.visible = false;
-        
     }
 }

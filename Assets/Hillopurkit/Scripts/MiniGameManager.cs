@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MiniGameManager : MonoBehaviour
 {
+    public GameObject hammer;
     [SerializeField] private GameObject jar;
     [SerializeField] private GameObject firstShelf;
     [SerializeField] private GameObject secondShelf;
@@ -15,61 +16,88 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private int numberOfWrongs_round1 = 1;
     [SerializeField] private int numberOfWrongs_round2 = 1;
     [SerializeField] private int numberOfWrongs_round3 = 1;
-    [SerializeField] private GameObject hammer;
+    private readonly int roundsTotal = 3;
     private const int JARS_PER_SHELF = 4;
     private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
     private readonly List<GameObject> jarsOfTheRound = new();
-    public HillopurkitUIManager ui;
-    private float points = 0f;
-    private float pointsPerCorrectAnswer = 33f;
-    private float pointsLineForWin = 99f;
-    private int jarClicksWrong;
-    private int jarClicksRight;
 
     public static bool isGamePaused = true;
 
-    public void ResetTally() {
-        jarClicksRight = 0;
-        jarClicksWrong = 0;
-    }
-
-    public int[] GetTally() {
-        int[] points = new int[2];
-        points[0] = jarClicksRight;
-        points[1] = jarClicksWrong;
-        return points;
-    }
-
     public void PauseGame()
     {
-        // Debug.Log("Pause");
         isGamePaused = true;
-        hammer.GetComponent<HammerBehavior>().SetSwingable(false);
+        hammer.GetComponent<HammerBehavior>().SetCanSwing(false);
     }
+
     public void UnpauseGame()
     {
-        // Debug.Log("Continue");
-        hammer.GetComponent<HammerBehavior>().SetSwingable(true);
         isGamePaused = false;
+        hammer.GetComponent<HammerBehavior>().SetCanSwing(true);
 
-        if (currentRound == 0)
-            StartFirstRound();
+        // This starts the game after tutorial screen.
+        if(currentRound == 0)
+        {
+            StartCoroutine(NextRound());
+        }
     }
 
+    /// <summary>
+    /// Sets up and starts the next round of jam jar minigame.
+    /// </summary>
+    public IEnumerator NextRound()
+    {
+        currentRound++;
+
+        if (currentRound == 1)
+            StartFirstRound();
+
+        else
+        {
+            yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG);
+
+            cabinetAnimator.Play("CloseCabinetDoors");
+            yield return new WaitForSeconds(WaitTimes.DOOR_CLOSING_TIME); // animation duration
+
+            if (currentRound <= roundsTotal) // rounds 2 and 3
+            {
+                cabinetAnimator.Play("CabinetShake");
+                yield return new WaitForSeconds(WaitTimes.CABINET_SHAKING_TIME); // animation duration
+
+                cabinetAnimator.Play("OpenCabinetDoors");
+
+                foreach (GameObject jar in jarsOfTheRound)
+                    Destroy(jar);
+
+                jarsOfTheRound.Clear();
+
+                SetUpJars();
+            }
+
+            else // After last round
+            {
+                hammer.GetComponent<HammerBehavior>().AnimateHammer("SlideHammerOutOfView");
+                PauseGame();
+            }
+        }
+
+        if(currentRound != roundsTotal + 1)  // release the hammer if there are more rounds left
+            hammer.GetComponent<HammerBehavior>().SetCanSwing(true);
+    }
 
     /// <summary>
     /// Plays beginning animations and starts the first round.
     /// </summary>
     private void StartFirstRound()
     {
-        ResetTally();
-        ui.UpProgressBar(0f);
-        currentRound++;
-        hammer.GetComponent<Animator>().Play("SlideHammerIntoView");
+        // UI stuff
+        GameObject.Find("Score").GetComponent<Score>().ClearScore();
+
+        //Game logic and beginning animations
         SetUpJars();
+        hammer.GetComponent<HammerBehavior>().AnimateHammer("SlideHammerIntoView");
         cabinetAnimator.Play("OpenCabinetDoors");
-        hammer.GetComponent<HammerBehavior>().SetSwingable(true);
+        UnpauseGame();
     }
 
     /// <summary>
@@ -79,7 +107,6 @@ public class MiniGameManager : MonoBehaviour
     {
         int numberOfJars;
         int numberOfWrongs;
-
 
         // How many jars this round
         switch (currentRound)
@@ -211,7 +238,7 @@ public class MiniGameManager : MonoBehaviour
             }
 
             jar.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = label;
-            jar.GetComponent<JarBehavior>().SetBreakability(isBreakable);
+            jar.GetComponent<JarBehavior>().SetIsCorrectAnswer(isBreakable);
 
             jarsOfTheRound.Add(jar);
         }
@@ -252,65 +279,5 @@ public class MiniGameManager : MonoBehaviour
         usedGroupIndexes.Add(groupIndex);
 
         return groupIndex;
-    }
-
-    /// <summary>
-    /// Sets up and starts the next round of jam jar minigame.
-    /// </summary>
-    public IEnumerator NextRound()
-    {
-
-        yield return new WaitForSeconds(2f / currentRound);
-
-        hammer.GetComponent<HammerBehavior>().SetSwingable(false); // no hammer swinging during transitions
-
-        cabinetAnimator.Play("CloseCabinetDoors");
-        yield return new WaitForSeconds(WaitTimes.DOOR_CLOSING_TIME); // (animation duration)
-
-
-        if (currentRound <= 2) // rounds 1 & 2
-        {
-            cabinetAnimator.Play("CabinetShake");
-            yield return new WaitForSeconds(WaitTimes.DOOR_OPENING_TIME); // (animation duration)
-
-            cabinetAnimator.Play("OpenCabinetDoors");
-
-            foreach (GameObject jar in jarsOfTheRound)
-                Destroy(jar);
-
-            jarsOfTheRound.Clear();
-
-            currentRound++;
-            SetUpJars();
-            hammer.GetComponent<HammerBehavior>().SetSwingable(true);
-        }
-        else // round 3
-        {
-            hammer.GetComponent<Animator>().Play("SlideHammerOutOfView");
-            PauseGame();
-        }
-    }
-
-    public void BrokeCorrectJar (bool result) {
-        if (result)
-        {
-            points += pointsPerCorrectAnswer;
-            ui.UpProgressBar(points);
-            jarClicksRight++;
-            ui.SetFeedback(true);
-        }
-        else
-        {
-
-            Debug.Log("Wrong.");
-            jarClicksWrong++;
-
-            ui.SetFeedback(false);
-        }
-
-        if (points >= pointsLineForWin)
-        {
-            ui.Invoke("DeclareWin", 0.7f);
-        }
     }
 }
