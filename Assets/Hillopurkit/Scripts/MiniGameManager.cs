@@ -24,6 +24,10 @@ public class MiniGameManager : MonoBehaviour
 
     public static bool isGamePaused = true;
 
+    public int GetTotalRounds() {
+        return roundsTotal;
+    }
+    
     public void PauseGame()
     {
         isGamePaused = true;
