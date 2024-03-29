@@ -95,7 +95,7 @@ public class MiniGameManager : MonoBehaviour
     private void StartFirstRound()
     {
         // UI stuff
-        GameObject.Find("Score").GetComponent<Score>().ClearScore();
+        GameObject.Find("Score").GetComponent<Score>().ClearScore(); // Resets score to 33
 
         //Game logic and beginning animations
         SetUpJars();

@@ -3,9 +3,9 @@ using UnityEngine;
 public class Score : MonoBehaviour
 {
     public HillopurkitUIManager ui;
-    private float points = 0f;
-    [SerializeField] private float pointsPerCorrectAnswer = 11f;
-    [SerializeField] private float winningPointLimit = 99f;
+    private float points = 33f; // For purposes of running minigames back to back; don't forget to change this back to 0 later
+    private float pointsPerCorrectAnswer = 11f;
+    private float winningPointLimit = 99f;
     private int jarClicksWrong = 0;
     private int jarClicksRight = 0;
 
@@ -25,10 +25,11 @@ public class Score : MonoBehaviour
     {
         if (result)
         {
-            Debug.Log("\nTotal points: " + points);
-            points = points + pointsPerCorrectAnswer;
+            Debug.Log("\nIn BrokeCorrectJar, current points: " + points);
             Debug.Log("\nGained: " + pointsPerCorrectAnswer + " points");
-            ui.UpProgressBar();
+            points = points + pointsPerCorrectAnswer;
+            Debug.Log("\nIn BrokeCorrectJar, updated points: " + points);
+            ui.UpProgressBar(points);
             jarClicksRight++;
             ui.SetFeedback(true);
         }
@@ -52,7 +53,8 @@ public class Score : MonoBehaviour
     }
 
     private void ResetPoints() {
-        points = 0;
+        //points = 0;
+        points = 33f;
     }
 
     public float GetPointsPerCorrectAnswer() {

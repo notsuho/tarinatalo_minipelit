@@ -31,7 +31,10 @@ public class HillopurkitUIManager : MonoBehaviour
     {
         root = GetComponent<UIDocument>().rootVisualElement;
 
-        ResetProgressBar();
+        ResetProgressBar(); // We intentionally reset the progress bar at 1/3 full.
+                            // In case someone is debugging later and wonders
+                            // why it doesn't start at zero. Once we have global
+                            // tracking for score this should be changed back!
 
         Button instructionButton = root.Q<Button>("instruction-button");
         Button exitButton = root.Q<Button>("exit-button");
@@ -118,12 +121,12 @@ public class HillopurkitUIManager : MonoBehaviour
         };
     }
 
-    public void UpProgressBar()
+    public void UpProgressBar(float currentPoints)
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
-        Debug.Log("\nProgress bar value before: " + progressBar.value);
-        progressBar.value = score.GetPoints();
-        Debug.Log("\nProgress bar value after: " + progressBar.value);
+        Debug.Log("\nProgress bar value before update: " + progressBar.value);
+        progressBar.value = currentPoints;
+        Debug.Log("\nProgress bar value after update: " + progressBar.value);
 
         if (progressBar.value >= 33f)
         {
@@ -147,9 +150,10 @@ public class HillopurkitUIManager : MonoBehaviour
     public void ResetProgressBar()
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
-        progressBar.value = 0;
+        // Get the score for reset, in this case it's 33 not 0!
+        progressBar.value = GameObject.Find("Score").GetComponent<Score>().GetPoints(); 
         VisualElement star1 = root.Q<VisualElement>("star1");
-        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
+        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star"); // light up the first star
         VisualElement star2 = root.Q<VisualElement>("star2");
         star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
         VisualElement star3 = root.Q<VisualElement>("star3");
