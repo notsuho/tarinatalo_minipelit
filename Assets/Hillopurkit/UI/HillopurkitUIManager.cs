@@ -15,6 +15,7 @@ public class HillopurkitUIManager : MonoBehaviour
     private VisualElement instructions;
     private ProgressBar progressBar;
     private Label tallyText;
+    private Label pointsText;
     private Label clickedWrong;
     private Label clickedRight;
 
@@ -158,11 +159,14 @@ public class HillopurkitUIManager : MonoBehaviour
     public void SetFeedback(bool result)
     {
         int[] tally = score.GetTally();
+        float points = score.GetPoints();
 
         if (result == true)
         {
             tallyText = root.Q<Label>("click-tally-right");
             tallyText.text = ("Särjetyt purkit: " + tally[0]);
+            pointsText = root.Q<Label>("score");
+            pointsText.text = ("Pisteet: " + points);
             clickedRight.visible = true;
             StartCoroutine(FeedbackTurnOffDelay(clickedRight));
         }
