@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class HillopurkitUIManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class HillopurkitUIManager : MonoBehaviour
     private readonly string continueButtonText = "<allcaps>jatka</allcaps>";
     private readonly string gotItButtonText = "<allcaps>selvä!</allcaps>";
     private readonly string endGameButtonText = "<allcaps>palaa pääpeliin</allcaps>";
+    private readonly string nextGameButtonText = "<allcaps>seuraava minipeli</allcaps>";
     private readonly string instructionHeadlineText = "<allcaps>ohjeet</allcaps>";
     private readonly string winningHeadline = "Läpäisit pelin!";
     private readonly string winningText = "Löysit ja rikoit kaikki joukkoon kuulumattomat purkit!";
@@ -100,19 +102,27 @@ public class HillopurkitUIManager : MonoBehaviour
 
         panelHeadline.text = winningHeadline;
         panelText.text = winningText
-            + ("\nArvausten määrä: " + total)
+            + ("\n\nArvausten määrä: " + total) // Add two linebreaks so it looks just a tiny bit cleaner
             + ("\nOikeat arvaukset: " + tally[0])
             + ("\nVäärät arvaukset: " + tally[1]);
 
-        panelButton.text = endGameButtonText;
+        panelButton.text = nextGameButtonText;
 
         panelSection.style.display = DisplayStyle.Flex;
+
+        // Load next minigame scene when player presses the button
+        panelButton.clicked += () =>
+        {
+            SceneManager.LoadScene("ArkkuScene");
+        };
     }
 
-    public void UpProgressBar(float points)
+    public void UpProgressBar()
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
-        progressBar.value = points;
+        Debug.Log("\nProgress bar value before: " + progressBar.value);
+        progressBar.value = score.GetPoints();
+        Debug.Log("\nProgress bar value after: " + progressBar.value);
 
         if (progressBar.value >= 33f)
         {
@@ -126,7 +136,7 @@ public class HillopurkitUIManager : MonoBehaviour
             star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
         }
 
-        if (progressBar.value >= 98f)
+        if (progressBar.value >= 99f)
         {
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
