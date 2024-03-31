@@ -4,7 +4,6 @@ using System.Xml.Schema;
 using System;
 using System.Linq;
 using UnityEngine;
-using UnityEditor.AssetImporters;
 
 public class BookRack : BookHolderBase
 {
