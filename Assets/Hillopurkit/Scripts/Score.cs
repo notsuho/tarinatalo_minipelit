@@ -3,9 +3,9 @@ using UnityEngine;
 public class Score : MonoBehaviour
 {
     public HillopurkitUIManager ui;
-    private float points = 0f;
-    [SerializeField] private float pointsPerCorrectAnswer = 33f;
-    [SerializeField] private float winningPointLimit = 99f;
+    private float points = 33f; // For purposes of running minigames back to back; don't forget to change this back to 0 later
+    private float pointsPerCorrectAnswer = 11f;
+    private float winningPointLimit = 99f;
     private int jarClicksWrong = 0;
     private int jarClicksRight = 0;
 
@@ -17,14 +17,18 @@ public class Score : MonoBehaviour
     public void ClearScore()
     {
         ResetTally();
-        ui.UpProgressBar(0f);
+        ResetPoints();
+        ui.ResetProgressBar();
     }
 
     public void BrokeCorrectJar(bool result)
     {
         if (result)
         {
-            points += pointsPerCorrectAnswer;
+            Debug.Log("\nIn BrokeCorrectJar, current points: " + points);
+            Debug.Log("\nGained: " + pointsPerCorrectAnswer + " points");
+            points = points + pointsPerCorrectAnswer;
+            Debug.Log("\nIn BrokeCorrectJar, updated points: " + points);
             ui.UpProgressBar(points);
             jarClicksRight++;
             ui.SetFeedback(true);
@@ -36,10 +40,29 @@ public class Score : MonoBehaviour
             ui.SetFeedback(false);
         }
 
-        if (points >= winningPointLimit)
+        if (points >= winningPointLimit 
+        || jarClicksRight == (GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().GetTotalRounds()))
+        // Check if enough points for win. Also progress to win if we've broken enough jars (i.e. we've completed the last round)
         {
             StartCoroutine(ui.DeclareWin());
         }
+    }
+
+    public float GetPoints() {
+        return points;
+    }
+
+    private void ResetPoints() {
+        //points = 0;
+        points = 33f;
+    }
+
+    public float GetPointsPerCorrectAnswer() {
+        return pointsPerCorrectAnswer;
+    }
+
+    public float getWinningPointLimit() {
+        return winningPointLimit;
     }
 
     private void ResetTally()
@@ -50,9 +73,9 @@ public class Score : MonoBehaviour
 
     public int[] GetTally()
     {
-        int[] points = new int[2];
-        points[0] = jarClicksRight;
-        points[1] = jarClicksWrong;
-        return points;
+        int[] tally = new int[2];
+        tally[0] = jarClicksRight;
+        tally[1] = jarClicksWrong;
+        return tally;
     }
 }
