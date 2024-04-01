@@ -4,7 +4,6 @@ using System.Xml.Schema;
 using System;
 using System.Linq;
 using UnityEngine;
-using UnityEditor.AssetImporters;
 
 public class BookRack : BookHolderBase
 {
@@ -50,13 +49,13 @@ public class BookRack : BookHolderBase
 
     private void MakeBooksGlow() {
         foreach (GameObject book in this.bookStack){
-            book.GetComponent<Book>().MakeBookGlow();
+            book.GetComponent<GlowControl>().MakeBookGlow();
         }
     }
 
     private void MakeBooksRed() {
         foreach (GameObject book in this.bookStack){
-            book.GetComponent<Book>().MakeBookRed();
+            book.GetComponent<GlowControl>().MakeBookRed();
         }
     }
 }

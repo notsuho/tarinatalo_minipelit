@@ -7,10 +7,6 @@ public class Book : MonoBehaviour {
     private bool bookMoving = false;
     private float moveSpeed = 7.0f;
 
-    private Material book_glow_material;
-    private Material wrong_book_material;
-    private Material book_material;
-
     private Vector3 clickOffSet;
 
     private GameObject currHolder;
@@ -18,12 +14,6 @@ public class Book : MonoBehaviour {
     private Quaternion targetRotation;
 
     public int word_category;
-
-    void Start() {
-        book_glow_material = Resources.Load("book_glow", typeof(Material)) as Material;
-        wrong_book_material = Resources.Load("wrong_books", typeof(Material)) as Material;
-        book_material = Resources.Load("books", typeof(Material)) as Material;
-    }
 
     void OnMouseDown() {
         if (this.IsInCompletedRack()) {
@@ -138,18 +128,5 @@ public class Book : MonoBehaviour {
 
     public int GetWordCategory() {
         return word_category;
-    }
-
-    public void MakeBookGlow() {
-        this.gameObject.GetComponent<Renderer>().material = book_glow_material;
-    }
-
-    public void MakeBookRed() {
-        this.gameObject.GetComponent<Renderer>().material = wrong_book_material;
-        Invoke("RestoreBookColor", 0.75f);
-    }
-
-    void RestoreBookColor() {
-        this.gameObject.GetComponent<Renderer>().material = book_material;
     }
 }
