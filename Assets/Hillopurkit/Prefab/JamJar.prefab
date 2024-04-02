@@ -366,6 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brokenJar: {fileID: 4506512596853896479, guid: f1e213213ab465447b288bf448d0e5a6, type: 3}
+  jam: {fileID: 6921212197905763958}
 --- !u!95 &6252905912892204085
 Animator:
   serializedVersion: 5

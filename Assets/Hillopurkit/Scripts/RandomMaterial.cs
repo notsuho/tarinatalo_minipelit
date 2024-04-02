@@ -3,8 +3,14 @@ using UnityEngine;
 public class RandomMaterial : MonoBehaviour
 {
     [SerializeField] Material[] materialList;
+    private Material material;
 
-    void Start()
+    public Material GetMaterial()
+    {
+        return material;
+    }
+
+    void Awake()
     {
         if (materialList.Length == 0)
         {
@@ -18,6 +24,8 @@ public class RandomMaterial : MonoBehaviour
             return;
         }
 
-        gameObject.GetComponent<MeshRenderer>().material = materialList[Random.Range(0, materialList.Length)];
+        material = materialList[Random.Range(0, materialList.Length)];
+
+        gameObject.GetComponent<MeshRenderer>().material = material;
     }
 }
