@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -32,6 +33,7 @@ public class UIManager_Kirjahylly : MonoBehaviour
         panelHeadline = panelSection.Q<Label>("panel-headline");
         panelText = panelSection.Q<Label>("panel-text");
         panelButton = panelSection.Q<Button>("panel-button");
+        feedback = root.Q<Label>("feedback");
 
         SetInstructions();
         instructionButton.clicked += () => SetInstructions();
@@ -72,6 +74,16 @@ public class UIManager_Kirjahylly : MonoBehaviour
 
     public bool InstructionsShown(){
         return instructions.style.display == DisplayStyle.Flex;
+    }
+
+    public void SetFeedback(){
+        feedback.visible = true;
+        StartCoroutine(FeedbackTurnOffDelay());
+    }
+
+    private IEnumerator FeedbackTurnOffDelay(){
+        yield return new WaitForSeconds(2);
+        feedback.visible = false;
     }
 
 }

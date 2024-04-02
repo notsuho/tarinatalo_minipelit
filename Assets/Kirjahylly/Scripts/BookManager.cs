@@ -101,11 +101,9 @@ public class BookManager : MonoBehaviour {
         if (levelCompleted) {
             points += 11f;
             ui.UpProgressBar(points, pointsToWin);
-            Invoke("ResetBooks", 2);
-            current_round += 1;
-            if (current_round >= total_rounds){
-                SceneManager.LoadScene("HillopurkitScene");
-            }
+            ui.SetFeedback();
+            Invoke(nameof(RoundEnding), 2);
+            Invoke(nameof(ResetBooks), 2);
         }
     }
 
@@ -117,5 +115,12 @@ public class BookManager : MonoBehaviour {
     public float GetPointsToWin ()
     {
         return pointsToWin;
+    }
+
+    private void RoundEnding (){
+        current_round += 1;
+            if (current_round >= total_rounds){
+                SceneManager.LoadScene("HillopurkitScene");
+            }
     }
 }
