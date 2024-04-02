@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     private Button panelButton;
     private VisualElement instructions;
     private ProgressBar progressBar;
+    private Label gameScore;
 
     private string sentence;
 
@@ -51,7 +52,7 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         //testissä
-        
+
         root = GetComponent<UIDocument>().rootVisualElement;
 
         sentenceLabel = root.Q<Label>("sentence");
@@ -66,6 +67,8 @@ public class UIManager : MonoBehaviour
         panelText = panelSection.Q<Label>("panel-text");
         panelButton = panelSection.Q<Button>("panel-button");
 
+        gameScore = root.Q<Label>("score-label");
+
         SetInstructions();
 
         leftButton.clicked += () => CheckAnswer(leftWord);
@@ -75,28 +78,42 @@ public class UIManager : MonoBehaviour
         exitButton.clicked += () => Application.Quit();
     }
 
-   
+
     private void Update()
     {
-       
-        if (sentenceLabel != null) { 
+
+        if (sentenceLabel != null)
+        {
             sentenceLabel.text = sentence;
-        } 
-     
+        }
+
         if (leftButton != null)
         {
             leftButton.text = leftWord;
         }
 
-        if(rightButton != null)
+        if (rightButton != null)
         {
             rightButton.text = rightWord;
         }
+
+        if (gameScore != null)
+        {
+            if (GameManager.totalPoints >= 0)
+            {
+                gameScore.text = GameManager.totalPoints.ToString();
+            }
+            else
+            {
+                gameScore.text = "0";
+            }
+        }
+
     }
 
-   
 
-    private void SetInstructions ()
+
+    private void SetInstructions()
     {
         instructions = root.Q<VisualElement>("panel-section");
         Label instructionHeadline = instructions.Q<Label>("panel-headline");
@@ -110,8 +127,8 @@ public class UIManager : MonoBehaviour
     }
 
     public void SetSentence(string newSentence)
-    {    
-        sentence = newSentence;    
+    {
+        sentence = newSentence;
     }
 
     public void SetLeftWord(string newLeftWord)
@@ -132,7 +149,7 @@ public class UIManager : MonoBehaviour
         panelText.text = explanation;
 
         panelButton.text = continueButtonText;
-   
+
     }
 
     private void SetFeedpackPanelVisible()
@@ -140,23 +157,23 @@ public class UIManager : MonoBehaviour
         panelSection.style.display = DisplayStyle.Flex;
     }
 
-     private void SetPanelExit()
+    private void SetPanelExit()
+    {
+        if (panelButton.text.Equals(continueButtonText))
         {
-            if (panelButton.text.Equals(continueButtonText))
-            {
-                ContinueGame();
-            }
-            else if (panelButton.text.Equals(endGameButtonText))
-            {
-                Application.Quit();
-            }
-            else
-            {
-                instructions.style.display = DisplayStyle.None;
-            }
+            ContinueGame();
+        }
+        else if (panelButton.text.Equals(endGameButtonText))
+        {
+            Application.Quit();
+        }
+        else
+        {
+            instructions.style.display = DisplayStyle.None;
+        }
     }
 
-   private void ContinueGame()
+    private void ContinueGame()
     {
         panelSection.style.display = DisplayStyle.None;
         bool gameEnded = levelManager.CheckIfGameEnded();
@@ -179,7 +196,7 @@ public class UIManager : MonoBehaviour
         if (levelManager.IsAnswerCorrect(answer))
         {
             SetFeedpack(correctAnswerFeedpackText, levelManager.GetCurrentExplanation());
-            Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack); 
+            Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack);
         }
         else
         {
@@ -212,8 +229,8 @@ public class UIManager : MonoBehaviour
             //tähti suurenee ja pienenee    
             star3.ToggleInClassList("star-scale-transition");
             root.schedule.Execute(() => star3.ToggleInClassList("star-scale-transition")).StartingIn(500);
- 
+
         }
 
     }
-    }
+}
