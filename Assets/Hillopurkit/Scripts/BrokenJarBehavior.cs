@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BrokenJarBehavior : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem dustCloud;
+    [SerializeField] public ParticleSystem dustCloud;
     [SerializeField] private float explosionForce = 1000f;
 
     // Play explosion effect when spawned
