@@ -27,7 +27,10 @@
                 <ui:VisualElement name="star1" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Label name="score-label" text="1234"  />
+        <ui:VisualElement name="score-container">
+            <ui:Label name="score-label" text="1234" />
+            <ui:Image name="streak-icon"  />
+        </ui:VisualElement>
         <ui:VisualElement name="panel-section">
             <ui:VisualElement name="panel">
                 <ui:Label name="panel-headline" />

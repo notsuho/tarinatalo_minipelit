@@ -310,20 +310,35 @@
     top: -24%;
 }
 
+#score-container {
+    position: absolute;
+    right: 5%;
+    bottom: 16%;
+}
+
 #score-label {
     color: rgb(255, 255, 255); 
-  
     font-size: 35px; 
     -unity-font-style: bold; 
-    position: absolute; 
-    bottom: 16%; 
-    right: 5%; 
     /*-unity-text-outline-color: rgb(219, 30, 30); */
     text-shadow: 10px 5px 0 var(--color-dk-text); 
     letter-spacing: 12px; 
     -unity-text-outline-width: 1px; 
     
 }
+
+#streak-icon {
+    position: absolute;
+    --unity-image: resource('Images/streak_icon'); 
+    height: 110px; 
+    width: 59px; 
+    top: -75px; 
+    left: -20px;
+
+
+    
+}
+
 .divider {
     background-image: resource('Images/T_BG_Header_GUI');
     height: 15px;
