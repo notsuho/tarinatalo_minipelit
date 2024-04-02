@@ -5,21 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    public int points;
+    public static int totalPoints;
 
-
-    public int GetPoints()
-    {
-        return points;
-    }
-
-    public void AddPoints(int PointsToAdd)
-    {
-        points += PointsToAdd;
-    }
-
-    public void ReducePoints(int pointsToReduce)
-    {
-        points -= pointsToReduce;
-    }
 }

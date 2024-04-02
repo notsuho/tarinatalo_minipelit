@@ -101,6 +101,10 @@
     -unity-slice-scale: 0.5px;
 }
 
+.word-button:hover {
+     background-color: rgba(142, 89, 43, 0.5);
+}
+
 #sentence-section {
     height: 100px;
     align-items: center;
@@ -224,11 +228,11 @@
 
 #progress-bar-container {
     position: absolute;
-    top: 50%;
-    left: 75%;
+    top: 45%;
+    left: 78%;
     rotate: 270deg;
-    height: 50px;
-    width: 420px;
+    height: 40px;
+    width: 350px;
 }
 
 #progress-bar {
@@ -236,18 +240,21 @@
     border-color: rgb(43, 58, 85);
     border-width: 2px;
     background-image: resource('Images/ShadeGradientBlack');
+    
     position: absolute;
     height: 100%;
     width: 100%;
 }
 
+
 .unity-progress-bar__container {
-    min-height: 46px;
-    min-width: 400px;
+    min-height: 37px;
+    min-width: 350px;
     border-radius: 10px;
 }
 
 .unity-progress-bar__background {
+    height: 100%;
     border-radius: 10px;
     background-color: rgba(229, 247, 255, 0.6);
     border-color: rgb(229, 247, 255);
@@ -270,8 +277,8 @@
     transition: 0.3s linear 0.2s;
     background-image: resource('Images/star_blank');
     position: absolute;
-    width: 83px;
-    height: 83px;
+    width: 68px;
+    height: 68px;
     rotate: 90deg;
     left: 90%;
     top: -26%;
@@ -281,8 +288,8 @@
     transition: 0.3s linear 0.2s;
     background-image: resource('Images/star_blank');
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 68px;
+    height: 68px;
     rotate: 90deg;
     left: 57%;
     top: -24%;
@@ -296,13 +303,27 @@
     transition: 0.3s linear 0.2s;
     background-image: resource('Images/star_blank');
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 68px;
+    height: 68px;
     rotate: 90deg;
     left: 24%;
     top: -24%;
 }
 
+#score-label {
+    color: rgb(255, 255, 255); 
+  
+    font-size: 35px; 
+    -unity-font-style: bold; 
+    position: absolute; 
+    bottom: 16%; 
+    right: 5%; 
+    /*-unity-text-outline-color: rgb(219, 30, 30); */
+    text-shadow: 10px 5px 0 var(--color-dk-text); 
+    letter-spacing: 12px; 
+    -unity-text-outline-width: 1px; 
+    
+}
 .divider {
     background-image: resource('Images/T_BG_Header_GUI');
     height: 15px;
