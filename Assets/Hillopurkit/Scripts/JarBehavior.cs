@@ -42,7 +42,7 @@ public class JarBehavior : MonoBehaviour
             // set the dust cloud effect to same color as the jar
             ParticleSystem ps = breakingJar.GetComponent<BrokenJarBehavior>().dustCloud;
             ParticleSystem.MainModule main = ps.main;
-            main.startColor = color;
+            main.startColor = color + new Color(0.33f, 0.33f, 0.33f); // a little lighter than the original color
 
             gameObject.transform.position = currentPosition + new Vector3 (30, 0, 0); // NextRound() despawns the jar.
         }
