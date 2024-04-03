@@ -9,15 +9,14 @@ public class LevelManager : MonoBehaviour
     public TextAsset textJSON;
     public ExerciseArray myExcercises;
 
-    public GameManager gameManager;
     public int pointPerCorrectAnswer;
     public int pointsReduceForWrongAnswer;
 
     public UIManager ui;
     public int numberOfExercisesToLoop;
-   
+
     private static List<Exercise> allExercises;
-    private static List<Exercise> exercisesToAnswer; 
+    private static List<Exercise> exercisesToAnswer;
     private Exercise currentExercise;
     private Exercise previousExercise;
 
@@ -35,75 +34,80 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        points = gameManager.GetPoints();
+
+        points = GameManager.totalPoints;
         anim = gameObject.GetComponent<Animator>();
-        
+
         //Haetaan harjoitukset JSONista
         myExcercises = JsonUtility.FromJson<ExerciseArray>(textJSON.text);
 
         //Arvotaan joukosta tietty määrä harjoituksia, joita pyöritetään pelissä
         if (allExercises == null || allExercises.Count == 0)
         {
-            allExercises = myExcercises.exercises.ToList<Exercise>();  
+            allExercises = myExcercises.exercises.ToList<Exercise>();
 
             exercisesToAnswer = new List<Exercise>();
 
-            for(int i = 0; i < numberOfExercisesToLoop; i++) {
+            for (int i = 0; i < numberOfExercisesToLoop; i++)
+            {
                 int randomExerciseIndex = Random.Range(0, allExercises.Count);
                 exercisesToAnswer.Add(allExercises[randomExerciseIndex]);
                 allExercises.RemoveAt(randomExerciseIndex);
-            }  
+            }
         }
         SetCurrentExercise();
- 
+
     }
 
     void Update()
     {
-        
+
     }
 
-    public void SetCurrentExercise ()
+    public void SetCurrentExercise()
     {
-        if (exercisesToAnswer.Count > 0) { 
-            
-            if(currentExercise == null) {
-                currentExercise = exercisesToAnswer[0];
-            } 
-            else 
+        if (exercisesToAnswer.Count > 0)
+        {
+
+            if (currentExercise == null)
             {
-                while (previousExercise.Equals(currentExercise)) {
-                int randomExerciseIndex = Random.Range(0, exercisesToAnswer.Count);
-                currentExercise = exercisesToAnswer[randomExerciseIndex];
+                currentExercise = exercisesToAnswer[0];
+            }
+            else
+            {
+                while (previousExercise.Equals(currentExercise))
+                {
+                    int randomExerciseIndex = Random.Range(0, exercisesToAnswer.Count);
+                    currentExercise = exercisesToAnswer[randomExerciseIndex];
                 }
             }
             ui.SetSentence(currentExercise.sentence);
             ui.SetLeftWord(currentExercise.word1);
             ui.SetRightWord(currentExercise.word2);
-             
+
         }
-   
+
     }
 
     private void OpenChest()
     {
-    chest.GetComponent<Animator>().SetTrigger("ArkunKansiAvaus");
+        chest.GetComponent<Animator>().SetTrigger("ArkunKansiAvaus");
     }
 
     private void CloseChest()
     {
-    chest.GetComponent<Animator>().SetTrigger("ArkunKansiSulku");
+        chest.GetComponent<Animator>().SetTrigger("ArkunKansiSulku");
     }
 
- 
-    public bool IsAnswerCorrect (string answer)
+
+    public bool IsAnswerCorrect(string answer)
     {
         previousExercise = currentExercise;
 
-        if (answer.Equals(currentExercise.correctAnswer)) 
+        if (answer.Equals(currentExercise.correctAnswer))
         {
             //animaation laukaisu oikealle puolelle
-            if(ui.rightWord.Equals(currentExercise.correctAnswer))
+            if (ui.rightWord.Equals(currentExercise.correctAnswer))
             {
                 rightKey.GetComponent<Animator>().SetTrigger("OikeaAvainAvaus");
 
@@ -113,15 +117,15 @@ public class LevelManager : MonoBehaviour
             }
 
             //animaatio vasemmalle puolelle
-            if(ui.leftWord.Equals(currentExercise.correctAnswer))
+            if (ui.leftWord.Equals(currentExercise.correctAnswer))
             {
                 leftKey.GetComponent<Animator>().SetTrigger("VasenAvainAvaus");
                 Invoke("OpenChest", 1f);
                 Invoke("CloseChest", 4f);
             }
 
-            gameManager.AddPoints(pointPerCorrectAnswer);
-            Debug.Log("Pelin pisteet: " + gameManager.GetPoints());
+            GameManager.totalPoints += pointPerCorrectAnswer;
+            Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
             progressBarValue += progBarValueUpPerCorrectAnswer;
             exercisesToAnswer.Remove(currentExercise);
             return true;
@@ -129,15 +133,15 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            gameManager.ReducePoints(pointsReduceForWrongAnswer);
-            Debug.Log("Pelin pisteet: " + gameManager.GetPoints());
+            GameManager.totalPoints -= pointsReduceForWrongAnswer;
+            Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
             return false;
         }
 
-        
+
     }
 
-    public bool CheckIfGameEnded ()
+    public bool CheckIfGameEnded()
     {
         return progressBarValue >= progBarValueToWin ? true : false;
     }
@@ -147,7 +151,7 @@ public class LevelManager : MonoBehaviour
         return progressBarValue;
     }
 
-    public float GetProgBarValueToWin ()
+    public float GetProgBarValueToWin()
     {
         return progBarValueToWin;
     }
