@@ -51,6 +51,7 @@ public class JarBehavior : MonoBehaviour
         {
             StartCoroutine(miniGameManager.hammer.GetComponent<HammerBehavior>().WrongSwing());
             score.BrokeCorrectJar(false); // update score
+            transform.parent.gameObject.GetComponent<Animator>().Play("WrongJarShake");
             GetComponent<Animator>().Play("WrongJar");
         }
     }
