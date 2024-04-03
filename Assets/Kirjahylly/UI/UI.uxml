@@ -12,7 +12,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement class="option-buttons">
-                <ui:Label tabindex="-1" text="HIENOA!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="feedback" style="-unity-text-align: middle-center; color: rgb(0, 255, 3); font-size: 100px; visibility: hidden;" />
+                <ui:Label tabindex="-1" text="HIENOA!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="feedback" style="-unity-text-align: middle-center; color: rgb(0, 255, 3); font-size: 100px; visibility: hidden; left: -20%; top: -20%; right: 0; position: relative; bottom: 0;" />
             </ui:VisualElement>
             <ui:VisualElement name="sentence-section" />
         </ui:VisualElement>
