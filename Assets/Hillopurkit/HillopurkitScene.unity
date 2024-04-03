@@ -239,6 +239,7 @@ MonoBehaviour:
   jar: {fileID: 3447532814585227846, guid: eb26c75068113b14ca6891d3bdb5fd84, type: 3}
   firstShelf: {fileID: 1134697244}
   secondShelf: {fileID: 1134697243}
+  jarShakeHelper: {fileID: 3218519574611963114, guid: 943c447f5a2025c4ebdf6ecc37a5879f, type: 3}
   cabinetAnimator: {fileID: 220374288}
   synonymsList: {fileID: 4900000, guid: 7c4ca09ca9562614ab38ccddf33f27de, type: 3}
   numberOfJars_round1: 4
