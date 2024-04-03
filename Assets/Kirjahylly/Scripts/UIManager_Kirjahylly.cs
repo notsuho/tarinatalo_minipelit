@@ -23,8 +23,9 @@ public class UIManager_Kirjahylly : MonoBehaviour
 
     private void OnEnable()
     {
-        root = GetComponent<UIDocument>().rootVisualElement;
+        root = FindObjectOfType<UIDocument>().rootVisualElement;
 
+        instructions = root.Q<VisualElement>("panel-section");
 
         Button instructionButton = root.Q<Button>("instruction-button");
         Button exitButton = root.Q<Button>("exit-button");
@@ -35,15 +36,13 @@ public class UIManager_Kirjahylly : MonoBehaviour
         panelButton = panelSection.Q<Button>("panel-button");
         feedback = root.Q<Label>("feedback");
 
-        SetInstructions();
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => instructions.style.display = DisplayStyle.None;
         exitButton.clicked += () => Application.Quit();
     }
 
-    private void SetInstructions ()
+    public void SetInstructions ()
     {
-        instructions = root.Q<VisualElement>("panel-section");
         Label instructionHeadline = instructions.Q<Label>("panel-headline");
         instructionHeadline.text = instructionHeadlineText;
         Label instructionText = instructions.Q<Label>("panel-text");

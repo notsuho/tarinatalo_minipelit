@@ -36,6 +36,7 @@ public class BookManager : MonoBehaviour {
 
     IEnumerator Start() {
         ui.UpProgressBar(points, pointsToWin);
+        ui.SetInstructions();
         yield return new WaitUntil(() => !ui.InstructionsShown());
         this.LoadBookDataFromFile();
         this.ResetBooks();
