@@ -226,13 +226,19 @@
     flex-grow: 1;
 }
 
-#progress-bar-container {
+#game-progress-container {
     position: absolute;
-    top: 45%;
+    top: 12%;
     left: 78%;
+    height: 73%;
+    width: 30%
+}
+
+#progress-bar-container {
     rotate: 270deg;
     height: 40px;
     width: 350px;
+    top: 40%;
 }
 
 #progress-bar {
@@ -280,7 +286,7 @@
     width: 68px;
     height: 68px;
     rotate: 90deg;
-    left: 90%;
+    left: 91%;
     top: -26%;
 }
 
@@ -295,9 +301,7 @@
     top: -24%;
 }
 
-.star-scale-transition {
-    scale: 1.2 1.2;
-}
+
 
 #star1 {
     transition: 0.3s linear 0.2s;
@@ -310,13 +314,22 @@
     top: -24%;
 }
 
-#score-container {
-    position: absolute;
-    right: 5%;
-    bottom: 16%;
+.star-scale-transition {
+    scale: 1.2 1.2;
 }
 
+#score-container {
+    
+    position: absolute;
+    right: 43%;
+    bottom: 8%; 
+   
+}
+
+
+
 #score-label {
+   
     color: rgb(255, 255, 255); 
     font-size: 35px; 
     -unity-font-style: bold; 
@@ -327,16 +340,36 @@
     
 }
 
-#streak-icon {
-    position: absolute;
-    --unity-image: resource('Images/streak_icon'); 
-    height: 110px; 
+#streak-image {
+
+     transition-property: scale, opacity;
+     transition-duration: 1.7s;
+     transition-timing-function: ease-in;
+     position: absolute;
+     height: 80px; 
     width: 59px; 
+    right: 65px;
     top: -75px; 
-    left: -20px;
-
-
+    display: none;
+   
     
+}
+
+.streak-image-transition {
+    scale: 2;
+    opacity: 0;
+}
+
+#streak-icon {
+    --unity-image: resource('Images/streak_icon'); 
+}
+
+#streak-count {
+    position: absolute;
+    top: 37px;
+    left: 28px;
+    -unity-font-style: bold;
+    color: white;
 }
 
 .divider {
