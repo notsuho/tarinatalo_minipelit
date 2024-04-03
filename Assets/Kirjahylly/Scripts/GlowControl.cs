@@ -41,6 +41,7 @@ public class GlowControl : MonoBehaviour {
     }
 
     public void MakeBookGlow() {
+        CancelInvoke();
         this.glowStartTime = Time.time;
         this.isGlowing = true;
         this.currentGlowRange = this.correctGlowRange;
