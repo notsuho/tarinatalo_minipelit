@@ -77,7 +77,7 @@ public class Book : MonoBehaviour {
         }
         
         Vector3 newPos = GetMouseWorldPos() + clickOffSet;
-        transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
+        transform.position = new Vector3(newPos.x, newPos.y, -4.5f);
     }
 
     GameObject GetObjectUnderMouse() {
