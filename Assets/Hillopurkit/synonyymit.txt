@@ -1,11 +1,11 @@
-takapuoli|perse|takamus|peräpää|pylly|ahteri|kontti|pyrstö|perä|persus|pakarat|takalisto|peffa
-puhua|turinoida|hölöttää|pälättää|löpistä|tarinoida|turista|haastaa|jupista
-raha|valuutta|hynä|tuohi|hillo|käteinen|pätäkkä|luotto
-nukkua|uneksia|vetää lonkkaa|levyttää|koisia|kuorsata|vetää tirsat
-tykätä|ihailla|digata|pitää|mieliä|jumaloida|lempiä
-ilkimys|hirviö|raakalainen|julmuri|raakimus|barbaari|peto
-tuhma|häijy|ilkeä|paha|typerä|kuriton|julma
-valehdella|laskea luikuria|sepittää|juksata|naruttaa|viilata linssiin|puhua palturia
-juosta|hölkyttää|jolkottaa|kipaista|ravata|pinkaista|sprintata
-rakas|armas|sulho|kulta|sydänkäpy|muru|lemmitty
-varastaa|ryövätä|näpistää|pölliä|kähveltää|nyysiä|vohkia
+Takapuoli|Perse|Takamus|Peräpää|Pylly|Ahteri|Kontti|Pyrstö|Perä|Persus|Pakarat|Takalisto|Peffa
+Puhua|Turinoida|Hölöttää|Pälättää|Löpistä|Tarinoida|Turista|Haastaa|Jupista
+Raha|Valuutta|Hynä|Tuohi|Hillo|Käteinen|Pätäkkä|Luotto
+Nukkua|Uneksia|Vetää lonkkaa|Levyttää|Koisia|Kuorsata|Vetää tirsat
+Tykätä|Ihailla|Digata|Pitää|Mieliä|Jumaloida|Lempiä
+Ilkimys|Hirviö|Raakalainen|Julmuri|Raakimus|Barbaari|Peto
+Tuhma|Häijy|Ilkeä|Paha|Typerä|Kuriton|Julma
+Valehdella|Laskea luikuria|Sepittää|Juksata|Naruttaa|Viilata linssiin|Puhua palturia
+Juosta|Hölkyttää|Jolkottaa|Kipaista|Ravata|Pinkaista|Sprintata
+Rakas|Armas|Sulho|Kulta|Sydänkäpy|Muru|Lemmitty
+Varastaa|Ryövätä|Näpistää|Pölliä|Kähveltää|Nyysiä|Vohkia

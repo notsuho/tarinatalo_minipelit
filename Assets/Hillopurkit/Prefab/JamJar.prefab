@@ -27,7 +27,7 @@ RectTransform:
   m_GameObject: {fileID: 1793062697515741658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1889380393788902335}
@@ -65,9 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'pidempikin sana
-
-'
+  m_text: "Vet\xE4\xE4 tirsat\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed239ae7799cd434db5edead8f138287, type: 2}
   m_sharedMaterial: {fileID: 8806286996687945820, guid: ed239ae7799cd434db5edead8f138287, type: 2}
@@ -76,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4280688675
+  m_fontColor: {r: 0.13735072, g: 0.1260235, b: 0.1509434, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -94,19 +92,19 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.23
-  m_fontSizeBase: 0.23
+  m_fontSize: 0.24
+  m_fontSizeBase: 0.24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 33
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -40
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -423,7 +421,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1.05, y: 0.9}
+  m_SizeDelta: {x: 1.08, y: 0.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3901048171142257975
 CanvasRenderer:
@@ -453,7 +451,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 2d568a08dbe60bb4a82828c4b394d232, type: 3}
+  m_Texture: {fileID: 2800000, guid: 81ddf4e2157b0be4bb26bd13e40a076e, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
