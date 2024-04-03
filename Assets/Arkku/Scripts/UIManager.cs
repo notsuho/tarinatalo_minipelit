@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     private VisualElement instructions;
     private ProgressBar progressBar;
     private Label gameScore;
+    private VisualElement streakImage;
 
     private string sentence;
 
@@ -195,6 +196,11 @@ public class UIManager : MonoBehaviour
 
         if (levelManager.IsAnswerCorrect(answer))
         {
+           //asetetaan streak-kuvake, jos streak-arvo on tarpeeksi suuri 
+           if (ScoreArkku.streak >= ScoreArkku.minStreakValue)
+            {
+                DisplayStreakImage();
+            }
             SetFeedpack(correctAnswerFeedpackText, levelManager.GetCurrentExplanation());
             Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack);
         }
@@ -203,6 +209,28 @@ public class UIManager : MonoBehaviour
             SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation());
             SetFeedpackPanelVisible();
         }
+    }
+
+    //asettaa streak imagen käymään näkyvissä
+    private void DisplayStreakImage ()
+    {       
+            streakImage = root.Q<VisualElement>("streak-image");
+
+            //asettaa kuvaan oikean streakin arvon
+            Label streakCount = streakImage.Q<Label>("streak-count");
+            streakCount.text = "+" + ScoreArkku.streak;
+
+            streakImage.style.display = DisplayStyle.Flex;
+            streakImage.ToggleInClassList("streak-image-transition");
+            Invoke("ToggleStreakClassList", 3f);
+    }
+
+
+    //hävittää streak imagen näkyvistä ja asettaa classlistin alkuperäiseen asentoon
+    private void ToggleStreakClassList()
+    {
+        streakImage.ClearClassList();
+        streakImage.style.display = DisplayStyle.None;
     }
 
     public void DeclareWin()
