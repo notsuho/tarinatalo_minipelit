@@ -169,8 +169,8 @@ public class HillopurkitUIManager : MonoBehaviour
         {
             tallyText = root.Q<Label>("click-tally-right");
             tallyText.text = ("Särjetyt purkit: " + tally[0]);
-            pointsText = root.Q<Label>("score");
-            pointsText.text = ("Pisteet: " + points);
+            pointsText = root.Q<Label>("score-label");
+            pointsText.text = ("" + points);
             clickedRight.visible = true;
             StartCoroutine(FeedbackTurnOffDelay(clickedRight));
         }

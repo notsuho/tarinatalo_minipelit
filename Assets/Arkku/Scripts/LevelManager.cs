@@ -9,9 +9,6 @@ public class LevelManager : MonoBehaviour
     public TextAsset textJSON;
     public ExerciseArray myExcercises;
 
-    public int pointPerCorrectAnswer;
-    public int pointsReduceForWrongAnswer;
-
     public UIManager ui;
     public int numberOfExercisesToLoop;
 
@@ -20,7 +17,7 @@ public class LevelManager : MonoBehaviour
     private Exercise currentExercise;
     private Exercise previousExercise;
 
-    private int points;
+    
 
     public float progressBarValue;
     public float progBarValueUpPerCorrectAnswer;
@@ -34,8 +31,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-
-        points = GameManager.totalPoints;
+   
         anim = gameObject.GetComponent<Animator>();
 
         //Haetaan harjoitukset JSONista
@@ -124,8 +120,10 @@ public class LevelManager : MonoBehaviour
                 Invoke("CloseChest", 4f);
             }
 
-            GameManager.totalPoints += pointPerCorrectAnswer;
+            GameManager.totalPoints += ScoreArkku.pointPerCorrectAnswer;
             Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
+            ScoreArkku.streak += 1;
+            Debug.Log("Streak " + ScoreArkku.streak);
             progressBarValue += progBarValueUpPerCorrectAnswer;
             exercisesToAnswer.Remove(currentExercise);
             return true;
@@ -133,8 +131,12 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            GameManager.totalPoints -= pointsReduceForWrongAnswer;
+            GameManager.totalPoints += ScoreArkku.GetStreakPoints();            
+            GameManager.totalPoints -= ScoreArkku.pointsReduceForWrongAnswer;
             Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
+            ScoreArkku.streak = 0;
+            Debug.Log("Streak " + ScoreArkku.streak);
+
             return false;
         }
 
@@ -143,7 +145,17 @@ public class LevelManager : MonoBehaviour
 
     public bool CheckIfGameEnded()
     {
-        return progressBarValue >= progBarValueToWin ? true : false;
+        if (progressBarValue >= progBarValueToWin)
+        {
+            GameManager.totalPoints += ScoreArkku.GetStreakPoints();
+            ScoreArkku.streak = 0;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
 
     public float GetProgressBarValue()

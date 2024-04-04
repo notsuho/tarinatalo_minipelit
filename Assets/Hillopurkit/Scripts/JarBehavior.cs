@@ -1,9 +1,17 @@
 using UnityEngine;
+using System.Collections;
 
 public class JarBehavior : MonoBehaviour
 {
     private bool IsCorrectAnswer = false;
     [SerializeField] private GameObject brokenJar;
+    [SerializeField] private GameObject jam;
+    private Color color;
+
+    private void Start()
+    {
+        color = GetComponentInChildren<RandomMaterial>().GetMaterial().color;
+    }
 
     public void SetIsCorrectAnswer(bool _isCorrectAnswer)
     {
@@ -29,7 +37,13 @@ public class JarBehavior : MonoBehaviour
             
             // move out of the way and spawn in broken jar
             Vector3 currentPosition = transform.position;
-            Instantiate(brokenJar, currentPosition, Quaternion.identity);
+            GameObject breakingJar = Instantiate(brokenJar, currentPosition, Quaternion.identity);
+
+            // set the dust cloud effect to same color as the jar
+            ParticleSystem ps = breakingJar.GetComponent<BrokenJarBehavior>().dustCloud;
+            ParticleSystem.MainModule main = ps.main;
+            main.startColor = color + new Color(0.33f, 0.33f, 0.33f); // a little lighter than the original color
+
             gameObject.transform.position = currentPosition + new Vector3 (30, 0, 0); // NextRound() despawns the jar.
         }
 
@@ -37,6 +51,7 @@ public class JarBehavior : MonoBehaviour
         {
             StartCoroutine(miniGameManager.hammer.GetComponent<HammerBehavior>().WrongSwing());
             score.BrokeCorrectJar(false); // update score
+            transform.parent.gameObject.GetComponent<Animator>().Play("WrongJarShake");
             GetComponent<Animator>().Play("WrongJar");
         }
     }

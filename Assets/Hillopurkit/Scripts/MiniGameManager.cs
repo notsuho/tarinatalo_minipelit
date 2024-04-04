@@ -8,6 +8,7 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private GameObject jar;
     [SerializeField] private GameObject firstShelf;
     [SerializeField] private GameObject secondShelf;
+    [SerializeField] private GameObject jarShakeHelper;
     [SerializeField] private Animator cabinetAnimator;
     [SerializeField] private TextAsset synonymsList;
     [SerializeField] private int numberOfJars_round1 = 4;
@@ -239,6 +240,12 @@ public class MiniGameManager : MonoBehaviour
             {
                 isBreakable = true;
                 alreadyBreakable++;
+            }
+            else
+            {
+                GameObject helper = Instantiate(jarShakeHelper);
+                jar.transform.parent = helper.transform;
+                jarsOfTheRound.Add(helper);
             }
 
             jar.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = label;
