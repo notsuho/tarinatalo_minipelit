@@ -326,8 +326,6 @@
    
 }
 
-
-
 #score-label {
    
     color: rgb(255, 255, 255); 
@@ -342,13 +340,13 @@
 
 #streak-image {
 
-     transition-property: scale, opacity;
-     transition-duration: 1.7s;
-     transition-timing-function: ease-in;
-     position: absolute;
-     height: 80px; 
+    transition-property: scale, opacity;
+    transition-duration: 2.5s;
+    transition-timing-function: ease-in;
+    position: absolute;
+    height: 80px; 
     width: 59px; 
-    right: 65px;
+    right: 72px;
     top: -75px; 
     display: none;
    
@@ -356,7 +354,7 @@
 }
 
 .streak-image-transition {
-    scale: 2;
+    scale: 1.7;
     opacity: 0;
 }
 

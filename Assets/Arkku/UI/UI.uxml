@@ -33,7 +33,7 @@
                 <ui:Label name="score-label" text="1234" />
                 <ui:VisualElement name="streak-image">
                     <ui:Image name="streak-icon" />
-                    <ui:Label name="streak-count" text="+3" />
+                    <ui:Label name="streak-count" text="+0" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
