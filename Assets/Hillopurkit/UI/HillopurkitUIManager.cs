@@ -56,7 +56,7 @@ public class HillopurkitUIManager : MonoBehaviour
 
     private void SetInstructions()
     {
-        string instructionTextText = "Kaappiin on kasattu hillopurkkeja, joiden kyljessä lukee synonyymejä. " //Siirrä tiedostoon myöhemmin
+        string instructionTextText = "Kaappiin on kasattu purkkeja, joiden kyljessä lukee synonyymejä. " //Siirrä tiedostoon myöhemmin
                                     + "Mutta purkkien joukkoon on eksynyt sana, joka ei kuulu joukkoon. "
                                     + "Etsi joukoon kuulumaton purkki, ja riko se vasaralla!";
 
