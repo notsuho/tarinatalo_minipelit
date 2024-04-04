@@ -196,11 +196,13 @@ public class UIManager : MonoBehaviour
 
         if (levelManager.IsAnswerCorrect(answer))
         {
+           //IMPLEMENTOI STREAKIT: Kutsu sreak-kuvaketta, jos streakin arvo on tarpeeksi suuri           
            //asetetaan streak-kuvake, jos streak-arvo on tarpeeksi suuri 
            if (ScoreArkku.streak >= ScoreArkku.minStreakValue)
             {
                 DisplayStreakImage();
             }
+           //---------------------------------------------
             SetFeedpack(correctAnswerFeedpackText, levelManager.GetCurrentExplanation());
             Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack);
         }
@@ -211,27 +213,30 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //IMPLEMENTOI STREAKIT: Ota tämä funktio
     //asettaa streak imagen käymään näkyvissä
     private void DisplayStreakImage ()
     {       
-            streakImage = root.Q<VisualElement>("streak-image");
+        streakImage = root.Q<VisualElement>("streak-image");
 
-            //asettaa kuvaan oikean streakin arvon
-            Label streakCount = streakImage.Q<Label>("streak-count");
-            streakCount.text = "+" + ScoreArkku.streak;
+        //asettaa kuvaan oikean streakin arvon
+        Label streakCount = streakImage.Q<Label>("streak-count");
+        streakCount.text = "+" + ScoreArkku.streak;
 
-            streakImage.style.display = DisplayStyle.Flex;
-            streakImage.ToggleInClassList("streak-image-transition");
-            Invoke("ToggleStreakClassList", 3f);
+        streakImage.style.display = DisplayStyle.Flex;
+        streakImage.ToggleInClassList("streak-image-transition");
+        Invoke("ToggleStreakClassList", 3f);
+       
     }
 
-
+    //IMPLEMENTOI STREAKIT: Ota tämä funktio
     //hävittää streak imagen näkyvistä ja asettaa classlistin alkuperäiseen asentoon
     private void ToggleStreakClassList()
     {
         streakImage.ClearClassList();
         streakImage.style.display = DisplayStyle.None;
     }
+    //------------------------------------------------------------
 
     public void DeclareWin()
     {
@@ -254,9 +259,11 @@ public class UIManager : MonoBehaviour
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
 
+            //IMPLEMENTOI TÄHDEN SUURENTUMINEN: Ota nämä rivit oman tähden värinvaihdon jälkeen
             //tähti suurenee ja pienenee    
             star3.ToggleInClassList("star-scale-transition");
             root.schedule.Execute(() => star3.ToggleInClassList("star-scale-transition")).StartingIn(500);
+            //----------------------------------------------------------------
 
         }
 
