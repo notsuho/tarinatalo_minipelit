@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Book : MonoBehaviour {
     private float distanceToCamera;
@@ -14,9 +16,15 @@ public class Book : MonoBehaviour {
     private Quaternion targetRotation;
 
     public int word_category;
+    private UIManager_Kirjahylly ui;
+
+
+    void Start(){
+        ui = this.AddComponent<UIManager_Kirjahylly>();
+    }
 
     void OnMouseDown() {
-        if (this.IsInCompletedRack()) {
+        if (this.IsInCompletedRack() || ui.InstructionsShown()) {
             return;
         }
         /*
@@ -34,7 +42,7 @@ public class Book : MonoBehaviour {
             Check if object under mouse can hold books.
             if it can, remove the book from its current holder and add it to the new holder.
         */
-        if (this.bookMoving || this.IsInCompletedRack()) {
+        if (this.bookMoving || this.IsInCompletedRack() || ui.InstructionsShown()) {
             return;
         }
 
@@ -64,12 +72,12 @@ public class Book : MonoBehaviour {
         /*
             Update book object position in scene while dragging.
         */
-        if (this.bookMoving || this.IsInCompletedRack()) {
+        if (this.bookMoving || this.IsInCompletedRack() || ui.InstructionsShown()) {
             return;
         }
         
         Vector3 newPos = GetMouseWorldPos() + clickOffSet;
-        transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
+        transform.position = new Vector3(newPos.x, newPos.y, -4.5f);
     }
 
     GameObject GetObjectUnderMouse() {
