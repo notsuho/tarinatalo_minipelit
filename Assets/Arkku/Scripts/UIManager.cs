@@ -211,18 +211,20 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //IMPLEMENTOI STREAKIT: Ota tämä funktio
     //asettaa streak imagen käymään näkyvissä
     private void DisplayStreakImage ()
     {       
-            streakImage = root.Q<VisualElement>("streak-image");
+        streakImage = root.Q<VisualElement>("streak-image");
 
-            //asettaa kuvaan oikean streakin arvon
-            Label streakCount = streakImage.Q<Label>("streak-count");
-            streakCount.text = "+" + ScoreArkku.streak;
+        //asettaa kuvaan oikean streakin arvon
+        Label streakCount = streakImage.Q<Label>("streak-count");
+        streakCount.text = "+" + ScoreArkku.streak;
 
-            streakImage.style.display = DisplayStyle.Flex;
-            streakImage.ToggleInClassList("streak-image-transition");
-            Invoke("ToggleStreakClassList", 3f);
+        streakImage.style.display = DisplayStyle.Flex;
+        streakImage.ToggleInClassList("streak-image-transition");
+        Invoke("ToggleStreakClassList", 3f);
+       
     }
 
 
