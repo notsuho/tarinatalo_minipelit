@@ -92,9 +92,9 @@ public class BookManager : MonoBehaviour {
 
     void LoadBookDataFromFile() {
         JsonRoot jsonRoot = JsonUtility.FromJson<JsonRoot>(wordsAndCategoriesJson.text);
-        this.bookSets.Add(jsonRoot.bookset1);
-        this.bookSets.Add(jsonRoot.bookset2);
-        this.bookSets.Add(jsonRoot.bookset3);
+        this.bookSets.Add(ShuffleList(jsonRoot.bookset1));
+        this.bookSets.Add(ShuffleList(jsonRoot.bookset2));
+        this.bookSets.Add(ShuffleList(jsonRoot.bookset3));
     }
 
     void CheckLevelCompletion(object rack, System.EventArgs args) {
@@ -123,5 +123,10 @@ public class BookManager : MonoBehaviour {
             if (current_round >= total_rounds){
                 SceneManager.LoadScene("HillopurkitScene");
             }
+    }
+
+    List<JsonBook> ShuffleList(List<JsonBook> list) {
+        System.Random rand = new System.Random();
+        return list.OrderBy(_ => rand.Next()).ToList();
     }
 }
