@@ -1090,7 +1090,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelManager: {fileID: 1671395770}
   RenderTimeForCorrectAnswerFeedpack: 3.3
-  RenderTimeForDeclareWinFeedpack: 3
+  RenderTimeForDeclareWinFeedpack: 2
+  cam: {fileID: 963194227}
+  starSound: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
+  correctAnswerSound: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
+  gameFinishedSound: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
+  wrongAnswerSound: {fileID: 8300000, guid: ca37b96bc9e3dab4a8ebe1877e473f1d, type: 3}
+  streakSound: {fileID: 8300000, guid: 1a2484f5050c1b746acd5e64d0b883f8, type: 3}
   leftWord: 
   rightWord: 
 --- !u!1 &1661738207
@@ -1122,7 +1128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999a5da196c1c1645ba88ce44286a4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: 0
 --- !u!4 &1661738209
 Transform:
   m_ObjectHideFlags: 0
@@ -1171,9 +1176,6 @@ MonoBehaviour:
   textJSON: {fileID: 4900000, guid: 495fa620eb75eff42ae897405953de4c, type: 3}
   myExcercises:
     exercises: []
-  gameManager: {fileID: 1661738208}
-  pointPerCorrectAnswer: 66
-  pointsReduceForWrongAnswer: 30
   ui: {fileID: 1617662936}
   numberOfExercisesToLoop: 7
   progressBarValue: 66.6

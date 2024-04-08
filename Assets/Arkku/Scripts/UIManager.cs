@@ -9,6 +9,14 @@ public class UIManager : MonoBehaviour
     public float RenderTimeForCorrectAnswerFeedpack;
     public float RenderTimeForDeclareWinFeedpack;
 
+    public Camera cam;
+
+    public AudioClip starSound;
+    public AudioClip correctAnswerSound;
+    public AudioClip gameFinishedSound;
+    public AudioClip wrongAnswerSound;
+    public AudioClip streakSound;
+
     private VisualElement root;
     private Label sentenceLabel;
     private Button leftButton;
@@ -36,7 +44,7 @@ public class UIManager : MonoBehaviour
     private string instructionHeadlineText = "<allcaps>Arkku ja avain</allcaps>";
     private string instructionTextText = "Kumpi avaimista sopii arkkuun?<br><br>Jotkin sanat voivat muistuttaa toisiaan mutta tarkoittaa silti eri asiaa.<br><br>Päättele, kumpi annetuista sanoista sopii lauseeseen. <b>Klikkaa oikeaa sanaa</b> ja arkku aukeaa!  ";
     private string winningHeadline = "Läpäisit pelin";
-    private string winningText = "Sait sanataiturin arvomerkin<br><br>Pisteesi: 5000";
+    private string winningText = "Sait sanataiturin arvomerkin<br><br>Pisteesi: ";
     private string correctAnswerFeedpackText = "Oikein meni!";
     private string wrongAnswerFeedpackText = "Nyt ei osunut oikeaan";
 
@@ -50,7 +58,9 @@ public class UIManager : MonoBehaviour
 
         VisualElement star2 = root.Q<VisualElement>("star2");
         star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-    }
+
+    }    
+
     private void OnEnable()
     {
         //testissä
@@ -149,6 +159,7 @@ public class UIManager : MonoBehaviour
     {
 
         answerImage = root.Q<Image>("panel-headline-image");
+
         if (isCorrectAnswer)
         {
             answerImage.style.backgroundImage = Resources.Load<Texture2D>("Images/correct");
@@ -170,6 +181,7 @@ public class UIManager : MonoBehaviour
     private void SetFeedpackPanelVisible()
     {
         panelSection.style.display = DisplayStyle.Flex;
+        AudioSource.PlayClipAtPoint(correctAnswerSound, cam.transform.position);
     }
 
     private void SetPanelExit()
@@ -216,6 +228,7 @@ public class UIManager : MonoBehaviour
            if (ScoreArkku.streak >= ScoreArkku.minStreakValue)
             {
                 DisplayStreakImage();
+               
             }
            //---------------------------------------------
             SetFeedpack(correctAnswerFeedpackText, levelManager.GetCurrentExplanation(), true);
@@ -224,7 +237,9 @@ public class UIManager : MonoBehaviour
         else
         {
             SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation(), false);
-            SetFeedpackPanelVisible();
+            panelSection.style.display = DisplayStyle.Flex;
+            AudioSource.PlayClipAtPoint(wrongAnswerSound, cam.transform.position, 1f);
+
         }
     }
 
@@ -240,6 +255,9 @@ public class UIManager : MonoBehaviour
 
         streakImage.style.display = DisplayStyle.Flex;
         streakImage.ToggleInClassList("streak-image-transition");
+
+        AudioSource.PlayClipAtPoint(streakSound, cam.transform.position);
+
         Invoke("ToggleStreakClassList", 3f);
        
     }
@@ -257,11 +275,14 @@ public class UIManager : MonoBehaviour
     {
 
         panelHeadline.text = winningHeadline;
-        panelText.text = winningText;
+        panelText.text = winningText + GameManager.totalPoints.ToString();
 
         panelButton.text = endGameButtonText;
 
         panelSection.style.display = DisplayStyle.Flex;
+
+        AudioSource.PlayClipAtPoint(gameFinishedSound, cam.transform.position);
+     
     }
 
     public void UpProgressBar(float newProgressBarValue, float progBarValueToWin)
@@ -279,6 +300,8 @@ public class UIManager : MonoBehaviour
             star3.ToggleInClassList("star-scale-transition");
             root.schedule.Execute(() => star3.ToggleInClassList("star-scale-transition")).StartingIn(500);
             //----------------------------------------------------------------
+
+            AudioSource.PlayClipAtPoint(starSound, cam.transform.position);
 
         }
 
