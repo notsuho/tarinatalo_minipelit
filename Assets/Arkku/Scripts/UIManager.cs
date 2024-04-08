@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     private ProgressBar progressBar;
     private Label gameScore;
     private VisualElement streakImage;
+    private Image answerImage;
 
     private string sentence;
 
@@ -32,8 +33,8 @@ public class UIManager : MonoBehaviour
     private string continueButtonText = "<allcaps>jatka</allcaps>";
     private string gotItButtonText = "<allcaps>selvä!</allcaps>";
     private string endGameButtonText = "<allcaps>palaa pääpeliin</allcaps>";
-    private string instructionHeadlineText = "<allcaps>Avaa arkku oikealla avaimella</allcaps>";
-    private string instructionTextText = "Jotkin sanat voivat muistuttaa toisiaan mutta tarkoittaa silti eri asiaa.<br><br>Päättele, kumpi annetuista sanoista sopii lauseeseen. Valitse oikea avain ja arkku aukeaa!  ";
+    private string instructionHeadlineText = "<allcaps>Arkku ja avain</allcaps>";
+    private string instructionTextText = "Kumpi avaimista sopii arkkuun?<br><br>Jotkin sanat voivat muistuttaa toisiaan mutta tarkoittaa silti eri asiaa.<br><br>Päättele, kumpi annetuista sanoista sopii lauseeseen. <b>Klikkaa oikeaa sanaa</b> ja arkku aukeaa!  ";
     private string winningHeadline = "Läpäisit pelin";
     private string winningText = "Sait sanataiturin arvomerkin<br><br>Pisteesi: 5000";
     private string correctAnswerFeedpackText = "Oikein meni!";
@@ -144,8 +145,21 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void SetFeedpack(string feedpackFrase, string explanation)
+    public void SetFeedpack(string feedpackFrase, string explanation, bool isCorrectAnswer)
     {
+
+        answerImage = root.Q<Image>("panel-headline-image");
+        if (isCorrectAnswer)
+        {
+            answerImage.style.backgroundImage = Resources.Load<Texture2D>("Images/correct");
+        }
+        else
+        {
+            answerImage.style.backgroundImage = Resources.Load<Texture2D>("Images/wrong");
+        }
+        answerImage.style.display = DisplayStyle.Flex;
+
+
         panelHeadline.text = feedpackFrase;
         panelText.text = explanation;
 
@@ -163,6 +177,7 @@ public class UIManager : MonoBehaviour
         if (panelButton.text.Equals(continueButtonText))
         {
             ContinueGame();
+            answerImage.style.display = DisplayStyle.None;
         }
         else if (panelButton.text.Equals(endGameButtonText))
         {
@@ -203,12 +218,12 @@ public class UIManager : MonoBehaviour
                 DisplayStreakImage();
             }
            //---------------------------------------------
-            SetFeedpack(correctAnswerFeedpackText, levelManager.GetCurrentExplanation());
+            SetFeedpack(correctAnswerFeedpackText, levelManager.GetCurrentExplanation(), true);
             Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack);
         }
         else
         {
-            SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation());
+            SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation(), false);
             SetFeedpackPanelVisible();
         }
     }

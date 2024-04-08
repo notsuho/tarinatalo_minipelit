@@ -39,7 +39,10 @@
         </ui:VisualElement>
         <ui:VisualElement name="panel-section">
             <ui:VisualElement name="panel">
-                <ui:Label name="panel-headline" />
+                <ui:VisualElement name="panel-headline-section">
+                    <ui:Label name="panel-headline" />
+                    <ui:Image name="panel-headline-image" />
+                </ui:VisualElement>
                 <ui:VisualElement class="divider" />
                 <ui:Label name="panel-text" />
                 <ui:Button name="panel-button" />

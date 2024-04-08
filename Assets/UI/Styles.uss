@@ -156,6 +156,17 @@
     -unity-font: resource('Fonts/Nunito-Bold');
 }
 
+#panel-headline-section {
+    flex-direction: row;
+}
+
+#panel-headline-image {
+    display: none;
+     height: 45px;
+     width: 45px;
+     margin-left: 30px;
+}
+
 #panel-text {
     color: var(--color-dk-text);
     font-size: 150%;
