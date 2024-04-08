@@ -44,7 +44,7 @@ public class UIManager : MonoBehaviour
     private string instructionHeadlineText = "<allcaps>Arkku ja avain</allcaps>";
     private string instructionTextText = "Kumpi avaimista sopii arkkuun?<br><br>Jotkin sanat voivat muistuttaa toisiaan mutta tarkoittaa silti eri asiaa.<br><br>Päättele, kumpi annetuista sanoista sopii lauseeseen. <b>Klikkaa oikeaa sanaa</b> ja arkku aukeaa!  ";
     private string winningHeadline = "Läpäisit pelin";
-    private string winningText = "Sait sanataiturin arvomerkin<br><br>Pisteesi: 5000";
+    private string winningText = "Sait sanataiturin arvomerkin<br><br>Pisteesi: ";
     private string correctAnswerFeedpackText = "Oikein meni!";
     private string wrongAnswerFeedpackText = "Nyt ei osunut oikeaan";
 
@@ -275,7 +275,7 @@ public class UIManager : MonoBehaviour
     {
 
         panelHeadline.text = winningHeadline;
-        panelText.text = winningText;
+        panelText.text = winningText + GameManager.totalPoints.ToString();
 
         panelButton.text = endGameButtonText;
 
