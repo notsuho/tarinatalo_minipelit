@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public float RenderTimeForDeclareWinFeedpack;
 
     public Camera cam;
+    public ParticleSystem ps;
 
     public AudioClip starSound;
     public AudioClip correctAnswerSound;
@@ -30,6 +31,8 @@ public class UIManager : MonoBehaviour
     private Label gameScore;
     private VisualElement streakImage;
     private Image answerImage;
+
+    private ParticleSystem psystem;
 
     private string sentence;
 
@@ -121,20 +124,20 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        if( ScoreArkku.streak >= ScoreArkku.minStreakValue)
+        /*if( ScoreArkku.streak >= ScoreArkku.minStreakValue)
         {
-            gameScore.ToggleInClassList("score-label-streak");
-           /* var shadow = new TextShadow();
+           
+           var shadow = new TextShadow();
             shadow.color = Color.green;
             shadow.blurRadius = 0;
             shadow.offset = new Vector2(3f, 3f);
-            gameScore.style.textShadow = new StyleTextShadow(shadow);*/
+            gameScore.style.textShadow = new StyleTextShadow(shadow);
         }
         else
         {
             Debug.Log("streak palasi nollaan");
            
-        }
+        }*/
 
     }
 
@@ -251,6 +254,9 @@ public class UIManager : MonoBehaviour
         }
         else
         {
+      
+            Destroy(psystem);
+            
             SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation(), false);
             panelSection.style.display = DisplayStyle.Flex;
             AudioSource.PlayClipAtPoint(wrongAnswerSound, cam.transform.position, 1f);
@@ -261,7 +267,10 @@ public class UIManager : MonoBehaviour
     //IMPLEMENTOI STREAKIT: Ota tämä funktio
     //asettaa streak imagen käymään näkyvissä
     private void DisplayStreakImage ()
-    {       
+    {
+
+        psystem = Instantiate(ps, ps.transform.position, Quaternion.identity);
+        
         streakImage = root.Q<VisualElement>("streak-image");
 
         //asettaa kuvaan oikean streakin arvon

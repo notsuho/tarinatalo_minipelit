@@ -339,26 +339,22 @@
 }
 
 #score-label {
-    transition-property: scale;
+    
     color: rgb(255, 255, 255); 
     font-size: 35px; 
     -unity-font-style: bold; 
-    /*-unity-text-outline-color: white; */ 
-    text-shadow: 3px 3px 0px var(--color-dk-text);
+    /*-unity-text-outline-color: white; */
+     text-shadow: 3px 3px 0px var(--color-dk-text);
     letter-spacing: 12px; 
     -unity-text-outline-width: 1px; 
     
 }
 
 .score-label-streak {
-    scale: 1.7;
-    /*color: rgb(255, 255, 255); 
-    font-size: 35px; 
-    -unity-font-style: bold; 
-    -unity-text-outline-color: white;  
-    text-shadow: 3px 3px 0px orange;
-    letter-spacing: 12px; 
-    -unity-text-outline-width: 1px; */
+    /*background-image: resource('Images/streak_icon');*/
+    text-shadow: 3px 3px 0px red;
+    -unity-text-outline-color: white;
+    
 }
 
 #streak-image {
