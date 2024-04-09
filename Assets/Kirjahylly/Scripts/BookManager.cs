@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering;
 using Unity.VisualScripting;
-using UnityEngine.SceneManagement;
 
-public class BookManager : MonoBehaviour {
+public class BookManager : MonoBehaviour
+{
     public GameObject bookPrefab;
     public GameObject table;
     public List<GameObject> bookRacks;
@@ -19,22 +20,30 @@ public class BookManager : MonoBehaviour {
     private int current_round = 0;
 
     private int currentSetIndex = 0;
+    private bool preSetBook1 = false;
+    private bool preSetBook2 = false;
+    //private bool bookMoved = false;
+
     private List<List<JsonBook>> bookSets = new List<List<JsonBook>>();
 
     [System.Serializable]
-    public class JsonBook {
+    public class JsonBook
+    {
         public int category;
         public string word;
     }
 
     [System.Serializable]
-    public class JsonRoot {
+    public class JsonRoot
+    {
         public List<JsonBook> bookset1 = new List<JsonBook>();
         public List<JsonBook> bookset2 = new List<JsonBook>();
         public List<JsonBook> bookset3 = new List<JsonBook>();
     }
 
-    IEnumerator Start() {
+    IEnumerator Start()
+    {
+        ui = this.AddComponent<UIManager_Kirjahylly>();
         ui.UpProgressBar(points, pointsToWin);
         ui.SetInstructions();
         yield return new WaitUntil(() => !ui.InstructionsShown());
@@ -43,18 +52,23 @@ public class BookManager : MonoBehaviour {
 
         // Init event for bookracks to call BookManagers CheckLevelCompletion
         // when the rack is completed to see if whole level is done.
-        foreach (GameObject rack in bookRacks) {
+        foreach (GameObject rack in bookRacks)
+        {
             rack.GetComponent<BookRack>().CompletionEvent += this.CheckLevelCompletion;
         }
     }
 
-    void ResetBooks() {
+    void ResetBooks()
+    {
         this.ClearBooks();
         Table tableScript = table.GetComponent<Table>();
         Renderer tableRenderer = table.GetComponent<Renderer>();
         Vector3 tableMidPoint = tableRenderer.bounds.center;
+        preSetBook1 = false;
+        preSetBook2 = false;
 
-        foreach (JsonBook bookData in this.bookSets[this.currentSetIndex]) {
+        foreach (JsonBook bookData in this.bookSets[this.currentSetIndex])
+        {
             // Set random location above the table
             Vector3 randomStartPosition = new Vector3(
                 Random.Range(tableMidPoint.x - 5, tableMidPoint.x + 5),
@@ -70,8 +84,27 @@ public class BookManager : MonoBehaviour {
             bookScript.word_category = bookData.category;
             book.GetComponentInChildren<TextMeshPro>().text = bookData.word;
 
-            tableScript.AddBook(book);
+            if (bookScript.word_category == 1 && !preSetBook1)
+            {
+                SetStartingBook(book, 0);
+                bookScript.SetBookFrozen();
+                preSetBook1 = true;
+            }
+            else if (bookScript.word_category == 2 && !preSetBook2)
+            {
+                SetStartingBook(book, 1);
+                bookScript.SetBookFrozen();
+                preSetBook2 = true;
+            }
+            else
+            {
+                tableScript.AddBook(book);
+            }
+
+
         }
+
+
 
         tableScript.UpdateBookPositions();
 
@@ -79,32 +112,36 @@ public class BookManager : MonoBehaviour {
         this.currentSetIndex = (this.currentSetIndex + 1) % 3;
     }
 
-    void ClearBooks() {
+    void ClearBooks()
+    {
         Table tableScript = table.GetComponent<Table>();
         tableScript.ClearBooks();
 
-        foreach (GameObject rack in bookRacks) {
+        foreach (GameObject rack in bookRacks)
+        {
             BookRack rackScript = rack.GetComponent<BookRack>();
             rackScript.ClearBooks();
             rackScript.isCompleted = false;
         }
     }
 
-    void LoadBookDataFromFile() {
+    void LoadBookDataFromFile()
+    {
         JsonRoot jsonRoot = JsonUtility.FromJson<JsonRoot>(wordsAndCategoriesJson.text);
         this.bookSets.Add(ShuffleList(jsonRoot.bookset1));
         this.bookSets.Add(ShuffleList(jsonRoot.bookset2));
         this.bookSets.Add(ShuffleList(jsonRoot.bookset3));
     }
 
-    void CheckLevelCompletion(object rack, System.EventArgs args) {
+    void CheckLevelCompletion(object rack, System.EventArgs args)
+    {
         bool levelCompleted = this.bookRacks.All(r => r.GetComponent<BookRack>().isCompleted);
-        if (levelCompleted) {
+        if (levelCompleted)
+        {
             points += 11f;
             ui.UpProgressBar(points, pointsToWin);
             ui.SetFeedback();
             Invoke(nameof(RoundEnding), 2);
-            Invoke(nameof(ResetBooks), 2);
         }
     }
 
@@ -113,20 +150,76 @@ public class BookManager : MonoBehaviour {
         return points;
     }
 
-    public float GetPointsToWin ()
+    public float GetPointsToWin()
     {
         return pointsToWin;
     }
 
-    private void RoundEnding (){
+    private void RoundEnding()
+    {
         current_round += 1;
-            if (current_round >= total_rounds){
-                SceneManager.LoadScene("HillopurkitScene");
-            }
+        if (current_round >= total_rounds)
+        {
+            ui.ShowEndFeedback();
+        }
+        else
+        {
+            ResetBooks();
+        }
     }
 
-    List<JsonBook> ShuffleList(List<JsonBook> list) {
+    List<JsonBook> ShuffleList(List<JsonBook> list)
+    {
         System.Random rand = new System.Random();
         return list.OrderBy(_ => rand.Next()).ToList();
     }
+
+    private void SetStartingBook(GameObject book, int rackIndex)
+    {
+        Table tableScript = table.GetComponent<Table>();
+        BookRack rack = bookRacks[rackIndex].GetComponent<BookRack>();
+        tableScript.RemoveBook(book);
+        rack.AddBook(book);
+        Book book_obj = book.GetComponent<Book>();
+        book_obj.SetCurrentHolder(table);
+    }
+
+    public void UseHint()
+    {
+        bool bookMoved = false;
+        for (int i = 0; i < 3; i++)
+        {
+            BookRack rackScript = bookRacks[i].GetComponent<BookRack>();
+            if (!rackScript.isCompleted)
+            {
+                List<GameObject> bookstack = rackScript.GetBookStack();
+                
+                for (int j = 0; j < bookstack.Count; j++)
+                {
+                    Book book = bookstack[j].GetComponent<Book>();
+                    if (book.GetWordCategory() != i + 1)
+                    {
+                        MoveBookToTable(bookstack[j]);
+                        bookMoved = true;
+                        break;
+                    }
+                }
+            }
+
+            if (bookMoved){
+                break;
+            }
+
+        }
+    }
+
+    public void MoveBookToTable(GameObject book){
+        Table tableScript = table.GetComponent<Table>();
+        Book book_obj = book.GetComponent<Book>();
+        BookRack rack = book_obj.GetCurrHolder().GetComponent<BookRack>();
+        rack.RemoveBook(book);
+        tableScript.AddBook(book);
+        book_obj.SetCurrentHolder((GameObject)table);
+    }
+
 }
