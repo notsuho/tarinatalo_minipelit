@@ -124,23 +124,7 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        /*if( ScoreArkku.streak >= ScoreArkku.minStreakValue)
-        {
-           
-           var shadow = new TextShadow();
-            shadow.color = Color.green;
-            shadow.blurRadius = 0;
-            shadow.offset = new Vector2(3f, 3f);
-            gameScore.style.textShadow = new StyleTextShadow(shadow);
-        }
-        else
-        {
-            Debug.Log("streak palasi nollaan");
-           
-        }*/
-
     }
-
 
 
     private void SetInstructions()
