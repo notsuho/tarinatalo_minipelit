@@ -13,7 +13,6 @@ public class ScoreArkku : MonoBehaviour
     public static int streak = 0;
     public static int minStreakValue = 3;
 
-
     public static int GetStreakPoints()
     {
         switch (streak)
