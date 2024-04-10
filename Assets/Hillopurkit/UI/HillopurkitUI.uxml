@@ -4,7 +4,7 @@
         <ui:VisualElement class="play">
             <ui:VisualElement name="topbar">
                 <ui:VisualElement name="one-line-instruction">
-                    <ui:Label text="Valitse sana, joka ei kuulu joukkoon."/>
+                    <ui:Label text="Valitse sana, joka ei kuulu joukkoon." />
                 </ui:VisualElement>
                 <ui:VisualElement name="button-section">
                     <ui:Button name="instruction-button" />
@@ -15,18 +15,13 @@
                 <ui:Label tabindex="-1" text="Oikein!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="feedback-right" style="left: -510px; top: 430px; right: 0; bottom: 30px; font-size: 75px; -unity-text-align: upper-center; color: rgb(18, 218, 33); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 1.5px; visibility: hidden; display: flex;" />
                 <ui:Label tabindex="-1" text="Väärin!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="feedback-wrong" style="left: -230px; top: 315px; right: 0; bottom: 30%; font-size: 75px; -unity-text-align: upper-center; color: rgb(217, 63, 57); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 1.5px; visibility: hidden;" />
             </ui:VisualElement>
-            <ui:VisualElement name="Click-tally" style="flex-grow: 1; margin-right: 0; height: 35%; -unity-text-outline-color: rgb(0, 0, 0); width: 300px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); transform-origin: center; -unity-background-image-tint-color: rgb(249, 244, 233); opacity: 1; background-image: none; -unity-background-scale-mode: stretch-to-fill; background-color: rgb(249, 244, 233); align-items: flex-start; scale: 1 1; bottom: -8%;">
-                <ui:Label tabindex="-1" text="Särjetyt purkit: 0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="click-tally-right" style="margin-bottom: 4px; bottom: 5px; right: 0; font-size: 28px; -unity-text-align: upper-left;" />
-                <ui:Label tabindex="-1" text="Väärät arvaukset: 0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="click-tally-wrong" style="margin-bottom: 4px; bottom: 5px; font-size: 28px;" />
-            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="game-progress-container">
             <ui:VisualElement name="progress-bar-container">
                 <ui:ProgressBar name="progress-bar" />
-                
                 <ui:VisualElement name="star-container">
-                    <ui:VisualElement name="star3"  />
-                    <ui:VisualElement name="star2"  />
+                    <ui:VisualElement name="star3" />
+                    <ui:VisualElement name="star2" />
                     <ui:VisualElement name="star1" />
                 </ui:VisualElement>
             </ui:VisualElement>
