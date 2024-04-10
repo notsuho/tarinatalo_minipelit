@@ -253,7 +253,7 @@ public class UIManager : MonoBehaviour
     private void DisplayStreakImage ()
     {
 
-        psystem = Instantiate(ps, ps.transform.position, Quaternion.identity);
+        psystem = Instantiate(ps, ps.transform.position, ps.transform.rotation);
         
         streakImage = root.Q<VisualElement>("streak-image");
 

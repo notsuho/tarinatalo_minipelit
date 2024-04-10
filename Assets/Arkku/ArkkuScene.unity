@@ -1092,7 +1092,7 @@ MonoBehaviour:
   RenderTimeForCorrectAnswerFeedpack: 3.3
   RenderTimeForDeclareWinFeedpack: 2
   cam: {fileID: 963194227}
-  ps: {fileID: 7414922407289870403, guid: 8eb35c538f6e39e47babb2523456f041, type: 3}
+  ps: {fileID: 3439608853183692337, guid: 7fade5688b1afda4b9ea252f7bb8745e, type: 3}
   starSound: {fileID: 8300000, guid: 3008957a8078b974eafc38372029cd4d, type: 3}
   correctAnswerSound: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
   gameFinishedSound: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
