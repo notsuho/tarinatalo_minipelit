@@ -3,11 +3,17 @@ using UnityEngine;
 public class Score : MonoBehaviour
 {
     public HillopurkitUIManager ui;
-    private float points = 33f; // For purposes of running minigames back to back; don't forget to change this back to 0 later
-    private float pointsPerCorrectAnswer = 11f;
-    private float winningPointLimit = 99f;
+    private int points = 0; // For purposes of running minigames back to back; don't forget to change this back to 0 later
+    private int pointsPerCorrectAnswer = 11;
+    private int pointsPenaltyPerWrongAnswer = 5;
+    private int winningPointLimit = 99;
     private int jarClicksWrong = 0;
     private int jarClicksRight = 0;
+    private static int streakOfThreePoints = 20;
+    private static int streakOfFourPoints = 50;
+    private static int streakOfFivePoints = 98;
+    public int streak = 0;
+    public int minStreakValue = 3;
 
     private void Start()
     {
@@ -23,11 +29,18 @@ public class Score : MonoBehaviour
 
     public void BrokeCorrectJar(bool result)
     {
-        if (result)
+        // calculate chosen answer's points or penalty points and update progress bar accordingly
+        if (result == true)
         {
+            streak++; // increment streak value
+            if (streak >= minStreakValue) {
+                Debug.Log("\nStreak: " + streak);
+                points += GetStreakPoints();
+            }
+
             Debug.Log("\nIn BrokeCorrectJar, current points: " + points);
             Debug.Log("\nGained: " + pointsPerCorrectAnswer + " points");
-            points = points + pointsPerCorrectAnswer;
+            points += pointsPerCorrectAnswer;
             Debug.Log("\nIn BrokeCorrectJar, updated points: " + points);
             ui.UpProgressBar(points);
             jarClicksRight++;
@@ -36,7 +49,14 @@ public class Score : MonoBehaviour
 
         else
         {
-            jarClicksWrong++;
+            ResetStreak();
+            Debug.Log("\nStreak reset\nPenalty for incorrect guess: " + pointsPenaltyPerWrongAnswer);
+            points -= pointsPenaltyPerWrongAnswer;
+            if (points < 0) { // check if we are at negative points now, reset to 0 if true
+                points = 0;
+            }
+            ui.UpProgressBar(points);
+            jarClicksWrong++;    
             ui.SetFeedback(false);
         }
 
@@ -48,20 +68,52 @@ public class Score : MonoBehaviour
         }
     }
 
-    public float GetPoints() {
+    public int GetStreakPoints()
+    {
+        switch (streak)
+        {
+            case 3:
+                return streakOfThreePoints;
+            case 4:
+                return streakOfFourPoints;
+            case 5:
+                return streakOfFivePoints;
+            default:
+                return 0;
+
+        }
+    }
+
+    public int GetStreak() {
+        return streak;
+    }
+
+    public void ResetStreak() {
+        streak = 0;
+    }
+
+    public int GetPoints() {
         return points;
     }
 
-    private void ResetPoints() {
-        //points = 0;
-        points = 33f;
+    private void SetPoints(int points) {
+        this.points = points;
     }
 
-    public float GetPointsPerCorrectAnswer() {
+    private void ResetPoints() {
+        // reset points to total points value as long as it's not zero
+        if ((GameManager.totalPoints) <= 0) {
+            SetPoints(0);
+        } else {
+            SetPoints(GameManager.totalPoints);
+        }
+    }
+
+    public int GetPointsPerCorrectAnswer() {
         return pointsPerCorrectAnswer;
     }
 
-    public float getWinningPointLimit() {
+    public int getWinningPointLimit() {
         return winningPointLimit;
     }
 

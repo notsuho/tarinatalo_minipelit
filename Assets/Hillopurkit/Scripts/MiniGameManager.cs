@@ -17,7 +17,7 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private int numberOfWrongs_round1 = 1;
     [SerializeField] private int numberOfWrongs_round2 = 1;
     [SerializeField] private int numberOfWrongs_round3 = 1;
-    private readonly int roundsTotal = 3;
+    private readonly int roundsTotal = 6; // change this for more rounds
     private const int JARS_PER_SHELF = 4;
     private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
@@ -96,7 +96,7 @@ public class MiniGameManager : MonoBehaviour
     private void StartFirstRound()
     {
         // UI stuff
-        GameObject.Find("Score").GetComponent<Score>().ClearScore(); // Resets score to 33
+        GameObject.Find("Score").GetComponent<Score>().ClearScore();
 
         //Game logic and beginning animations
         SetUpJars();
@@ -130,8 +130,13 @@ public class MiniGameManager : MonoBehaviour
                 break;
             default:
                 Debug.Log("Only rounds 1, 2 and 3 exist");
+                // For later: just default to round 3 jars if there are more
+                // than 3 rounds? Or randomize the # of jars?
+                numberOfJars = numberOfJars_round3;
+                numberOfWrongs = numberOfWrongs_round3;
+                break;
                 // To the next minigame
-                return;
+                //return;
         }
 
         // Make sure there is a proper amount of jars
