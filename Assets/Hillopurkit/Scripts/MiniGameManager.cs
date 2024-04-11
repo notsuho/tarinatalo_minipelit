@@ -10,14 +10,14 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private GameObject secondShelf;
     [SerializeField] private GameObject jarShakeHelper;
     [SerializeField] private Animator cabinetAnimator;
-    [SerializeField] private TextAsset synonymsList;
+    [SerializeField] private TextAsset [] synonymsLists;
     [SerializeField] private int numberOfJars_round1 = 4;
     [SerializeField] private int numberOfJars_round2 = 6;
     [SerializeField] private int numberOfJars_round3 = 8;
     [SerializeField] private int numberOfWrongs_round1 = 1;
     [SerializeField] private int numberOfWrongs_round2 = 1;
     [SerializeField] private int numberOfWrongs_round3 = 1;
-    private readonly int roundsTotal = 3;
+    private readonly int roundsTotal = 6; // change this for more rounds
     private const int JARS_PER_SHELF = 4;
     private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
@@ -96,7 +96,7 @@ public class MiniGameManager : MonoBehaviour
     private void StartFirstRound()
     {
         // UI stuff
-        GameObject.Find("Score").GetComponent<Score>().ClearScore(); // Resets score to 33
+        GameObject.Find("Score").GetComponent<Score>().ClearScore();
 
         //Game logic and beginning animations
         SetUpJars();
@@ -130,8 +130,13 @@ public class MiniGameManager : MonoBehaviour
                 break;
             default:
                 Debug.Log("Only rounds 1, 2 and 3 exist");
+                // For later: just default to round 3 jars if there are more
+                // than 3 rounds? Or randomize the # of jars?
+                numberOfJars = numberOfJars_round3;
+                numberOfWrongs = numberOfWrongs_round3;
+                break;
                 // To the next minigame
-                return;
+                //return;
         }
 
         // Make sure there is a proper amount of jars
@@ -193,7 +198,10 @@ public class MiniGameManager : MonoBehaviour
     {
         List<string> wordsOfTheRound = new();
 
-        string[] allSynonyms = synonymsList.text.Split("\n");
+        //indexes have to adjectives, verbs or nouns
+        int wordTypeIndex = Random.Range(0, synonymsLists.Length);
+
+        string[] allSynonyms = synonymsLists[wordTypeIndex].text.Split("\n");
         List<int> usedGroupIndexes = new();
 
         CheckForEmptyGroups(allSynonyms, usedGroupIndexes);
