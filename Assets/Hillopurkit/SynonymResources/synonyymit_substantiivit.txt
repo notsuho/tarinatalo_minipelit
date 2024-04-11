@@ -4,3 +4,5 @@ ilkimys|hirviö|raakalainen|julmuri|raakimus|barbaari|peto
 rakas|armas|sulho|kulta|sydänkäpy|muru|lemmitty
 vene|laiva|paatti|pursi|haaksi|jahti|jolla
 koira|hurtta|piski|karvaturri|rakki|hauva|haukku
+lapsi|lapsukainen|penska|mukula|tenava|muksu|vekara
+tyttö|neito|typykkä|neiti|neitokainen|likka|mimmi
