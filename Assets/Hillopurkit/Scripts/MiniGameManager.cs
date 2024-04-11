@@ -11,6 +11,7 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private GameObject jarShakeHelper;
     [SerializeField] private Animator cabinetAnimator;
     [SerializeField] private TextAsset synonymsList;
+    [SerializeField] private TextAsset synonymsJson;
     [SerializeField] private int numberOfJars_round1 = 4;
     [SerializeField] private int numberOfJars_round2 = 6;
     [SerializeField] private int numberOfJars_round3 = 8;
