@@ -14,7 +14,6 @@ public class ScoreArkku : MonoBehaviour
     public static int highestStreakCount = 0;
     public static int minStreakValue = 3;
 
-
     public static int GetStreakPoints()
     {
         switch (highestStreakCount)

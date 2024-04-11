@@ -10,12 +10,9 @@ public class UIManager : MonoBehaviour
     public float RenderTimeForDeclareWinFeedpack;
 
     public Camera cam;
+    public ParticleSystem ps;
 
-    public AudioClip starSound;
-    public AudioClip correctAnswerSound;
-    public AudioClip gameFinishedSound;
-    public AudioClip wrongAnswerSound;
-    public AudioClip streakSound;
+    public SoundObject soundObject;
 
     private VisualElement root;
     private Label sentenceLabel;
@@ -30,6 +27,8 @@ public class UIManager : MonoBehaviour
     private Label gameScore;
     private VisualElement streakImage;
     private Image answerImage;
+
+    private ParticleSystem psystem;
 
     private string sentence;
 
@@ -124,7 +123,6 @@ public class UIManager : MonoBehaviour
     }
 
 
-
     private void SetInstructions()
     {
         instructions = root.Q<VisualElement>("panel-section");
@@ -181,7 +179,7 @@ public class UIManager : MonoBehaviour
     private void SetFeedpackPanelVisible()
     {
         panelSection.style.display = DisplayStyle.Flex;
-        AudioSource.PlayClipAtPoint(correctAnswerSound, cam.transform.position);
+        AudioSource.PlayClipAtPoint(soundObject.correctAnswerSound, cam.transform.position);
     }
 
     private void SetPanelExit()
@@ -236,9 +234,12 @@ public class UIManager : MonoBehaviour
         }
         else
         {
+      
+            Destroy(psystem);
+            
             SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation(), false);
             panelSection.style.display = DisplayStyle.Flex;
-            AudioSource.PlayClipAtPoint(wrongAnswerSound, cam.transform.position, 1f);
+            AudioSource.PlayClipAtPoint(soundObject.wrongAnswerSound, cam.transform.position, 1f);
 
         }
     }
@@ -246,7 +247,10 @@ public class UIManager : MonoBehaviour
     //IMPLEMENTOI STREAKIT: Ota tämä funktio
     //asettaa streak imagen käymään näkyvissä
     private void DisplayStreakImage ()
-    {       
+    {
+
+        psystem = Instantiate(ps, ps.transform.position, ps.transform.rotation);
+        
         streakImage = root.Q<VisualElement>("streak-image");
 
         //asettaa kuvaan oikean streakin arvon
@@ -256,7 +260,7 @@ public class UIManager : MonoBehaviour
         streakImage.style.display = DisplayStyle.Flex;
         streakImage.ToggleInClassList("streak-image-transition");
 
-        AudioSource.PlayClipAtPoint(streakSound, cam.transform.position);
+        AudioSource.PlayClipAtPoint(soundObject.streakSound, cam.transform.position);
 
         Invoke("ToggleStreakClassList", 3f);
        
@@ -281,7 +285,7 @@ public class UIManager : MonoBehaviour
 
         panelSection.style.display = DisplayStyle.Flex;
 
-        AudioSource.PlayClipAtPoint(gameFinishedSound, cam.transform.position);
+        AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
      
     }
 
@@ -301,7 +305,7 @@ public class UIManager : MonoBehaviour
             root.schedule.Execute(() => star3.ToggleInClassList("star-scale-transition")).StartingIn(500);
             //----------------------------------------------------------------
 
-            AudioSource.PlayClipAtPoint(starSound, cam.transform.position);
+            AudioSource.PlayClipAtPoint(soundObject.starSound, cam.transform.position);
 
         }
 
