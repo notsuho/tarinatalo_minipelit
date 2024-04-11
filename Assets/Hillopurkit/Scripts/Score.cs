@@ -4,14 +4,14 @@ public class Score : MonoBehaviour
 {
     public HillopurkitUIManager ui;
     private int points = 0; // For purposes of running minigames back to back; don't forget to change this back to 0 later
-    private int pointsPerCorrectAnswer = 11;
-    private int pointsPenaltyPerWrongAnswer = 5;
-    private int winningPointLimit = 99;
+    private readonly int pointsPerCorrectAnswer = 11;
+    private readonly int pointsPenaltyPerWrongAnswer = 5;
+    private readonly int winningPointLimit = 99;
     private int jarClicksWrong = 0;
     private int jarClicksRight = 0;
-    private static int streakOfThreePoints = 20;
-    private static int streakOfFourPoints = 50;
-    private static int streakOfFivePoints = 98;
+    private static readonly int streakOfThreePoints = 20;
+    private static readonly int streakOfFourPoints = 50;
+    private static readonly int streakOfFivePoints = 98;
     public int streak = 0;
     public int minStreakValue = 3;
 
@@ -60,9 +60,9 @@ public class Score : MonoBehaviour
             ui.SetFeedback(false);
         }
 
+        // Check if enough points for win. Also progress to win if we've broken enough jars (i.e. we've completed the last round)
         if (points >= winningPointLimit 
         || jarClicksRight == (GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().GetTotalRounds()))
-        // Check if enough points for win. Also progress to win if we've broken enough jars (i.e. we've completed the last round)
         {
             StartCoroutine(ui.DeclareWin());
         }
@@ -80,7 +80,6 @@ public class Score : MonoBehaviour
                 return streakOfFivePoints;
             default:
                 return 0;
-
         }
     }
 
@@ -113,7 +112,7 @@ public class Score : MonoBehaviour
         return pointsPerCorrectAnswer;
     }
 
-    public int getWinningPointLimit() {
+    public int GetWinningPointLimit() {
         return winningPointLimit;
     }
 
