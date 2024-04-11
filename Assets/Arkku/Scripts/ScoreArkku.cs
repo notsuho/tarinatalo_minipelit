@@ -11,12 +11,12 @@ public class ScoreArkku : MonoBehaviour
     private static int streakOfFivePoints = 98;
 
     public static int streak = 0;
+    public static int highestStreakCount = 0;
     public static int minStreakValue = 3;
-
 
     public static int GetStreakPoints()
     {
-        switch (streak)
+        switch (highestStreakCount)
         {
             case 3:
                 return streakOfThreePoints;              
@@ -27,6 +27,14 @@ public class ScoreArkku : MonoBehaviour
             default:
                 return 0;
               
+        }
+    }
+
+    public static void SetHighestStreakCount ()
+    {
+        if (streak > highestStreakCount)
+        {
+            highestStreakCount = streak;
         }
     }
 

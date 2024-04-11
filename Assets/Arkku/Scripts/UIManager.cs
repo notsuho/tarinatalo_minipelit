@@ -9,6 +9,11 @@ public class UIManager : MonoBehaviour
     public float RenderTimeForCorrectAnswerFeedpack;
     public float RenderTimeForDeclareWinFeedpack;
 
+    public Camera cam;
+    public ParticleSystem ps;
+
+    public SoundObject soundObject;
+
     private VisualElement root;
     private Label sentenceLabel;
     private Button leftButton;
@@ -21,6 +26,9 @@ public class UIManager : MonoBehaviour
     private ProgressBar progressBar;
     private Label gameScore;
     private VisualElement streakImage;
+    private Image answerImage;
+
+    private ParticleSystem psystem;
 
     private string sentence;
 
@@ -32,10 +40,10 @@ public class UIManager : MonoBehaviour
     private string continueButtonText = "<allcaps>jatka</allcaps>";
     private string gotItButtonText = "<allcaps>selvä!</allcaps>";
     private string endGameButtonText = "<allcaps>palaa pääpeliin</allcaps>";
-    private string instructionHeadlineText = "<allcaps>Avaa arkku oikealla avaimella</allcaps>";
-    private string instructionTextText = "Jotkin sanat voivat muistuttaa toisiaan mutta tarkoittaa silti eri asiaa.<br><br>Päättele, kumpi annetuista sanoista sopii lauseeseen. Valitse oikea avain ja arkku aukeaa!  ";
+    private string instructionHeadlineText = "<allcaps>Arkku ja avain</allcaps>";
+    private string instructionTextText = "Kumpi avaimista sopii arkkuun?<br><br>Jotkin sanat voivat muistuttaa toisiaan mutta tarkoittaa silti eri asiaa.<br><br>Päättele, kumpi annetuista sanoista sopii lauseeseen. <b>Klikkaa oikeaa sanaa</b> ja arkku aukeaa!  ";
     private string winningHeadline = "Läpäisit pelin";
-    private string winningText = "Sait sanataiturin arvomerkin<br><br>Pisteesi: 5000";
+    private string winningText = "Sait sanataiturin arvomerkin<br><br>Pisteesi: ";
     private string correctAnswerFeedpackText = "Oikein meni!";
     private string wrongAnswerFeedpackText = "Nyt ei osunut oikeaan";
 
@@ -49,7 +57,9 @@ public class UIManager : MonoBehaviour
 
         VisualElement star2 = root.Q<VisualElement>("star2");
         star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-    }
+
+    }    
+
     private void OnEnable()
     {
         //testissä
@@ -113,7 +123,6 @@ public class UIManager : MonoBehaviour
     }
 
 
-
     private void SetInstructions()
     {
         instructions = root.Q<VisualElement>("panel-section");
@@ -144,8 +153,22 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void SetFeedpack(string feedpackFrase, string explanation)
+    public void SetFeedpack(string feedpackFrase, string explanation, bool isCorrectAnswer)
     {
+
+        answerImage = root.Q<Image>("panel-headline-image");
+
+        if (isCorrectAnswer)
+        {
+            answerImage.style.backgroundImage = Resources.Load<Texture2D>("Images/correct");
+        }
+        else
+        {
+            answerImage.style.backgroundImage = Resources.Load<Texture2D>("Images/wrong");
+        }
+        answerImage.style.display = DisplayStyle.Flex;
+
+
         panelHeadline.text = feedpackFrase;
         panelText.text = explanation;
 
@@ -156,6 +179,7 @@ public class UIManager : MonoBehaviour
     private void SetFeedpackPanelVisible()
     {
         panelSection.style.display = DisplayStyle.Flex;
+        AudioSource.PlayClipAtPoint(soundObject.correctAnswerSound, cam.transform.position);
     }
 
     private void SetPanelExit()
@@ -163,6 +187,7 @@ public class UIManager : MonoBehaviour
         if (panelButton.text.Equals(continueButtonText))
         {
             ContinueGame();
+            answerImage.style.display = DisplayStyle.None;
         }
         else if (panelButton.text.Equals(endGameButtonText))
         {
@@ -196,52 +221,72 @@ public class UIManager : MonoBehaviour
 
         if (levelManager.IsAnswerCorrect(answer))
         {
+           //IMPLEMENTOI STREAKIT: Kutsu sreak-kuvaketta, jos streakin arvo on tarpeeksi suuri           
            //asetetaan streak-kuvake, jos streak-arvo on tarpeeksi suuri 
            if (ScoreArkku.streak >= ScoreArkku.minStreakValue)
             {
                 DisplayStreakImage();
+               
             }
-            SetFeedpack(correctAnswerFeedpackText, levelManager.GetCurrentExplanation());
+           //---------------------------------------------
+            SetFeedpack(correctAnswerFeedpackText, levelManager.GetCurrentExplanation(), true);
             Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack);
         }
         else
         {
-            SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation());
-            SetFeedpackPanelVisible();
+      
+            Destroy(psystem);
+            
+            SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation(), false);
+            panelSection.style.display = DisplayStyle.Flex;
+            AudioSource.PlayClipAtPoint(soundObject.wrongAnswerSound, cam.transform.position, 1f);
+
         }
     }
 
+    //IMPLEMENTOI STREAKIT: Ota tämä funktio
     //asettaa streak imagen käymään näkyvissä
     private void DisplayStreakImage ()
-    {       
-            streakImage = root.Q<VisualElement>("streak-image");
+    {
 
-            //asettaa kuvaan oikean streakin arvon
-            Label streakCount = streakImage.Q<Label>("streak-count");
-            streakCount.text = "+" + ScoreArkku.streak;
+        psystem = Instantiate(ps, ps.transform.position, ps.transform.rotation);
+        
+        streakImage = root.Q<VisualElement>("streak-image");
 
-            streakImage.style.display = DisplayStyle.Flex;
-            streakImage.ToggleInClassList("streak-image-transition");
-            Invoke("ToggleStreakClassList", 3f);
+        //asettaa kuvaan oikean streakin arvon
+        Label streakCount = streakImage.Q<Label>("streak-count");
+        streakCount.text = "+" + ScoreArkku.streak;
+
+        streakImage.style.display = DisplayStyle.Flex;
+        streakImage.ToggleInClassList("streak-image-transition");
+
+        AudioSource.PlayClipAtPoint(soundObject.streakSound, cam.transform.position);
+
+        Invoke("ToggleStreakClassList", 3f);
+       
     }
 
-
+    //IMPLEMENTOI STREAKIT: Ota tämä funktio
     //hävittää streak imagen näkyvistä ja asettaa classlistin alkuperäiseen asentoon
     private void ToggleStreakClassList()
     {
         streakImage.ClearClassList();
         streakImage.style.display = DisplayStyle.None;
     }
+    //------------------------------------------------------------
 
     public void DeclareWin()
     {
 
         panelHeadline.text = winningHeadline;
-        panelText.text = winningText;
+        panelText.text = winningText + GameManager.totalPoints.ToString();
 
         panelButton.text = endGameButtonText;
 
         panelSection.style.display = DisplayStyle.Flex;
+
+        AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
+     
     }
 
     public void UpProgressBar(float newProgressBarValue, float progBarValueToWin)
@@ -254,9 +299,13 @@ public class UIManager : MonoBehaviour
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
 
+            //IMPLEMENTOI TÄHDEN SUURENTUMINEN: Ota nämä rivit oman tähden värinvaihdon jälkeen
             //tähti suurenee ja pienenee    
             star3.ToggleInClassList("star-scale-transition");
             root.schedule.Execute(() => star3.ToggleInClassList("star-scale-transition")).StartingIn(500);
+            //----------------------------------------------------------------
+
+            AudioSource.PlayClipAtPoint(soundObject.starSound, cam.transform.position);
 
         }
 

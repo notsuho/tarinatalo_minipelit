@@ -16,12 +16,12 @@
                 <ui:Label tabindex="-1" text="Väärin!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="feedback-wrong" style="left: -230px; top: 315px; right: 0; bottom: 30%; font-size: 75px; -unity-text-align: upper-center; color: rgb(217, 63, 57); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 1.5px; visibility: hidden;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="game-progress-container">
+         <ui:VisualElement name="game-progress-container">
             <ui:VisualElement name="progress-bar-container">
                 <ui:ProgressBar name="progress-bar" />
                 <ui:VisualElement name="star-container">
-                    <ui:VisualElement name="star3" />
-                    <ui:VisualElement name="star2" />
+                    <ui:VisualElement name="star3"  />
+                    <ui:VisualElement name="star2"  />
                     <ui:VisualElement name="star1" />
                 </ui:VisualElement>
             </ui:VisualElement>
@@ -29,7 +29,7 @@
                 <ui:Label name="score-label" text="1234" />
                 <ui:VisualElement name="streak-image">
                     <ui:Image name="streak-icon" />
-                    <ui:Label name="streak-count" text="+3" />
+                    <ui:Label name="streak-count" text="+0" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

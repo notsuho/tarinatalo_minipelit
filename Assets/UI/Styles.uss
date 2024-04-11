@@ -156,6 +156,17 @@
     -unity-font: resource('Fonts/Nunito-Bold');
 }
 
+#panel-headline-section {
+    flex-direction: row;
+}
+
+#panel-headline-image {
+    display: none;
+     height: 45px;
+     width: 45px;
+     margin-left: 30px;
+}
+
 #panel-text {
     color: var(--color-dk-text);
     font-size: 150%;
@@ -271,6 +282,7 @@
     background-image: resource('Images/BarFilling');
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
+    border-color: rgba(0, 0, 0, 0);
 }
 
 #star-container {
@@ -326,37 +338,41 @@
    
 }
 
-
-
 #score-label {
-   
+    
     color: rgb(255, 255, 255); 
     font-size: 35px; 
     -unity-font-style: bold; 
-    /*-unity-text-outline-color: rgb(219, 30, 30); */
-    text-shadow: 10px 5px 0 var(--color-dk-text); 
+    /*-unity-text-outline-color: white; */
+     text-shadow: 3px 3px 0px var(--color-dk-text);
     letter-spacing: 12px; 
     -unity-text-outline-width: 1px; 
     
 }
 
-#streak-image {
-
-     transition-property: scale, opacity;
-     transition-duration: 1.7s;
-     transition-timing-function: ease-in;
-     position: absolute;
-     height: 80px; 
-    width: 59px; 
-    right: 65px;
-    top: -75px; 
-    display: none;
-   
+.score-label-streak {
+    /*background-image: resource('Images/streak_icon');*/
+    text-shadow: 3px 3px 0px red;
+    -unity-text-outline-color: white;
     
 }
 
+#streak-image {
+
+    transition-property: scale, opacity;
+    transition-duration: 2.5s;
+    transition-timing-function: ease-in;
+    position: absolute;
+    height: 80px; 
+    width: 59px; 
+    right: 72px;
+    top: -75px; 
+    display: none;
+ 
+}
+
 .streak-image-transition {
-    scale: 2;
+    scale: 1.7;
     opacity: 0;
 }
 

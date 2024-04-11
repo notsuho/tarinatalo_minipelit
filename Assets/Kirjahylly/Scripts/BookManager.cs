@@ -36,6 +36,7 @@ public class BookManager : MonoBehaviour {
 
     IEnumerator Start() {
         ui.UpProgressBar(points, pointsToWin);
+        ui.SetInstructions();
         yield return new WaitUntil(() => !ui.InstructionsShown());
         this.LoadBookDataFromFile();
         this.ResetBooks();
@@ -91,9 +92,9 @@ public class BookManager : MonoBehaviour {
 
     void LoadBookDataFromFile() {
         JsonRoot jsonRoot = JsonUtility.FromJson<JsonRoot>(wordsAndCategoriesJson.text);
-        this.bookSets.Add(jsonRoot.bookset1);
-        this.bookSets.Add(jsonRoot.bookset2);
-        this.bookSets.Add(jsonRoot.bookset3);
+        this.bookSets.Add(ShuffleList(jsonRoot.bookset1));
+        this.bookSets.Add(ShuffleList(jsonRoot.bookset2));
+        this.bookSets.Add(ShuffleList(jsonRoot.bookset3));
     }
 
     void CheckLevelCompletion(object rack, System.EventArgs args) {
@@ -101,11 +102,9 @@ public class BookManager : MonoBehaviour {
         if (levelCompleted) {
             points += 11f;
             ui.UpProgressBar(points, pointsToWin);
-            Invoke("ResetBooks", 2);
-            current_round += 1;
-            if (current_round >= total_rounds){
-                SceneManager.LoadScene("HillopurkitScene");
-            }
+            ui.SetFeedback();
+            Invoke(nameof(RoundEnding), 2);
+            Invoke(nameof(ResetBooks), 2);
         }
     }
 
@@ -117,5 +116,17 @@ public class BookManager : MonoBehaviour {
     public float GetPointsToWin ()
     {
         return pointsToWin;
+    }
+
+    private void RoundEnding (){
+        current_round += 1;
+            if (current_round >= total_rounds){
+                SceneManager.LoadScene("HillopurkitScene");
+            }
+    }
+
+    List<JsonBook> ShuffleList(List<JsonBook> list) {
+        System.Random rand = new System.Random();
+        return list.OrderBy(_ => rand.Next()).ToList();
     }
 }

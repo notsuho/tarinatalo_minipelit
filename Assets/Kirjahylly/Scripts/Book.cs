@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Book : MonoBehaviour {
     private float distanceToCamera;
     private bool bookMoving = false;
+    private bool bookZooming = false;
     private float moveSpeed = 7.0f;
+    private float zoomDistanceToCamera = 2.0f; // How close to zoom the book when dragging
 
     private Vector3 clickOffSet;
 
@@ -14,9 +18,14 @@ public class Book : MonoBehaviour {
     private Quaternion targetRotation;
 
     public int word_category;
+    private UIManager_Kirjahylly ui;
+
+    void Start() {
+        ui = this.AddComponent<UIManager_Kirjahylly>();
+    }
 
     void OnMouseDown() {
-        if (this.IsInCompletedRack()) {
+        if (this.IsInCompletedRack() || ui.InstructionsShown()) {
             return;
         }
         /*
@@ -24,9 +33,11 @@ public class Book : MonoBehaviour {
             under the mouse while moving.
             Set moving to false to prevent book flying while dragging.
         */
-        distanceToCamera = Camera.main.WorldToScreenPoint(transform.position).z;
-        clickOffSet = transform.position - GetMouseWorldPos();
-        bookMoving = false;
+
+        this.distanceToCamera = Camera.main.WorldToScreenPoint(transform.position).z;
+        this.clickOffSet = transform.position - GetMouseWorldPos();
+        this.bookMoving = false;
+        this.bookZooming = true;
     }
 
     void OnMouseUp() {
@@ -34,7 +45,7 @@ public class Book : MonoBehaviour {
             Check if object under mouse can hold books.
             if it can, remove the book from its current holder and add it to the new holder.
         */
-        if (this.bookMoving || this.IsInCompletedRack()) {
+        if (this.bookMoving || this.IsInCompletedRack() || ui.InstructionsShown()) {
             return;
         }
 
@@ -49,6 +60,7 @@ public class Book : MonoBehaviour {
             }
         }
         this.bookMoving = true;
+        this.bookZooming = false;
     }
 
     public void SetNewTargetPositionAndRotation(Vector3 newPos, Vector3 newRot) {
@@ -64,7 +76,7 @@ public class Book : MonoBehaviour {
         /*
             Update book object position in scene while dragging.
         */
-        if (this.bookMoving || this.IsInCompletedRack()) {
+        if (this.bookMoving || this.IsInCompletedRack() || ui.InstructionsShown()) {
             return;
         }
         
@@ -109,6 +121,23 @@ public class Book : MonoBehaviour {
             transform.rotation = newRot;
             if (transform.position == this.targetPosition && transform.rotation == this.targetRotation) {
                 this.bookMoving = false;
+            }
+        }
+
+        if (this.bookZooming) {
+            // Move book towards camera position when dragging
+            Vector3 directionToCamera = Camera.main.transform.position - transform.position;
+            this.distanceToCamera = Camera.main.WorldToScreenPoint(transform.position).z;
+            directionToCamera.Normalize();
+            Vector3 zoomTargetPosition = transform.position + directionToCamera * 0.5f;
+            Vector3 newPos = Vector3.Lerp(
+                transform.position,
+                zoomTargetPosition,
+                this.moveSpeed * Time.deltaTime
+            );
+            transform.position = newPos;
+            if (this.distanceToCamera < this.zoomDistanceToCamera) {
+                this.bookZooming = false;
             }
         }
     }

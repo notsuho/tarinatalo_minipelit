@@ -12,7 +12,7 @@ public class GlowControl : MonoBehaviour {
     };
     private List<Color> wrongGlowRange = new List<Color> {
         new Color(1f, 1f, 1f, 1.0f),
-        new Color(2f, 1f, 1f, 0.1f)
+        new Color(2f, 0f, 0f, 0.1f)
     };
     private List<Color> currentGlowRange;
 
@@ -41,6 +41,7 @@ public class GlowControl : MonoBehaviour {
     }
 
     public void MakeBookGlow() {
+        CancelInvoke("RestoreBookColor");
         this.glowStartTime = Time.time;
         this.isGlowing = true;
         this.currentGlowRange = this.correctGlowRange;
