@@ -10,8 +10,7 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private GameObject secondShelf;
     [SerializeField] private GameObject jarShakeHelper;
     [SerializeField] private Animator cabinetAnimator;
-    [SerializeField] private TextAsset synonymsList;
-    [SerializeField] private TextAsset synonymsJson;
+    [SerializeField] private TextAsset [] synonymsLists;
     [SerializeField] private int numberOfJars_round1 = 4;
     [SerializeField] private int numberOfJars_round2 = 6;
     [SerializeField] private int numberOfJars_round3 = 8;
@@ -25,6 +24,7 @@ public class MiniGameManager : MonoBehaviour
     private readonly List<GameObject> jarsOfTheRound = new();
 
     public static bool isGamePaused = true;
+
 
     public int GetTotalRounds() {
         return roundsTotal;
@@ -199,7 +199,10 @@ public class MiniGameManager : MonoBehaviour
     {
         List<string> wordsOfTheRound = new();
 
-        string[] allSynonyms = synonymsList.text.Split("\n");
+        //indexes have to adjectives, verbs or nouns
+        int wordTypeIndex = Random.Range(0, synonymsLists.Length);
+
+        string[] allSynonyms = synonymsLists[wordTypeIndex].text.Split("\n");
         List<int> usedGroupIndexes = new();
 
         CheckForEmptyGroups(allSynonyms, usedGroupIndexes);
