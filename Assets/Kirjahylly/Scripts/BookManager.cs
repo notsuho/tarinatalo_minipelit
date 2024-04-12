@@ -22,7 +22,6 @@ public class BookManager : MonoBehaviour
     private int currentSetIndex = 0;
     private bool preSetBook1 = false;
     private bool preSetBook2 = false;
-    //private bool bookMoved = false;
 
     private List<List<JsonBook>> bookSets = new List<List<JsonBook>>();
 
@@ -43,7 +42,7 @@ public class BookManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        ui = this.AddComponent<UIManager_Kirjahylly>();
+        ui = FindObjectOfType<UIManager_Kirjahylly>();
         ui.UpProgressBar(points, pointsToWin);
         ui.SetInstructions();
         yield return new WaitUntil(() => !ui.InstructionsShown());
@@ -100,11 +99,7 @@ public class BookManager : MonoBehaviour
             {
                 tableScript.AddBook(book);
             }
-
-
         }
-
-
 
         tableScript.UpdateBookPositions();
 
@@ -186,30 +181,41 @@ public class BookManager : MonoBehaviour
 
     public void UseHint()
     {
-        bool bookMoved = false;
-        for (int i = 0; i < 3; i++)
-        {
-            BookRack rackScript = bookRacks[i].GetComponent<BookRack>();
-            if (!rackScript.isCompleted)
-            {
-                List<GameObject> bookstack = rackScript.GetBookStack();
-                
-                for (int j = 0; j < bookstack.Count; j++)
-                {
-                    Book book = bookstack[j].GetComponent<Book>();
-                    if (book.GetWordCategory() != i + 1)
-                    {
-                        MoveBookToTable(bookstack[j]);
-                        bookMoved = true;
-                        break;
-                    }
-                }
+        foreach (GameObject rack in bookRacks) {
+            BookRack rackScript = rack.GetComponent<BookRack>();
+            // Rack is already correctly filled
+            if (rackScript.isCompleted) {
+                continue;
             }
 
-            if (bookMoved){
+            List<GameObject> bookstack = rackScript.GetBookStack();
+            // Rack only has one book
+            if (bookstack.Count() < 2) {
+                continue;
+            }
+
+            List<int> bookCategories = bookstack.Select(book =>
+                book.GetComponent<Book>().word_category
+            ).ToList();
+
+            // If rack has 2 of same category books, use it as correct
+            // category. Otherwise use the first book's category.
+            var twoSameBooksGroup = bookCategories
+                .GroupBy(category_num => category_num)
+                .FirstOrDefault(same_nums => same_nums.Count() > 1);
+
+            int assumedCorrectCategory = twoSameBooksGroup == null
+                ? bookstack[0].GetComponent<Book>().word_category
+                : twoSameBooksGroup.Key;
+
+            GameObject incorrectBook = bookstack.Find(book => 
+                book.GetComponent<Book>().word_category != assumedCorrectCategory
+            );
+
+            if (incorrectBook != null) {
+                MoveBookToTable(incorrectBook);
                 break;
             }
-
         }
     }
 
@@ -221,5 +227,4 @@ public class BookManager : MonoBehaviour
         tableScript.AddBook(book);
         book_obj.SetCurrentHolder((GameObject)table);
     }
-
 }

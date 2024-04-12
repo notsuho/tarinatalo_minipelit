@@ -30,6 +30,7 @@ public class UIManager_Kirjahylly : MonoBehaviour
     
     private void OnEnable()
     {
+        print("UI onenable");
         manager = FindObjectOfType<BookManager>();
         root = FindObjectOfType<UIDocument>().rootVisualElement;
 

@@ -20,10 +20,9 @@ public class Book : MonoBehaviour {
 
     public int word_category;
     private UIManager_Kirjahylly ui;
-    public BookManager manager;
 
     void Start() {
-        ui = this.AddComponent<UIManager_Kirjahylly>();
+        ui = FindObjectOfType<UIManager_Kirjahylly>();
     }
 
     void OnMouseDown() {
