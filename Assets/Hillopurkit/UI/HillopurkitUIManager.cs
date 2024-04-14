@@ -259,7 +259,7 @@ public class HillopurkitUIManager : MonoBehaviour
 
             //asettaa kuvaan oikean streakin arvon
             Label streakCount = streakImage.Q<Label>("streak-count");
-            streakCount.text = "+" + ScoreArkku.streak;
+            streakCount.text = "+" + score.GetStreak();
 
             streakImage.style.display = DisplayStyle.Flex;
             streakImage.ToggleInClassList("streak-image-transition");
