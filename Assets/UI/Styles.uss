@@ -332,9 +332,11 @@
 
 #score-container {
     
-    position: absolute;
-    right: 43%;
-    bottom: 8%; 
+    position: relative;
+    right: auto;
+    bottom: 0;
+    left: 33%;
+    top: 70%;
    
 }
 
