@@ -863,33 +863,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe664b515d176dd46bf38203896270c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeDuration: 0.5
+  shakeDuration: 0.55
   animationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.62948185
-      outSlope: 0.62948185
+      inSlope: 1.4117646
+      outSlope: 1.4117646
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.22722168
-      value: 0.14303192
-      inSlope: -0.5024705
-      outSlope: -0.5024705
+      time: 0.17
+      value: 0.24
+      inSlope: -0.8946021
+      outSlope: -0.8946021
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.064650886
+      outWeight: 0.031070799
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -0.1850879
-      outSlope: -0.1850879
+      inSlope: -0.28915662
+      outSlope: -0.28915662
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
