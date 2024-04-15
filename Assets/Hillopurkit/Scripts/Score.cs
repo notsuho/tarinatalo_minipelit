@@ -22,9 +22,9 @@ public class Score : MonoBehaviour
 
     public void ClearScore()
     {
-        ResetTally();
+        ResetStats();
         ResetPoints();
-        ui.ResetProgressBar();
+        ui.ResetProgressBar(points);
     }
 
     public void BrokeCorrectJar(bool result)
@@ -61,7 +61,7 @@ public class Score : MonoBehaviour
         }
 
         // Check if enough points for win. Also progress to win if we've broken enough jars (i.e. we've completed the last round)
-        if (points >= winningPointLimit 
+        if (points >= GetWinningPointLimit() 
         || jarClicksRight == (GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().GetTotalRounds()))
         {
             StartCoroutine(ui.DeclareWin());
@@ -102,7 +102,7 @@ public class Score : MonoBehaviour
     private void ResetPoints() {
         // reset points to total points value as long as it's not zero
         if ((GameManager.totalPoints) <= 0) {
-            SetPoints(0);
+            SetPoints(66);
         } else {
             SetPoints(GameManager.totalPoints);
         }
@@ -116,17 +116,17 @@ public class Score : MonoBehaviour
         return winningPointLimit;
     }
 
-    private void ResetTally()
+    private void ResetStats()
     {
         jarClicksRight = 0;
         jarClicksWrong = 0;
     }
 
-    public int[] GetTally()
+    public int[] GetStats()
     {
-        int[] tally = new int[2];
-        tally[0] = jarClicksRight;
-        tally[1] = jarClicksWrong;
-        return tally;
+        int[] stats = new int[2];
+        stats[0] = jarClicksRight;
+        stats[1] = jarClicksWrong;
+        return stats;
     }
 }
