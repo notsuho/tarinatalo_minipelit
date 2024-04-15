@@ -769,6 +769,7 @@ GameObject:
   - component: {fileID: 1806832449}
   - component: {fileID: 1806832448}
   - component: {fileID: 1806832447}
+  - component: {fileID: 1806832450}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -850,6 +851,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 7.5, y: 0, z: 0}
+--- !u!114 &1806832450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806832446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe664b515d176dd46bf38203896270c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.5
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.62948185
+      outSlope: 0.62948185
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.22722168
+      value: 0.14303192
+      inSlope: -0.5024705
+      outSlope: -0.5024705
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.064650886
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.1850879
+      outSlope: -0.1850879
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2039496356
 GameObject:
   m_ObjectHideFlags: 0
