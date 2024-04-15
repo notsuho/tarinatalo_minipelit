@@ -32,8 +32,6 @@ public class HillopurkitUIManager : MonoBehaviour
     {
         root = GetComponent<UIDocument>().rootVisualElement;
 
-        ResetProgressBar();
-
         Button instructionButton = root.Q<Button>("instruction-button");
         Button exitButton = root.Q<Button>("exit-button");
 
@@ -45,6 +43,11 @@ public class HillopurkitUIManager : MonoBehaviour
         clickedRight = root.Q<Label>("feedback-right");
         clickedWrong = root.Q<Label>("feedback-wrong");
 
+        scoreLabel = root.Q<Label>("score-label");
+        scoreLabel.text = "" + GameManager.totalPoints;
+
+        ResetProgressBar(GameManager.totalPoints);
+        //UpProgressBar();
         SetInstructions();
 
         instructionButton.clicked += () => SetInstructions();
@@ -57,7 +60,7 @@ public class HillopurkitUIManager : MonoBehaviour
         //Siirrä tiedostoon myöhemmin
         string instructionTextText = "Kaappiin on kasattu purkkeja, joiden kyljessä lukee synonyymejä. " 
                                     + "Mutta purkkien joukkoon on eksynyt sana, joka ei kuulu joukkoon. "
-                                    + "Etsi joukoon kuulumaton purkki, ja riko se vasaralla!";
+                                    + "Etsi joukkoon kuulumaton purkki, ja riko se vasaralla!";
 
         miniGameManager.PauseGame();
 
@@ -103,15 +106,15 @@ public class HillopurkitUIManager : MonoBehaviour
 
         yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG);
 
-        int[] tally = score.GetTally();
-        int total = tally[0] + tally[1];
+        int[] stats = score.GetStats();
+        int total = stats[0] + stats[1];
 
         panelHeadline.text = winningHeadline;
         panelText.text = winningText
             + ("\n\nPisteesi: " + score.GetPoints()) // Add two linebreaks so it looks just a tiny bit cleaner
             + ("\nArvausten määrä: " + total)
-            + ("\nOikeat arvaukset: " + tally[0])
-            + ("\nVäärät arvaukset: " + tally[1]);
+            + ("\nOikeat arvaukset: " + stats[0])
+            + ("\nVäärät arvaukset: " + stats[1]);
 
         panelButton.text = nextGameButtonText;
 
@@ -202,11 +205,11 @@ public class HillopurkitUIManager : MonoBehaviour
         star.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
     }
 
-    public void ResetProgressBar()
+    public void ResetProgressBar(int resetValue)
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
         // progressBar.value = GameManager.totalPoints;
-        UpProgressBar(score.GetPoints());
+        UpProgressBar(resetValue);
         // UpProgressBar(GameManager.totalPoints);
         // progressBar.value = GameObject.Find("Score").GetComponent<Score>().GetPoints(); 
         // VisualElement star1 = root.Q<VisualElement>("star1");
@@ -219,7 +222,7 @@ public class HillopurkitUIManager : MonoBehaviour
 
     public void SetFeedback(bool result)
     {
-        int[] tally = score.GetTally();
+        int[] stats = score.GetStats();
         int points = score.GetPoints();
 
         if (result == true)
