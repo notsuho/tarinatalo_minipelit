@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class JarBehavior : MonoBehaviour
@@ -7,9 +8,14 @@ public class JarBehavior : MonoBehaviour
     [SerializeField] private GameObject brokenJar;
     [SerializeField] private GameObject jam;
     private Color color;
+    public Camera cam;
+    public AudioClip soundCorrect;
+    public AudioClip soundIncorrect;
+    public AudioClip jarShatter; // When we find a glass shatter sound
 
     private void Start()
     {
+        cam = Camera.main;
         color = GetComponentInChildren<RandomMaterial>().GetMaterial().color;
     }
 
@@ -39,6 +45,11 @@ public class JarBehavior : MonoBehaviour
             Vector3 currentPosition = transform.position;
             GameObject breakingJar = Instantiate(brokenJar, currentPosition, Quaternion.identity);
 
+            // play sound for clicking correct jar
+            AudioSource.PlayClipAtPoint(soundCorrect, cam.transform.position);
+            // also play shatter sound (uncomment below part when we get clip)
+            // AudioSource.PlayClipAtPoint(jarShatter, cam.transform.position);
+
             // screen shake effect
             ScreenShake.shakeTrigger = true;
 
@@ -52,6 +63,8 @@ public class JarBehavior : MonoBehaviour
 
         else
         {
+            // play sound for clicking incorrect jar
+            AudioSource.PlayClipAtPoint(soundIncorrect, cam.transform.position);
             StartCoroutine(miniGameManager.hammer.GetComponent<HammerBehavior>().WrongSwing());
             score.BrokeCorrectJar(false); // update score
             transform.parent.gameObject.GetComponent<Animator>().Play("WrongJarShake");
