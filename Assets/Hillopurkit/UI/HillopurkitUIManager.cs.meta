@@ -3,7 +3,11 @@ guid: fa5227c57bfea334e951b07b1219e9df
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - miniGameManager: {instanceID: 0}
+  - score: {instanceID: 0}
+  - cam: {instanceID: 0}
+  - victoryJingle: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

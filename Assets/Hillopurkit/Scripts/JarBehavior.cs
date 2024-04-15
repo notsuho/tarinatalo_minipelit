@@ -11,6 +11,7 @@ public class JarBehavior : MonoBehaviour
     public Camera cam;
     public AudioClip soundCorrect;
     public AudioClip soundIncorrect;
+    public AudioClip jarClink;
     public AudioClip jarShatter; // When we find a glass shatter sound
 
     private void Start()
@@ -63,7 +64,8 @@ public class JarBehavior : MonoBehaviour
 
         else
         {
-            // play sound for clicking incorrect jar
+            // play sounds for clicking incorrect jar
+            AudioSource.PlayClipAtPoint(jarClink, cam.transform.position, 1.5f);
             AudioSource.PlayClipAtPoint(soundIncorrect, cam.transform.position);
             StartCoroutine(miniGameManager.hammer.GetComponent<HammerBehavior>().WrongSwing());
             score.BrokeCorrectJar(false); // update score

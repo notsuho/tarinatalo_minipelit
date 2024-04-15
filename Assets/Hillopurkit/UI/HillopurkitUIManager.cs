@@ -19,6 +19,8 @@ public class HillopurkitUIManager : MonoBehaviour
     private Label clickedWrong;
     private Label clickedRight;
     private VisualElement streakImage;
+    public Camera cam;
+    public AudioClip victoryJingle;
     private const int SCORE_MULTIPLIER = 10; // for UI display purposes
     private readonly string continueButtonText = "<allcaps>jatka</allcaps>";
     private readonly string gotItButtonText = "<allcaps>selvä!</allcaps>";
@@ -30,6 +32,8 @@ public class HillopurkitUIManager : MonoBehaviour
 
     private void OnEnable()
     {
+        cam = Camera.main;
+
         root = GetComponent<UIDocument>().rootVisualElement;
 
         Button instructionButton = root.Q<Button>("instruction-button");
@@ -101,10 +105,14 @@ public class HillopurkitUIManager : MonoBehaviour
 
     public IEnumerator DeclareWin()
     {
-        // Update the score for next minigame to use
-        GameManager.totalPoints = score.GetPoints();
 
         yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG);
+
+        // Play victory jingle
+        AudioSource.PlayClipAtPoint(victoryJingle, cam.transform.position);
+
+        // Update the score for next minigame to use
+        GameManager.totalPoints = score.GetPoints();
 
         int[] stats = score.GetStats();
         int total = stats[0] + stats[1];
