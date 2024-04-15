@@ -39,6 +39,9 @@ public class JarBehavior : MonoBehaviour
             Vector3 currentPosition = transform.position;
             GameObject breakingJar = Instantiate(brokenJar, currentPosition, Quaternion.identity);
 
+            // screen shake effect
+            ScreenShake.shakeTrigger = true;
+
             // set the dust cloud effect to same color as the jar
             ParticleSystem ps = breakingJar.GetComponent<BrokenJarBehavior>().dustCloud;
             ParticleSystem.MainModule main = ps.main;
