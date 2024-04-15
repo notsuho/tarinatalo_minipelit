@@ -366,10 +366,7 @@ MonoBehaviour:
   brokenJar: {fileID: 4506512596853896479, guid: f1e213213ab465447b288bf448d0e5a6, type: 3}
   jam: {fileID: 6921212197905763958}
   cam: {fileID: 0}
-  soundCorrect: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
-  soundIncorrect: {fileID: 8300000, guid: ca37b96bc9e3dab4a8ebe1877e473f1d, type: 3}
-  jarClink: {fileID: 8300000, guid: b43d102aac6b145468dcaa94a5cccae1, type: 3}
-  jarShatter: {fileID: 0}
+  soundObject: {fileID: -6518006508135062176, guid: 9a5089aa72c2f194cb271b33950c7004, type: 3}
 --- !u!95 &6252905912892204085
 Animator:
   serializedVersion: 5

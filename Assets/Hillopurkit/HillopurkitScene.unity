@@ -187,7 +187,7 @@ MonoBehaviour:
   miniGameManager: {fileID: 371237317}
   score: {fileID: 1243773863}
   cam: {fileID: 0}
-  victoryJingle: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
+  soundObject: {fileID: -6518006508135062176, guid: 9a5089aa72c2f194cb271b33950c7004, type: 3}
 --- !u!95 &220374288 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6819649554642469366, guid: 67b8bd3c33b2e304e8701f87cfe89b31, type: 3}

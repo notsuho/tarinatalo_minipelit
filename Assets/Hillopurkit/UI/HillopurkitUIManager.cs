@@ -20,7 +20,7 @@ public class HillopurkitUIManager : MonoBehaviour
     private Label clickedRight;
     private VisualElement streakImage;
     public Camera cam;
-    public AudioClip victoryJingle;
+    public SoundObject soundObject;
     private const int SCORE_MULTIPLIER = 10; // for UI display purposes
     private readonly string continueButtonText = "<allcaps>jatka</allcaps>";
     private readonly string gotItButtonText = "<allcaps>selvä!</allcaps>";
@@ -109,7 +109,7 @@ public class HillopurkitUIManager : MonoBehaviour
         yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG);
 
         // Play victory jingle
-        AudioSource.PlayClipAtPoint(victoryJingle, cam.transform.position);
+        AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
 
         // Update the score for next minigame to use
         GameManager.totalPoints = score.GetPoints();
@@ -205,6 +205,8 @@ public class HillopurkitUIManager : MonoBehaviour
         // Twinkle the star when it's filled
         star.ToggleInClassList("star-scale-transition");
         root.schedule.Execute(() => star.ToggleInClassList("star-scale-transition")).StartingIn(500);
+
+        AudioSource.PlayClipAtPoint(soundObject.starSound, cam.transform.position);
     }
 
     private void UnlightStar(VisualElement star)
@@ -274,6 +276,7 @@ public class HillopurkitUIManager : MonoBehaviour
 
             streakImage.style.display = DisplayStyle.Flex;
             streakImage.ToggleInClassList("streak-image-transition");
+            AudioSource.PlayClipAtPoint(soundObject.streakSound, cam.transform.position);
             Invoke("ToggleStreakClassList", 3f);
     }
 

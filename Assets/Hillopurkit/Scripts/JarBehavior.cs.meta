@@ -3,7 +3,11 @@ guid: 59b7fe10032ea3d429343625be61cbdf
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - brokenJar: {instanceID: 0}
+  - jam: {instanceID: 0}
+  - cam: {instanceID: 0}
+  - soundObject: {fileID: -6518006508135062176, guid: 9a5089aa72c2f194cb271b33950c7004, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

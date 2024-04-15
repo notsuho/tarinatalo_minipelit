@@ -11,6 +11,7 @@ public class SoundObject : MonoBehaviour
     public AudioClip starSound;
     public AudioClip victorySound;
     public AudioClip streakSound;
-
+    public AudioClip jarClink;
+    public AudioClip jarShatter;
 
 }
