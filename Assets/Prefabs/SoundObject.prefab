@@ -144,5 +144,5 @@ MonoBehaviour:
   wrongAnswerSound: {fileID: 8300000, guid: ca37b96bc9e3dab4a8ebe1877e473f1d, type: 3}
   correctAnswerSound: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
   starSound: {fileID: 8300000, guid: 3008957a8078b974eafc38372029cd4d, type: 3}
-  victorySound: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
+  victorySound: {fileID: 8300000, guid: ee3ca5b874a71db498e538e5483ce7ba, type: 3}
   streakSound: {fileID: 8300000, guid: 1a2484f5050c1b746acd5e64d0b883f8, type: 3}
