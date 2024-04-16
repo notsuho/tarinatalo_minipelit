@@ -102,7 +102,7 @@
 }
 
 .word-button:hover {
-     background-color: rgba(142, 89, 43, 0.5);
+     color: var(--color-lt-text);
 }
 
 #sentence-section {
@@ -199,18 +199,7 @@
 }
 
 #panel-button:hover {
-    
-    /*width: 309px;
-    height: 60px;
-    border-radius: 8px;
-    font-size: 20px;
-    color: var(--color-dk-text);
-    background-image: resource('Images/T_Frame_Button_Red_GUI');
-    -unity-slice-left: 30;
-    -unity-slice-right: 30;
-    -unity-slice-bottom: 1;
-    -unity-slice-top: 1;
-    -unity-background-image-tint-color: var(--color-lt-accent);*/
+    color: white;
 }
 
 #instructions-section {
