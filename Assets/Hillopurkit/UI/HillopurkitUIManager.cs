@@ -50,8 +50,7 @@ public class HillopurkitUIManager : MonoBehaviour
         scoreLabel = root.Q<Label>("score-label");
         scoreLabel.text = "" + GameManager.totalPoints;
 
-        ResetProgressBar(GameManager.totalPoints);
-        //UpProgressBar();
+        ResetProgressBar(33);
         SetInstructions();
 
         instructionButton.clicked += () => SetInstructions();
@@ -146,10 +145,13 @@ public class HillopurkitUIManager : MonoBehaviour
         progressBar.value = currentPoints;
         Debug.Log("\nProgress bar value after update: " + progressBar.value);
 
-        if (progressBar.value < 33)
+        if (progressBar.value < 66)
         {
-            UnlightStar(star1);
             UnlightStar(star2);
+        }
+
+        if (progressBar.value < 99)
+        {
             UnlightStar(star3);
         }
 
@@ -158,17 +160,12 @@ public class HillopurkitUIManager : MonoBehaviour
             //VisualElement star1 = root.Q<VisualElement>("star1");
             star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
 
-            if (progressBar.value >= 33 && progressBar.value <= 40) {
-            StarScaleTransition(star1);
+            if (progressBar.value >= 33 && progressBar.value <= 40)
+            {
+                StarScaleTransition(star1);
             }
             //star1.ToggleInClassList("star-scale-transition");
             //root.schedule.Execute(() => star1.ToggleInClassList("star-scale-transition")).StartingIn(500);
-        }
-
-        if (progressBar.value < 66)
-        {
-            UnlightStar(star2);
-            UnlightStar(star3);
         }
 
         if (progressBar.value >= 66)
@@ -176,28 +173,10 @@ public class HillopurkitUIManager : MonoBehaviour
             //VisualElement star2 = root.Q<VisualElement>("star2");
             star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
 
-            if (progressBar.value >= 66 && progressBar.value <= 70) {
             StarScaleTransition(star2);
-            }
             //star2.ToggleInClassList("star-scale-transition");
             //root.schedule.Execute(() => star2.ToggleInClassList("star-scale-transition")).StartingIn(500);
         }
-
-        if (progressBar.value < 99)
-        {
-            UnlightStar(star3);
-        }
-
-        if (progressBar.value >= 99)
-        {
-            //VisualElement star3 = root.Q<VisualElement>("star3");
-            star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-
-            StarScaleTransition(star3);
-            //star3.ToggleInClassList("star-scale-transition");
-            //root.schedule.Execute(() => star3.ToggleInClassList("star-scale-transition")).StartingIn(500);
-        }
-
     }
 
     private void StarScaleTransition(VisualElement star)

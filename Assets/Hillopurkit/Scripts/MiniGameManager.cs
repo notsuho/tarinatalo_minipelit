@@ -17,7 +17,7 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private int numberOfWrongs_round1 = 1;
     [SerializeField] private int numberOfWrongs_round2 = 1;
     [SerializeField] private int numberOfWrongs_round3 = 1;
-    private readonly int roundsTotal = 6; // change this for more rounds
+    private readonly int roundsTotal = 5; // change this for more rounds
     private const int JARS_PER_SHELF = 4;
     private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
