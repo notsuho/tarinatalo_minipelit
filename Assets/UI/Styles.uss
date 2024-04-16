@@ -1,6 +1,6 @@
 :root {
     --color-lt-text: rgb(186, 109, 86);
-    --color-dk-text: rgb(142, 89, 43);
+    --color-dk-text: rgb(119, 67, 46);
     --color-lt-accent: rgb(219, 193, 160);
 }
 
@@ -22,7 +22,7 @@
     font-size: 200%;
     color: var(--color-dk-text);
     flex-direction: row;
-    background-image: resource('Images/T_Frame_ButtonPaper_GUI');
+    background-image: resource('Images/T_Frame_PaperSingle001_GUI');
     -unity-slice-left: 70;
     -unity-slice-right: 70;
     -unity-slice-top: 70;
@@ -85,7 +85,7 @@
 .word-button {
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
-    background-image: resource('Images/T_Frame_SinglePaper_GUI');
+    background-image: resource('Images/T_Frame_Slot002_GUI');
     border-radius: 8px;
     min-width: 200px;
     height: 60px;
@@ -106,17 +106,21 @@
 }
 
 #sentence-section {
-    height: 100px;
+    height: 120px;
     align-items: center;
+   
 }
 
 #sentence {
     color: var(--color-dk-text);
+    
+    height: 85px;
     font-size: 200%;
     padding: 1.5%;
     padding-left: 4%;
     padding-right: 4%;
-    background-image: resource('Images/T_Frame_ButtonPaper_GUI');
+    padding-top: 2%;
+    background-image: resource('Images/T_Frame_PaperSingle001_GUI');
     -unity-slice-left: 70;
     -unity-slice-right: 70;
     -unity-slice-top: 70;
@@ -141,7 +145,7 @@
     min-height: 500px;
     width: 643px;
     top: 13%;
-    background-image: resource('Images/T_Frame_ButtonPaper_GUI');
+    background-image: resource('Images/T_Frame_PaperPages001_GUI');
     -unity-slice-left: 70;
     -unity-slice-right: 70;
     -unity-slice-top: 70;
@@ -182,11 +186,11 @@
     border-radius: 8px;
     font-size: 20px;
     -unity-font: resource('Fonts/Nunito-Black');
-    color: var(--color-dk-text);
-    background-image: resource('Images/T_Frame_ButtonTransparent_GUI');
+    color: #EFDFC6;
+    background-image: resource('Images/T_Frame_Button_Red_GUI');
     border-color: rgba(0, 0, 0, 0);
-    -unity-slice-left: 30;
-    -unity-slice-right: 30;
+    -unity-slice-left: 32;
+    -unity-slice-right: 32;
     -unity-slice-bottom: 1;
     -unity-slice-top: 1;
     -unity-background-image-tint-color: var(--color-lt-accent);
@@ -195,17 +199,18 @@
 }
 
 #panel-button:hover {
-    width: 309px;
+    
+    /*width: 309px;
     height: 60px;
     border-radius: 8px;
     font-size: 20px;
     color: var(--color-dk-text);
-    background-image: resource('Images/T_Frame_Button_GUI');
+    background-image: resource('Images/T_Frame_Button_Red_GUI');
     -unity-slice-left: 30;
     -unity-slice-right: 30;
     -unity-slice-bottom: 1;
     -unity-slice-top: 1;
-    -unity-background-image-tint-color: var(--color-lt-accent);
+    -unity-background-image-tint-color: var(--color-lt-accent);*/
 }
 
 #instructions-section {
@@ -225,7 +230,7 @@
     height: 505px;
     width: 700px;
     top: 15%;
-    background-image: resource('Images/T_Frame_ButtonPaper_GUI');
+    background-image: resource('Images/T_Frame_PaperPages001_GUI');
     -unity-slice-left: 70;
     -unity-slice-right: 70;
     -unity-slice-top: 70;
