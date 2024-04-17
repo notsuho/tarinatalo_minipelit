@@ -333,8 +333,8 @@
 }
 
 #score-label {
-    
-    color: rgb(255, 255, 255); 
+    transition: 0.3s linear 0.2s;
+    color: white; 
     font-size: 35px; 
     -unity-font-style: bold; 
     /*-unity-text-outline-color: white; */
@@ -344,10 +344,15 @@
     
 }
 
+#score-label:hover{
+    color: #CF923E;/*#F2CD75#D68A23*/
+    text-shadow: 2px 2px 3px white;
+}
+
 .score-label-streak {
-    /*background-image: resource('Images/streak_icon');*/
-    text-shadow: 3px 3px 0px red;
-    -unity-text-outline-color: white;
+    scale: 1.5;
+    color: #CF923E;/*#F2CD75#D68A23*/
+    text-shadow: 2px 2px 3px white;
     
 }
 

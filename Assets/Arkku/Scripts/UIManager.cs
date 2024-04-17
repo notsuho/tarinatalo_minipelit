@@ -6,11 +6,11 @@ using UnityEngine.UIElements;
 public class UIManager : MonoBehaviour
 {
     public LevelManager levelManager;
+    public UIUtils uiUtils;
     public float RenderTimeForCorrectAnswerFeedpack;
     public float RenderTimeForDeclareWinFeedpack;
 
     public Camera cam;
-    public ParticleSystem ps;
 
     public SoundObject soundObject;
 
@@ -28,9 +28,9 @@ public class UIManager : MonoBehaviour
     private VisualElement streakImage;
     private Image answerImage;
 
-    private ParticleSystem psystem;
-
     private string sentence;
+
+    
 
     //public koska tarvitaan GameManagerissam,
     //TODO: tee getterit
@@ -49,6 +49,8 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        uiUtils = GetComponent<UIUtils>();
+
         progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = levelManager.GetProgressBarValue();
 
@@ -234,9 +236,11 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-      
-            Destroy(psystem);
-            
+            if (uiUtils.isStreakColoringOn)
+            {
+                uiUtils.ScoreLabelToNormalColoring(gameScore);
+            }
+           
             SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation(), false);
             panelSection.style.display = DisplayStyle.Flex;
             AudioSource.PlayClipAtPoint(soundObject.wrongAnswerSound, cam.transform.position, 1f);
@@ -249,8 +253,11 @@ public class UIManager : MonoBehaviour
     private void DisplayStreakImage ()
     {
 
-        psystem = Instantiate(ps, ps.transform.position, ps.transform.rotation);
-        
+        //asettaa score labeliin uuden värin, joka ilmaisee, että streak on päällä
+        if (!uiUtils.isStreakColoringOn) { 
+            uiUtils.ScoreLabelToStreakColoring(gameScore);
+        }
+
         streakImage = root.Q<VisualElement>("streak-image");
 
         //asettaa kuvaan oikean streakin arvon
@@ -274,6 +281,8 @@ public class UIManager : MonoBehaviour
         streakImage.style.display = DisplayStyle.None;
     }
     //------------------------------------------------------------
+
+
 
     public void DeclareWin()
     {
