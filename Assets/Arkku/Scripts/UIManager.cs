@@ -12,8 +12,6 @@ public class UIManager : MonoBehaviour
 
     public Camera cam;
 
-   // public ParticleSystem ps;
-
     public SoundObject soundObject;
 
     private VisualElement root;
@@ -30,7 +28,6 @@ public class UIManager : MonoBehaviour
     private VisualElement streakImage;
     private Image answerImage;
 
-   // private ParticleSystem psystem;
 
     private string sentence;
 
@@ -232,10 +229,6 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-      
-            //Destroy(psystem);
-            
-            SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation(), false);
 
             if (uiUtils.isStreakColoringOn)
             {
@@ -255,9 +248,7 @@ public class UIManager : MonoBehaviour
     private void DisplayStreakImage ()
     {
 
-        //psystem = Instantiate(ps, ps.transform.position, ps.transform.rotation);
-        
-
+   
         //asettaa score labeliin uuden värin, joka ilmaisee, että streak on päällä
         if (!uiUtils.isStreakColoringOn) { 
             uiUtils.ScoreLabelToStreakColoring(gameScore);
