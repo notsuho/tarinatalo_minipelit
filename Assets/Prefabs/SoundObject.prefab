@@ -146,3 +146,4 @@ MonoBehaviour:
   starSound: {fileID: 8300000, guid: 3008957a8078b974eafc38372029cd4d, type: 3}
   victorySound: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
   streakSound: {fileID: 8300000, guid: 1a2484f5050c1b746acd5e64d0b883f8, type: 3}
+  keytwistSound: {fileID: 8300000, guid: 92ed94a4d26f22d41a6430c503c816b6, type: 3}

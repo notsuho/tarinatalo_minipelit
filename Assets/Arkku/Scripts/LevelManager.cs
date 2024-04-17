@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-
+//[RequireComponent(typeof(AudioSource))]
 public class LevelManager : MonoBehaviour
 {
     public TextAsset textJSON;
@@ -16,8 +16,8 @@ public class LevelManager : MonoBehaviour
     private static List<Exercise> exercisesToAnswer;
     private Exercise currentExercise;
     private Exercise previousExercise;
-
-    
+    /* public SoundObject soundObject;
+    public Camera cam; */
 
     public float progressBarValue;
     public float progBarValueUpPerCorrectAnswer;
@@ -106,7 +106,7 @@ public class LevelManager : MonoBehaviour
             if (ui.rightWord.Equals(currentExercise.correctAnswer))
             {
                 rightKey.GetComponent<Animator>().SetTrigger("OikeaAvainAvaus");
-
+                //AudioSource.PlayClipAtPoint(soundObject.keytwistSound, cam.transform.position);
                 //Tehty erillisinä funktioina ajastustoiminnon takia
                 Invoke("OpenChest", 1f);
                 Invoke("CloseChest", 4f);
