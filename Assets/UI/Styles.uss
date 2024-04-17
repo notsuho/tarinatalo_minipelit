@@ -15,7 +15,7 @@
 }
 
 #topbar {
-    height: 80px;
+    height: 75px;
     background-color: rgba(0, 0, 0, 0);
     align-items: center;
     justify-content: center;
@@ -23,10 +23,10 @@
     color: var(--color-dk-text);
     flex-direction: row;
     background-image: resource('Images/T_Frame_PaperSingle001_GUI');
-    -unity-slice-left: 70;
-    -unity-slice-right: 70;
-    -unity-slice-top: 70;
-    -unity-slice-bottom: 70;
+    -unity-slice-left: 160;
+    -unity-slice-right: 160;
+    -unity-slice-top: 100;
+    -unity-slice-bottom: 240;
     -unity-slice-scale: 0.5px;
 }
 
@@ -88,7 +88,7 @@
     background-image: resource('Images/T_Frame_Slot002_GUI');
     border-radius: 8px;
     min-width: 200px;
-    height: 60px;
+    height: 65px;
     color: var(--color-dk-text);
     margin-top: 10%;
     margin-left: 10%;
@@ -113,14 +113,13 @@
 
 #sentence {
     color: var(--color-dk-text);
-    
     height: 85px;
-    font-size: 200%;
+    font-size: 180%;
     padding: 1.5%;
     padding-left: 4%;
     padding-right: 4%;
     padding-top: 2%;
-    background-image: resource('Images/T_Frame_PaperSingle001_GUI');
+    background-image: resource('Images/T_Frame_PaperPages001_GUI');
     -unity-slice-left: 70;
     -unity-slice-right: 70;
     -unity-slice-top: 70;
@@ -333,8 +332,8 @@
 }
 
 #score-label {
-    
-    color: rgb(255, 255, 255); 
+    transition: 0.3s linear 0.2s;
+    color: white; 
     font-size: 35px; 
     -unity-font-style: bold; 
     /*-unity-text-outline-color: white; */
@@ -344,10 +343,15 @@
     
 }
 
+#score-label:hover{
+    color: #CF923E;/*#F2CD75#D68A23*/
+    text-shadow: 2px 2px 3px white;
+}
+
 .score-label-streak {
-    /*background-image: resource('Images/streak_icon');*/
-    text-shadow: 3px 3px 0px red;
-    -unity-text-outline-color: white;
+    scale: 1.5;
+    color: #CF923E;/*#F2CD75#D68A23*/
+    text-shadow: 2px 2px 3px white;
     
 }
 
