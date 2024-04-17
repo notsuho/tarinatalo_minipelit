@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     public float RenderTimeForDeclareWinFeedpack;
 
     public Camera cam;
-    public ParticleSystem ps;
+   // public ParticleSystem ps;
 
     public SoundObject soundObject;
 
@@ -28,7 +28,7 @@ public class UIManager : MonoBehaviour
     private VisualElement streakImage;
     private Image answerImage;
 
-    private ParticleSystem psystem;
+   // private ParticleSystem psystem;
 
     private string sentence;
 
@@ -235,7 +235,7 @@ public class UIManager : MonoBehaviour
         else
         {
       
-            Destroy(psystem);
+            //Destroy(psystem);
             
             SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation(), false);
             panelSection.style.display = DisplayStyle.Flex;
@@ -249,7 +249,7 @@ public class UIManager : MonoBehaviour
     private void DisplayStreakImage ()
     {
 
-        psystem = Instantiate(ps, ps.transform.position, ps.transform.rotation);
+        //psystem = Instantiate(ps, ps.transform.position, ps.transform.rotation);
         
         streakImage = root.Q<VisualElement>("streak-image");
 
