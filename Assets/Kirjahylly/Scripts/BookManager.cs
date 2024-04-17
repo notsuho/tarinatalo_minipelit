@@ -82,17 +82,18 @@ public class BookManager : MonoBehaviour
             bookScript.SetCurrentHolder(table);
             bookScript.word_category = bookData.category;
             book.GetComponentInChildren<TextMeshPro>().text = bookData.word;
+            book.name = bookData.word;
 
+            // Setup preset books in bookcase for two uppermost racks: 
+            // Correct books in top rack will have category 1, middle category 2 and bottom category 3
             if (bookScript.word_category == 1 && !preSetBook1)
             {
                 SetStartingBook(book, 0);
-                bookScript.SetBookFrozen();
                 preSetBook1 = true;
             }
             else if (bookScript.word_category == 2 && !preSetBook2)
             {
                 SetStartingBook(book, 1);
-                bookScript.SetBookFrozen();
                 preSetBook2 = true;
             }
             else
@@ -177,49 +178,74 @@ public class BookManager : MonoBehaviour
         rack.AddBook(book);
         Book book_obj = book.GetComponent<Book>();
         book_obj.SetCurrentHolder(table);
+        book_obj.SetBookFrozen();
     }
 
     public void UseHint()
     {
-        foreach (GameObject rack in bookRacks) {
-            BookRack rackScript = rack.GetComponent<BookRack>();
-            // Rack is already correctly filled
-            if (rackScript.isCompleted) {
+        bool bookMoved = false;
+
+        //Check if there is a wrong book in book case and replace it with correct one
+        for (int i = 0; i < 3; i++)
+        {
+            if (bookMoved)
+            {
+                break;
+            }
+
+            BookRack rackScript = bookRacks[i].GetComponent<BookRack>();
+
+            //Rack is already correctly filled
+            if (rackScript.isCompleted)
+            {
                 continue;
             }
 
             List<GameObject> bookstack = rackScript.GetBookStack();
-            // Rack only has one book
-            if (bookstack.Count() < 2) {
-                continue;
+
+            //Check if books are correct category and move possible wrong book to table
+            //and replace it with correct book
+            for (int j = 0; j < bookstack.Count; j++)
+            {
+                Book book = bookstack[j].GetComponent<Book>();
+                if (book.GetWordCategory() != i + 1)
+                {
+                    MoveBookToTable(bookstack[j]);
+                    bookMoved = true;
+                    StartCoroutine(MoveCorrectBookToRack(i, 0.6f));
+                    break;
+                }
             }
 
-            List<int> bookCategories = bookstack.Select(book =>
-                book.GetComponent<Book>().word_category
-            ).ToList();
+        }
 
-            // If rack has 2 of same category books, use it as correct
-            // category. Otherwise use the first book's category.
-            var twoSameBooksGroup = bookCategories
-                .GroupBy(category_num => category_num)
-                .FirstOrDefault(same_nums => same_nums.Count() > 1);
+        //No wrong book in book case: Move one book to correct place
+        if (!bookMoved)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (bookMoved)
+                {
+                    break;
+                }
 
-            int assumedCorrectCategory = twoSameBooksGroup == null
-                ? bookstack[0].GetComponent<Book>().word_category
-                : twoSameBooksGroup.Key;
+                BookRack rackScript = bookRacks[i].GetComponent<BookRack>();
 
-            GameObject incorrectBook = bookstack.Find(book => 
-                book.GetComponent<Book>().word_category != assumedCorrectCategory
-            );
+                //Rack is already correctly filled
+                if (rackScript.isCompleted)
+                {
+                    continue;
+                }
 
-            if (incorrectBook != null) {
-                MoveBookToTable(incorrectBook);
+                StartCoroutine(MoveCorrectBookToRack(i, 0));
+                bookMoved = true;
                 break;
             }
         }
     }
 
-    public void MoveBookToTable(GameObject book){
+    public void MoveBookToTable(GameObject book)
+    {
         Table tableScript = table.GetComponent<Table>();
         Book book_obj = book.GetComponent<Book>();
         BookRack rack = book_obj.GetCurrHolder().GetComponent<BookRack>();
@@ -227,4 +253,80 @@ public class BookManager : MonoBehaviour
         tableScript.AddBook(book);
         book_obj.SetCurrentHolder((GameObject)table);
     }
+
+    public IEnumerator MoveCorrectBookToRack(int rack_index, float wait)
+    {
+        yield return new WaitForSeconds(wait);
+        bool bookMoved = false;
+        Table tableScript = table.GetComponent<Table>();
+        List<GameObject> table_bookstack = tableScript.GetBookStack();
+        List<GameObject> table_bookstack2 = tableScript.GetBookStack2();
+        GameObject rack = bookRacks[rack_index];
+
+        //check if book of wanted category is in right stack of books and move it to correct rack
+        foreach (GameObject book in table_bookstack.ToList())
+        {
+            Book book_obj = book.GetComponent<Book>();
+
+            if (book_obj.word_category == rack_index + 1)
+            {
+                tableScript.RemoveBook(book);
+                rack.GetComponent<BookRack>().AddBook(book);
+                book_obj.SetCurrentHolder(rack);
+                book_obj.SetBookFrozen();
+                bookMoved = true;
+                break;
+            }
+        }
+        if (!bookMoved)
+        {
+            //check if book of wanted category is in left stack of books and move it to correct rack
+            foreach (GameObject book in table_bookstack2.ToList())
+            {
+                Book book_obj = book.GetComponent<Book>();
+
+                if (book_obj.word_category == rack_index + 1)
+                {
+                    tableScript.RemoveBook(book);
+                    rack.GetComponent<BookRack>().AddBook(book);
+                    book_obj.SetCurrentHolder(rack);
+                    book_obj.SetBookFrozen();
+                    bookMoved = true;
+                    break;
+                }
+            }
+        }
+        if (!bookMoved)
+        {
+            //check if book of wanted category is in wrong rack and move it to correct one
+            for (int i = 0; i < 3; i++)
+            {
+                BookRack rackScript = bookRacks[i].GetComponent<BookRack>();
+                List<GameObject> rack_bookStack = rackScript.GetBookStack();
+
+                if (rackScript.isCompleted || rack_index == i)
+                {
+                    continue;
+                }
+
+                foreach (GameObject book in rack_bookStack.ToList())
+                {
+                    Book book_obj = book.GetComponent<Book>();
+                    if (book_obj.word_category == rack_index + 1)
+                    {
+                        rackScript.RemoveBook(book);
+                        rack.GetComponent<BookRack>().AddBook(book);
+                        book_obj.SetCurrentHolder(rack);
+                        book_obj.SetBookFrozen();
+                        bookMoved = true;
+                        break;
+                    }
+                }
+            }
+
+        }
+
+
+    }
+
 }

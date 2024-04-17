@@ -49,4 +49,12 @@ public class Table : BookHolderBase {
         this.bookStack.Clear();
         this.bookStack2.Clear();
     }
+
+    public List<GameObject> GetBookStack(){
+        return this.bookStack;
+    }
+
+    public List<GameObject> GetBookStack2(){
+        return this.bookStack2;
+    }
 }
