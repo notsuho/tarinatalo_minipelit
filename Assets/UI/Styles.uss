@@ -113,9 +113,8 @@
 
 #sentence {
     color: var(--color-dk-text);
-    
     height: 85px;
-    font-size: 200%;
+    font-size: 180%;
     padding: 1.5%;
     padding-left: 4%;
     padding-right: 4%;
