@@ -5,6 +5,8 @@ using UnityEngine;
 public class MiniGameManager : MonoBehaviour
 {
     public GameObject hammer;
+    public SoundObject soundObject;
+    public Camera cam;
     [SerializeField] private GameObject jar;
     [SerializeField] private GameObject firstShelf;
     [SerializeField] private GameObject secondShelf;
@@ -24,6 +26,11 @@ public class MiniGameManager : MonoBehaviour
     private readonly List<GameObject> jarsOfTheRound = new();
 
     public static bool isGamePaused = true;
+
+    private void Start() {
+        // Get the camera position for sounds
+        cam = Camera.main;
+    }
 
     public int GetTotalRounds() {
         return roundsTotal;
@@ -62,14 +69,17 @@ public class MiniGameManager : MonoBehaviour
             yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG);
 
             cabinetAnimator.Play("CloseCabinetDoors");
+            AudioSource.PlayClipAtPoint(soundObject.doorClose, cam.transform.position, 1.0f);
             yield return new WaitForSeconds(WaitTimes.DOOR_CLOSING_TIME); // animation duration
 
             if (currentRound <= roundsTotal) // rounds 2 and 3
             {
                 cabinetAnimator.Play("CabinetShake");
+                //AudioSource.PlayClipAtPoint(soundObject.cabinetShake, cam.transform.position, 1.0f);
                 yield return new WaitForSeconds(WaitTimes.CABINET_SHAKING_TIME); // animation duration
 
                 cabinetAnimator.Play("OpenCabinetDoors");
+                AudioSource.PlayClipAtPoint(soundObject.doorOpen, cam.transform.position, 1.0f);
 
                 foreach (GameObject jar in jarsOfTheRound)
                     Destroy(jar);
@@ -102,6 +112,7 @@ public class MiniGameManager : MonoBehaviour
         SetUpJars();
         hammer.GetComponent<HammerBehavior>().AnimateHammer("SlideHammerIntoView");
         cabinetAnimator.Play("OpenCabinetDoors");
+        AudioSource.PlayClipAtPoint(soundObject.doorOpen, cam.transform.position, 1.0f);
         UnpauseGame();
     }
 
@@ -174,10 +185,10 @@ public class MiniGameManager : MonoBehaviour
         Vector3 spaceBetweenJars = new(shelfWidth / (numberOfJars + 1), 0, 0);
 
         // Calculates the first jar's position (left to right).
-        Vector3 firstJarPosition = shelf.transform.position                                                     // middle of the shelf
-                                    - new Vector3(shelfWidth / 2, 0, 0)                                         // to the left edge
-                                    + spaceBetweenJars                                                          // one step from the wall
-                                    + new Vector3(0, jarHeight / 2 + shelfHeight / 2, 0);                       // no sinking into the shelf
+        Vector3 firstJarPosition = shelf.transform.position                               // middle of the shelf
+                                    - new Vector3(shelfWidth / 2, 0, 0)                   // to the left edge
+                                    + spaceBetweenJars                                    // one step from the wall
+                                    + new Vector3(0, jarHeight / 2 + shelfHeight / 2, 0); // no sinking into the shelf
 
         // Places jars on the shelf
         for (int i = 0; i < numberOfJars; i++)

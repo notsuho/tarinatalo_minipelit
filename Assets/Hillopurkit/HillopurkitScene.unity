@@ -238,6 +238,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hammer: {fileID: 447952566}
+  soundObject: {fileID: -6518006508135062176, guid: 9a5089aa72c2f194cb271b33950c7004, type: 3}
+  cam: {fileID: 0}
   jar: {fileID: 3447532814585227846, guid: eb26c75068113b14ca6891d3bdb5fd84, type: 3}
   firstShelf: {fileID: 1134697244}
   secondShelf: {fileID: 1134697243}
@@ -563,6 +565,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1600471}
+  currentProgress: 33
+  progressPerCorrectAnswer: 0
   streak: 0
   minStreakValue: 3
 --- !u!4 &1243773864

@@ -147,4 +147,7 @@ MonoBehaviour:
   victorySound: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
   streakSound: {fileID: 8300000, guid: 1a2484f5050c1b746acd5e64d0b883f8, type: 3}
   jarClink: {fileID: 8300000, guid: b43d102aac6b145468dcaa94a5cccae1, type: 3}
-  jarShatter: {fileID: 0}
+  jarShatter: {fileID: 8300000, guid: b08beab78d6dbb74d8305c0136a64cd7, type: 3}
+  doorOpen: {fileID: 8300000, guid: 01287c34f5b87c74481588b420eb0760, type: 3}
+  doorClose: {fileID: 8300000, guid: 206a01f63d4ed884bbcd5d4c77dee340, type: 3}
+  cabinetShake: {fileID: 0}
