@@ -37,15 +37,7 @@ public class UIManager : MonoBehaviour
     public string leftWord;
     public string rightWord;
 
-    private string continueButtonText = "<allcaps>jatka</allcaps>";
-    private string gotItButtonText = "<allcaps>selvä!</allcaps>";
-    private string endGameButtonText = "<allcaps>palaa pääpeliin</allcaps>";
-    private string instructionHeadlineText = "<allcaps>Arkku ja avain</allcaps>";
-    private string instructionTextText = "Kumpi avaimista sopii arkkuun?<br><br>Jotkin sanat voivat muistuttaa toisiaan mutta tarkoittaa silti eri asiaa.<br><br>Päättele, kumpi annetuista sanoista sopii lauseeseen. <b>Klikkaa oikeaa sanaa</b> ja arkku aukeaa!  ";
-    private string winningHeadline = "Läpäisit pelin";
-    private string winningText = "Sait sanataiturin arvomerkin<br><br>Pisteesi: ";
-    private string correctAnswerFeedpackText = "Oikein meni!";
-    private string wrongAnswerFeedpackText = "Nyt ei osunut oikeaan";
+   
 
     void Start()
     {
@@ -129,11 +121,11 @@ public class UIManager : MonoBehaviour
     {
         instructions = root.Q<VisualElement>("panel-section");
         Label instructionHeadline = instructions.Q<Label>("panel-headline");
-        instructionHeadline.text = instructionHeadlineText;
+        instructionHeadline.text = TextMaterialArkku.instructionHeadlineText;
         Label instructionText = instructions.Q<Label>("panel-text");
-        instructionText.text = instructionTextText;
+        instructionText.text = TextMaterialArkku.instructionTextText;
         Button gotItButton = instructions.Q<Button>("panel-button");
-        gotItButton.text = gotItButtonText;
+        gotItButton.text = TextMaterialArkku.gotItButtonText;
 
         instructions.style.display = DisplayStyle.Flex;
     }
@@ -174,7 +166,7 @@ public class UIManager : MonoBehaviour
         panelHeadline.text = feedpackFrase;
         panelText.text = explanation;
 
-        panelButton.text = continueButtonText;
+        panelButton.text = TextMaterialArkku.continueButtonText;
 
     }
 
@@ -186,12 +178,12 @@ public class UIManager : MonoBehaviour
 
     private void SetPanelExit()
     {
-        if (panelButton.text.Equals(continueButtonText))
+        if (panelButton.text.Equals(TextMaterialArkku.continueButtonText))
         {
             ContinueGame();
             answerImage.style.display = DisplayStyle.None;
         }
-        else if (panelButton.text.Equals(endGameButtonText))
+        else if (panelButton.text.Equals(TextMaterialArkku.endGameButtonText))
         {
             Application.Quit();
         }
@@ -231,7 +223,7 @@ public class UIManager : MonoBehaviour
                
             }
            //---------------------------------------------
-            SetFeedpack(correctAnswerFeedpackText, levelManager.GetCurrentExplanation(), true);
+            SetFeedpack(TextMaterialArkku.correctAnswerFeedpackText, levelManager.GetCurrentExplanation(), true);
             Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack);
         }
         else
@@ -241,7 +233,7 @@ public class UIManager : MonoBehaviour
                 uiUtils.ScoreLabelToNormalColoring(gameScore);
             }
            
-            SetFeedpack(wrongAnswerFeedpackText, levelManager.GetCurrentExplanation(), false);
+            SetFeedpack(TextMaterialArkku.wrongAnswerFeedpackText, levelManager.GetCurrentExplanation(), false);
             panelSection.style.display = DisplayStyle.Flex;
             AudioSource.PlayClipAtPoint(soundObject.wrongAnswerSound, cam.transform.position, 1f);
 
@@ -287,10 +279,10 @@ public class UIManager : MonoBehaviour
     public void DeclareWin()
     {
 
-        panelHeadline.text = winningHeadline;
-        panelText.text = winningText + GameManager.totalPoints.ToString();
+        panelHeadline.text = TextMaterialArkku.winningHeadline;
+        panelText.text = TextMaterialArkku.winningText + GameManager.totalPoints.ToString();
 
-        panelButton.text = endGameButtonText;
+        panelButton.text = TextMaterialArkku.endGameButtonText;
 
         panelSection.style.display = DisplayStyle.Flex;
 
