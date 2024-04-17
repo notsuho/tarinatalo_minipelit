@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     private VisualElement streakImage;
     private Image answerImage;
 
+
     private string sentence;
 
     
@@ -228,12 +229,14 @@ public class UIManager : MonoBehaviour
         }
         else
         {
+
             if (uiUtils.isStreakColoringOn)
             {
                 uiUtils.ScoreLabelToNormalColoring(gameScore);
             }
            
             SetFeedpack(TextMaterialArkku.wrongAnswerFeedpackText, levelManager.GetCurrentExplanation(), false);
+
             panelSection.style.display = DisplayStyle.Flex;
             AudioSource.PlayClipAtPoint(soundObject.wrongAnswerSound, cam.transform.position, 1f);
 
@@ -245,6 +248,7 @@ public class UIManager : MonoBehaviour
     private void DisplayStreakImage ()
     {
 
+   
         //asettaa score labeliin uuden värin, joka ilmaisee, että streak on päällä
         if (!uiUtils.isStreakColoringOn) { 
             uiUtils.ScoreLabelToStreakColoring(gameScore);
