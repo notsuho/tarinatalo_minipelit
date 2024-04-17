@@ -306,7 +306,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dbde70b297f47ea4b9c2f2d79180a4f3, type: 2}
+  - {fileID: 2100000, guid: b0b387cf9c80ce04db9a8a22e69933a3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1038,6 +1038,7 @@ GameObject:
   - component: {fileID: 1617662935}
   - component: {fileID: 1617662934}
   - component: {fileID: 1617662936}
+  - component: {fileID: 1617662937}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -1089,13 +1090,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 1671395770}
+  uiUtils: {fileID: 0}
   RenderTimeForCorrectAnswerFeedpack: 3.3
   RenderTimeForDeclareWinFeedpack: 2
   cam: {fileID: 963194227}
-  ps: {fileID: 3439608853183692337, guid: 7fade5688b1afda4b9ea252f7bb8745e, type: 3}
   soundObject: {fileID: -6518006508135062176, guid: 9a5089aa72c2f194cb271b33950c7004, type: 3}
   leftWord: 
   rightWord: 
+--- !u!114 &1617662937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617662933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45186b2c4e2495842b1fd5f39521b289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isStreakColoringOn: 0
 --- !u!1 &1661738207
 GameObject:
   m_ObjectHideFlags: 0
