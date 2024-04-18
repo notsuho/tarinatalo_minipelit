@@ -28,7 +28,7 @@ public class MiniGameManager : MonoBehaviour
     public static bool isGamePaused = true;
 
     private void Start() {
-        // Get the camera position for sounds
+        // Get the camera position for sounds and other things
         cam = Camera.main;
     }
 
@@ -139,8 +139,8 @@ public class MiniGameManager : MonoBehaviour
                 numberOfJars = numberOfJars_round3;
                 numberOfWrongs = numberOfWrongs_round3;
                 break;
-            default:
-                Debug.Log("Only rounds 1, 2 and 3 exist");
+            default: // After round 3, default to round 3 setups
+                // Debug.Log("Only rounds 1, 2 and 3 exist");
                 // For later: just default to round 3 jars if there are more
                 // than 3 rounds? Or randomize the # of jars?
                 numberOfJars = numberOfJars_round3;

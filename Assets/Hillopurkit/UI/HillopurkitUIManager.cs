@@ -160,7 +160,7 @@ public class HillopurkitUIManager : MonoBehaviour
             //VisualElement star1 = root.Q<VisualElement>("star1");
             star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
 
-            if (progressBar.value >= 33 && progressBar.value <= 40)
+            if (progressBar.value > 33 && progressBar.value <= 35)
             {
                 StarScaleTransition(star1);
             }
@@ -199,14 +199,17 @@ public class HillopurkitUIManager : MonoBehaviour
         progressBar = root.Q<ProgressBar>("progress-bar");
         // progressBar.value = GameManager.totalPoints;
         UpProgressBar(resetValue);
-        // UpProgressBar(GameManager.totalPoints);
-        // progressBar.value = GameObject.Find("Score").GetComponent<Score>().GetPoints(); 
-        // VisualElement star1 = root.Q<VisualElement>("star1");
-        // star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star"); // light up the first star
-        // VisualElement star2 = root.Q<VisualElement>("star2");
-        // star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
-        // VisualElement star3 = root.Q<VisualElement>("star3");
-        // star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
+        //UpProgressBar(GameManager.totalPoints);
+        /*
+        progressBar.value = resetValue;
+        //GameObject.Find("Score").GetComponent<Score>().GetPoints(); 
+        VisualElement star1 = root.Q<VisualElement>("star1");
+        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star"); // light up the first star
+        VisualElement star2 = root.Q<VisualElement>("star2");
+        star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
+        VisualElement star3 = root.Q<VisualElement>("star3");
+        star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
+        */
     }
 
     public void SetFeedback(bool result)
