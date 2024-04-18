@@ -58,6 +58,10 @@ public class HillopurkitUIManager : MonoBehaviour
         exitButton.clicked += () => Application.Quit();
     }
 
+    // <summary>
+    // Displays the instruction UI pop-up
+    // Clicking on the ? UI button also calls this method
+    // </summary>
     private void SetInstructions()
     {
         //Siirrä tiedostoon myöhemmin
@@ -157,25 +161,19 @@ public class HillopurkitUIManager : MonoBehaviour
 
         if (progressBar.value >= 33)
         {
-            //VisualElement star1 = root.Q<VisualElement>("star1");
             star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
 
             if (progressBar.value > 33 && progressBar.value <= 35)
             {
                 StarScaleTransition(star1);
             }
-            //star1.ToggleInClassList("star-scale-transition");
-            //root.schedule.Execute(() => star1.ToggleInClassList("star-scale-transition")).StartingIn(500);
+
         }
 
         if (progressBar.value >= 66)
         {
-            //VisualElement star2 = root.Q<VisualElement>("star2");
             star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-
             StarScaleTransition(star2);
-            //star2.ToggleInClassList("star-scale-transition");
-            //root.schedule.Execute(() => star2.ToggleInClassList("star-scale-transition")).StartingIn(500);
         }
     }
 
@@ -197,30 +195,18 @@ public class HillopurkitUIManager : MonoBehaviour
     public void ResetProgressBar(int resetValue)
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
-        // progressBar.value = GameManager.totalPoints;
         UpProgressBar(resetValue);
-        //UpProgressBar(GameManager.totalPoints);
-        /*
-        progressBar.value = resetValue;
-        //GameObject.Find("Score").GetComponent<Score>().GetPoints(); 
-        VisualElement star1 = root.Q<VisualElement>("star1");
-        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star"); // light up the first star
-        VisualElement star2 = root.Q<VisualElement>("star2");
-        star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
-        VisualElement star3 = root.Q<VisualElement>("star3");
-        star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
-        */
     }
 
     public void SetFeedback(bool result)
     {
+        // Get the right/wrong click stats and score
         int[] stats = score.GetStats();
         int points = score.GetPoints();
 
-        if (result == true)
+        // If a breakable jar was clicked, check for streak bonus points and update score UI
+        if (result == true) 
         {
-            //tallyText = root.Q<Label>("click-tally-right");
-            //tallyText.text = ("Särjetyt purkit: " + tally[0]);
             if (score.streak >= score.minStreakValue) {
                 DisplayStreakImage();
             }
@@ -232,8 +218,6 @@ public class HillopurkitUIManager : MonoBehaviour
 
         else
         {
-            //tallyText = root.Q<Label>("click-tally-wrong");
-            //tallyText.text = ("Väärät arvaukset: " + tally[1]);
             scoreLabel = root.Q<Label>("score-label");
             scoreLabel.text = ("" + points);
             clickedWrong.visible = true;
