@@ -174,7 +174,9 @@ public class UIManager : MonoBehaviour
     private void SetFeedpackPanelVisible()
     {
         panelSection.style.display = DisplayStyle.Flex;
+        
         AudioSource.PlayClipAtPoint(soundObject.correctAnswerSound, cam.transform.position);
+
     }
 
     private void SetPanelExit()
@@ -226,6 +228,7 @@ public class UIManager : MonoBehaviour
            //---------------------------------------------
             SetFeedpack(TextMaterialArkku.correctAnswerFeedpackText, levelManager.GetCurrentExplanation(), true);
             Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack);
+            AudioSource.PlayClipAtPoint(soundObject.keytwistSound, cam.transform.position);
         }
         else
         {
