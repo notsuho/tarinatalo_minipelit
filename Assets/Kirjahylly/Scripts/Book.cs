@@ -71,6 +71,7 @@ public class Book : MonoBehaviour {
         this.targetPosition = newPos;
         this.targetRotation = Quaternion.Euler(newRot);
         this.bookMoving = true;
+        this.bookZooming = false;
     }
 
     void OnMouseDrag() {

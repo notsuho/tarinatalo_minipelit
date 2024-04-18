@@ -19,6 +19,8 @@ public class UIManager_Kirjahylly : MonoBehaviour
     private Label feedback;
     private ProgressBar progressBar;
     private Button hint;
+    private float lastHintUseTime = 0;
+    private bool hintAvailable = true;
 
     private string gotItButtonText = "<allcaps>selvä!</allcaps>";
     private string instructionHeadlineText = "<allcaps>ohjeet</allcaps>";
@@ -27,10 +29,9 @@ public class UIManager_Kirjahylly : MonoBehaviour
     private readonly string winningText = "Sait järjestettyä kaikki kirjat oikein hyllyihin. Hienoa!";
     private readonly string nextGameButtonText = "<allcaps>seuraava minipeli</allcaps>";
     public BookManager manager;
-    
+
     private void OnEnable()
     {
-        print("UI onenable");
         manager = FindObjectOfType<BookManager>();
         root = FindObjectOfType<UIDocument>().rootVisualElement;
 
@@ -47,10 +48,18 @@ public class UIManager_Kirjahylly : MonoBehaviour
         hint = root.Q<Button>("clue");
 
         instructionButton.clicked += () => SetInstructions();
-        instructionButton.clicked += () => print("click");
         panelButton.clicked += () => instructions.style.display = DisplayStyle.None;
         exitButton.clicked += () => Application.Quit();
-        hint.clicked += () => manager.UseHint();
+        hint.clicked += () => {
+            if (this.hintAvailable) {
+                manager.UseHint();
+                this.lastHintUseTime = Time.time;
+            }
+        };
+    }
+
+    void Update() {
+        this.hintAvailable = Time.time - this.lastHintUseTime > 5;
     }
 
     public void SetInstructions ()

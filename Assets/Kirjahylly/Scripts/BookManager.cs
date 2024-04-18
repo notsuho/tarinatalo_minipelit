@@ -260,11 +260,10 @@ public class BookManager : MonoBehaviour
         bool bookMoved = false;
         Table tableScript = table.GetComponent<Table>();
         List<GameObject> table_bookstack = tableScript.GetBookStack();
-        List<GameObject> table_bookstack2 = tableScript.GetBookStack2();
         GameObject rack = bookRacks[rack_index];
 
         //check if book of wanted category is in right stack of books and move it to correct rack
-        foreach (GameObject book in table_bookstack.ToList())
+        foreach (GameObject book in table_bookstack)
         {
             Book book_obj = book.GetComponent<Book>();
 
@@ -278,24 +277,7 @@ public class BookManager : MonoBehaviour
                 break;
             }
         }
-        if (!bookMoved)
-        {
-            //check if book of wanted category is in left stack of books and move it to correct rack
-            foreach (GameObject book in table_bookstack2.ToList())
-            {
-                Book book_obj = book.GetComponent<Book>();
 
-                if (book_obj.word_category == rack_index + 1)
-                {
-                    tableScript.RemoveBook(book);
-                    rack.GetComponent<BookRack>().AddBook(book);
-                    book_obj.SetCurrentHolder(rack);
-                    book_obj.SetBookFrozen();
-                    bookMoved = true;
-                    break;
-                }
-            }
-        }
         if (!bookMoved)
         {
             //check if book of wanted category is in wrong rack and move it to correct one
