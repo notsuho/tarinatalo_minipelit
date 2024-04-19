@@ -58,4 +58,8 @@ public class BookRack : BookHolderBase
             book.GetComponent<GlowControl>().MakeBookRed();
         }
     }
+
+    public List<GameObject> GetBookStack(){
+        return this.bookStack;
+    }
 }

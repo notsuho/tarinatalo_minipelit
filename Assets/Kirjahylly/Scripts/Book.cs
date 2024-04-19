@@ -8,11 +8,12 @@ public class Book : MonoBehaviour {
     private float distanceToCamera;
     private bool bookMoving = false;
     private bool bookZooming = false;
+    private bool bookFrozen = false;
     private float moveSpeed = 7.0f;
     private float zoomDistanceToCamera = 2.0f; // How close to zoom the book when dragging
 
     private Vector3 clickOffSet;
-
+    [SerializeField]
     private GameObject currHolder;
     private Vector3 targetPosition;
     private Quaternion targetRotation;
@@ -21,11 +22,11 @@ public class Book : MonoBehaviour {
     private UIManager_Kirjahylly ui;
 
     void Start() {
-        ui = this.AddComponent<UIManager_Kirjahylly>();
+        ui = FindObjectOfType<UIManager_Kirjahylly>();
     }
 
     void OnMouseDown() {
-        if (this.IsInCompletedRack() || ui.InstructionsShown()) {
+        if (this.IsInCompletedRack() || ui.InstructionsShown() || this.bookFrozen) {
             return;
         }
         /*
@@ -45,7 +46,7 @@ public class Book : MonoBehaviour {
             Check if object under mouse can hold books.
             if it can, remove the book from its current holder and add it to the new holder.
         */
-        if (this.bookMoving || this.IsInCompletedRack() || ui.InstructionsShown()) {
+        if (this.bookMoving || this.IsInCompletedRack() || ui.InstructionsShown() || this.bookFrozen) {
             return;
         }
 
@@ -70,13 +71,14 @@ public class Book : MonoBehaviour {
         this.targetPosition = newPos;
         this.targetRotation = Quaternion.Euler(newRot);
         this.bookMoving = true;
+        this.bookZooming = false;
     }
 
     void OnMouseDrag() {
         /*
             Update book object position in scene while dragging.
         */
-        if (this.bookMoving || this.IsInCompletedRack() || ui.InstructionsShown()) {
+        if (this.bookMoving || this.IsInCompletedRack() || ui.InstructionsShown() || this.bookFrozen) {
             return;
         }
         
@@ -157,5 +159,13 @@ public class Book : MonoBehaviour {
 
     public int GetWordCategory() {
         return word_category;
+    }
+
+    public void SetBookFrozen(){
+        bookFrozen = true;
+    }
+
+    public GameObject GetCurrHolder(){
+        return currHolder;
     }
 }

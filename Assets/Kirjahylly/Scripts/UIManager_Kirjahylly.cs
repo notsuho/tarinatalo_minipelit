@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class UIManager_Kirjahylly : MonoBehaviour
@@ -16,13 +18,21 @@ public class UIManager_Kirjahylly : MonoBehaviour
     private VisualElement instructions;
     private Label feedback;
     private ProgressBar progressBar;
+    private Button hint;
+    private float lastHintUseTime = -1000;
+    private bool hintAvailable = true;
 
     private string gotItButtonText = "<allcaps>selvä!</allcaps>";
     private string instructionHeadlineText = "<allcaps>ohjeet</allcaps>";
     private string instructionTextText = "Kirjat ovat sekaisin. Järjestä kirjat hyllyyn niiden merkityksen perusteella.";
+    private readonly string winningHeadline = "Läpäisit pelin!";
+    private readonly string winningText = "Sait järjestettyä kaikki kirjat oikein hyllyihin. Hienoa!";
+    private readonly string nextGameButtonText = "<allcaps>seuraava minipeli</allcaps>";
+    public BookManager manager;
 
     private void OnEnable()
     {
+        manager = FindObjectOfType<BookManager>();
         root = FindObjectOfType<UIDocument>().rootVisualElement;
 
         instructions = root.Q<VisualElement>("panel-section");
@@ -35,10 +45,22 @@ public class UIManager_Kirjahylly : MonoBehaviour
         panelText = panelSection.Q<Label>("panel-text");
         panelButton = panelSection.Q<Button>("panel-button");
         feedback = root.Q<Label>("feedback");
+        this.hint = root.Q<Button>("clue");
 
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => instructions.style.display = DisplayStyle.None;
         exitButton.clicked += () => Application.Quit();
+        this.hint.clicked += () => {
+            if (this.hintAvailable) {
+                manager.UseHint();
+                this.lastHintUseTime = Time.time;
+            }
+        };
+    }
+
+    void Update() {
+        this.hintAvailable = Time.time - this.lastHintUseTime > 10;
+        this.hint.style.opacity = this.hintAvailable ? 1.0f : 0.25f;
     }
 
     public void SetInstructions ()
@@ -85,4 +107,15 @@ public class UIManager_Kirjahylly : MonoBehaviour
         feedback.visible = false;
     }
 
+    public void ShowEndFeedback(){
+        panelHeadline.text = winningHeadline;
+        panelText.text = winningText;
+        panelButton.text = nextGameButtonText;
+
+        panelSection.style.display = DisplayStyle.Flex;
+        panelButton.clicked += () =>
+        {
+            SceneManager.LoadScene("HillopurkitScene");
+        };
+    }
 }

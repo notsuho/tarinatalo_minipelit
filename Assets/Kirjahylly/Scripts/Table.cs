@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Table : BookHolderBase {
     [SerializeField]
@@ -48,5 +49,9 @@ public class Table : BookHolderBase {
         }
         this.bookStack.Clear();
         this.bookStack2.Clear();
+    }
+
+    public List<GameObject> GetBookStack(){
+        return this.bookStack.Concat(this.bookStack2).ToList();
     }
 }

@@ -1930,6 +1930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c4db2f88e3c664086fc67fc8fdce6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1870231361}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
