@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -301,11 +302,16 @@ public class UIManager : MonoBehaviour
         panelHeadline.text = TextMaterialArkku.winningHeadline;
         panelText.text = TextMaterialArkku.winningText + GameManager.totalPoints.ToString();
 
-        panelButton.text = TextMaterialArkku.endGameButtonText;
+        panelButton.text = TextMaterialArkku.nextGameButtonText;
 
         panelSection.style.display = DisplayStyle.Flex;
 
         AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
+
+        panelButton.clicked += () =>
+        {
+            SceneManager.LoadScene("HillopurkitScene");
+        };
      
     }
 
