@@ -25,7 +25,7 @@ public class HillopurkitUIManager : MonoBehaviour
     private readonly string continueButtonText = "<allcaps>jatka</allcaps>";
     private readonly string gotItButtonText = "<allcaps>selvä!</allcaps>";
     private readonly string endGameButtonText = "<allcaps>palaa pääpeliin</allcaps>";
-    private readonly string nextGameButtonText = "<allcaps>seuraava minipeli</allcaps>";
+    private readonly string nextGameButtonText = "<allcaps>seuraava peli</allcaps>";
     private readonly string instructionHeadlineText = "<allcaps>ohjeet</allcaps>";
     private readonly string winningHeadline = "Läpäisit pelin!";
     private readonly string winningText = "Löysit ja rikoit kaikki joukkoon kuulumattomat purkit!";
@@ -134,7 +134,7 @@ public class HillopurkitUIManager : MonoBehaviour
         // Load next minigame scene when player presses the button
         panelButton.clicked += () =>
         {
-            SceneManager.LoadScene("ArkkuScene");
+            SceneManager.LoadScene("KirjahyllyScene");
         };
     }
 

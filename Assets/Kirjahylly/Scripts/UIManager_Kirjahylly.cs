@@ -28,6 +28,7 @@ public class UIManager_Kirjahylly : MonoBehaviour
     private readonly string winningHeadline = "Läpäisit pelin!";
     private readonly string winningText = "Sait järjestettyä kaikki kirjat oikein hyllyihin. Hienoa!";
     private readonly string nextGameButtonText = "<allcaps>seuraava minipeli</allcaps>";
+    private readonly string endGameButtonText = "<allcaps>takaisin päävalikkoon</allcaps>";
     public BookManager manager;
 
     private void OnEnable()
@@ -110,12 +111,13 @@ public class UIManager_Kirjahylly : MonoBehaviour
     public void ShowEndFeedback(){
         panelHeadline.text = winningHeadline;
         panelText.text = winningText;
-        panelButton.text = nextGameButtonText;
+        panelButton.text = endGameButtonText;
 
         panelSection.style.display = DisplayStyle.Flex;
         panelButton.clicked += () =>
         {
-            SceneManager.LoadScene("HillopurkitScene");
+            // tähän esim application quit, tai kutsu palata päävalikkoon tms.
+            // Application.Quit();
         };
     }
 }
