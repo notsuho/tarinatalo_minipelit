@@ -293,8 +293,8 @@
     transition: 0.3s linear 0.2s;
     background-image: resource('Images/star_blank');
     position: absolute;
-    width: 68px;
-    height: 68px;
+    width: 70px;
+    height: 70px;
     rotate: 90deg;
     left: 91%;
     top: -26%;
@@ -304,11 +304,11 @@
     transition: 0.3s linear 0.2s;
     background-image: resource('Images/star_blank');
     position: absolute;
-    width: 68px;
-    height: 68px;
+    width: 70px;
+    height: 70px;
     rotate: 90deg;
     left: 57%;
-    top: -24%;
+    top: -26%;
 }
 
 
@@ -317,11 +317,11 @@
     transition: 0.3s linear 0.2s;
     background-image: resource('Images/star_blank');
     position: absolute;
-    width: 68px;
-    height: 68px;
+    width: 70px;
+    height: 70px;
     rotate: 90deg;
     left: 24%;
-    top: -24%;
+    top: -26%;
 }
 
 .star-scale-transition {
@@ -341,7 +341,6 @@
     color: white; 
     font-size: 35px; 
     -unity-font-style: bold; 
-    /*-unity-text-outline-color: white; */
      text-shadow: 3px 3px 0px var(--color-dk-text);
     letter-spacing: 12px; 
     -unity-text-outline-width: 1px; 
@@ -349,13 +348,13 @@
 }
 
 #score-label:hover{
-    color: #CF923E;/*#F2CD75#D68A23*/
+    color: #CF923E;
     text-shadow: 2px 2px 3px white;
 }
 
 .score-label-streak {
     scale: 1.5;
-    color: #CF923E;/*#F2CD75#D68A23*/
+    color: #CF923E;
     text-shadow: 2px 2px 3px white;
     
 }
