@@ -19,7 +19,7 @@ public class UIManager_Kirjahylly : MonoBehaviour
     private Label feedback;
     private ProgressBar progressBar;
     private Button hint;
-    private float lastHintUseTime = 0;
+    private float lastHintUseTime = -1000;
     private bool hintAvailable = true;
 
     private string gotItButtonText = "<allcaps>selvä!</allcaps>";
@@ -45,12 +45,12 @@ public class UIManager_Kirjahylly : MonoBehaviour
         panelText = panelSection.Q<Label>("panel-text");
         panelButton = panelSection.Q<Button>("panel-button");
         feedback = root.Q<Label>("feedback");
-        hint = root.Q<Button>("clue");
+        this.hint = root.Q<Button>("clue");
 
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => instructions.style.display = DisplayStyle.None;
         exitButton.clicked += () => Application.Quit();
-        hint.clicked += () => {
+        this.hint.clicked += () => {
             if (this.hintAvailable) {
                 manager.UseHint();
                 this.lastHintUseTime = Time.time;
@@ -59,7 +59,8 @@ public class UIManager_Kirjahylly : MonoBehaviour
     }
 
     void Update() {
-        this.hintAvailable = Time.time - this.lastHintUseTime > 5;
+        this.hintAvailable = Time.time - this.lastHintUseTime > 10;
+        this.hint.style.opacity = this.hintAvailable ? 1.0f : 0.25f;
     }
 
     public void SetInstructions ()
@@ -116,6 +117,5 @@ public class UIManager_Kirjahylly : MonoBehaviour
         {
             SceneManager.LoadScene("HillopurkitScene");
         };
-
     }
 }
