@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class JarBehavior : MonoBehaviour
@@ -7,9 +8,12 @@ public class JarBehavior : MonoBehaviour
     [SerializeField] private GameObject brokenJar;
     [SerializeField] private GameObject jam;
     private Color color;
+    public Camera cam;
+    public SoundObject soundObject;
 
     private void Start()
     {
+        cam = Camera.main;
         color = GetComponentInChildren<RandomMaterial>().GetMaterial().color;
     }
 
@@ -39,6 +43,14 @@ public class JarBehavior : MonoBehaviour
             Vector3 currentPosition = transform.position;
             GameObject breakingJar = Instantiate(brokenJar, currentPosition, Quaternion.identity);
 
+            // play sound for clicking correct jar
+            AudioSource.PlayClipAtPoint(soundObject.correctAnswerSound, cam.transform.position, 1.0f);
+            // also play shatter sound (uncomment below part when we get clip)
+            AudioSource.PlayClipAtPoint(soundObject.jarShatter, cam.transform.position, 1.0f);
+
+            // screen shake effect
+            ScreenShake.shakeTrigger = true;
+
             // set the dust cloud effect to same color as the jar
             ParticleSystem ps = breakingJar.GetComponent<BrokenJarBehavior>().dustCloud;
             ParticleSystem.MainModule main = ps.main;
@@ -49,6 +61,9 @@ public class JarBehavior : MonoBehaviour
 
         else
         {
+            // play sounds for clicking incorrect jar
+            AudioSource.PlayClipAtPoint(soundObject.jarClink, cam.transform.position, 1.0f);
+            AudioSource.PlayClipAtPoint(soundObject.wrongAnswerSound, cam.transform.position, 1.0f);
             StartCoroutine(miniGameManager.hammer.GetComponent<HammerBehavior>().WrongSwing());
             score.BrokeCorrectJar(false); // update score
             transform.parent.gameObject.GetComponent<Animator>().Play("WrongJarShake");

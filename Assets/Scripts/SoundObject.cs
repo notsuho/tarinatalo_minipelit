@@ -9,7 +9,11 @@ public class SoundObject : MonoBehaviour
     public AudioClip starSound;
     public AudioClip victorySound;
     public AudioClip streakSound;
-
+    public AudioClip jarClink;
+    public AudioClip jarShatter;
+    public AudioClip doorOpen;
+    public AudioClip doorClose;
+    public AudioClip cabinetShake; // Need to find a clip for this one!
     public AudioClip keytwistSound;
 
 }

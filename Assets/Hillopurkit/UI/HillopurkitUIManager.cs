@@ -19,6 +19,8 @@ public class HillopurkitUIManager : MonoBehaviour
     private Label clickedWrong;
     private Label clickedRight;
     private VisualElement streakImage;
+    public Camera cam;
+    public SoundObject soundObject;
     private const int SCORE_MULTIPLIER = 10; // for UI display purposes
     private readonly string continueButtonText = "<allcaps>jatka</allcaps>";
     private readonly string gotItButtonText = "<allcaps>selvä!</allcaps>";
@@ -30,9 +32,9 @@ public class HillopurkitUIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        root = GetComponent<UIDocument>().rootVisualElement;
+        cam = Camera.main;
 
-        ResetProgressBar();
+        root = GetComponent<UIDocument>().rootVisualElement;
 
         Button instructionButton = root.Q<Button>("instruction-button");
         Button exitButton = root.Q<Button>("exit-button");
@@ -45,6 +47,10 @@ public class HillopurkitUIManager : MonoBehaviour
         clickedRight = root.Q<Label>("feedback-right");
         clickedWrong = root.Q<Label>("feedback-wrong");
 
+        scoreLabel = root.Q<Label>("score-label");
+        scoreLabel.text = "" + GameManager.totalPoints;
+
+        ResetProgressBar(33);
         SetInstructions();
 
         instructionButton.clicked += () => SetInstructions();
@@ -52,12 +58,16 @@ public class HillopurkitUIManager : MonoBehaviour
         exitButton.clicked += () => Application.Quit();
     }
 
+    // <summary>
+    // Displays the instruction UI pop-up
+    // Clicking on the ? UI button also calls this method
+    // </summary>
     private void SetInstructions()
     {
         //Siirrä tiedostoon myöhemmin
         string instructionTextText = "Kaappiin on kasattu purkkeja, joiden kyljessä lukee synonyymejä. " 
                                     + "Mutta purkkien joukkoon on eksynyt sana, joka ei kuulu joukkoon. "
-                                    + "Etsi joukoon kuulumaton purkki, ja riko se vasaralla!";
+                                    + "Etsi joukkoon kuulumaton purkki, ja riko se vasaralla!";
 
         miniGameManager.PauseGame();
 
@@ -98,20 +108,24 @@ public class HillopurkitUIManager : MonoBehaviour
 
     public IEnumerator DeclareWin()
     {
-        // Update the score for next minigame to use
-        GameManager.totalPoints = score.GetPoints();
 
         yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG);
 
-        int[] tally = score.GetTally();
-        int total = tally[0] + tally[1];
+        // Play victory jingle
+        AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
+
+        // Update the score for next minigame to use
+        GameManager.totalPoints = score.GetPoints();
+
+        int[] stats = score.GetStats();
+        int total = stats[0] + stats[1];
 
         panelHeadline.text = winningHeadline;
         panelText.text = winningText
             + ("\n\nPisteesi: " + score.GetPoints()) // Add two linebreaks so it looks just a tiny bit cleaner
             + ("\nArvausten määrä: " + total)
-            + ("\nOikeat arvaukset: " + tally[0])
-            + ("\nVäärät arvaukset: " + tally[1]);
+            + ("\nOikeat arvaukset: " + stats[0])
+            + ("\nVäärät arvaukset: " + stats[1]);
 
         panelButton.text = nextGameButtonText;
 
@@ -135,41 +149,9 @@ public class HillopurkitUIManager : MonoBehaviour
         progressBar.value = currentPoints;
         Debug.Log("\nProgress bar value after update: " + progressBar.value);
 
-        if (progressBar.value < 33)
-        {
-            UnlightStar(star1);
-            UnlightStar(star2);
-            UnlightStar(star3);
-        }
-
-        if (progressBar.value >= 33)
-        {
-            //VisualElement star1 = root.Q<VisualElement>("star1");
-            star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-
-            if (progressBar.value >= 33 && progressBar.value <= 40) {
-            StarScaleTransition(star1);
-            }
-            //star1.ToggleInClassList("star-scale-transition");
-            //root.schedule.Execute(() => star1.ToggleInClassList("star-scale-transition")).StartingIn(500);
-        }
-
         if (progressBar.value < 66)
         {
             UnlightStar(star2);
-            UnlightStar(star3);
-        }
-
-        if (progressBar.value >= 66)
-        {
-            //VisualElement star2 = root.Q<VisualElement>("star2");
-            star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-
-            if (progressBar.value >= 66 && progressBar.value <= 70) {
-            StarScaleTransition(star2);
-            }
-            //star2.ToggleInClassList("star-scale-transition");
-            //root.schedule.Execute(() => star2.ToggleInClassList("star-scale-transition")).StartingIn(500);
         }
 
         if (progressBar.value < 99)
@@ -177,16 +159,22 @@ public class HillopurkitUIManager : MonoBehaviour
             UnlightStar(star3);
         }
 
-        if (progressBar.value >= 99)
+        if (progressBar.value >= 33)
         {
-            //VisualElement star3 = root.Q<VisualElement>("star3");
-            star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
+            star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
 
-            StarScaleTransition(star3);
-            //star3.ToggleInClassList("star-scale-transition");
-            //root.schedule.Execute(() => star3.ToggleInClassList("star-scale-transition")).StartingIn(500);
+            if (progressBar.value > 33 && progressBar.value <= 35)
+            {
+                StarScaleTransition(star1);
+            }
+
         }
 
+        if (progressBar.value >= 66)
+        {
+            star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
+            StarScaleTransition(star2);
+        }
     }
 
     private void StarScaleTransition(VisualElement star)
@@ -194,6 +182,8 @@ public class HillopurkitUIManager : MonoBehaviour
         // Twinkle the star when it's filled
         star.ToggleInClassList("star-scale-transition");
         root.schedule.Execute(() => star.ToggleInClassList("star-scale-transition")).StartingIn(500);
+
+        AudioSource.PlayClipAtPoint(soundObject.starSound, cam.transform.position);
     }
 
     private void UnlightStar(VisualElement star)
@@ -202,30 +192,21 @@ public class HillopurkitUIManager : MonoBehaviour
         star.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
     }
 
-    public void ResetProgressBar()
+    public void ResetProgressBar(int resetValue)
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
-        // progressBar.value = GameManager.totalPoints;
-        UpProgressBar(score.GetPoints());
-        // UpProgressBar(GameManager.totalPoints);
-        // progressBar.value = GameObject.Find("Score").GetComponent<Score>().GetPoints(); 
-        // VisualElement star1 = root.Q<VisualElement>("star1");
-        // star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star"); // light up the first star
-        // VisualElement star2 = root.Q<VisualElement>("star2");
-        // star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
-        // VisualElement star3 = root.Q<VisualElement>("star3");
-        // star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
+        UpProgressBar(resetValue);
     }
 
     public void SetFeedback(bool result)
     {
-        int[] tally = score.GetTally();
+        // Get the right/wrong click stats and score
+        int[] stats = score.GetStats();
         int points = score.GetPoints();
 
-        if (result == true)
+        // If a breakable jar was clicked, check for streak bonus points and update score UI
+        if (result == true) 
         {
-            //tallyText = root.Q<Label>("click-tally-right");
-            //tallyText.text = ("Särjetyt purkit: " + tally[0]);
             if (score.streak >= score.minStreakValue) {
                 DisplayStreakImage();
             }
@@ -237,8 +218,6 @@ public class HillopurkitUIManager : MonoBehaviour
 
         else
         {
-            //tallyText = root.Q<Label>("click-tally-wrong");
-            //tallyText.text = ("Väärät arvaukset: " + tally[1]);
             scoreLabel = root.Q<Label>("score-label");
             scoreLabel.text = ("" + points);
             clickedWrong.visible = true;
@@ -259,10 +238,11 @@ public class HillopurkitUIManager : MonoBehaviour
 
             //asettaa kuvaan oikean streakin arvon
             Label streakCount = streakImage.Q<Label>("streak-count");
-            streakCount.text = "+" + ScoreArkku.streak;
+            streakCount.text = "+" + score.GetStreak();
 
             streakImage.style.display = DisplayStyle.Flex;
             streakImage.ToggleInClassList("streak-image-transition");
+            AudioSource.PlayClipAtPoint(soundObject.streakSound, cam.transform.position);
             Invoke("ToggleStreakClassList", 3f);
     }
 

@@ -102,7 +102,8 @@
 }
 
 .word-button:hover {
-     color: var(--color-lt-text);
+    background-color: rgba(142, 89, 43, 0.5);
+    color: var(--color-lt-text);
      
 }
 
@@ -170,9 +171,9 @@
 
 #panel-headline-image {
     display: none;
-     height: 45px;
-     width: 45px;
-     margin-left: 30px;
+    height: 45px;
+    width: 45px;
+    margin-left: 30px;
 }
 
 #panel-text {
@@ -182,6 +183,7 @@
     white-space: normal;
     flex-grow: 2;
     margin-left: 20px;
+    -unity-text-align: upper-center;
 }
 
 #panel-button {
@@ -240,7 +242,7 @@
     top: 12%;
     left: 78%;
     height: 73%;
-    width: 30%
+    width: 30%;
 }
 
 #progress-bar-container {
@@ -255,12 +257,10 @@
     border-color: rgb(43, 58, 85);
     border-width: 2px;
     background-image: resource('Images/ShadeGradientBlack');
-    
     position: absolute;
     height: 100%;
     width: 100%;
 }
-
 
 .unity-progress-bar__container {
     min-height: 37px;
@@ -311,8 +311,6 @@
     top: -26%;
 }
 
-
-
 #star1 {
     transition: 0.3s linear 0.2s;
     background-image: resource('Images/star_blank');
@@ -329,14 +327,16 @@
 }
 
 #score-container {
-    
-    position: absolute;
-    right: 43%;
-    bottom: 8%; 
-   
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    top: 70%;
 }
 
 #score-label {
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-center;
     transition: 0.3s linear 0.2s;
     color: white; 
     font-size: 35px; 
@@ -344,7 +344,6 @@
      text-shadow: 3px 3px 0px var(--color-dk-text);
     letter-spacing: 12px; 
     -unity-text-outline-width: 1px; 
-    
 }
 
 #score-label:hover{
@@ -353,24 +352,24 @@
 }
 
 .score-label-streak {
+    text-shadow: 3px 3px 0 red;
+    -unity-text-outline-color: white;
     scale: 1.5;
     color: #CF923E;
-    text-shadow: 2px 2px 3px white;
-    
 }
 
 #streak-image {
-
     transition-property: scale, opacity;
     transition-duration: 2.5s;
     transition-timing-function: ease-in;
-    position: absolute;
-    height: 80px; 
-    width: 59px; 
-    right: 72px;
-    top: -75px; 
+    position: relative;
+    height: 80px;
+    width: 59px;
+    right: auto;
+    top: auto;
     display: none;
- 
+    bottom: 90%;
+    left: 15%;
 }
 
 .streak-image-transition {
@@ -379,7 +378,7 @@
 }
 
 #streak-icon {
-    --unity-image: resource('Images/streak_icon'); 
+    --unity-image: resource('Images/streak_icon');
 }
 
 #streak-count {

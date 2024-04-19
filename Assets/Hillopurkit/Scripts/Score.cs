@@ -12,25 +12,31 @@ public class Score : MonoBehaviour
     private static readonly int streakOfThreePoints = 20;
     private static readonly int streakOfFourPoints = 50;
     private static readonly int streakOfFivePoints = 98;
+    private int totalRounds;
+    public int currentProgress = 33; // This minigame's progress goes from 33 to 66
+    public int progressPerCorrectAnswer;
     public int streak = 0;
     public int minStreakValue = 3;
 
     private void Start()
     {
         ui = GameObject.Find("UIDocument").GetComponent<HillopurkitUIManager>();
+
+        totalRounds = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().GetTotalRounds();
+        progressPerCorrectAnswer = (33 / totalRounds);
     }
 
     public void ClearScore()
     {
-        ResetTally();
+        ResetStats();
         ResetPoints();
-        ui.ResetProgressBar();
+        ui.ResetProgressBar(currentProgress);
     }
 
     public void BrokeCorrectJar(bool result)
     {
         // calculate chosen answer's points or penalty points and update progress bar accordingly
-        if (result == true)
+        if (result)
         {
             streak++; // increment streak value
             if (streak >= minStreakValue) {
@@ -42,8 +48,15 @@ public class Score : MonoBehaviour
             Debug.Log("\nGained: " + pointsPerCorrectAnswer + " points");
             points += pointsPerCorrectAnswer;
             Debug.Log("\nIn BrokeCorrectJar, updated points: " + points);
-            ui.UpProgressBar(points);
             jarClicksRight++;
+
+            if (jarClicksRight == totalRounds) // workaround with integer rounding
+                currentProgress = 66;
+            else
+                currentProgress += progressPerCorrectAnswer;
+
+            print("CURRENT PROGRESS: " + currentProgress);
+            ui.UpProgressBar(currentProgress);
             ui.SetFeedback(true);
         }
 
@@ -55,14 +68,13 @@ public class Score : MonoBehaviour
             if (points < 0) { // check if we are at negative points now, reset to 0 if true
                 points = 0;
             }
-            ui.UpProgressBar(points);
+            ui.UpProgressBar(33 + (34 / 5 * jarClicksRight));
             jarClicksWrong++;    
             ui.SetFeedback(false);
         }
 
         // Check if enough points for win. Also progress to win if we've broken enough jars (i.e. we've completed the last round)
-        if (points >= winningPointLimit 
-        || jarClicksRight == (GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().GetTotalRounds()))
+        if (jarClicksRight == (GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().GetTotalRounds()))
         {
             StartCoroutine(ui.DeclareWin());
         }
@@ -95,17 +107,8 @@ public class Score : MonoBehaviour
         return points;
     }
 
-    private void SetPoints(int points) {
-        this.points = points;
-    }
-
     private void ResetPoints() {
-        // reset points to total points value as long as it's not zero
-        if ((GameManager.totalPoints) <= 0) {
-            SetPoints(0);
-        } else {
-            SetPoints(GameManager.totalPoints);
-        }
+        this.points = GameManager.totalPoints;
     }
 
     public int GetPointsPerCorrectAnswer() {
@@ -116,17 +119,17 @@ public class Score : MonoBehaviour
         return winningPointLimit;
     }
 
-    private void ResetTally()
+    private void ResetStats()
     {
         jarClicksRight = 0;
         jarClicksWrong = 0;
     }
 
-    public int[] GetTally()
+    public int[] GetStats()
     {
-        int[] tally = new int[2];
-        tally[0] = jarClicksRight;
-        tally[1] = jarClicksWrong;
-        return tally;
+        int[] stats = new int[2];
+        stats[0] = jarClicksRight;
+        stats[1] = jarClicksWrong;
+        return stats;
     }
 }
