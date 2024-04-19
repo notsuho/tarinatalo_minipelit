@@ -31,14 +31,12 @@ public class UIManager : MonoBehaviour
 
     private string sentence;
 
-    
 
     //public koska tarvitaan GameManagerissam,
     //TODO: tee getterit
     public string leftWord;
     public string rightWord;
 
-   
 
     void Start()
     {
@@ -53,6 +51,7 @@ public class UIManager : MonoBehaviour
         VisualElement star2 = root.Q<VisualElement>("star2");
         star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
 
+        
     }    
 
     private void OnEnable()
@@ -82,6 +81,13 @@ public class UIManager : MonoBehaviour
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => SetPanelExit();
         exitButton.clicked += () => Application.Quit();
+    }
+
+    //ottaa napit pois käytöstä nappispämmin estämiseksi 
+    void FreezeButtons()
+    {
+        leftButton.SetEnabled(false);
+        rightButton.SetEnabled(false);
     }
 
 
@@ -177,6 +183,10 @@ public class UIManager : MonoBehaviour
         
         AudioSource.PlayClipAtPoint(soundObject.correctAnswerSound, cam.transform.position);
 
+        //laitetaan napit takaisin käyttöön
+        leftButton.SetEnabled(true);
+        rightButton.SetEnabled(true);
+
     }
 
     private void SetPanelExit()
@@ -218,7 +228,8 @@ public class UIManager : MonoBehaviour
 
         if (levelManager.IsAnswerCorrect(answer))
         {
-           //IMPLEMENTOI STREAKIT: Kutsu sreak-kuvaketta, jos streakin arvo on tarpeeksi suuri           
+           FreezeButtons();
+            //IMPLEMENTOI STREAKIT: Kutsu sreak-kuvaketta, jos streakin arvo on tarpeeksi suuri           
            //asetetaan streak-kuvake, jos streak-arvo on tarpeeksi suuri 
            if (ScoreArkku.streak >= ScoreArkku.minStreakValue)
             {
@@ -244,6 +255,7 @@ public class UIManager : MonoBehaviour
             AudioSource.PlayClipAtPoint(soundObject.wrongAnswerSound, cam.transform.position, 1f);
 
         }
+
     }
 
     //IMPLEMENTOI STREAKIT: Ota tämä funktio
