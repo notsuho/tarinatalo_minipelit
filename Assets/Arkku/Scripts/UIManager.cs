@@ -222,11 +222,10 @@ public class UIManager : MonoBehaviour
     private void CheckAnswer(string answer)
     {
 
-        FreezeButtons();
-        
         if (levelManager.IsAnswerCorrect(answer))
         {
-           //IMPLEMENTOI STREAKIT: Kutsu sreak-kuvaketta, jos streakin arvo on tarpeeksi suuri           
+           FreezeButtons();
+            //IMPLEMENTOI STREAKIT: Kutsu sreak-kuvaketta, jos streakin arvo on tarpeeksi suuri           
            //asetetaan streak-kuvake, jos streak-arvo on tarpeeksi suuri 
            if (ScoreArkku.streak >= ScoreArkku.minStreakValue)
             {

@@ -103,6 +103,11 @@
 
 .word-button:hover {
      color: var(--color-lt-text);
+     
+}
+
+.word-button:disabled {
+    opacity: 1;
 }
 
 #sentence-section {
