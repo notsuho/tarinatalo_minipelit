@@ -10,5 +10,6 @@ public class SoundObject : MonoBehaviour
     public AudioClip victorySound;
     public AudioClip streakSound;
 
+    public AudioClip keytwistSound;
 
 }
