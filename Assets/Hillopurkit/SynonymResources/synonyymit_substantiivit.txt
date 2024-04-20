@@ -1,8 +1,10 @@
 takapuoli|perse|peräpää|pylly|ahteri|persus|takalisto|peffa
-raha|valuutta|hynä|tuohi|hillo|käteinen|pätäkkä|luotto
 ilkimys|hirviö|raakalainen|julmuri|raakimus|barbaari|peto
-rakas|armas|sulho|kulta|sydänkäpy|muru|lemmitty
 vene|laiva|paatti|pursi|haaksi|jahti|jolla
 koira|hurtta|piski|karvaturri|rakki|hauva|haukku
 lapsi|lapsukainen|penska|mukula|tenava|muksu|vekara
 tyttö|neito|typykkä|neiti|neitokainen|likka|mimmi
+karkki|makeinen|karamelli|herkku|namu|nami|herkkupala
+poliisi|kyttä|pollari|konstaapeli|jepari|tinanappi|koukku
+kissa|katti|kolli|mirri|kissimirri|kisu|kissi
+juhla|pidot|kekkerit|kestit|kemut|karkelot|pirskeet

@@ -1,8 +1,10 @@
-puhua|turinoida|hölöttää|pälättää|löpistä|tarinoida|turista|haastaa|jupista
-nukkua|uneksia|vetää lonkkaa|levyttää|koisia|kuorsata|vetää tirsat
+puhua|turinoida|hölöttää|pälättää|löpistä|tarinoida|turista
+nukkua|uneksia|vetää lonkkaa|levyttää|koisia|torkkua|vetää tirsat
 tykätä|ihailla|digata|pitää|mieliä|jumaloida|lempiä
 valehdella|laskea luikuria|sepittää|juksata|naruttaa|viilata linssiin|puhua palturia
 juosta|hölkyttää|jolkottaa|kipaista|ravata|pinkaista|sprintata
 varastaa|ryövätä|näpistää|pölliä|kähveltää|nyysiä|vohkia
 huutaa|karjua|kailottaa|parkua|rääkyä|parahtaa|parkaista
 nauraa|hekottaa|hihittää|hohottaa|kikattaa|tirskua|myhäillä
+suuttua|julmistua|kiivastua|vimmastua|raivostua|menettää malttinsa|tulistua
+älytä|oivaltaa|päästä jyvälle|tajuta|hokata|hoksata|hiffata
