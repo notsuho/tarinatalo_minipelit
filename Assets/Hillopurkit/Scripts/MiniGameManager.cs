@@ -16,17 +16,14 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private int numberOfJars_round1 = 4;
     [SerializeField] private int numberOfJars_round2 = 6;
     [SerializeField] private int numberOfJars_round3 = 8;
-    [SerializeField] private int numberOfWrongs_round1 = 1;
-    [SerializeField] private int numberOfWrongs_round2 = 1;
-    [SerializeField] private int numberOfWrongs_round3 = 1;
     private readonly int roundsTotal = 5; // change this for more rounds
     private const int JARS_PER_SHELF = 4;
     private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
     private readonly List<GameObject> jarsOfTheRound = new();
-    private List<List<string>> adjectives = new();
-    private List<List<string>> verbs = new();
-    private List<List<string>> nouns = new();
+    private List<List<string>> adjectiveGroups = new();
+    private List<List<string>> nounGroups = new();
+    private List<List<string>> verbGroups = new();
 
     public static bool isGamePaused = true;
 
@@ -37,6 +34,9 @@ public class MiniGameManager : MonoBehaviour
         InitializeWordGroups();
     }
 
+    /// <summary>
+    /// Takes synonyms from the .txt-files and prepares them for use as List<List<string>> -objects.
+    /// </summary>
     private void InitializeWordGroups()
     {
         for (int wordTypeIndex = 0; wordTypeIndex < synonymsLists.Length; wordTypeIndex++)
@@ -59,20 +59,17 @@ public class MiniGameManager : MonoBehaviour
                 switch (wordTypeIndex)
                 {
                     case 0:
-                        adjectives.Add(wordGroup);
+                        adjectiveGroups.Add(wordGroup);
                         break;
                     case 1:
-                        nouns.Add(wordGroup);
+                        nounGroups.Add(wordGroup);
                         break;
                     case 2:
-                        verbs.Add(wordGroup);
+                        verbGroups.Add(wordGroup);
                         break;
                 }
             }
         }
-        print(adjectives[7][0]);
-        print(nouns[7][0]);
-        print(verbs[7][0]);
     }
 
     public int GetTotalRounds() {
@@ -165,29 +162,24 @@ public class MiniGameManager : MonoBehaviour
     private void SetUpJars()
     {
         int numberOfJars;
-        int numberOfWrongs;
 
         // How many jars this round
         switch (currentRound)
         {
             case 1:
                 numberOfJars = numberOfJars_round1;
-                numberOfWrongs = numberOfWrongs_round1;
                 break;
             case 2:
                 numberOfJars = numberOfJars_round2;
-                numberOfWrongs = numberOfWrongs_round2;
                 break;
             case 3:
                 numberOfJars = numberOfJars_round3;
-                numberOfWrongs = numberOfWrongs_round3;
                 break;
             default: // After round 3, default to round 3 setups
                 // Debug.Log("Only rounds 1, 2 and 3 exist");
                 // For later: just default to round 3 jars if there are more
                 // than 3 rounds? Or randomize the # of jars?
                 numberOfJars = numberOfJars_round3;
-                numberOfWrongs = numberOfWrongs_round3;
                 break;
                 // To the next minigame
                 //return;
@@ -211,7 +203,7 @@ public class MiniGameManager : MonoBehaviour
             FillShelf(secondShelf, numberOfJars - JARS_PER_SHELF, jars);
         }
 
-        LabelJars(jars, numberOfWrongs);
+        LabelJars(jars);
     }
 
     /// <summary>
@@ -248,109 +240,105 @@ public class MiniGameManager : MonoBehaviour
     /// <summary>
     /// Picks a round's words and writes them on the jars.
     /// </summary>
-    private void LabelJars(List<GameObject> jars, int WrongJarAmount)
+    private void LabelJars(List<GameObject> jars)
     {
-        List<string> wordsOfTheRound = new();
+        List<string> wordsOfTheRound = GetWordsForTheRound(jars.Count);
 
-        //indexes have to adjectives, verbs or nouns
-        int wordTypeIndex = Random.Range(0, synonymsLists.Length);
+        // Specifically handle the wrong jar
+        int wrongIndex = Random.Range(0, jars.Count);
+        GameObject wrongJar = jars[wrongIndex];
+        jars.RemoveAt(wrongIndex);
+        
+        int wrongWordindex = wordsOfTheRound.Count - 1; // last index is wrong word
+        string label = wordsOfTheRound[wrongWordindex];
+        wordsOfTheRound.RemoveAt(wrongWordindex); // prevent same word usage
 
-        string[] allSynonyms = synonymsLists[wordTypeIndex].text.Split("\n");
-        List<int> usedGroupIndexes = new();
+        wrongJar.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = label;
+        wrongJar.GetComponent<JarBehavior>().SetIsCorrectAnswer(true);
+        jarsOfTheRound.Add(wrongJar);
 
-        CheckForEmptyGroups(allSynonyms, usedGroupIndexes);
-
-        int correctGroupNumber = ChooseSynonymGroup(allSynonyms, usedGroupIndexes);
-
-        // Pick the wrong words.
-        for (int i = 0; i < WrongJarAmount; i++)
-        {
-            int wrongGroupIndex = ChooseSynonymGroup(allSynonyms, usedGroupIndexes);
-
-            string[] wrongGroup = allSynonyms[wrongGroupIndex].Split("|");
-
-            wordsOfTheRound.Add(wrongGroup[Random.Range(0, wrongGroup.Length)]);
-        }
-
-        // Convert synonym group from string[] to List<string>.
-        string[] allCorrectSynonyms = allSynonyms[correctGroupNumber].Split("|");
-        List<string> correctWords = new();
-        for (int i = 0; i < allCorrectSynonyms.Length; i++)
-            correctWords.Add(allCorrectSynonyms[i]);
-
-        // Pick rest of the words.
-        for (int i = 0; i < jars.Count - WrongJarAmount; i++)
-        {
-            int index = Random.Range(0, correctWords.Count);
-            
-            wordsOfTheRound.Add(correctWords[index]);
-
-            correctWords.RemoveAt(index); // prevent same word usage
-        }
-
-        // Puts the words of the round on the jars randomly.
-        int alreadyBreakable = 0;
-
+        // Handle synonym jars
         foreach (GameObject jar in jars)
         {
-            bool isBreakable = false;
+            // Set up shake animation helper
+            GameObject helper = Instantiate(jarShakeHelper);
+            jar.transform.parent = helper.transform;
+            jarsOfTheRound.Add(helper);
+
             int index = Random.Range(0, wordsOfTheRound.Count);
-            string label = wordsOfTheRound[index];
+            label = wordsOfTheRound[index];
             wordsOfTheRound.RemoveAt(index); // prevent same word usage
 
-            if(index < WrongJarAmount - alreadyBreakable)
-            {
-                isBreakable = true;
-                alreadyBreakable++;
-            }
-            else
-            {
-                GameObject helper = Instantiate(jarShakeHelper);
-                jar.transform.parent = helper.transform;
-                jarsOfTheRound.Add(helper);
-            }
-
             jar.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = label;
-            jar.GetComponent<JarBehavior>().SetIsCorrectAnswer(isBreakable);
-
+            jar.GetComponent<JarBehavior>().SetIsCorrectAnswer(false);
             jarsOfTheRound.Add(jar);
         }
     }
 
     /// <summary>
-    /// Checks for empty synonym groups in the synonyymit.txt file. Blacklists empty groups and prints what line they are on.
+    /// Returns a list with words for the round. Last index has the incorrect answer.
     /// </summary>
-    private void CheckForEmptyGroups(string[] allSynonyms, List<int> usedGroupIndexes)
+    private List<string> GetWordsForTheRound(int wordAmount)
     {
-        bool firstTime = true;
-        for (int i = 0; i < allSynonyms.Length; i++)
+        List<List<string>> wordGroups;
+        List<string> wordsOfTheRound = new();
+        int wordTypeIndex = Random.Range(0, 3);
+
+        // Choose word type for the round
+        switch (wordTypeIndex)
         {
-            if (string.IsNullOrWhiteSpace(allSynonyms[i]))
+            case 0:
+                wordGroups = adjectiveGroups;
+                break;
+            case 1:
+                wordGroups = nounGroups;
+                break;
+            default:
+                wordGroups = verbGroups;
+                break;
+        }
+
+        // Pick the correct word group and words
+        int wordGroupIndex = Random.Range(0, wordGroups.Count);
+        List<string> randomWordGroup = wordGroups[wordGroupIndex];
+
+        for (int i = 0; i < (wordAmount - 1); i++) // minus one leaves space for the wrong word
+        {
+            if (i == 0) // allways have the root correct word from first index
             {
-                if(firstTime)
-                {
-                    print("There were one or more empty lines in synonyymit.txt. Please erase them.");
-                    firstTime = false;
-                }
-                print("empty line: " + (i + 1));
-                usedGroupIndexes.Add(i);
+                wordsOfTheRound.Add(randomWordGroup[0]);
+                randomWordGroup.RemoveAt(0);
+            }
+            else
+            {
+                int index = Random.Range(0, randomWordGroup.Count);
+                wordsOfTheRound.Add(randomWordGroup[index]);
+                randomWordGroup.RemoveAt(index);
             }
         }
-    }
 
-    /// <summary>
-    /// Picks a synonym group that isn't being used this round.
-    /// </summary>
-    /// <returns>A free group index.</returns>
-    private int ChooseSynonymGroup(string[] allSynonyms, List<int> usedGroupIndexes)
-    {
-        int groupIndex = Random.Range(0, allSynonyms.Length);
+        // Remove used word group to avoid repeating rounds
+        wordGroups.RemoveAt(wordGroupIndex);
 
-        while (usedGroupIndexes.Contains(groupIndex))
-            groupIndex = Random.Range(0, allSynonyms.Length);
+        // Pick the wrong word
+        List<string> wrongWordGroup = wordGroups[Random.Range(0, wordGroups.Count)];
+        string wrongWord = wrongWordGroup[Random.Range(0, wrongWordGroup.Count)];
+        wordsOfTheRound.Add(wrongWord);
 
-        usedGroupIndexes.Add(groupIndex);
+        // Update word group after the removal
+        switch (wordTypeIndex)
+        {
+            case 0:
+                adjectiveGroups = wordGroups;
+                break;
+            case 1:
+                nounGroups = wordGroups;
+                break;
+            default:
+                verbGroups = wordGroups;
+                break;
+        }
 
-        return groupIndex;
+        return wordsOfTheRound;
     }
 }
