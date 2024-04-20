@@ -24,12 +24,55 @@ public class MiniGameManager : MonoBehaviour
     private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
     private readonly List<GameObject> jarsOfTheRound = new();
+    private List<List<string>> adjectives = new();
+    private List<List<string>> verbs = new();
+    private List<List<string>> nouns = new();
 
     public static bool isGamePaused = true;
 
     private void Start() {
         // Get the camera position for sounds and other things
         cam = Camera.main;
+
+        InitializeWordGroups();
+    }
+
+    private void InitializeWordGroups()
+    {
+        for (int wordTypeIndex = 0; wordTypeIndex < synonymsLists.Length; wordTypeIndex++)
+        {
+            TextAsset wordFile = synonymsLists[wordTypeIndex];
+
+            string[] allWordsOfAGroup = wordFile.text.Split("\n");
+
+            foreach (string wordGroupRaw in allWordsOfAGroup)
+            {
+                string[] wordGroupTxt = wordGroupRaw.Split("|");
+
+                List<string> wordGroup = new();
+
+                foreach (string word in wordGroupTxt)
+                {
+                    wordGroup.Add(word);
+                }
+
+                switch (wordTypeIndex)
+                {
+                    case 0:
+                        adjectives.Add(wordGroup);
+                        break;
+                    case 1:
+                        nouns.Add(wordGroup);
+                        break;
+                    case 2:
+                        verbs.Add(wordGroup);
+                        break;
+                }
+            }
+        }
+        print(adjectives[7][0]);
+        print(nouns[7][0]);
+        print(verbs[7][0]);
     }
 
     public int GetTotalRounds() {
