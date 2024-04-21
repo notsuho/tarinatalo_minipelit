@@ -284,6 +284,10 @@ public class MiniGameManager : MonoBehaviour
         List<string> wordsOfTheRound = new();
         int wordTypeIndex = Random.Range(0, 3);
 
+        // Make sure there are atleast 2 synyonym groups in every word type
+        if (adjectiveGroups.Count < 2 || nounGroups.Count < 2 || verbGroups.Count < 2)
+            InitializeWordGroups();
+
         // Choose word type for the round
         switch (wordTypeIndex)
         {
