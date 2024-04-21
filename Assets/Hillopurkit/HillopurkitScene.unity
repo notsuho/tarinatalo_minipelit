@@ -252,9 +252,6 @@ MonoBehaviour:
   numberOfJars_round1: 4
   numberOfJars_round2: 6
   numberOfJars_round3: 8
-  numberOfWrongs_round1: 1
-  numberOfWrongs_round2: 1
-  numberOfWrongs_round3: 1
 --- !u!1 &447952566 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7675474096328327179, guid: 5c95507408aab0844b99d727b6c71487, type: 3}
@@ -851,7 +848,7 @@ Transform:
   m_GameObject: {fileID: 1806832446}
   serializedVersion: 2
   m_LocalRotation: {x: 0.065403156, y: 0, z: 0, w: 0.99785894}
-  m_LocalPosition: {x: 0, y: 5, z: -3}
+  m_LocalPosition: {x: 0, y: 5.8, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
