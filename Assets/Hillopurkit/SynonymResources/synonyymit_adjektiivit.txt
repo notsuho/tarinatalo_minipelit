@@ -1,10 +1,10 @@
-tuhma|häijy|ilkeä|pahankurinen|ilkikurinen|kuriton|paha
+tuhma|häijy|ilkeä|pahan-kurinen|ilkikurinen|kuriton|paha
 suuri|iso|valtava|kookas|massiivinen|jättimäinen|monoliit-tinen
 älykäs|terävä|fiksu|nokkela|nerokas|välkky|viisas
 nopea|vikkelä|sukkela|ketterä|sutjakka|vauhdikas|pikainen
 kaunis|hurmaava|lumoava|viehättävä|ihastuttava|korea|viehkeä
-rohkea|urhoollinen|arkailematon|uskalias|peloton|pelkää-mätön|urhea
+rohkea|urhoollinen|arkaile-maton|uskalias|peloton|pelkää-mätön|urhea
 väsynyt|uupunut|lopussa|poikki|voipunut|väsähtänyt|uuvuksissa
 kylmä|kalsea|kolea|jäätävä|hyinen|viileä|jääkylmä
-herkullinen|maukas|maittava|hyvän makuinen|suussasulava|makoisa|maistuva
+herkullinen|maukas|maittava|hyvän-makuinen|suussa-sulava|makoisa|maistuva
 hauska|hupaisa|huvittava|hilpeä|hassu|metka|koominen
