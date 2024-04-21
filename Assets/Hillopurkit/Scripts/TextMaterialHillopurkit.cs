@@ -14,6 +14,7 @@ public static class TextMaterialHillopurkit
     public const string winningText = "Löysit ja rikoit kaikki joukkoon kuulumattomat purkit!";
     public const string instructionText = "Kaappiin on kasattu purkkeja, joiden kyljessä lukee synonyymejä. " 
                                             + "Mutta purkkien joukkoon on eksynyt sana, joka ei kuulu joukkoon. "
-                                            + "Etsi joukkoon kuulumaton purkki, ja riko se vasaralla!";
+                                            + "Etsi joukkoon kuulumaton purkki, ja riko se vasaralla! "
+                                            + "\n\nMuista kuitenkin olla tarkka, väärät arvaukset vähentävät pisteitä!";
 
 }
