@@ -150,5 +150,5 @@ MonoBehaviour:
   jarShatter: {fileID: 8300000, guid: b08beab78d6dbb74d8305c0136a64cd7, type: 3}
   doorOpen: {fileID: 8300000, guid: 01287c34f5b87c74481588b420eb0760, type: 3}
   doorClose: {fileID: 8300000, guid: 206a01f63d4ed884bbcd5d4c77dee340, type: 3}
-  cabinetShake: {fileID: 0}
+  cabinetShake: {fileID: 8300000, guid: 4d392cfea55a28f4c9e716becc538189, type: 3}
   keytwistSound: {fileID: 8300000, guid: 92ed94a4d26f22d41a6430c503c816b6, type: 3}

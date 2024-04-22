@@ -114,8 +114,8 @@ public class MiniGameManager : MonoBehaviour
 
             if (currentRound <= roundsTotal) // rounds 2 and 3
             {
+                AudioSource.PlayClipAtPoint(soundObject.cabinetShake, cam.transform.position, 0.7f);
                 cabinetAnimator.Play("CabinetShake");
-                //AudioSource.PlayClipAtPoint(soundObject.cabinetShake, cam.transform.position, 1.0f);
                 yield return new WaitForSeconds(WaitTimes.CABINET_SHAKING_TIME); // animation duration
 
                 cabinetAnimator.Play("OpenCabinetDoors");
