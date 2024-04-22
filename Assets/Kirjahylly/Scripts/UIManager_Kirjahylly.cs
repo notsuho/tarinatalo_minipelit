@@ -30,9 +30,12 @@ public class UIManager_Kirjahylly : MonoBehaviour
     private readonly string nextGameButtonText = "<allcaps>seuraava minipeli</allcaps>";
     private readonly string endGameButtonText = "<allcaps>takaisin päävalikkoon</allcaps>";
     public BookManager manager;
+    public UIUtils uiUtils;
 
     private void OnEnable()
     {
+        uiUtils = GetComponent<UIUtils>();
+
         manager = FindObjectOfType<BookManager>();
         root = FindObjectOfType<UIDocument>().rootVisualElement;
 
@@ -50,7 +53,7 @@ public class UIManager_Kirjahylly : MonoBehaviour
 
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => instructions.style.display = DisplayStyle.None;
-        exitButton.clicked += () => Application.Quit();
+        exitButton.clicked += () => uiUtils.SetConfirmationPanel(root);
         this.hint.clicked += () => {
             if (this.hintAvailable) {
                 manager.UseHint();
