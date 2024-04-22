@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour
 
     public float progressBarValue;
     public float progBarValueUpPerCorrectAnswer;
-    public float progBarValueToWin;
+    public float progBarValueToWinRound;
 
     public Animator anim;
     public GameObject rightKey;
@@ -132,7 +132,7 @@ public class LevelManager : MonoBehaviour
         else
         {
             GameManager.totalPoints += ScoreArkku.GetStreakPoints();            
-            GameManager.totalPoints -= ScoreArkku.pointsReduceForWrongAnswer;
+            GameManager.totalPoints = ScoreArkku.ReducePoints(GameManager.totalPoints);
             Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
             ScoreArkku.SetHighestStreakCount();
             ScoreArkku.streak = 0;
@@ -146,7 +146,7 @@ public class LevelManager : MonoBehaviour
 
     public bool CheckIfGameEnded()
     {
-        if (progressBarValue >= progBarValueToWin)
+        if (progressBarValue >= progBarValueToWinRound)
         {
             ScoreArkku.SetHighestStreakCount();
             GameManager.totalPoints += ScoreArkku.GetStreakPoints();
@@ -167,7 +167,7 @@ public class LevelManager : MonoBehaviour
 
     public float GetProgBarValueToWin()
     {
-        return progBarValueToWin;
+        return progBarValueToWinRound;
     }
 
     public string GetCurrentExplanation()
