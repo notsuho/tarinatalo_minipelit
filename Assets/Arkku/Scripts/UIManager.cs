@@ -42,17 +42,12 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+
+        //IMPLENTOI gameScoren väri streakissa: uiUtils gameObject talteen
         uiUtils = GetComponent<UIUtils>();
 
         progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = levelManager.GetProgressBarValue();
-/*
-        VisualElement star1 = root.Q<VisualElement>("star1");
-        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-
-        VisualElement star2 = root.Q<VisualElement>("star2");
-        star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");*/
-
         
     }    
 
@@ -83,7 +78,7 @@ public class UIManager : MonoBehaviour
         rightButton.clicked += () => CheckAnswer(rightWord);
         instructionButton.clicked += () => SetLevelInstructions();
         panelButton.clicked += () => SetPanelExit();
-        exitButton.clicked += () => Application.Quit();
+        exitButton.clicked += () => uiUtils.SetConfirmationPanel(root);
     }
 
 
@@ -214,7 +209,7 @@ public class UIManager : MonoBehaviour
             gameIntro.style.display = DisplayStyle.None;
             SetLevelInstructions();
         }
-        else
+        else if (panelButton.text.Equals(TextMaterialArkku.gotItButtonText))
         {
             instructions.style.display = DisplayStyle.None;
         }
@@ -257,18 +252,21 @@ public class UIManager : MonoBehaviour
                 DisplayStreakImage();
                
             }
-           //---------------------------------------------
+            //---------------------------------------------
+
             SetFeedpack(TextMaterialArkku.correctAnswerFeedpackText, levelManager.GetCurrentExplanation(), true);
             Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack);
             AudioSource.PlayClipAtPoint(soundObject.keytwistSound, cam.transform.position);
         }
         else
         {
-
+            //IMPLEMENTOI scoreLabelin muuttuminen perusväriin
+            //poistaa scoreLabelin streak-värityksen
             if (uiUtils.isStreakColoringOn)
             {
                 uiUtils.ScoreLabelToNormalColoring(gameScore);
             }
+            //-----------------------------------------------------------
            
             SetFeedpack(TextMaterialArkku.wrongAnswerFeedpackText, levelManager.GetCurrentExplanation(), false);
 
@@ -284,11 +282,12 @@ public class UIManager : MonoBehaviour
     private void DisplayStreakImage ()
     {
 
-   
+        //IMPLEMENTOI scoreLabelin väri streakissa:
         //asettaa score labeliin uuden värin, joka ilmaisee, että streak on päällä
         if (!uiUtils.isStreakColoringOn) { 
             uiUtils.ScoreLabelToStreakColoring(gameScore);
         }
+        //-------------------------------------------------
 
         streakImage = root.Q<VisualElement>("streak-image");
 
@@ -350,6 +349,7 @@ public class UIManager : MonoBehaviour
             root.schedule.Execute(() => star1.ToggleInClassList("star-scale-transition")).StartingIn(500);
             //----------------------------------------------------------------
 
+            //IMPLEMENTOI TÄHDEN SYTTYMISÄÄNI:
             AudioSource.PlayClipAtPoint(soundObject.starSound, cam.transform.position);
 
         }

@@ -42,4 +42,27 @@ public class UIUtils : MonoBehaviour
 
         return gameScore;
     }
+
+    public void SetConfirmationPanel(VisualElement root)
+    {
+        VisualElement exitConfirmationPanelSection = root.Q<VisualElement>("exit-confirmation-panel-section");
+
+        Button yesButton = exitConfirmationPanelSection.Q<Button>("exit-yes-button");
+        yesButton.text = "kyllä";
+
+        Button noButton = exitConfirmationPanelSection.Q<Button>("exit-no-button");
+        noButton.text = "ei";
+
+        Label exitQuestion = exitConfirmationPanelSection.Q<Label>("exit-text");
+        exitQuestion.text = "Suljetaanko synonyymipeli?";
+
+        exitConfirmationPanelSection.style.display = DisplayStyle.Flex;
+
+        yesButton.clicked += () => Application.Quit(); 
+        noButton.clicked += () => exitConfirmationPanelSection.style.display = DisplayStyle.None;
+
+       
+    }
+
+
 }
