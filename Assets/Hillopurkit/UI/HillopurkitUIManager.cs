@@ -207,7 +207,7 @@ public class HillopurkitUIManager : MonoBehaviour
         // If a breakable jar was clicked, check for streak bonus points and update score UI
         if (result == true) 
         {
-            if (score.streak >= score.minStreakValue) {
+            if (GameManager.streak >= score.minStreakValue) {
                 DisplayStreakImage();
             }
             scoreLabel = root.Q<Label>("score-label");
@@ -238,7 +238,7 @@ public class HillopurkitUIManager : MonoBehaviour
 
             //asettaa kuvaan oikean streakin arvon
             Label streakCount = streakImage.Q<Label>("streak-count");
-            streakCount.text = "+" + score.GetStreak();
+            streakCount.text = "+" + GameManager.streak;
 
             streakImage.style.display = DisplayStyle.Flex;
             streakImage.ToggleInClassList("streak-image-transition");

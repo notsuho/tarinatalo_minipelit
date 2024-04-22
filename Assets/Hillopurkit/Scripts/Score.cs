@@ -9,13 +9,13 @@ public class Score : MonoBehaviour
     private readonly int winningPointLimit = 99;
     private int jarClicksWrong = 0;
     private int jarClicksRight = 0;
-    private static readonly int streakOfThreePoints = 20;
+    /* private static readonly int streakOfThreePoints = 20;
     private static readonly int streakOfFourPoints = 50;
-    private static readonly int streakOfFivePoints = 98;
+    private static readonly int streakOfFivePoints = 98; */
     private int totalRounds;
     public int currentProgress = 33; // This minigame's progress goes from 33 to 66
     public int progressPerCorrectAnswer;
-    public int streak = 0;
+    //public int streak = 0;
     public int minStreakValue = 3;
 
     private void Start()
@@ -38,18 +38,9 @@ public class Score : MonoBehaviour
         // calculate chosen answer's points or penalty points and update progress bar accordingly
         if (result)
         {
-            //streak++; // increment streak value
-            /* if (streak >= minStreakValue) {
-                Debug.Log("\nStreak: " + streak);
-                points += GetStreakPoints();
-            }
- */
-            //Debug.Log("\nIn BrokeCorrectJar, current points: " + points);
-            //Debug.Log("\nGained: " + pointsPerCorrectAnswer + " points");
-            //points += pointsPerCorrectAnswer;
+
             GameManager.AddPoints(true, pointsPerCorrectAnswer);
             Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
-            //Debug.Log("\nIn BrokeCorrectJar, updated points: " + points);
             jarClicksRight++;
 
             if (jarClicksRight == totalRounds) // workaround with integer rounding
@@ -64,9 +55,6 @@ public class Score : MonoBehaviour
 
         else
         {
-            ResetStreak();
-            //Debug.Log("\nStreak reset\nPenalty for incorrect guess: " + pointsPenaltyPerWrongAnswer);
-            //points -= pointsPenaltyPerWrongAnswer;
             GameManager.AddPoints(false, pointsPenaltyPerWrongAnswer);
             Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
             if (points < 0) { // check if we are at negative points now, reset to 0 if true
@@ -84,28 +72,6 @@ public class Score : MonoBehaviour
         }
     }
 
-    public int GetStreakPoints()
-    {
-        switch (streak)
-        {
-            case 3:
-                return streakOfThreePoints;
-            case 4:
-                return streakOfFourPoints;
-            case 5:
-                return streakOfFivePoints;
-            default:
-                return 0;
-        }
-    }
-
-    public int GetStreak() {
-        return streak;
-    }
-
-    public void ResetStreak() {
-        streak = 0;
-    }
 
     public int GetPoints() {
         return points;

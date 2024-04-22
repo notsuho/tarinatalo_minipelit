@@ -232,7 +232,7 @@ public class UIManager : MonoBehaviour
            FreezeButtons();
             //IMPLEMENTOI STREAKIT: Kutsu sreak-kuvaketta, jos streakin arvo on tarpeeksi suuri           
            //asetetaan streak-kuvake, jos streak-arvo on tarpeeksi suuri 
-           if (ScoreArkku.streak >= ScoreArkku.minStreakValue)
+           if (GameManager.streak >= ScoreArkku.minStreakValue)
             {
                 DisplayStreakImage();
                
@@ -274,7 +274,7 @@ public class UIManager : MonoBehaviour
 
         //asettaa kuvaan oikean streakin arvon
         Label streakCount = streakImage.Q<Label>("streak-count");
-        streakCount.text = "+" + ScoreArkku.streak;
+        streakCount.text = "+" + GameManager.streak;
 
         streakImage.style.display = DisplayStyle.Flex;
         streakImage.ToggleInClassList("streak-image-transition");
