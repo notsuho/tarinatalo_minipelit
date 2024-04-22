@@ -23,11 +23,10 @@ public class UIManager_Kirjahylly : MonoBehaviour
     private bool hintAvailable = true;
 
     private string gotItButtonText = "<allcaps>selvä!</allcaps>";
-    private string instructionHeadlineText = "<allcaps>ohjeet</allcaps>";
-    private string instructionTextText = "Kirjat ovat sekaisin. Järjestä kirjat hyllyyn niiden merkityksen perusteella.";
+    private string instructionHeadlineText = "<allcaps>3/3 Kirjahylly</allcaps>";
+    private string instructionTextText = "Kirjat ovat sekaisin. Järjestä kirjat hyllyyn niiden merkityksen perusteella. \nJos jäät jumiin, voit käyttää vihjettä päästäksesi eteenpäin. Vihjeen käytöstä vähennetään pisteitä.";
     private readonly string winningHeadline = "Läpäisit pelin!";
     private readonly string winningText = "Sait järjestettyä kaikki kirjat oikein hyllyihin. Hienoa!";
-    private readonly string nextGameButtonText = "<allcaps>seuraava minipeli</allcaps>";
     private readonly string endGameButtonText = "<allcaps>takaisin päävalikkoon</allcaps>";
     public BookManager manager;
 
@@ -83,14 +82,28 @@ public class UIManager_Kirjahylly : MonoBehaviour
 
         if (progressBar.value >= pointsToWin)
         {
-            VisualElement star1 = root.Q<VisualElement>("star1");
-            star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
+            VisualElement star3 = root.Q<VisualElement>("star3");
+            star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
 
             //tähti suurenee ja pienenee    
-            star1.ToggleInClassList("star-scale-transition");
-            root.schedule.Execute(() => star1.ToggleInClassList("star-scale-transition")).StartingIn(500);
+            star3.ToggleInClassList("star-scale-transition");
+            root.schedule.Execute(() => star3.ToggleInClassList("star-scale-transition")).StartingIn(500);
  
         }
+
+    }
+
+    public void LoadProgressBar(){
+        progressBar = root.Q<ProgressBar>("progress-bar");
+        progressBar.value = 66f;
+
+        VisualElement star1 = root.Q<VisualElement>("star1");
+        VisualElement star2 = root.Q<VisualElement>("star2");
+        VisualElement star3 = root.Q<VisualElement>("star3");
+
+        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
+        star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
+        star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
 
     }
 

@@ -13,9 +13,11 @@ public class BookManager : MonoBehaviour
     public List<GameObject> bookRacks;
     public TextAsset wordsAndCategoriesJson;
     public UIManager_Kirjahylly ui;
+    public SoundObject soundObject;
+    public Camera cam;
 
-    private float points = 0f;
-    public float pointsToWin = 33f;
+    private float points = 66f;
+    private float pointsToWin = 99f;
     private int total_rounds = 3;
     private int current_round = 0;
 
@@ -42,8 +44,10 @@ public class BookManager : MonoBehaviour
 
     IEnumerator Start()
     {
+        cam = Camera.main;
         ui = FindObjectOfType<UIManager_Kirjahylly>();
-        ui.UpProgressBar(points, pointsToWin);
+        //ui.UpProgressBar(points, pointsToWin);
+        ui.LoadProgressBar();
         ui.SetInstructions();
         yield return new WaitUntil(() => !ui.InstructionsShown());
         this.LoadBookDataFromFile();
@@ -141,22 +145,13 @@ public class BookManager : MonoBehaviour
         }
     }
 
-    public float GetPoints()
-    {
-        return points;
-    }
-
-    public float GetPointsToWin()
-    {
-        return pointsToWin;
-    }
-
     private void RoundEnding()
     {
         current_round += 1;
         if (current_round >= total_rounds)
         {
             ui.ShowEndFeedback();
+            PlayVictorySound();
         }
         else
         {
@@ -309,6 +304,22 @@ public class BookManager : MonoBehaviour
         }
 
 
+    }
+
+    public void PlayBookDropSound(){
+        AudioSource.PlayClipAtPoint(soundObject.bookDrop, cam.transform.position, 0.25f);
+    }
+
+    public void PlayCorrectSound(){
+        AudioSource.PlayClipAtPoint(soundObject.correctAnswerSound, cam.transform.position);
+    }
+
+    public void PlayWrongSound(){
+        AudioSource.PlayClipAtPoint(soundObject.wrongAnswerSound, cam.transform.position);
+    }
+
+    public void PlayVictorySound(){
+        AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
     }
 
 }
