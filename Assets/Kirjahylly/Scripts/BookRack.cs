@@ -8,7 +8,12 @@ using UnityEngine;
 public class BookRack : BookHolderBase
 {
     public event EventHandler CompletionEvent;
+    private BookManager manager;
     public bool isCompleted = false;
+
+    public void Start(){
+        manager = FindObjectOfType<BookManager>();
+    }
 
     public override void AddBook(GameObject book)
     {
@@ -26,10 +31,12 @@ public class BookRack : BookHolderBase
         {
             MakeBooksGlow();
             this.OnCompletion();
+            manager.PlayCorrectSound();
         }
         else
         {
             MakeBooksRed();
+            manager.PlayWrongSound();
         }
 
     }

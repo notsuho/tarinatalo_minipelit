@@ -1137,7 +1137,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b00045d5b284de34ea2e777e68ea2dfe, type: 2}
+  - {fileID: 2100000, guid: c0ab51453fe357b46bad68697f80138b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1541,7 +1541,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 333a08b54ec5eec4f84f74d910ad751e, type: 2}
+  - {fileID: 2100000, guid: 0c2b8949fbb613a4b81dc25ce9f03097, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1623,7 +1623,8 @@ MonoBehaviour:
   - {fileID: 1482110279}
   wordsAndCategoriesJson: {fileID: 4900000, guid: c26a9f23f453b694cbc85371e5373448, type: 3}
   ui: {fileID: 2123440819}
-  pointsToWin: 33
+  soundObject: {fileID: -6518006508135062176, guid: 9a5089aa72c2f194cb271b33950c7004, type: 3}
+  cam: {fileID: 0}
 --- !u!4 &1870231362
 Transform:
   m_ObjectHideFlags: 0

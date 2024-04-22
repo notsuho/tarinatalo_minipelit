@@ -15,5 +15,6 @@ public class SoundObject : MonoBehaviour
     public AudioClip doorClose;
     public AudioClip cabinetShake; // Need to find a clip for this one!
     public AudioClip keytwistSound;
+    public AudioClip bookDrop;
 
 }
