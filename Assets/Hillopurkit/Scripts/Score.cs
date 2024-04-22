@@ -3,20 +3,20 @@ using UnityEngine;
 public class Score : MonoBehaviour
 {
     public HillopurkitUIManager ui;
-    private int points = GameManager.totalPoints; // For purposes of running minigames back to back; don't forget to change this back to 0 later
+    //private int points = GameManager.totalPoints; // For purposes of running minigames back to back; don't forget to change this back to 0 later
     private readonly int pointsPerCorrectAnswer = 11;
     private readonly int pointsPenaltyPerWrongAnswer = -5;
     private readonly int winningPointLimit = 99;
     private int jarClicksWrong = 0;
     private int jarClicksRight = 0;
-    /* private static readonly int streakOfThreePoints = 20;
-    private static readonly int streakOfFourPoints = 50;
-    private static readonly int streakOfFivePoints = 98; */
+
     private int totalRounds;
     public int currentProgress = 33; // This minigame's progress goes from 33 to 66
     public int progressPerCorrectAnswer;
-    //public int streak = 0;
+
     public int minStreakValue = 3;
+
+
 
     private void Start()
     {
@@ -29,7 +29,7 @@ public class Score : MonoBehaviour
     public void ClearScore()
     {
         ResetStats();
-        ResetPoints();
+        //ResetPoints();
         ui.ResetProgressBar(currentProgress);
     }
 
@@ -57,8 +57,8 @@ public class Score : MonoBehaviour
         {
             GameManager.AddPoints(false, pointsPenaltyPerWrongAnswer);
             Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
-            if (points < 0) { // check if we are at negative points now, reset to 0 if true
-                points = 0;
+            if (GameManager.totalPoints < 0) { // check if we are at negative points now, reset to 0 if true
+                GameManager.totalPoints = 0;
             }
             ui.UpProgressBar(33 + (34 / 5 * jarClicksRight));
             jarClicksWrong++;    
@@ -73,13 +73,9 @@ public class Score : MonoBehaviour
     }
 
 
-    public int GetPoints() {
-        return points;
-    }
-
-    private void ResetPoints() {
+    /* private void ResetPoints() {
         this.points = GameManager.totalPoints;
-    }
+    } */
 
     public int GetPointsPerCorrectAnswer() {
         return pointsPerCorrectAnswer;

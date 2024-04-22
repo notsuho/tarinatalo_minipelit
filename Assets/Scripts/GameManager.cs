@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static int totalPoints;
     public static int streak = 0;
 
+
     //cont ilmaisee jatkuuko (true) vai katkeaako (false) streak. 
     //basicPoints on paljonko tehtävästä annetaan oletuksena pisteitä
     //
