@@ -307,7 +307,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 0c2b8949fbb613a4b81dc25ce9f03097, type: 2}
-
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1284,9 +1284,9 @@ MonoBehaviour:
     exercises: []
   ui: {fileID: 1617662936}
   numberOfExercisesToLoop: 7
-  progressBarValue: 66.6
+  progressBarValue: 0
   progBarValueUpPerCorrectAnswer: 6.66
-  progBarValueToWin: 99
+  progBarValueToWinRound: 33
   anim: {fileID: 0}
   rightKey: {fileID: 1721499710}
   leftKey: {fileID: 174543939}

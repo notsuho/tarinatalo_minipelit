@@ -41,5 +41,12 @@
                 <ui:Button name="panel-button" />
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="exit-confirmation-panel-section">
+            <ui:VisualElement name="exit-confirmation-panel">
+                <ui:Label name="exit-text" />
+                <ui:Button name="exit-yes-button"/>
+                <ui:Button name="exit-no-button"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
