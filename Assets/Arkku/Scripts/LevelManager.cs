@@ -132,7 +132,7 @@ public class LevelManager : MonoBehaviour
         else
         {
             GameManager.totalPoints += ScoreArkku.GetStreakPoints();            
-            GameManager.totalPoints -= ScoreArkku.pointsReduceForWrongAnswer;
+            GameManager.totalPoints = ScoreArkku.ReducePoints(GameManager.totalPoints);
             Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
             ScoreArkku.SetHighestStreakCount();
             ScoreArkku.streak = 0;
