@@ -21,6 +21,7 @@ public class HillopurkitUIManager : MonoBehaviour
     private VisualElement streakImage;
     public Camera cam;
     public SoundObject soundObject;
+    public UIUtils uiUtils;
     private const int SCORE_MULTIPLIER = 10; // for UI display purposes
     private readonly string continueButtonText = "<allcaps>jatka</allcaps>";
     private readonly string gotItButtonText = "<allcaps>selvä!</allcaps>";
@@ -38,6 +39,8 @@ public class HillopurkitUIManager : MonoBehaviour
     private void OnEnable()
     {
         cam = Camera.main;
+
+        uiUtils = GetComponent<UIUtils>();
 
         root = GetComponent<UIDocument>().rootVisualElement;
 
@@ -60,7 +63,7 @@ public class HillopurkitUIManager : MonoBehaviour
 
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => SetPanelExit();
-        exitButton.clicked += () => Application.Quit();
+        exitButton.clicked += () => uiUtils.SetConfirmationPanel(root);
     }
 
     // <summary>
