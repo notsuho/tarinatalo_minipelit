@@ -3,9 +3,9 @@ using UnityEngine;
 public class Score : MonoBehaviour
 {
     public HillopurkitUIManager ui;
-    private int points = 0; // For purposes of running minigames back to back; don't forget to change this back to 0 later
+    private int points = GameManager.totalPoints; // For purposes of running minigames back to back; don't forget to change this back to 0 later
     private readonly int pointsPerCorrectAnswer = 11;
-    private readonly int pointsPenaltyPerWrongAnswer = 5;
+    private readonly int pointsPenaltyPerWrongAnswer = -5;
     private readonly int winningPointLimit = 99;
     private int jarClicksWrong = 0;
     private int jarClicksRight = 0;
@@ -38,16 +38,18 @@ public class Score : MonoBehaviour
         // calculate chosen answer's points or penalty points and update progress bar accordingly
         if (result)
         {
-            streak++; // increment streak value
-            if (streak >= minStreakValue) {
+            //streak++; // increment streak value
+            /* if (streak >= minStreakValue) {
                 Debug.Log("\nStreak: " + streak);
                 points += GetStreakPoints();
             }
-
-            Debug.Log("\nIn BrokeCorrectJar, current points: " + points);
-            Debug.Log("\nGained: " + pointsPerCorrectAnswer + " points");
-            points += pointsPerCorrectAnswer;
-            Debug.Log("\nIn BrokeCorrectJar, updated points: " + points);
+ */
+            //Debug.Log("\nIn BrokeCorrectJar, current points: " + points);
+            //Debug.Log("\nGained: " + pointsPerCorrectAnswer + " points");
+            //points += pointsPerCorrectAnswer;
+            GameManager.AddPoints(true, pointsPerCorrectAnswer);
+            Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
+            //Debug.Log("\nIn BrokeCorrectJar, updated points: " + points);
             jarClicksRight++;
 
             if (jarClicksRight == totalRounds) // workaround with integer rounding
@@ -63,8 +65,10 @@ public class Score : MonoBehaviour
         else
         {
             ResetStreak();
-            Debug.Log("\nStreak reset\nPenalty for incorrect guess: " + pointsPenaltyPerWrongAnswer);
-            points -= pointsPenaltyPerWrongAnswer;
+            //Debug.Log("\nStreak reset\nPenalty for incorrect guess: " + pointsPenaltyPerWrongAnswer);
+            //points -= pointsPenaltyPerWrongAnswer;
+            GameManager.AddPoints(false, pointsPenaltyPerWrongAnswer);
+            Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
             if (points < 0) { // check if we are at negative points now, reset to 0 if true
                 points = 0;
             }

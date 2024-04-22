@@ -16,8 +16,7 @@ public class LevelManager : MonoBehaviour
     private static List<Exercise> exercisesToAnswer;
     private Exercise currentExercise;
     private Exercise previousExercise;
-    /* public SoundObject soundObject;
-    public Camera cam; */
+
 
     public float progressBarValue;
     public float progBarValueUpPerCorrectAnswer;
@@ -120,10 +119,12 @@ public class LevelManager : MonoBehaviour
                 Invoke("CloseChest", 4f);
             }
 
-            GameManager.totalPoints += ScoreArkku.pointPerCorrectAnswer;
+            //GameManager.totalPoints += ScoreArkku.pointPerCorrectAnswer;
+            GameManager.AddPoints(true, ScoreArkku.pointPerCorrectAnswer);
             Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
-            ScoreArkku.streak += 1;
-            Debug.Log("Streak " + ScoreArkku.streak);
+            //ScoreArkku.streak += 1;
+            //Debug.Log("Streak " + ScoreArkku.streak);
+            Debug.Log("Streak " + GameManager.streak);
             progressBarValue += progBarValueUpPerCorrectAnswer;
             exercisesToAnswer.Remove(currentExercise);
             return true;
@@ -131,8 +132,9 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            GameManager.totalPoints += ScoreArkku.GetStreakPoints();            
-            GameManager.totalPoints -= ScoreArkku.pointsReduceForWrongAnswer;
+            //GameManager.totalPoints += ScoreArkku.GetStreakPoints();            
+            //GameManager.totalPoints -= ScoreArkku.pointsReduceForWrongAnswer;
+            GameManager.AddPoints(false, ScoreArkku.pointsReduceForWrongAnswer);
             Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
             ScoreArkku.SetHighestStreakCount();
             ScoreArkku.streak = 0;
