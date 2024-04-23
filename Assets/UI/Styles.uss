@@ -257,7 +257,6 @@
 }
 
 
-
 #game-progress-container {
     position: absolute;
     top: 12%;
@@ -348,6 +347,7 @@
     scale: 1.2 1.2;
 }
 
+
 #score-container {
     position: relative;
     right: auto;
@@ -368,10 +368,6 @@
     -unity-text-outline-width: 1px; 
 }
 
-#score-label:hover{
-    color: #CF923E;
-    text-shadow: 2px 2px 3px white;
-}
 
 .score-label-streak {
     text-shadow: 3px 3px 0 red;
@@ -385,7 +381,7 @@
     transition-duration: 2.5s;
     transition-timing-function: ease-in;
     position: relative;
-    height: 90px;
+    height: 95px;
     width: 75px;
     right: auto;
     top: auto;
@@ -405,11 +401,11 @@
 
 #streak-count {
     position: absolute;
-    top: 48%;
-    left: 46%;
+    top: 49%;
+    left: 45%;
     -unity-font-style: bold;
     color: white;
-    scale: 1;
+    
 }
 
 .divider {
