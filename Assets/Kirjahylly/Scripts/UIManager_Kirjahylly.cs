@@ -19,6 +19,7 @@ public class UIManager_Kirjahylly : MonoBehaviour
     private Label feedback;
     private ProgressBar progressBar;
     private Button hint;
+    private Label scoreLabel;
     private float lastHintUseTime = -1000;
     private bool hintAvailable = true;
 
@@ -49,6 +50,9 @@ public class UIManager_Kirjahylly : MonoBehaviour
         panelButton = panelSection.Q<Button>("panel-button");
         feedback = root.Q<Label>("feedback");
         this.hint = root.Q<Button>("clue");
+        this.scoreLabel = root.Q<VisualElement>("game-progress-container")
+            .Q<VisualElement>("score-container")
+            .Q<Label>("score-label");
 
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => instructions.style.display = DisplayStyle.None;
@@ -82,6 +86,7 @@ public class UIManager_Kirjahylly : MonoBehaviour
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = points;
+        this.scoreLabel.text = points.ToString("R");
 
         if (progressBar.value >= pointsToWin)
         {
