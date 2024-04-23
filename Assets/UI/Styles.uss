@@ -385,8 +385,8 @@
     transition-duration: 2.5s;
     transition-timing-function: ease-in;
     position: relative;
-    height: 80px;
-    width: 59px;
+    height: 90px;
+    width: 75px;
     right: auto;
     top: auto;
     display: none;
@@ -395,7 +395,7 @@
 }
 
 .streak-image-transition {
-    scale: 1.7;
+    scale: 1.5;
     opacity: 0;
 }
 
@@ -405,10 +405,11 @@
 
 #streak-count {
     position: absolute;
-    top: 37px;
-    left: 28px;
+    top: 48%;
+    left: 46%;
     -unity-font-style: bold;
     color: white;
+    scale: 1;
 }
 
 .divider {
