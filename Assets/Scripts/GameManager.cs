@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
 
     public static int totalPoints;
-    public static int streak = 0;
+    public static uint streak = 0;
 
 
     //cont ilmaisee jatkuuko (true) vai katkeaako (false) streak. 
@@ -16,13 +16,19 @@ public class GameManager : MonoBehaviour
     //
     public static void AddPoints(bool cont, int basicPoints)
     {
+        
         if(cont == true) {
             streak++;
-            totalPoints += (int)Math.Round(basicPoints * (1+(0.1*(streak)))) ;
+            totalPoints += (int)Math.Round(basicPoints * (1+(0.1*(streak))));
+            
         } else {
             streak = 0;
             totalPoints += basicPoints;
         }
+        if (totalPoints <= 0)
+            {
+                totalPoints = 0;
+            }
 
     }
 
