@@ -68,6 +68,12 @@ public class UIManager_Kirjahylly : MonoBehaviour
     void Update() {
         this.hintAvailable = Time.time - this.lastHintUseTime > 10;
         this.hint.style.opacity = this.hintAvailable ? 1.0f : 0.25f;
+
+        if (GameManager.streak > 2) {
+            uiUtils.ScoreLabelToStreakColoring(this.scoreLabel);
+        } else {
+            uiUtils.ScoreLabelToNormalColoring(this.scoreLabel);
+        }
     }
 
     public void SetInstructions ()
@@ -88,8 +94,7 @@ public class UIManager_Kirjahylly : MonoBehaviour
         progressBar.value = points;
         this.scoreLabel.text = GameManager.totalPoints.ToString();
 
-        if (progressBar.value >= pointsToWin)
-        {
+        if (progressBar.value >= pointsToWin) {
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
 
@@ -98,7 +103,6 @@ public class UIManager_Kirjahylly : MonoBehaviour
             root.schedule.Execute(() => star3.ToggleInClassList("star-scale-transition")).StartingIn(500);
  
         }
-
     }
 
     public void LoadProgressBar(){
@@ -112,7 +116,6 @@ public class UIManager_Kirjahylly : MonoBehaviour
         star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
         star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
         star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
-
     }
 
     public bool InstructionsShown(){
