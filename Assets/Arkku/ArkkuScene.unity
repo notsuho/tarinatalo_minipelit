@@ -1284,9 +1284,8 @@ MonoBehaviour:
     exercises: []
   ui: {fileID: 1617662936}
   numberOfExercisesToLoop: 7
-  progressBarValue: 0
-  progBarValueUpPerCorrectAnswer: 6.66
-  progBarValueToWinRound: 33
+  correctAnswers: 0
+  correctAnswersToWin: 5
   anim: {fileID: 0}
   rightKey: {fileID: 1721499710}
   leftKey: {fileID: 174543939}

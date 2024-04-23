@@ -351,7 +351,8 @@
 #score-container {
     position: absolute;
     right: 5%;
-    bottom: 5%;
+    top: 15%;
+    
 }
 
 #score-label {
@@ -366,10 +367,6 @@
     -unity-text-outline-width: 1px; 
 }
 
-#score-label:hover{
-    color: #CF923E;
-    text-shadow: 2px 2px 3px white;
-}
 
 .score-label-streak {
     text-shadow: 3px 3px 0 red;
@@ -385,11 +382,9 @@
     position: relative;
     height: 80px;
     width: 59px;
-    right: auto;
-    top: auto;
     display: none;
-    bottom: 90%;
-    left: 15%;
+    bottom: 0%;
+    right: -30%;
 }
 
 .streak-image-transition {
