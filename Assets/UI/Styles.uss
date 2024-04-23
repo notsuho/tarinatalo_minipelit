@@ -146,7 +146,6 @@
     align-self: center;
     align-items: center;
     position: absolute;
-    /*min-height: 500px;*/
     width: 643px;
     top: 13%;
     background-image: resource('Images/T_Frame_PaperPages001_GUI');
@@ -257,7 +256,6 @@
 }
 
 
-
 #game-progress-container {
     position: absolute;
     top: 12%;
@@ -348,11 +346,9 @@
     scale: 1.2 1.2;
 }
 
+
 #score-container {
     position: relative;
-    right: auto;
-    bottom: auto;
-    left: auto;
     top: 72%;
 }
 
@@ -368,10 +364,6 @@
     -unity-text-outline-width: 1px; 
 }
 
-#score-label:hover{
-    color: #CF923E;
-    text-shadow: 2px 2px 3px white;
-}
 
 .score-label-streak {
     text-shadow: 3px 3px 0 red;
@@ -385,8 +377,8 @@
     transition-duration: 2.5s;
     transition-timing-function: ease-in;
     position: relative;
-    height: 80px;
-    width: 59px;
+    height: 95px;
+    width: 75px;
     right: auto;
     top: auto;
     display: none;
@@ -395,7 +387,7 @@
 }
 
 .streak-image-transition {
-    scale: 1.7;
+    scale: 1.5;
     opacity: 0;
 }
 
@@ -405,10 +397,11 @@
 
 #streak-count {
     position: absolute;
-    top: 37px;
-    left: 28px;
+    top: 49%;
+    left: 45%;
     -unity-font-style: bold;
     color: white;
+    
 }
 
 .divider {
