@@ -3,17 +3,15 @@ using UnityEngine;
 public class Score : MonoBehaviour
 {
     public HillopurkitUIManager ui;
-    //private int points = GameManager.totalPoints; // For purposes of running minigames back to back; don't forget to change this back to 0 later
+    // private int points
     private readonly int pointsPerCorrectAnswer = 11;
     private readonly int pointsPenaltyPerWrongAnswer = -5;
     private readonly int winningPointLimit = 99;
     private int jarClicksWrong = 0;
     private int jarClicksRight = 0;
-
     private int totalRounds;
     public int currentProgress = 33; // This minigame's progress goes from 33 to 66
     public int progressPerCorrectAnswer;
-
     public int minStreakValue = 3;
 
 
