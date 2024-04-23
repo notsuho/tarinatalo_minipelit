@@ -13,7 +13,7 @@ public class SoundObject : MonoBehaviour
     public AudioClip jarShatter;
     public AudioClip doorOpen;
     public AudioClip doorClose;
-    public AudioClip cabinetShake; // Need to find a clip for this one!
+    public AudioClip cabinetShake;
     public AudioClip keytwistSound;
 
 }
