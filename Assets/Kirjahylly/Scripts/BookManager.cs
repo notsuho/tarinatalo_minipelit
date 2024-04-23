@@ -19,6 +19,7 @@ public class BookManager : MonoBehaviour
     private float pointsToWin = 100;
     private int total_rounds = 3;
     private int current_round = 0;
+    private int racksFilled = 0;
 
     private int currentSetIndex = 0;
     private bool preSetBook1 = false;
@@ -45,7 +46,7 @@ public class BookManager : MonoBehaviour
     {
         cam = Camera.main;
         ui = FindObjectOfType<UIManager_Kirjahylly>();
-        ui.UpProgressBar(GameManager.totalPoints, pointsToWin);
+        ui.UpProgressBar(this.GetProgress(), pointsToWin);
         ui.LoadProgressBar();
         ui.SetInstructions();
         yield return new WaitUntil(() => !ui.InstructionsShown());
@@ -134,11 +135,12 @@ public class BookManager : MonoBehaviour
 
     void CheckLevelCompletion(object rack, System.EventArgs args)
     {
+        GameManager.AddPoints(true, 11);
+        racksFilled++;
+        ui.UpProgressBar(this.GetProgress(), pointsToWin);
         bool levelCompleted = this.bookRacks.All(r => r.GetComponent<BookRack>().isCompleted);
         if (levelCompleted)
         {
-            GameManager.AddPoints(true, 11);
-            ui.UpProgressBar(GameManager.totalPoints, pointsToWin);
             ui.SetFeedback();
             Invoke(nameof(RoundEnding), 2);
         }
@@ -179,7 +181,6 @@ public class BookManager : MonoBehaviour
     {
         bool bookMoved = false;
         GameManager.AddPoints(false, -11);
-        ui.UpProgressBar(GameManager.totalPoints, pointsToWin);
         //Check if there is a wrong book in book case and replace it with correct one
         for (int i = 0; i < 3; i++)
         {
@@ -321,4 +322,13 @@ public class BookManager : MonoBehaviour
         AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
     }
 
+    float GetProgress() {
+        int numOfRacksToComplete = 12;
+        int progressAvailableInThisGame = 33;
+        int basePointsFromPreviousGames = 66;
+
+        float progressPerRack = progressAvailableInThisGame / numOfRacksToComplete;
+
+        return basePointsFromPreviousGames + progressPerRack * this.racksFilled;
+    }
 }

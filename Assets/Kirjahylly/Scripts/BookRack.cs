@@ -35,6 +35,7 @@ public class BookRack : BookHolderBase
         }
         else
         {
+            GameManager.AddPoints(false, 11);
             MakeBooksRed();
             manager.PlayWrongSound();
         }
