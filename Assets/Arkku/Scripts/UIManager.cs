@@ -25,7 +25,6 @@ public class UIManager : MonoBehaviour
     private Label panelText;
     private Button panelButton;
     private VisualElement instructions;
-    //private ProgressBar progressBar;
     private Label gameScore;
     private VisualElement streakImage;
     private Image answerImage;
@@ -46,8 +45,6 @@ public class UIManager : MonoBehaviour
         //IMPLENTOI gameScoren väri streakissa: uiUtils gameObject talteen
         uiUtils = GetComponent<UIUtils>();
 
-        /*progressBar = root.Q<ProgressBar>("progress-bar");
-        progressBar.value = levelManager.GetProgressBarValue();*/
         
     }    
 
@@ -71,8 +68,7 @@ public class UIManager : MonoBehaviour
 
         gameScore = root.Q<Label>("score-label");
 
-        SetGameIntro();
-        /*SetLevelInstructions();*/
+        SetLevelInstructions();
 
         leftButton.clicked += () => CheckAnswer(leftWord);
         rightButton.clicked += () => CheckAnswer(rightWord);
@@ -115,18 +111,6 @@ public class UIManager : MonoBehaviour
 
     }
 
-    private void SetGameIntro()
-    {
-        gameIntro = root.Q<VisualElement>("panel-section");
-        Label gameIntroHeadline = gameIntro.Q<Label>("panel-headline");
-        gameIntroHeadline.text = TextMaterialArkku.gameIntroHeadlineText;
-        Label gameIntroText = gameIntro.Q<Label>("panel-text");
-        gameIntroText.text = TextMaterialArkku.gameIntroText;
-        Button letsPlayButton = gameIntro.Q<Button>("panel-button");
-        letsPlayButton.text = TextMaterialArkku.gameIntroButtonText;
-
-        gameIntro.style.display = DisplayStyle.Flex;
-    }
 
     private void SetLevelInstructions()
     {
@@ -202,12 +186,8 @@ public class UIManager : MonoBehaviour
         }
         else if (panelButton.text.Equals(TextMaterialArkku.endGameButtonText))
         {
+            Debug.Log("Application.Quit kutsutaan");
             Application.Quit();
-        }
-        else if (panelButton.text.Equals(TextMaterialArkku.gameIntroButtonText))
-        {
-            gameIntro.style.display = DisplayStyle.None;
-            SetLevelInstructions();
         }
         else if (panelButton.text.Equals(TextMaterialArkku.gotItButtonText))
         {
@@ -226,8 +206,7 @@ public class UIManager : MonoBehaviour
     {
         panelSection.style.display = DisplayStyle.None;
         bool gameEnded = levelManager.CheckIfGameEnded();
-        //UpProgressBar(levelManager.GetProgressBarValue(), levelManager.GetProgBarValueToWin());
-
+       
         if (gameEnded)
         {
             Invoke("DeclareWin", RenderTimeForDeclareWinFeedpack);
@@ -321,38 +300,11 @@ public class UIManager : MonoBehaviour
         panelHeadline.text = TextMaterialArkku.winningRoundHeadline;
         panelText.text = TextMaterialArkku.winningRoundText;
 
-        panelButton.text = TextMaterialArkku.nextGameButtonText;
+        panelButton.text = TextMaterialArkku.endGameButtonText;
 
         panelSection.style.display = DisplayStyle.Flex;
 
-       
-        panelButton.clicked += () =>
-        {
-            Application.Quit();
-        };
-     
+        AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
     }
 
-    /*public void UpProgressBar(float newProgressBarValue, float progBarValueToWin)
-    {
-        progressBar.value = newProgressBarValue;
-        Debug.Log("progress bar value: " + progressBar.value);
-
-        if (progressBar.value >= progBarValueToWin)
-        {
-            VisualElement star1 = root.Q<VisualElement>("star1");
-            star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-
-            //IMPLEMENTOI TÄHDEN SUURENTUMINEN: Ota nämä rivit oman tähden värinvaihdon jälkeen
-            //tähti suurenee ja pienenee    
-            star1.ToggleInClassList("star-scale-transition");
-            root.schedule.Execute(() => star1.ToggleInClassList("star-scale-transition")).StartingIn(500);
-            //----------------------------------------------------------------
-
-            //IMPLEMENTOI TÄHDEN SYTTYMISÄÄNI:
-            AudioSource.PlayClipAtPoint(soundObject.starSound, cam.transform.position);
-
-        }
-       
-    } */
 }

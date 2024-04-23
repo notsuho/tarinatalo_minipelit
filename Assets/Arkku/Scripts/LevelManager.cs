@@ -151,10 +151,6 @@ public class LevelManager : MonoBehaviour
         
     }
 
-   /* public float GetProgressBarValue()
-    {
-        return progressBarValue;
-    }*/
 
     public float GetCorrectAnswersToWinCount()
     {
