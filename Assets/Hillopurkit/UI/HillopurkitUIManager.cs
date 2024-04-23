@@ -23,13 +23,6 @@ public class HillopurkitUIManager : MonoBehaviour
     public SoundObject soundObject;
     public UIUtils uiUtils;
     private const int SCORE_MULTIPLIER = 10; // for UI display purposes
-    private readonly string continueButtonText = "<allcaps>jatka</allcaps>";
-    private readonly string gotItButtonText = "<allcaps>selvä!</allcaps>";
-    private readonly string endGameButtonText = "<allcaps>palaa pääpeliin</allcaps>";
-    private readonly string nextGameButtonText = "<allcaps>seuraava peli</allcaps>";
-    private readonly string instructionHeadlineText = "<allcaps>ohjeet</allcaps>";
-    private readonly string winningHeadline = "Läpäisit pelin!";
-    private readonly string winningText = "Löysit ja rikoit kaikki joukkoon kuulumattomat purkit!";
 
     private void Update()
     {
@@ -72,32 +65,28 @@ public class HillopurkitUIManager : MonoBehaviour
     // </summary>
     private void SetInstructions()
     {
-        //Siirrä tiedostoon myöhemmin
-        string instructionTextText = "Kaappiin on kasattu purkkeja, joiden kyljessä lukee synonyymejä. " 
-                                    + "Mutta purkkien joukkoon on eksynyt sana, joka ei kuulu joukkoon. "
-                                    + "Etsi joukkoon kuulumaton purkki, ja riko se vasaralla!";
 
         miniGameManager.PauseGame();
 
         instructions = root.Q<VisualElement>("panel-section");
         Label instructionHeadline = instructions.Q<Label>("panel-headline");
-        instructionHeadline.text = instructionHeadlineText;
+        instructionHeadline.text = TextMaterialHillopurkit.instructionHeadlineText;
         Label instructionText = instructions.Q<Label>("panel-text");
-        instructionText.text = instructionTextText;
+        instructionText.text = TextMaterialHillopurkit.instructionText;
         Button gotItButton = instructions.Q<Button>("panel-button");
-        gotItButton.text = gotItButtonText;
+        gotItButton.text = TextMaterialHillopurkit.gotItButtonText;
 
         instructions.style.display = DisplayStyle.Flex;
     }
 
     private void SetPanelExit()
     {
-        if (panelButton.text.Equals(continueButtonText)) // onko aina false?
+        if (panelButton.text.Equals(TextMaterialHillopurkit.continueButtonText)) // onko aina false?
         {
             ContinueGame();
         }
 
-        else if (panelButton.text.Equals(endGameButtonText)) // minipelin lopussa oleva nappi "Palaa pääpeliin"
+        else if (panelButton.text.Equals(TextMaterialHillopurkit.endGameButtonText)) // minipelin lopussa oleva nappi "Palaa pääpeliin"
         {
             Application.Quit();
         }
@@ -122,17 +111,18 @@ public class HillopurkitUIManager : MonoBehaviour
         // Play victory jingle
         AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
 
-        int[] stats = score.GetStats();
-        int total = stats[0] + stats[1];
+        // Update the score for next minigame to use
+        GameManager.totalPoints = score.GetPoints();
 
-        panelHeadline.text = winningHeadline;
-        panelText.text = winningText
-            + ("\n\nPisteesi: " + GameManager.totalPoints) // Add two linebreaks so it looks just a tiny bit cleaner
-            + ("\nArvausten määrä: " + total)
-            + ("\nOikeat arvaukset: " + stats[0])
-            + ("\nVäärät arvaukset: " + stats[1]);
+        // Correct/incorrect click tracking
+        // int[] stats = score.GetStats();
+        // int total = stats[0] + stats[1];
 
-        panelButton.text = nextGameButtonText;
+        panelHeadline.text = TextMaterialHillopurkit.winningHeadline;
+        panelText.text = TextMaterialHillopurkit.winningText
+            + ("\n\nPisteesi: " + score.GetPoints()); // Add two linebreaks so it looks just a tiny bit cleaner
+
+        panelButton.text = TextMaterialHillopurkit.nextGameButtonText;
 
         panelSection.style.display = DisplayStyle.Flex;
 

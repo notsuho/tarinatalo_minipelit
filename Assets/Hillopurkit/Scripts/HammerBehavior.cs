@@ -41,10 +41,22 @@ public class HammerBehavior : MonoBehaviour
     public void AnimateHammer(string animationString)
     {
         hammerAnimator.Play(animationString);
+
+        if (string.Equals(animationString, "SlideHammerOutOfView"))
+        {
+            StartCoroutine(DisappearAfterAWhile());
+        }
     }
 
     public void SetCanSwing(bool _canSwing)
     {
         canSwing = _canSwing;
     }
+
+    private IEnumerator DisappearAfterAWhile()
+    {
+        yield return new WaitForSeconds(WaitTimes.HAMMER_DISAPPEAR_TIME);
+        gameObject.SetActive(false);
+    }
 }
+
