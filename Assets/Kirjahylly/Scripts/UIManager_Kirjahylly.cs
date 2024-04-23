@@ -86,7 +86,7 @@ public class UIManager_Kirjahylly : MonoBehaviour
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = points;
-        this.scoreLabel.text = points.ToString("R");
+        this.scoreLabel.text = GameManager.totalPoints.ToString();
 
         if (progressBar.value >= pointsToWin)
         {

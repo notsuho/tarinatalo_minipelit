@@ -323,12 +323,13 @@ public class BookManager : MonoBehaviour
     }
 
     float GetProgress() {
-        int numOfRacksToComplete = 12;
-        int progressAvailableInThisGame = 33;
+        if (this.racksFilled == 9) {
+            return 100.0f;
+        }
+        int numOfRacksToComplete = 9;
+        int progressAvailableInThisGame = 34;
         int basePointsFromPreviousGames = 66;
-
         float progressPerRack = progressAvailableInThisGame / numOfRacksToComplete;
-
-        return basePointsFromPreviousGames + progressPerRack * this.racksFilled;
+        return basePointsFromPreviousGames + (progressPerRack * this.racksFilled);
     }
 }
