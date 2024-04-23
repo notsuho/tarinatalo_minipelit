@@ -31,6 +31,11 @@ public class HillopurkitUIManager : MonoBehaviour
     private readonly string winningHeadline = "Läpäisit pelin!";
     private readonly string winningText = "Löysit ja rikoit kaikki joukkoon kuulumattomat purkit!";
 
+    private void Update()
+    {
+        //gameScore.text = GameManager.totalPoints.ToString();    
+    }
+
     private void OnEnable()
     {
         cam = Camera.main;
@@ -117,15 +122,12 @@ public class HillopurkitUIManager : MonoBehaviour
         // Play victory jingle
         AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
 
-        // Update the score for next minigame to use
-        GameManager.totalPoints = score.GetPoints();
-
         int[] stats = score.GetStats();
         int total = stats[0] + stats[1];
 
         panelHeadline.text = winningHeadline;
         panelText.text = winningText
-            + ("\n\nPisteesi: " + score.GetPoints()) // Add two linebreaks so it looks just a tiny bit cleaner
+            + ("\n\nPisteesi: " + GameManager.totalPoints) // Add two linebreaks so it looks just a tiny bit cleaner
             + ("\nArvausten määrä: " + total)
             + ("\nOikeat arvaukset: " + stats[0])
             + ("\nVäärät arvaukset: " + stats[1]);
@@ -205,16 +207,16 @@ public class HillopurkitUIManager : MonoBehaviour
     {
         // Get the right/wrong click stats and score
         int[] stats = score.GetStats();
-        int points = score.GetPoints();
+        int points = GameManager.totalPoints;
 
         // If a breakable jar was clicked, check for streak bonus points and update score UI
         if (result == true) 
         {
-            if (score.streak >= score.minStreakValue) {
+            if (GameManager.streak >= score.minStreakValue) {
                 DisplayStreakImage();
             }
             scoreLabel = root.Q<Label>("score-label");
-            scoreLabel.text = ("" + points);
+            scoreLabel.text = ("" + GameManager.totalPoints);
             clickedRight.visible = true;
             StartCoroutine(FeedbackTurnOffDelay(clickedRight));
         }
@@ -241,7 +243,7 @@ public class HillopurkitUIManager : MonoBehaviour
 
             //asettaa kuvaan oikean streakin arvon
             Label streakCount = streakImage.Q<Label>("streak-count");
-            streakCount.text = "+" + score.GetStreak();
+            streakCount.text = "+" + GameManager.streak;
 
             streakImage.style.display = DisplayStyle.Flex;
             streakImage.ToggleInClassList("streak-image-transition");
