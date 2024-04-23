@@ -16,7 +16,7 @@ public class BookManager : MonoBehaviour
     public SoundObject soundObject;
     public Camera cam;
 
-    private float pointsToWin = 100;
+    private float pointsToWin = 99;
     private int total_rounds = 3;
     private int current_round = 0;
     private int racksFilled = 0;
@@ -322,10 +322,14 @@ public class BookManager : MonoBehaviour
         AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
     }
 
+    public void PlayStarSound(){
+        AudioSource.PlayClipAtPoint(soundObject.starSound, cam.transform.position);
+    }
+
     float GetProgress() {
-        int numOfRacksToComplete = 12;
-        int progressAvailableInThisGame = 33;
-        int basePointsFromPreviousGames = 66;
+        float numOfRacksToComplete = 9;
+        float progressAvailableInThisGame = 33;
+        float basePointsFromPreviousGames = 66;
 
         float progressPerRack = progressAvailableInThisGame / numOfRacksToComplete;
 

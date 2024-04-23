@@ -86,12 +86,14 @@ public class UIManager_Kirjahylly : MonoBehaviour
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = points;
-        this.scoreLabel.text = points.ToString("R");
+        //this.scoreLabel.text = points.ToString("R");
+        this.scoreLabel.text = GameManager.totalPoints.ToString();
 
         if (progressBar.value >= pointsToWin)
         {
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
+            manager.PlayStarSound();
 
             //tähti suurenee ja pienenee    
             star3.ToggleInClassList("star-scale-transition");
