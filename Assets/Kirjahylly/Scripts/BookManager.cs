@@ -16,8 +16,7 @@ public class BookManager : MonoBehaviour
     public SoundObject soundObject;
     public Camera cam;
 
-    private float points = 66f;
-    private float pointsToWin = 99f;
+    private float pointsToWin = 100;
     private int total_rounds = 3;
     private int current_round = 0;
 
@@ -46,7 +45,7 @@ public class BookManager : MonoBehaviour
     {
         cam = Camera.main;
         ui = FindObjectOfType<UIManager_Kirjahylly>();
-        //ui.UpProgressBar(points, pointsToWin);
+        ui.UpProgressBar(GameManager.totalPoints, pointsToWin);
         ui.LoadProgressBar();
         ui.SetInstructions();
         yield return new WaitUntil(() => !ui.InstructionsShown());
@@ -138,8 +137,8 @@ public class BookManager : MonoBehaviour
         bool levelCompleted = this.bookRacks.All(r => r.GetComponent<BookRack>().isCompleted);
         if (levelCompleted)
         {
-            points += 11f;
-            ui.UpProgressBar(points, pointsToWin);
+            GameManager.AddPoints(true, 11);
+            ui.UpProgressBar(GameManager.totalPoints, pointsToWin);
             ui.SetFeedback();
             Invoke(nameof(RoundEnding), 2);
         }
@@ -179,7 +178,8 @@ public class BookManager : MonoBehaviour
     public void UseHint()
     {
         bool bookMoved = false;
-
+        GameManager.AddPoints(false, -11);
+        ui.UpProgressBar(GameManager.totalPoints, pointsToWin);
         //Check if there is a wrong book in book case and replace it with correct one
         for (int i = 0; i < 3; i++)
         {
@@ -207,7 +207,6 @@ public class BookManager : MonoBehaviour
                 {
                     MoveBookToTable(bookstack[j]);
                     bookMoved = true;
-                    StartCoroutine(MoveCorrectBookToRack(i, 0.6f));
                     break;
                 }
             }
