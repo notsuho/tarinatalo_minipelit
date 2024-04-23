@@ -258,14 +258,7 @@
 
 
 
-#game-progress-container {
-    position: absolute;
-    top: 12%;
-    left: 78%;
-    height: 73%;
-    width: 30%;
-}
-
+/*
 #progress-bar-container {
     rotate: 270deg;
     height: 40px;
@@ -347,13 +340,18 @@
 .star-scale-transition {
     scale: 1.2 1.2;
 }
+#game-progress-container {
+    position: absolute;
+    top: 12%;
+    left: 78%;
+    height: 73%;
+    width: 30%;
+}*/
 
 #score-container {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    left: auto;
-    top: 72%;
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
 }
 
 #score-label {

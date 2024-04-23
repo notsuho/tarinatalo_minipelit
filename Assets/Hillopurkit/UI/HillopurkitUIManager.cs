@@ -22,7 +22,6 @@ public class HillopurkitUIManager : MonoBehaviour
     public Camera cam;
     public SoundObject soundObject;
     public UIUtils uiUtils;
-    private const int SCORE_MULTIPLIER = 10; // for UI display purposes
 
     private void Update()
     {
@@ -108,19 +107,9 @@ public class HillopurkitUIManager : MonoBehaviour
 
         yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG);
 
-        // Play victory jingle
-        AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
-
-        // Update the score for next minigame to use
-        GameManager.totalPoints = score.GetPoints();
-
-        // Correct/incorrect click tracking
-        // int[] stats = score.GetStats();
-        // int total = stats[0] + stats[1];
-
         panelHeadline.text = TextMaterialHillopurkit.winningHeadline;
         panelText.text = TextMaterialHillopurkit.winningText
-            + ("\n\nPisteesi: " + score.GetPoints()); // Add two linebreaks so it looks just a tiny bit cleaner
+            + ("\n\nPisteesi: " + GameManager.totalPoints); // Add two linebreaks so it looks just a tiny bit cleaner
 
         panelButton.text = TextMaterialHillopurkit.nextGameButtonText;
 
@@ -206,13 +195,18 @@ public class HillopurkitUIManager : MonoBehaviour
                 DisplayStreakImage();
             }
             scoreLabel = root.Q<Label>("score-label");
-            scoreLabel.text = ("" + GameManager.totalPoints);
+            scoreLabel.text = ("" + points);
             clickedRight.visible = true;
             StartCoroutine(FeedbackTurnOffDelay(clickedRight));
         }
 
         else
         {
+            if (uiUtils.isStreakColoringOn)
+            {
+                uiUtils.ScoreLabelToNormalColoring(scoreLabel);
+            }
+
             scoreLabel = root.Q<Label>("score-label");
             scoreLabel.text = ("" + points);
             clickedWrong.visible = true;
@@ -227,18 +221,22 @@ public class HillopurkitUIManager : MonoBehaviour
     }
 
     //asettaa streak imagen käymään näkyvissä
-    private void DisplayStreakImage ()
-    {       
-            streakImage = root.Q<VisualElement>("streak-image");
+    private void DisplayStreakImage()
+    {
+        if (!uiUtils.isStreakColoringOn)
+        {
+            uiUtils.ScoreLabelToStreakColoring(scoreLabel);
+        }
+        streakImage = root.Q<VisualElement>("streak-image");
 
-            //asettaa kuvaan oikean streakin arvon
-            Label streakCount = streakImage.Q<Label>("streak-count");
-            streakCount.text = "+" + GameManager.streak;
+        //asettaa kuvaan oikean streakin arvon
+        Label streakCount = streakImage.Q<Label>("streak-count");
+        streakCount.text = "+" + GameManager.streak;
 
-            streakImage.style.display = DisplayStyle.Flex;
-            streakImage.ToggleInClassList("streak-image-transition");
-            AudioSource.PlayClipAtPoint(soundObject.streakSound, cam.transform.position);
-            Invoke("ToggleStreakClassList", 3f);
+        streakImage.style.display = DisplayStyle.Flex;
+        streakImage.ToggleInClassList("streak-image-transition");
+        AudioSource.PlayClipAtPoint(soundObject.streakSound, cam.transform.position);
+        Invoke("ToggleStreakClassList", 3f);
     }
 
 

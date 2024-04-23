@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     private Label panelText;
     private Button panelButton;
     private VisualElement instructions;
-    private ProgressBar progressBar;
+    //private ProgressBar progressBar;
     private Label gameScore;
     private VisualElement streakImage;
     private Image answerImage;
@@ -46,8 +46,8 @@ public class UIManager : MonoBehaviour
         //IMPLENTOI gameScoren väri streakissa: uiUtils gameObject talteen
         uiUtils = GetComponent<UIUtils>();
 
-        progressBar = root.Q<ProgressBar>("progress-bar");
-        progressBar.value = levelManager.GetProgressBarValue();
+        /*progressBar = root.Q<ProgressBar>("progress-bar");
+        progressBar.value = levelManager.GetProgressBarValue();*/
         
     }    
 
@@ -226,7 +226,7 @@ public class UIManager : MonoBehaviour
     {
         panelSection.style.display = DisplayStyle.None;
         bool gameEnded = levelManager.CheckIfGameEnded();
-        UpProgressBar(levelManager.GetProgressBarValue(), levelManager.GetProgBarValueToWin());
+        //UpProgressBar(levelManager.GetProgressBarValue(), levelManager.GetProgBarValueToWin());
 
         if (gameEnded)
         {
@@ -328,12 +328,12 @@ public class UIManager : MonoBehaviour
        
         panelButton.clicked += () =>
         {
-            SceneManager.LoadScene("HillopurkitScene");
+            Application.Quit();
         };
      
     }
 
-    public void UpProgressBar(float newProgressBarValue, float progBarValueToWin)
+    /*public void UpProgressBar(float newProgressBarValue, float progBarValueToWin)
     {
         progressBar.value = newProgressBarValue;
         Debug.Log("progress bar value: " + progressBar.value);
@@ -353,6 +353,6 @@ public class UIManager : MonoBehaviour
             AudioSource.PlayClipAtPoint(soundObject.starSound, cam.transform.position);
 
         }
-
-    }
+       
+    } */
 }
