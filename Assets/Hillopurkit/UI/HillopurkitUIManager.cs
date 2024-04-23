@@ -21,11 +21,19 @@ public class HillopurkitUIManager : MonoBehaviour
     private VisualElement streakImage;
     public Camera cam;
     public SoundObject soundObject;
+    public UIUtils uiUtils;
     private const int SCORE_MULTIPLIER = 10; // for UI display purposes
+
+    private void Update()
+    {
+        //gameScore.text = GameManager.totalPoints.ToString();    
+    }
 
     private void OnEnable()
     {
         cam = Camera.main;
+
+        uiUtils = GetComponent<UIUtils>();
 
         root = GetComponent<UIDocument>().rootVisualElement;
 
@@ -48,7 +56,7 @@ public class HillopurkitUIManager : MonoBehaviour
 
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => SetPanelExit();
-        exitButton.clicked += () => Application.Quit();
+        exitButton.clicked += () => uiUtils.SetConfirmationPanel(root);
     }
 
     // <summary>
@@ -189,16 +197,16 @@ public class HillopurkitUIManager : MonoBehaviour
     {
         // Get the right/wrong click stats and score
         int[] stats = score.GetStats();
-        int points = score.GetPoints();
+        int points = GameManager.totalPoints;
 
         // If a breakable jar was clicked, check for streak bonus points and update score UI
         if (result == true) 
         {
-            if (score.streak >= score.minStreakValue) {
+            if (GameManager.streak >= score.minStreakValue) {
                 DisplayStreakImage();
             }
             scoreLabel = root.Q<Label>("score-label");
-            scoreLabel.text = ("" + points);
+            scoreLabel.text = ("" + GameManager.totalPoints);
             clickedRight.visible = true;
             StartCoroutine(FeedbackTurnOffDelay(clickedRight));
         }
@@ -225,7 +233,7 @@ public class HillopurkitUIManager : MonoBehaviour
 
             //asettaa kuvaan oikean streakin arvon
             Label streakCount = streakImage.Q<Label>("streak-count");
-            streakCount.text = "+" + score.GetStreak();
+            streakCount.text = "+" + GameManager.streak;
 
             streakImage.style.display = DisplayStyle.Flex;
             streakImage.ToggleInClassList("streak-image-transition");

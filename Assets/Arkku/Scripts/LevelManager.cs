@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-//[RequireComponent(typeof(AudioSource))]
+
 public class LevelManager : MonoBehaviour
 {
     public TextAsset textJSON;
@@ -16,12 +16,11 @@ public class LevelManager : MonoBehaviour
     private static List<Exercise> exercisesToAnswer;
     private Exercise currentExercise;
     private Exercise previousExercise;
-    /* public SoundObject soundObject;
-    public Camera cam; */
+
 
     public float progressBarValue;
     public float progBarValueUpPerCorrectAnswer;
-    public float progBarValueToWin;
+    public float progBarValueToWinRound;
 
     public Animator anim;
     public GameObject rightKey;
@@ -120,10 +119,9 @@ public class LevelManager : MonoBehaviour
                 Invoke("CloseChest", 4f);
             }
 
-            GameManager.totalPoints += ScoreArkku.pointPerCorrectAnswer;
+            GameManager.AddPoints(true, ScoreArkku.pointPerCorrectAnswer);
             Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
-            ScoreArkku.streak += 1;
-            Debug.Log("Streak " + ScoreArkku.streak);
+            Debug.Log("Streak " + GameManager.streak);
             progressBarValue += progBarValueUpPerCorrectAnswer;
             exercisesToAnswer.Remove(currentExercise);
             return true;
@@ -131,12 +129,9 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            GameManager.totalPoints += ScoreArkku.GetStreakPoints();            
-            GameManager.totalPoints -= ScoreArkku.pointsReduceForWrongAnswer;
+            GameManager.AddPoints(false, ScoreArkku.pointsReduceForWrongAnswer);
+
             Debug.Log("Pelin pisteet: " + GameManager.totalPoints);
-            ScoreArkku.SetHighestStreakCount();
-            ScoreArkku.streak = 0;
-            Debug.Log("Streak " + ScoreArkku.streak);
 
             return false;
         }
@@ -146,11 +141,8 @@ public class LevelManager : MonoBehaviour
 
     public bool CheckIfGameEnded()
     {
-        if (progressBarValue >= progBarValueToWin)
+        if (progressBarValue >= progBarValueToWinRound)
         {
-            ScoreArkku.SetHighestStreakCount();
-            GameManager.totalPoints += ScoreArkku.GetStreakPoints();
-            ScoreArkku.streak = 0;
             return true;
         }
         else
@@ -167,7 +159,7 @@ public class LevelManager : MonoBehaviour
 
     public float GetProgBarValueToWin()
     {
-        return progBarValueToWin;
+        return progBarValueToWinRound;
     }
 
     public string GetCurrentExplanation()

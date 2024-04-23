@@ -20,9 +20,11 @@ public class Book : MonoBehaviour {
 
     public int word_category;
     private UIManager_Kirjahylly ui;
+    private BookManager manager;
 
     void Start() {
         ui = FindObjectOfType<UIManager_Kirjahylly>();
+        manager = FindObjectOfType<BookManager>();
     }
 
     void OnMouseDown() {
@@ -58,6 +60,7 @@ public class Book : MonoBehaviour {
                 prevBookHolder.RemoveBook(this.gameObject);
                 newBookHolder.AddBook(this.gameObject);
                 this.currHolder = objectUnderMouse;
+                manager.PlayBookDropSound();
             }
         }
         this.bookMoving = true;

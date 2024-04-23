@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public SoundObject soundObject;
 
     private VisualElement root;
+    private VisualElement gameIntro;
     private Label sentenceLabel;
     private Button leftButton;
     private Button rightButton;
@@ -41,17 +42,12 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+
+        //IMPLENTOI gameScoren väri streakissa: uiUtils gameObject talteen
         uiUtils = GetComponent<UIUtils>();
 
         progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = levelManager.GetProgressBarValue();
-
-        VisualElement star1 = root.Q<VisualElement>("star1");
-        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-
-        VisualElement star2 = root.Q<VisualElement>("star2");
-        star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-
         
     }    
 
@@ -75,21 +71,16 @@ public class UIManager : MonoBehaviour
 
         gameScore = root.Q<Label>("score-label");
 
-        SetInstructions();
+        SetGameIntro();
+        /*SetLevelInstructions();*/
 
         leftButton.clicked += () => CheckAnswer(leftWord);
         rightButton.clicked += () => CheckAnswer(rightWord);
-        instructionButton.clicked += () => SetInstructions();
+        instructionButton.clicked += () => SetLevelInstructions();
         panelButton.clicked += () => SetPanelExit();
-        exitButton.clicked += () => Application.Quit();
+        exitButton.clicked += () => uiUtils.SetConfirmationPanel(root);
     }
 
-    //ottaa napit pois käytöstä nappispämmin estämiseksi 
-    void FreezeButtons()
-    {
-        leftButton.SetEnabled(false);
-        rightButton.SetEnabled(false);
-    }
 
 
     private void Update()
@@ -124,14 +115,26 @@ public class UIManager : MonoBehaviour
 
     }
 
+    private void SetGameIntro()
+    {
+        gameIntro = root.Q<VisualElement>("panel-section");
+        Label gameIntroHeadline = gameIntro.Q<Label>("panel-headline");
+        gameIntroHeadline.text = TextMaterialArkku.gameIntroHeadlineText;
+        Label gameIntroText = gameIntro.Q<Label>("panel-text");
+        gameIntroText.text = TextMaterialArkku.gameIntroText;
+        Button letsPlayButton = gameIntro.Q<Button>("panel-button");
+        letsPlayButton.text = TextMaterialArkku.gameIntroButtonText;
 
-    private void SetInstructions()
+        gameIntro.style.display = DisplayStyle.Flex;
+    }
+
+    private void SetLevelInstructions()
     {
         instructions = root.Q<VisualElement>("panel-section");
         Label instructionHeadline = instructions.Q<Label>("panel-headline");
         instructionHeadline.text = TextMaterialArkku.instructionHeadlineText;
         Label instructionText = instructions.Q<Label>("panel-text");
-        instructionText.text = TextMaterialArkku.instructionTextText;
+        instructionText.text = TextMaterialArkku.instructionText;
         Button gotItButton = instructions.Q<Button>("panel-button");
         gotItButton.text = TextMaterialArkku.gotItButtonText;
 
@@ -201,10 +204,22 @@ public class UIManager : MonoBehaviour
         {
             Application.Quit();
         }
-        else
+        else if (panelButton.text.Equals(TextMaterialArkku.gameIntroButtonText))
+        {
+            gameIntro.style.display = DisplayStyle.None;
+            SetLevelInstructions();
+        }
+        else if (panelButton.text.Equals(TextMaterialArkku.gotItButtonText))
         {
             instructions.style.display = DisplayStyle.None;
         }
+    }
+
+    //ottaa napit pois käytöstä nappispämmin estämiseksi 
+    void FreezeButtons()
+    {
+        leftButton.SetEnabled(false);
+        rightButton.SetEnabled(false);
     }
 
     private void ContinueGame()
@@ -232,23 +247,26 @@ public class UIManager : MonoBehaviour
            FreezeButtons();
             //IMPLEMENTOI STREAKIT: Kutsu sreak-kuvaketta, jos streakin arvo on tarpeeksi suuri           
            //asetetaan streak-kuvake, jos streak-arvo on tarpeeksi suuri 
-           if (ScoreArkku.streak >= ScoreArkku.minStreakValue)
+           if (GameManager.streak >= ScoreArkku.minStreakValue)
             {
                 DisplayStreakImage();
                
             }
-           //---------------------------------------------
+            //---------------------------------------------
+
             SetFeedpack(TextMaterialArkku.correctAnswerFeedpackText, levelManager.GetCurrentExplanation(), true);
             Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack);
             AudioSource.PlayClipAtPoint(soundObject.keytwistSound, cam.transform.position);
         }
         else
         {
-
+            //IMPLEMENTOI scoreLabelin muuttuminen perusväriin
+            //poistaa scoreLabelin streak-värityksen
             if (uiUtils.isStreakColoringOn)
             {
                 uiUtils.ScoreLabelToNormalColoring(gameScore);
             }
+            //-----------------------------------------------------------
            
             SetFeedpack(TextMaterialArkku.wrongAnswerFeedpackText, levelManager.GetCurrentExplanation(), false);
 
@@ -264,17 +282,18 @@ public class UIManager : MonoBehaviour
     private void DisplayStreakImage ()
     {
 
-   
+        //IMPLEMENTOI scoreLabelin väri streakissa:
         //asettaa score labeliin uuden värin, joka ilmaisee, että streak on päällä
         if (!uiUtils.isStreakColoringOn) { 
             uiUtils.ScoreLabelToStreakColoring(gameScore);
         }
+        //-------------------------------------------------
 
         streakImage = root.Q<VisualElement>("streak-image");
 
         //asettaa kuvaan oikean streakin arvon
         Label streakCount = streakImage.Q<Label>("streak-count");
-        streakCount.text = "+" + ScoreArkku.streak;
+        streakCount.text = "+" + GameManager.streak;
 
         streakImage.style.display = DisplayStyle.Flex;
         streakImage.ToggleInClassList("streak-image-transition");
@@ -299,15 +318,14 @@ public class UIManager : MonoBehaviour
     public void DeclareWin()
     {
 
-        panelHeadline.text = TextMaterialArkku.winningHeadline;
-        panelText.text = TextMaterialArkku.winningText + GameManager.totalPoints.ToString();
+        panelHeadline.text = TextMaterialArkku.winningRoundHeadline;
+        panelText.text = TextMaterialArkku.winningRoundText;
 
         panelButton.text = TextMaterialArkku.nextGameButtonText;
 
         panelSection.style.display = DisplayStyle.Flex;
 
-        AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
-
+       
         panelButton.clicked += () =>
         {
             SceneManager.LoadScene("HillopurkitScene");
@@ -322,15 +340,16 @@ public class UIManager : MonoBehaviour
 
         if (progressBar.value >= progBarValueToWin)
         {
-            VisualElement star3 = root.Q<VisualElement>("star3");
-            star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
+            VisualElement star1 = root.Q<VisualElement>("star1");
+            star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
 
             //IMPLEMENTOI TÄHDEN SUURENTUMINEN: Ota nämä rivit oman tähden värinvaihdon jälkeen
             //tähti suurenee ja pienenee    
-            star3.ToggleInClassList("star-scale-transition");
-            root.schedule.Execute(() => star3.ToggleInClassList("star-scale-transition")).StartingIn(500);
+            star1.ToggleInClassList("star-scale-transition");
+            root.schedule.Execute(() => star1.ToggleInClassList("star-scale-transition")).StartingIn(500);
             //----------------------------------------------------------------
 
+            //IMPLEMENTOI TÄHDEN SYTTYMISÄÄNI:
             AudioSource.PlayClipAtPoint(soundObject.starSound, cam.transform.position);
 
         }

@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Kirjahylly/KirjahyllyScene.unity
-    guid: a336f48cbb1ece3498bed29db9dcf005
+    path: Assets/Arkku/ArkkuScene.unity
+    guid: 3669b14177dc23a44bb983bf831dab60
   - enabled: 1
     path: Assets/Hillopurkit/HillopurkitScene.unity
     guid: d95492d926e45084bb4e8893de7864be
   - enabled: 1
-    path: Assets/Arkku/ArkkuScene.unity
-    guid: 3669b14177dc23a44bb983bf831dab60
+    path: Assets/Kirjahylly/KirjahyllyScene.unity
+    guid: a336f48cbb1ece3498bed29db9dcf005
   m_configObjects: {}

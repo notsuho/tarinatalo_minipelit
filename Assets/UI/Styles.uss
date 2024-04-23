@@ -102,7 +102,7 @@
 }
 
 .word-button:hover {
-    background-color: rgba(142, 89, 43, 0.5);
+    
     color: var(--color-lt-text);
      
 }
@@ -133,21 +133,20 @@
     -unity-slice-scale: 0.5px;
 }
 
-#panel-section {
+#panel-section, #exit-confirmation-panel-section {
     display: none;
     position: absolute;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    opacity: 70;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
-#panel {
+#panel, #exit-confirmation-panel {
     flex-direction: column;
     align-self: center;
     align-items: center;
     position: absolute;
-    min-height: 500px;
+    /*min-height: 500px;*/
     width: 643px;
     top: 13%;
     background-image: resource('Images/T_Frame_PaperPages001_GUI');
@@ -158,7 +157,7 @@
     padding: 60px;
 }
 
-#panel-headline {
+#panel-headline, #exit-text {
     color: var(--color-lt-text);
     font-size: 180%;
     margin-bottom: 20px;
@@ -186,7 +185,7 @@
     -unity-text-align: upper-center;
 }
 
-#panel-button {
+#panel-button, #exit-yes-button {
     width: 309px;
     height: 60px;
     border-radius: 8px;
@@ -204,9 +203,29 @@
     margin-top: 40px;
 }
 
-#panel-button:hover {
+#panel-button:hover, #exit-no-button:hover, #exit-yes-button:hover {
     color: white;
 }
+
+#exit-no-button {
+     width: 309px;
+    height: 60px;
+    border-radius: 8px;
+    font-size: 20px;
+    -unity-font: resource('Fonts/Nunito-Black');
+    color: #EFDFC6;
+    background-image: resource('Images/T_Frame_Button_White_GUI');
+    border-color: rgba(0, 0, 0, 0);
+    -unity-slice-left: 32;
+    -unity-slice-right: 32;
+    -unity-slice-bottom: 1;
+    -unity-slice-top: 1;
+    -unity-background-image-tint-color: var(--color-lt-accent);
+    background-color: rgba(0, 0, 0, 0);
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
 
 #instructions-section {
     display: none;
@@ -237,6 +256,8 @@
     flex-grow: 1;
 }
 
+
+
 #game-progress-container {
     position: absolute;
     top: 12%;
@@ -263,9 +284,10 @@
 }
 
 .unity-progress-bar__container {
-    min-height: 37px;
-    min-width: 350px;
+    min-height: 100%;
+    min-width: 100%;
     border-radius: 10px;
+    
 }
 
 .unity-progress-bar__background {
@@ -307,7 +329,7 @@
     width: 70px;
     height: 70px;
     rotate: 90deg;
-    left: 57%;
+    left: 58%;
     top: -26%;
 }
 
@@ -318,7 +340,7 @@
     width: 70px;
     height: 70px;
     rotate: 90deg;
-    left: 24%;
+    left: 26%;
     top: -26%;
 }
 
@@ -331,7 +353,7 @@
     right: auto;
     bottom: auto;
     left: auto;
-    top: 70%;
+    top: 72%;
 }
 
 #score-label {
