@@ -112,7 +112,7 @@ public class HillopurkitUIManager : MonoBehaviour
         AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
 
         // Update the score for next minigame to use
-        GameManager.totalPoints = score.GetPoints();
+        // GameManager.totalPoints = score.GetPoints();
 
         // Correct/incorrect click tracking
         // int[] stats = score.GetStats();
@@ -120,7 +120,7 @@ public class HillopurkitUIManager : MonoBehaviour
 
         panelHeadline.text = TextMaterialHillopurkit.winningHeadline;
         panelText.text = TextMaterialHillopurkit.winningText
-            + ("\n\nPisteesi: " + score.GetPoints()); // Add two linebreaks so it looks just a tiny bit cleaner
+            + ("\n\nPisteesi: " + GameManager.totalPoints); // Add two linebreaks so it looks just a tiny bit cleaner
 
         panelButton.text = TextMaterialHillopurkit.nextGameButtonText;
 
