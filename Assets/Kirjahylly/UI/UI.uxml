@@ -12,7 +12,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement class="option-buttons" style="-unity-text-outline-color: rgba(0, 0, 0, 0);">
-                <ui:Button text="Vihje" parse-escape-sequences="true" display-tooltip-when-elided="true" name="clue" tooltip="Korvaa väärin asetetun kirjan oikealla kirjalla" style="opacity: 1; overflow: hidden; visibility: visible; height: 60px; position: absolute; width: 56px; left: 0; top: -4px;" />
+                <ui:Button text="Vihje" parse-escape-sequences="true" display-tooltip-when-elided="true" name="clue" tooltip="Korvaa väärin asetetun kirjan oikealla kirjalla" style="opacity: 1; overflow: hidden; visibility: visible; height: 60px; position: absolute; width: 56px; left: 1px; top: 17px; background-image: resource(&apos;Images/T_Frame_PaperPages001_GUI&apos;); -unity-font-style: bold; color: rgb(119, 67, 46);" />
                 <ui:Label tabindex="-1" text="HIENOA!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="feedback" style="-unity-text-align: middle-center; color: rgb(249, 243, 233); font-size: 100px; visibility: hidden; left: -20%; top: -20%; right: 0; position: relative; bottom: 0; -unity-font: resource(&apos;Fonts/Nunito-Medium&apos;); -unity-text-outline-color: rgba(0, 0, 0, 0); -unity-text-outline-width: 0; text-shadow: 7px 5px 0 rgb(142, 89, 43);" />
             </ui:VisualElement>
             <ui:VisualElement name="sentence-section" />
@@ -45,8 +45,8 @@
         <ui:VisualElement name="exit-confirmation-panel-section">
             <ui:VisualElement name="exit-confirmation-panel">
                 <ui:Label name="exit-text" />
-                <ui:Button name="exit-yes-button"/>
-                <ui:Button name="exit-no-button"/>
+                <ui:Button name="exit-yes-button" />
+                <ui:Button name="exit-no-button" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

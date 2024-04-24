@@ -9,10 +9,12 @@ public class BookRack : BookHolderBase
 {
     public event EventHandler CompletionEvent;
     private BookManager manager;
+    private UIManager_Kirjahylly ui;
     public bool isCompleted = false;
 
     public void Start(){
         manager = FindObjectOfType<BookManager>();
+        ui = FindObjectOfType<UIManager_Kirjahylly>();
     }
 
     public override void AddBook(GameObject book)
@@ -32,10 +34,14 @@ public class BookRack : BookHolderBase
             MakeBooksGlow();
             this.OnCompletion();
             manager.PlayCorrectSound();
+            if (GameManager.streak > 2){
+                ui.DisplayStreakImage();
+            }
         }
         else
         {
-            GameManager.AddPoints(false, 11);
+            GameManager.AddPoints(false, manager.pointsForWrongAnswer);
+            ui.UpdateScoreLabel();
             MakeBooksRed();
             manager.PlayWrongSound();
         }
@@ -58,12 +64,21 @@ public class BookRack : BookHolderBase
     private void MakeBooksGlow() {
         foreach (GameObject book in this.bookStack){
             book.GetComponent<GlowControl>().MakeBookGlow();
+            book.GetComponent<Book>().isRed = false;
         }
     }
 
     private void MakeBooksRed() {
         foreach (GameObject book in this.bookStack){
             book.GetComponent<GlowControl>().MakeBookRed();
+            book.GetComponent<Book>().isRed = true;
+        }
+    }
+
+    public void RestoreBookColors() {
+        foreach (GameObject book in this.bookStack){
+            book.GetComponent<GlowControl>().RestoreBookColor();
+            book.GetComponent<Book>().isRed = false;
         }
     }
 

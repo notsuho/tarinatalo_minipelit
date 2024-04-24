@@ -9,6 +9,7 @@ public class Book : MonoBehaviour {
     private bool bookMoving = false;
     private bool bookZooming = false;
     private bool bookFrozen = false;
+    public bool isRed = false;
     private float moveSpeed = 7.0f;
     private float zoomDistanceToCamera = 2.0f; // How close to zoom the book when dragging
 
@@ -57,6 +58,11 @@ public class Book : MonoBehaviour {
             BookHolderBase newBookHolder = objectUnderMouse.GetComponent<BookHolderBase>();
             if (newBookHolder.CanHoldMoreBooks()) {
                 BookHolderBase prevBookHolder = this.currHolder.GetComponent<BookHolderBase>();
+                if (this.isRed){
+                    this.GetComponent<GlowControl>().RestoreBookColor();
+                    BookRack prevRack = (BookRack) prevBookHolder;
+                    prevRack.RestoreBookColors();
+                }
                 prevBookHolder.RemoveBook(this.gameObject);
                 newBookHolder.AddBook(this.gameObject);
                 this.currHolder = objectUnderMouse;
