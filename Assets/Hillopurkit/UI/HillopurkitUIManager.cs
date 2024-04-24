@@ -31,6 +31,7 @@ public class HillopurkitUIManager : MonoBehaviour
     private void OnEnable()
     {
         cam = Camera.main;
+        uiUtils = GetComponent<UIUtils>();
 
         uiUtils = GetComponent<UIUtils>();
 
@@ -49,6 +50,12 @@ public class HillopurkitUIManager : MonoBehaviour
 
         scoreLabel = root.Q<Label>("score-label");
         scoreLabel.text = "" + GameManager.totalPoints;
+
+        if (GameManager.streak > 2) {
+            uiUtils.ScoreLabelToStreakColoring(this.scoreLabel);
+        } else {
+            uiUtils.ScoreLabelToNormalColoring(this.scoreLabel);
+        }
 
         ResetProgressBar(33);
         SetInstructions();
