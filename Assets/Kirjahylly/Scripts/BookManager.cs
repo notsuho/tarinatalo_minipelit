@@ -16,10 +16,10 @@ public class BookManager : MonoBehaviour
     public SoundObject soundObject;
     public Camera cam;
 
-    private float points = 66f;
-    private float pointsToWin = 99f;
+    private float pointsToWin = 100;
     private int total_rounds = 3;
     private int current_round = 0;
+    private int racksFilled = 0;
 
     private int currentSetIndex = 0;
     private bool preSetBook1 = false;
@@ -46,7 +46,7 @@ public class BookManager : MonoBehaviour
     {
         cam = Camera.main;
         ui = FindObjectOfType<UIManager_Kirjahylly>();
-        //ui.UpProgressBar(points, pointsToWin);
+        ui.UpProgressBar(this.GetProgress(), pointsToWin);
         ui.LoadProgressBar();
         ui.SetInstructions();
         yield return new WaitUntil(() => !ui.InstructionsShown());
@@ -135,11 +135,12 @@ public class BookManager : MonoBehaviour
 
     void CheckLevelCompletion(object rack, System.EventArgs args)
     {
+        GameManager.AddPoints(true, 11);
+        racksFilled++;
+        ui.UpProgressBar(this.GetProgress(), pointsToWin);
         bool levelCompleted = this.bookRacks.All(r => r.GetComponent<BookRack>().isCompleted);
         if (levelCompleted)
         {
-            points += 11f;
-            ui.UpProgressBar(points, pointsToWin);
             ui.SetFeedback();
             Invoke(nameof(RoundEnding), 2);
         }
@@ -179,7 +180,7 @@ public class BookManager : MonoBehaviour
     public void UseHint()
     {
         bool bookMoved = false;
-
+        GameManager.AddPoints(false, -11);
         //Check if there is a wrong book in book case and replace it with correct one
         for (int i = 0; i < 3; i++)
         {
@@ -207,7 +208,6 @@ public class BookManager : MonoBehaviour
                 {
                     MoveBookToTable(bookstack[j]);
                     bookMoved = true;
-                    StartCoroutine(MoveCorrectBookToRack(i, 0.6f));
                     break;
                 }
             }
@@ -322,4 +322,14 @@ public class BookManager : MonoBehaviour
         AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
     }
 
+    float GetProgress() {
+        if (this.racksFilled == 9) {
+            return 100.0f;
+        }
+        int numOfRacksToComplete = 9;
+        int progressAvailableInThisGame = 34;
+        int basePointsFromPreviousGames = 66;
+        float progressPerRack = progressAvailableInThisGame / numOfRacksToComplete;
+        return basePointsFromPreviousGames + (progressPerRack * this.racksFilled);
+    }
 }

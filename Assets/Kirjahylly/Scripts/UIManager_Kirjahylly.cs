@@ -19,6 +19,7 @@ public class UIManager_Kirjahylly : MonoBehaviour
     private Label feedback;
     private ProgressBar progressBar;
     private Button hint;
+    private Label scoreLabel;
     private float lastHintUseTime = -1000;
     private bool hintAvailable = true;
 
@@ -49,6 +50,9 @@ public class UIManager_Kirjahylly : MonoBehaviour
         panelButton = panelSection.Q<Button>("panel-button");
         feedback = root.Q<Label>("feedback");
         this.hint = root.Q<Button>("clue");
+        this.scoreLabel = root.Q<VisualElement>("game-progress-container")
+            .Q<VisualElement>("score-container")
+            .Q<Label>("score-label");
 
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => instructions.style.display = DisplayStyle.None;
@@ -64,6 +68,12 @@ public class UIManager_Kirjahylly : MonoBehaviour
     void Update() {
         this.hintAvailable = Time.time - this.lastHintUseTime > 10;
         this.hint.style.opacity = this.hintAvailable ? 1.0f : 0.25f;
+
+        if (GameManager.streak > 2) {
+            uiUtils.ScoreLabelToStreakColoring(this.scoreLabel);
+        } else {
+            uiUtils.ScoreLabelToNormalColoring(this.scoreLabel);
+        }
     }
 
     public void SetInstructions ()
@@ -82,9 +92,9 @@ public class UIManager_Kirjahylly : MonoBehaviour
     {
         progressBar = root.Q<ProgressBar>("progress-bar");
         progressBar.value = points;
+        this.scoreLabel.text = GameManager.totalPoints.ToString();
 
-        if (progressBar.value >= pointsToWin)
-        {
+        if (progressBar.value >= pointsToWin) {
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
 
@@ -93,7 +103,6 @@ public class UIManager_Kirjahylly : MonoBehaviour
             root.schedule.Execute(() => star3.ToggleInClassList("star-scale-transition")).StartingIn(500);
  
         }
-
     }
 
     public void LoadProgressBar(){
@@ -107,7 +116,6 @@ public class UIManager_Kirjahylly : MonoBehaviour
         star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
         star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
         star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
-
     }
 
     public bool InstructionsShown(){
