@@ -20,6 +20,7 @@ public class UIManager_Kirjahylly : MonoBehaviour
     private ProgressBar progressBar;
     private Button hint;
     private Label scoreLabel;
+    private VisualElement streakImage;
     private float lastHintUseTime = -1000;
     private bool hintAvailable = true;
 
@@ -97,6 +98,7 @@ public class UIManager_Kirjahylly : MonoBehaviour
         if (progressBar.value >= pointsToWin) {
             VisualElement star3 = root.Q<VisualElement>("star3");
             star3.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
+            manager.PlayStarSound();
 
             //tähti suurenee ja pienenee    
             star3.ToggleInClassList("star-scale-transition");
@@ -143,5 +145,40 @@ public class UIManager_Kirjahylly : MonoBehaviour
             // tähän esim application quit, tai kutsu palata päävalikkoon tms.
             // Application.Quit();
         };
+    }
+
+    //asettaa streak imagen käymään näkyvissä
+    public void DisplayStreakImage ()
+    {
+
+        //asettaa score labeliin uuden värin, joka ilmaisee, että streak on päällä
+        if (!uiUtils.isStreakColoringOn) { 
+            uiUtils.ScoreLabelToStreakColoring(this.scoreLabel);
+        }
+        //-------------------------------------------------
+
+        streakImage = root.Q<VisualElement>("streak-image");
+
+        //asettaa kuvaan oikean streakin arvon
+        Label streakCount = streakImage.Q<Label>("streak-count");
+        streakCount.text = "+" + GameManager.streak;
+
+        streakImage.style.display = DisplayStyle.Flex;
+        streakImage.ToggleInClassList("streak-image-transition");
+        manager.PlayStreakSound();
+
+        Invoke("ToggleStreakClassList", 3f);
+       
+    }
+
+    //hävittää streak imagen näkyvistä ja asettaa classlistin alkuperäiseen asentoon
+    private void ToggleStreakClassList()
+    {
+        streakImage.ClearClassList();
+        streakImage.style.display = DisplayStyle.None;
+    }
+
+    public void UpdateScoreLabel(){
+        this.scoreLabel.text = GameManager.totalPoints.ToString();
     }
 }

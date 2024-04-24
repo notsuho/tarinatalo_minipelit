@@ -51,13 +51,9 @@ public class GlowControl : MonoBehaviour {
         this.glowStartTime = Time.time;
         this.isGlowing = true;
         this.currentGlowRange = this.wrongGlowRange;
-
-        // use glowSpeed value as time after when to restore the book color
-        // so the glow finishes one cycle
-        Invoke("RestoreBookColor", this.glowSpeed);
     }
 
-    void RestoreBookColor() {
+    public void RestoreBookColor() {
         this.isGlowing = false;
         this.rendererComponent.material.SetColor("_Color", this.defaultColor);
     }

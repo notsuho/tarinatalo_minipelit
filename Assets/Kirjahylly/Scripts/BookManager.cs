@@ -20,6 +20,9 @@ public class BookManager : MonoBehaviour
     private int total_rounds = 3;
     private int current_round = 0;
     private int racksFilled = 0;
+    private int pointsForCorrectAnswer = 30;
+    public int pointsForWrongAnswer = -5;
+    private int pointsForUsingHint = -15;
 
     private int currentSetIndex = 0;
     private bool preSetBook1 = false;
@@ -135,7 +138,8 @@ public class BookManager : MonoBehaviour
 
     void CheckLevelCompletion(object rack, System.EventArgs args)
     {
-        GameManager.AddPoints(true, 11);
+        GameManager.AddPoints(true, pointsForCorrectAnswer);
+        ui.UpdateScoreLabel();
         racksFilled++;
         ui.UpProgressBar(this.GetProgress(), pointsToWin);
         bool levelCompleted = this.bookRacks.All(r => r.GetComponent<BookRack>().isCompleted);
@@ -180,7 +184,8 @@ public class BookManager : MonoBehaviour
     public void UseHint()
     {
         bool bookMoved = false;
-        GameManager.AddPoints(false, -11);
+        GameManager.AddPoints(false, pointsForUsingHint);
+        ui.UpdateScoreLabel();
         //Check if there is a wrong book in book case and replace it with correct one
         for (int i = 0; i < 3; i++)
         {
@@ -244,6 +249,9 @@ public class BookManager : MonoBehaviour
         Table tableScript = table.GetComponent<Table>();
         Book book_obj = book.GetComponent<Book>();
         BookRack rack = book_obj.GetCurrHolder().GetComponent<BookRack>();
+        if(book_obj.isRed){
+            rack.RestoreBookColors();
+        }
         rack.RemoveBook(book);
         tableScript.AddBook(book);
         book_obj.SetCurrentHolder((GameObject)table);
@@ -320,6 +328,14 @@ public class BookManager : MonoBehaviour
 
     public void PlayVictorySound(){
         AudioSource.PlayClipAtPoint(soundObject.victorySound, cam.transform.position);
+    }
+
+    public void PlayStarSound(){
+        AudioSource.PlayClipAtPoint(soundObject.starSound, cam.transform.position);
+    }
+
+    public void PlayStreakSound(){
+        AudioSource.PlayClipAtPoint(soundObject.streakSound, cam.transform.position);
     }
 
     float GetProgress() {
