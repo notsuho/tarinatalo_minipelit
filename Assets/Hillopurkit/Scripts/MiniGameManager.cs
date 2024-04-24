@@ -176,13 +176,8 @@ public class MiniGameManager : MonoBehaviour
                 numberOfJars = numberOfJars_round3;
                 break;
             default: // After round 3, default to round 3 setups
-                // Debug.Log("Only rounds 1, 2 and 3 exist");
-                // For later: just default to round 3 jars if there are more
-                // than 3 rounds? Or randomize the # of jars?
                 numberOfJars = numberOfJars_round3;
                 break;
-                // To the next minigame
-                //return;
         }
 
         // Make sure there is a proper amount of jars
