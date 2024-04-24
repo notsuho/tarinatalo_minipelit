@@ -3,8 +3,7 @@ using UnityEngine;
 public class Score : MonoBehaviour
 {
     public HillopurkitUIManager ui;
-    // private int points
-    private readonly int pointsPerCorrectAnswer = 11;
+    private readonly int pointsPerCorrectAnswer = 30;
     private readonly int pointsPenaltyPerWrongAnswer = -5;
     private readonly int winningPointLimit = 99;
     private int jarClicksWrong = 0;
