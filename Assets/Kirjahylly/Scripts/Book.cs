@@ -19,7 +19,7 @@ public class Book : MonoBehaviour {
     private Vector3 targetPosition;
     private Quaternion targetRotation;
 
-    public int word_category;
+    public int? word_category;
     private UIManager_Kirjahylly ui;
     private BookManager manager;
 
@@ -166,7 +166,7 @@ public class Book : MonoBehaviour {
         this.currHolder = holder;
     }
 
-    public int GetWordCategory() {
+    public int? GetWordCategory() {
         return word_category;
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Rendering;
 using Unity.VisualScripting;
+using Newtonsoft.Json;
 
 public class BookManager : MonoBehaviour
 {
@@ -33,17 +34,18 @@ public class BookManager : MonoBehaviour
     [System.Serializable]
     public class JsonBook
     {
-        public int category;
+        public int? category;
         public string word;
     }
 
     [System.Serializable]
-    public class JsonRoot
+    public class WordData
     {
-        public List<JsonBook> bookset1 = new List<JsonBook>();
-        public List<JsonBook> bookset2 = new List<JsonBook>();
-        public List<JsonBook> bookset3 = new List<JsonBook>();
+        public List<List<string>> word_groups;
+        public List<string> filler_words;
     }
+
+
 
     IEnumerator Start()
     {
@@ -112,7 +114,7 @@ public class BookManager : MonoBehaviour
         tableScript.UpdateBookPositions();
 
         // Increment index of current level/set of books
-        this.currentSetIndex = (this.currentSetIndex + 1) % 3;
+        this.currentSetIndex = (this.currentSetIndex + 1) % this.total_rounds;
     }
 
     void ClearBooks()
@@ -130,10 +132,40 @@ public class BookManager : MonoBehaviour
 
     void LoadBookDataFromFile()
     {
-        JsonRoot jsonRoot = JsonUtility.FromJson<JsonRoot>(wordsAndCategoriesJson.text);
-        this.bookSets.Add(ShuffleList(jsonRoot.bookset1));
-        this.bookSets.Add(ShuffleList(jsonRoot.bookset2));
-        this.bookSets.Add(ShuffleList(jsonRoot.bookset3));
+        WordData[] word_datas = JsonConvert.DeserializeObject<WordData[]>(
+            wordsAndCategoriesJson.text
+        );
+
+        int category_num = 1;
+        foreach (WordData word_data in word_datas) {
+            List<JsonBook> bookSet = new List<JsonBook>();
+
+            // Setup correct words
+            foreach (List<string> word_group in word_data.word_groups) {
+                foreach (string word_in_json in word_group) {
+                    JsonBook book = new JsonBook();
+                    book.category = category_num;
+                    book.word = word_in_json;
+                    bookSet.Add(book);
+                }
+                category_num++;
+            }
+
+            // Setup filler words
+            foreach (string filler_word in word_data.filler_words) {
+                JsonBook book = new JsonBook();
+                book.category = null;
+                book.word = filler_word;
+                bookSet.Add(book);
+            }
+
+            this.bookSets.Add(ShuffleList(bookSet));
+            category_num = 1;
+        }
+
+        // Shuffle booksets to their order is random
+        System.Random r = new System.Random();
+        this.bookSets = this.bookSets.OrderBy(_ => r.Next()).ToList();
     }
 
     void CheckLevelCompletion(object rack, System.EventArgs args)
