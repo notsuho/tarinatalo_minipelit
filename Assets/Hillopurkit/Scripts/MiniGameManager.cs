@@ -215,7 +215,7 @@ public class MiniGameManager : MonoBehaviour
         // Places jars on the shelf
         for (int i = 0; i < numberOfJars; i++)
         {
-            float randomOffset_z = Random.Range(-jarWidth / 5, jarWidth / 5); // A small offset on the z axis. Brings a little life.
+            float randomOffset_z = Random.Range(-jarWidth / 5, 0); // A small offset on the z axis. Brings a little life.
             float randomOffset_x = Random.Range(-jarWidth / 8, jarWidth / 8); // An even small offset on the x axis. Brings a little life.
 
             Vector3 jarPosition = firstJarPosition + spaceBetweenJars * i + new Vector3(randomOffset_x, 0, randomOffset_z);
