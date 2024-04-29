@@ -27,8 +27,10 @@ public class UIManager_Kirjahylly : MonoBehaviour
     private string gotItButtonText = "<allcaps>selvä!</allcaps>";
     private string instructionHeadlineText = "<allcaps>3/3 Kirjahylly</allcaps>";
     private string instructionTextText = "Kirjat ovat sekaisin. Järjestä kirjat hyllyyn niiden merkityksen perusteella. \nJos jäät jumiin, voit käyttää vihjettä päästäksesi eteenpäin. Vihjeen käytöstä vähennetään pisteitä.";
-    private readonly string winningHeadline = "Läpäisit pelin!";
+    private readonly string winningHeadline = "Hienoa työtä!";
+    private readonly string endHeadline = "Läpäisit pelin!";
     private readonly string winningText = "Sait järjestettyä kaikki kirjat oikein hyllyihin. Hienoa!";
+    private readonly string endText = "Suoritit kaikki synonyymipelit. Hienoa!";
     private readonly string endGameButtonText = "<allcaps>takaisin päävalikkoon</allcaps>";
     public BookManager manager;
     public UIUtils uiUtils;
@@ -137,6 +139,18 @@ public class UIManager_Kirjahylly : MonoBehaviour
     public void ShowEndFeedback(){
         panelHeadline.text = winningHeadline;
         panelText.text = winningText;
+        panelButton.text = gotItButtonText;
+
+        panelSection.style.display = DisplayStyle.Flex;
+        panelButton.clicked += () =>
+        {
+            this.ShowMinigamesEndFeedback();
+        };
+    }
+
+    public void ShowMinigamesEndFeedback(){
+        panelHeadline.text = endHeadline;
+        panelText.text = endText;
         panelButton.text = endGameButtonText;
 
         panelSection.style.display = DisplayStyle.Flex;

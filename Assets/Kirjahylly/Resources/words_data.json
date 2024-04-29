@@ -1,164 +1,26 @@
-{
-    "bookset1": [
-        {
-            "word": "kähveltää",
-            "category": 1
-        },
-        {
-            "word": "ryövätä",
-            "category": 1
-        },
-        {
-            "word": "varastaa",
-            "category": 1
-        },
-        {
-            "word": "nukkua",
-            "category": 2
-        },
-        {
-            "word": "koisia",
-            "category": 2
-        },
-        {
-            "word": "uinua",
-            "category": 2
-        },
-        {
-            "word": "huijata",
-            "category": 3
-        },
-        {
-            "word": "juksata",
-            "category": 3
-        },
-        {
-            "word": "naruttaa",
-            "category": 3
-        },
-        {
-            "word": "vaappua",
-            "category": 8
-        },
-        {
-            "word": "puhista",
-            "category": 9
-        },
-        {
-            "word": "uskaltaa",
-            "category": 10
-        },
-        {
-            "word": "tukehtua",
-            "category": 11
-        }
-    ],
-    "bookset2": [
-        {
-            "word": "tyhmä",
-            "category": 1
-        },
-        {
-            "word": "typerä",
-            "category": 1
-        },
-        {
-            "word": "hölmö",
-            "category": 1
-        },
-        {
-            "word": "paha",
-            "category": 2
-        },
-        {
-            "word": "häijy",
-            "category": 2
-        },
-        {
-            "word": "ilkeä",
-            "category": 2
-        },
-        {
-            "word": "huikea",
-            "category": 3
-        },
-        {
-            "word": "mahtava",
-            "category": 3
-        },
-        {
-            "word": "upea",
-            "category": 3
-        },
-        {
-            "word": "uusi",
-            "category": 8
-        },
-        {
-            "word": "outo",
-            "category": 9
-        },
-        {
-            "word": "viisas",
-            "category": 10
-        },
-        {
-            "word": "vaikea",
-            "category": 11
-        }
-    ],
-    "bookset3": [
-        {
-            "word": "säntillinen",
-            "category": 1
-        },
-        {
-            "word": "täsmällinen",
-            "category": 1
-        },
-        {
-            "word": "tarkka",
-            "category": 1
-        },
-        {
-            "word": "huoleton",
-            "category": 2
-        },
-        {
-            "word": "piittaamaton",
-            "category": 2
-        },
-        {
-            "word": "välinpitämätön",
-            "category": 2
-        },
-        {
-            "word": "surullinen",
-            "category": 3
-        },
-        {
-            "word": "apea",
-            "category": 3
-        },
-        {
-            "word": "alakuloinen",
-            "category": 3
-        },
-        {
-            "word": "arvaamaton",
-            "category": 8
-        },
-        {
-            "word": "hiljainen",
-            "category": 9
-        },
-        {
-            "word": "iloinen",
-            "category": 10
-        },
-        {
-            "word": "ynseä",
-            "category": 11
-        }
-    ]
-}
+[
+    {
+        "word_groups": [
+            ["kähveltää", "ryövätä", "varastaa"],
+            ["nukkua", "koisia", "uinua"],
+            ["huijata", "juksata", "naruttaa"]
+        ],
+        "filler_words": ["vaappua", "puhista", "uskaltaa", "tukehtua"]
+    },
+    {
+        "word_groups": [
+            ["tyhmä", "typerä", "hölmö"],
+            ["paha", "häijy", "ilkeä"],
+            ["huikea", "mahtava", "upea"]
+        ],
+        "filler_words": ["uusi", "outo", "viisas", "vaikea"]
+    },
+    {
+        "word_groups": [
+            ["säntillinen", "täsmällinen", "tarkka"],
+            ["huoleton", "piittaamaton", "välinpitämätön"],
+            ["surullinen", "apea", "alakuloinen"]
+        ],
+        "filler_words": ["arvaamaton", "hiljainen", "iloinen", "ynseä"]
+    },
+]

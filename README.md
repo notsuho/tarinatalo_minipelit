@@ -6,24 +6,20 @@ Kirjahyllypelissä on 3 tasoa, joissa jokaisessa on 3 hyllyä täytettävänä. 
 
 Sanat haetaan json-tiedostosta jonka sijainti on `Assets/Kirjahylly/Resources/words_data.json`.
 
-Json-tiedostossa on jokaiselle kolmelle pelin tasolle oma root objektin key:
+Json-tiedostossa on array, joka sisältää objektin jokaista pelin tasoa kohden:
 ```json
 {
-	"bookset1": [...],
-	"bookset2": [...],
-	"bookset3": [...]
-}
-```
-
-Näissä arvona on lista objekteja joista luodaan kirja.
-```json
-{
-	"word": "juosta", // str: sana kirjalle
-	"category": 1 // int: kategorian numero
+    "word_groups": [
+        ["kähveltää", "ryövätä", "varastaa"],
+        ["nukkua", "koisia", "uinua"],
+        ["huijata", "juksata", "naruttaa"]
+    ],
+    "filler_words": ["vaappua", "puhista", "uskaltaa", "tukehtua"]
 },
 ```
 
-Yhteen sopivat sanat yhdistetään logiikassa vertailemalla kategorian numeroa. Hämäyssanoilla kategorian numeroksi on annettu luku, jota ei ole millään muulla sanalla/kirjalla.
+`word_groups` on lista listoja, jotka sisältävät oikeat sanat ryhmiteltyinä. `word_groups`:in oletetaan olevan lista joka sisältää 3 listaa, ja näiden listojen oletetaan sisältävän 3 stringiä. `filler_words`:in oletetaan sisältävän 4 stringiä. Samassa listassa olevat sanat merkataan samalla kategorianumerolla BookManager.LoadBookDataFromFile() -metodissa. Tätä kategorianumeroa käytetään pelin logiikassa tarkistamaan, onko hyllyllä saman kategorian kirjoja. Täytesanoille annetaan kategorianumeroksi `null`.
+Kun sanat luetaan json-tiedostosta ne sekoitetaan, jotta ne tulisivat satunnaisesssa järjestyksessä pöydälle. Myös eri "sanasetit" sekoitetaan ennen pelin aloitusta, joten ne tulevat eri järjestyksessä pelaajalle. Tämä myös mahdollistaa useamman setin lisäämisen json-tiedostoon ja kolme satunnaista sanasettiä valitaan pelattavaksi.
 
 
 ### Purkit
@@ -55,3 +51,4 @@ Mikäli synonyymijoukkoa halutaan muokata huomioikaa seuraavat seikat.
 
 ### Arkku
 haskdfhalkfj
+
