@@ -15,46 +15,44 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private TextAsset [] synonymsLists;
     [SerializeField] private int numberOfJars_round1 = 4;
     [SerializeField] private int numberOfJars_round2 = 6;
-    [SerializeField] private int numberOfJars_round3 = 8;
-    private readonly int roundsTotal = 5; // change this for more rounds
+    [SerializeField] private int numberOfJars_fullCabinet = 8;
+    [Tooltip("The amount of rounds in a jar minigame.")] public int roundsTotal = 5;
     private const int JARS_PER_SHELF = 4;
-    private const int MAX_AMOUNT_OF_JARS = JARS_PER_SHELF * 2;
+    private const int MAX_JARS = JARS_PER_SHELF * 2;
     private int currentRound = 0;
-    private readonly List<GameObject> jarsOfTheRound = new();
     private List<List<string>> adjectiveGroups = new();
     private List<List<string>> nounGroups = new();
     private List<List<string>> verbGroups = new();
+    ///<summary>
+    ///Every game object added here will be destroyed at the end of the round.
+    ///</summary>
+    private readonly List<GameObject> jarsOfTheRound = new();
 
     public static bool isGamePaused = true;
 
     private void Start() {
         // Get the camera position for sounds and other things
         cam = Camera.main;
-
         InitializeWordGroups();
     }
 
     /// <summary>
-    /// Takes synonyms from the .txt-files and prepares them for use as List<List<string>> -objects.
+    /// Takes synonyms from the txt-files and prepares them for use as List<List<string>> -objects.
     /// </summary>
     private void InitializeWordGroups()
     {
         for (int wordTypeIndex = 0; wordTypeIndex < synonymsLists.Length; wordTypeIndex++)
         {
             TextAsset wordFile = synonymsLists[wordTypeIndex];
-
             string[] allWordsOfAGroup = wordFile.text.Split("\n");
 
             foreach (string wordGroupRaw in allWordsOfAGroup)
             {
                 string[] wordGroupTxt = wordGroupRaw.Split("|");
-
                 List<string> wordGroup = new();
 
                 foreach (string word in wordGroupTxt)
-                {
                     wordGroup.Add(word);
-                }
 
                 switch (wordTypeIndex)
                 {
@@ -71,11 +69,8 @@ public class MiniGameManager : MonoBehaviour
             }
         }
     }
-
-    public int GetTotalRounds() {
-        return roundsTotal;
-    }
     
+    // Pauses game so it can't be played through UI.
     public void PauseGame()
     {
         isGamePaused = true;
@@ -103,16 +98,16 @@ public class MiniGameManager : MonoBehaviour
 
         if (currentRound == 1)
             StartFirstRound();
-
         else
         {
             yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG);
 
+            // Door closing animation and sound effect
             cabinetAnimator.Play("CloseCabinetDoors");
             AudioSource.PlayClipAtPoint(soundObject.doorClose, cam.transform.position, 1.0f);
             yield return new WaitForSeconds(WaitTimes.DOOR_CLOSING_TIME); // animation duration
 
-            if (currentRound <= roundsTotal) // rounds 2 and 3
+            if (currentRound <= roundsTotal) // rounds 2 and after
             {
                 AudioSource.PlayClipAtPoint(soundObject.cabinetShake, cam.transform.position, 0.7f);
                 cabinetAnimator.Play("CabinetShake");
@@ -129,14 +124,14 @@ public class MiniGameManager : MonoBehaviour
                 SetUpJars();
             }
 
-            else // After last round
+            else // after last round
             {
                 hammer.GetComponent<HammerBehavior>().AnimateHammer("SlideHammerOutOfView");
                 PauseGame();
             }
         }
 
-        if(currentRound != roundsTotal + 1)  // release the hammer if there are more rounds left
+        if(currentRound != roundsTotal + 1)  // as long as there are more rounds, hammer is released
             hammer.GetComponent<HammerBehavior>().SetCanSwing(true);
     }
 
@@ -152,7 +147,7 @@ public class MiniGameManager : MonoBehaviour
         SetUpJars();
         hammer.GetComponent<HammerBehavior>().AnimateHammer("SlideHammerIntoView");
         cabinetAnimator.Play("OpenCabinetDoors");
-        AudioSource.PlayClipAtPoint(soundObject.doorOpen, cam.transform.position, 1.0f);
+        AudioSource.PlayClipAtPoint(soundObject.doorOpen, cam.transform.position, 1.0f); // sound effect
         UnpauseGame();
     }
 
@@ -172,23 +167,15 @@ public class MiniGameManager : MonoBehaviour
             case 2:
                 numberOfJars = numberOfJars_round2;
                 break;
-            case 3:
-                numberOfJars = numberOfJars_round3;
+            default: // After round 2, default to full cabinet
+                numberOfJars = numberOfJars_fullCabinet;
                 break;
-            default: // After round 3, default to round 3 setups
-                // Debug.Log("Only rounds 1, 2 and 3 exist");
-                // For later: just default to round 3 jars if there are more
-                // than 3 rounds? Or randomize the # of jars?
-                numberOfJars = numberOfJars_round3;
-                break;
-                // To the next minigame
-                //return;
         }
 
         // Make sure there is a proper amount of jars
-        if (numberOfJars < 0 || numberOfJars > MAX_AMOUNT_OF_JARS)
+        if (numberOfJars < 0 || numberOfJars > MAX_JARS)
         {
-            Debug.Log("0-" + MAX_AMOUNT_OF_JARS + " jars, please.");
+            Debug.Log("0-" + MAX_JARS + " jars, please.");
             return;
         }
 
@@ -239,6 +226,7 @@ public class MiniGameManager : MonoBehaviour
 
     /// <summary>
     /// Picks a round's words and writes them on the jars.
+    /// Won't use the same correct word group twice during the minigame.
     /// </summary>
     private void LabelJars(List<GameObject> jars)
     {
