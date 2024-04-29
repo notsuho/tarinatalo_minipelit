@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Assings a random material to the object's MeshRenderer from its list of materials.
 public class RandomMaterial : MonoBehaviour
 {
     [SerializeField] Material[] materialList;

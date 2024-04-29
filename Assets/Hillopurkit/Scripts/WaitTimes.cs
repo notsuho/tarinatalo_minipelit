@@ -1,4 +1,3 @@
-
 // Static class for waiting times related to animations and messages to the player.
 public static class WaitTimes
 {
