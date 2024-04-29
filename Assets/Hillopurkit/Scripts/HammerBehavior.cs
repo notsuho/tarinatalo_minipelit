@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class HammerBehavior : MonoBehaviour
 {
-    public Animator hammerAnimator;
+    private Animator hammerAnimator;
     private bool canSwing = false;
-    Camera cam;
+
 
     private void Start()
     {
-        cam = Camera.main;
+        hammerAnimator = GetComponent<Animator>();
     }
 
     // Checks if player clicked on a jar and swings the hammer if they did.
@@ -18,7 +18,7 @@ public class HammerBehavior : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canSwing)
         {
             Vector3 mousePosition = Input.mousePosition;
-            Ray ray = cam.ScreenPointToRay(mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 if (hit.collider.gameObject.name.Equals("JamJar(Clone)"))
@@ -37,7 +37,7 @@ public class HammerBehavior : MonoBehaviour
         SetCanSwing(true);
     }
 
-    // Plays an animation by the given string
+    // Plays an animation by the given string and despawns hammer after the minigame ends
     public void AnimateHammer(string animationString)
     {
         hammerAnimator.Play(animationString);
@@ -59,4 +59,3 @@ public class HammerBehavior : MonoBehaviour
         gameObject.SetActive(false);
     }
 }
-

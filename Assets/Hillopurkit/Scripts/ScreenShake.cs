@@ -5,8 +5,9 @@ public class ScreenShake : MonoBehaviour
 {
     [SerializeField] private float shakeDuration = 0.5f;
     [SerializeField] private AnimationCurve animationCurve;
+    
     ///<summary>
-    ///Set to true to give the screen a shake
+    ///Set to true to give the screen a shake.
     ///</summary>
     public static bool shakeTrigger = false;
 
@@ -19,13 +20,14 @@ public class ScreenShake : MonoBehaviour
         }
     }
 
+    // Shakes the screen. Is called when a jar breaks.
     private IEnumerator ShakeEffect()
     {
         Vector3 startPosition = transform.position;
         float elapsedTime = 0f;
         float shakeStrenght;
 
-        while(elapsedTime < shakeDuration)
+        while (elapsedTime < shakeDuration)
         {
             elapsedTime += Time.deltaTime;
             shakeStrenght = animationCurve.Evaluate(elapsedTime / shakeDuration);
