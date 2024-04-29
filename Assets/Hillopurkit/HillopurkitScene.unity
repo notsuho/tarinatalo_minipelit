@@ -186,10 +186,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miniGameManager: {fileID: 371237317}
-  score: {fileID: 1243773863}
-  cam: {fileID: 0}
   soundObject: {fileID: -6518006508135062176, guid: 9a5089aa72c2f194cb271b33950c7004, type: 3}
-  uiUtils: {fileID: 0}
+  minimumSteakValue: 3
 --- !u!114 &1600472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,7 +264,9 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 7c4ca09ca9562614ab38ccddf33f27de, type: 3}
   numberOfJars_round1: 4
   numberOfJars_round2: 6
-  numberOfJars_round3: 8
+  numberOfJars_fullCabinet: 8
+  roundsTotal: 5
+  jarsPerShelf: 4
 --- !u!1 &447952566 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7675474096328327179, guid: 5c95507408aab0844b99d727b6c71487, type: 3}
@@ -577,10 +577,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1600471}
-  currentProgress: 33
-  progressPerCorrectAnswer: 0
-  streak: 0
-  minStreakValue: 3
 --- !u!4 &1243773864
 Transform:
   m_ObjectHideFlags: 0

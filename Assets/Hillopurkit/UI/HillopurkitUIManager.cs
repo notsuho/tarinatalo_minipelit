@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class HillopurkitUIManager : MonoBehaviour
 {
     public MiniGameManager miniGameManager;
-    public Score score;
     private VisualElement root;
     private VisualElement panelSection;
     private Label panelHeadline;
@@ -14,25 +13,20 @@ public class HillopurkitUIManager : MonoBehaviour
     private Button panelButton;
     private VisualElement instructions;
     private ProgressBar progressBar;
-    private Label tallyText;
     private Label scoreLabel;
     private Label clickedWrong;
     private Label clickedRight;
     private VisualElement streakImage;
-    public Camera cam;
+    private UIUtils uiUtils;
+    private readonly int progressAtBeginning = 33;
+    private readonly int progressAtEnd = 66;
     public SoundObject soundObject;
-    public UIUtils uiUtils;
-
-    private void Update()
-    {
-        //gameScore.text = GameManager.totalPoints.ToString();    
-    }
+    
+    [Tooltip("Streak starts increasing points after this streak is reached.")]
+    [SerializeField] private int minimumSteakValue = 3;
 
     private void OnEnable()
     {
-        cam = Camera.main;
-        uiUtils = GetComponent<UIUtils>();
-
         uiUtils = GetComponent<UIUtils>();
 
         root = GetComponent<UIDocument>().rootVisualElement;
@@ -57,7 +51,7 @@ public class HillopurkitUIManager : MonoBehaviour
             uiUtils.ScoreLabelToNormalColoring(this.scoreLabel);
         }
 
-        ResetProgressBar(33);
+        ResetProgressBar(progressAtBeginning);
         SetInstructions();
 
         instructionButton.clicked += () => SetInstructions();
@@ -65,68 +59,10 @@ public class HillopurkitUIManager : MonoBehaviour
         exitButton.clicked += () => uiUtils.SetConfirmationPanel(root);
     }
 
-    // <summary>
-    // Displays the instruction UI pop-up
-    // Clicking on the ? UI button also calls this method
-    // </summary>
-    private void SetInstructions()
+    public void ResetProgressBar(int resetValue)
     {
-
-        miniGameManager.PauseGame();
-
-        instructions = root.Q<VisualElement>("panel-section");
-        Label instructionHeadline = instructions.Q<Label>("panel-headline");
-        instructionHeadline.text = TextMaterialHillopurkit.instructionHeadlineText;
-        Label instructionText = instructions.Q<Label>("panel-text");
-        instructionText.text = TextMaterialHillopurkit.instructionText;
-        Button gotItButton = instructions.Q<Button>("panel-button");
-        gotItButton.text = TextMaterialHillopurkit.gotItButtonText;
-
-        instructions.style.display = DisplayStyle.Flex;
-    }
-
-    private void SetPanelExit()
-    {
-        if (panelButton.text.Equals(TextMaterialHillopurkit.continueButtonText)) // onko aina false?
-        {
-            ContinueGame();
-        }
-
-        else if (panelButton.text.Equals(TextMaterialHillopurkit.endGameButtonText)) // minipelin lopussa oleva nappi "Palaa pääpeliin"
-        {
-            Application.Quit();
-        }
-
-        else
-        {
-            instructions.style.display = DisplayStyle.None; // kysymysmerkistä poistuminen, pelin alun "Selvä!"
-            miniGameManager.UnpauseGame();
-        }
-    }
-
-    private void ContinueGame()
-    {
-        panelSection.style.display = DisplayStyle.None;
-    }
-
-    public IEnumerator DeclareWin()
-    {
-
-        yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG);
-
-        panelHeadline.text = TextMaterialHillopurkit.winningHeadline;
-        panelText.text = TextMaterialHillopurkit.winningText
-            + ("\n\nPisteesi: " + GameManager.totalPoints); // Add two linebreaks so it looks just a tiny bit cleaner
-
-        panelButton.text = TextMaterialHillopurkit.nextGameButtonText;
-
-        panelSection.style.display = DisplayStyle.Flex;
-
-        // Load next minigame scene when player presses the button
-        panelButton.clicked += () =>
-        {
-            SceneManager.LoadScene("KirjahyllyScene");
-        };
+        progressBar = root.Q<ProgressBar>("progress-bar");
+        UpProgressBar(resetValue);
     }
 
     public void UpProgressBar(int currentPoints)
@@ -136,89 +72,121 @@ public class HillopurkitUIManager : MonoBehaviour
         VisualElement star3 = root.Q<VisualElement>("star3");
 
         progressBar = root.Q<ProgressBar>("progress-bar");
-        Debug.Log("\nProgress bar value before update: " + progressBar.value);
         progressBar.value = currentPoints;
-        Debug.Log("\nProgress bar value after update: " + progressBar.value);
 
-        if (progressBar.value < 66)
-        {
+        // Star 1 is allways lit
+        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
+
+        // Star 2 lights up at the end of the minigame
+        if (progressBar.value < progressAtEnd)
             UnlightStar(star2);
-        }
-
-        if (progressBar.value < 99)
-        {
-            UnlightStar(star3);
-        }
-
-        if (progressBar.value >= 33)
-        {
-            star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-
-            if (progressBar.value > 33 && progressBar.value <= 35)
-            {
-                StarScaleTransition(star1);
-            }
-
-        }
-
-        if (progressBar.value >= 66)
+        else
         {
             star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
             StarScaleTransition(star2);
         }
+
+        // Star 3 is never lit
+        UnlightStar(star3);
     }
 
+    // Twinkle effect when the star is filled
     private void StarScaleTransition(VisualElement star)
     {
-        // Twinkle the star when it's filled
         star.ToggleInClassList("star-scale-transition");
         root.schedule.Execute(() => star.ToggleInClassList("star-scale-transition")).StartingIn(500);
 
-        AudioSource.PlayClipAtPoint(soundObject.starSound, cam.transform.position);
+        AudioSource.PlayClipAtPoint(soundObject.starSound, Camera.main.transform.position);
     }
 
+    // Makes star go back to blank
     private void UnlightStar(VisualElement star)
     {
-        // Make star go back to blank from yellow
         star.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
     }
 
-    public void ResetProgressBar(int resetValue)
+    // <summary>
+    // Displays the instruction UI pop-up.
+    // Clicking on the ? button also calls this method.
+    // </summary>
+    private void SetInstructions()
     {
-        progressBar = root.Q<ProgressBar>("progress-bar");
-        UpProgressBar(resetValue);
+        miniGameManager.PauseGame();
+
+        instructions = root.Q<VisualElement>("panel-section");
+
+        Label instructionHeadline = instructions.Q<Label>("panel-headline");
+        instructionHeadline.text = TextMaterialHillopurkit.instructionHeadlineText;
+
+        Label instructionText = instructions.Q<Label>("panel-text");
+        instructionText.text = TextMaterialHillopurkit.instructionText;
+
+        Button gotItButton = instructions.Q<Button>("panel-button");
+        gotItButton.text = TextMaterialHillopurkit.gotItButtonText;
+
+        instructions.style.display = DisplayStyle.Flex;
+    }
+
+    private void SetPanelExit()
+    {
+        if (panelButton.text.Equals(TextMaterialHillopurkit.endGameButtonText)) // minipelin lopussa oleva nappi "Palaa pääpeliin"
+        {
+            Application.Quit();
+        }
+
+        else
+        {
+            instructions.style.display = DisplayStyle.None; // ohjeista poistumisen "Selvä!"-nappi
+            miniGameManager.UnpauseGame();
+        }
+    }
+
+    public IEnumerator DeclareWin()
+    {
+        yield return new WaitForSeconds(WaitTimes.MESSAGE_TIME_LONG);
+
+        panelHeadline.text = TextMaterialHillopurkit.winningHeadline;
+        panelText.text = TextMaterialHillopurkit.winningText + ("\n\nPisteesi: " + GameManager.totalPoints);
+
+        panelButton.text = TextMaterialHillopurkit.nextGameButtonText;
+
+        panelSection.style.display = DisplayStyle.Flex;
+
+        // Load next minigame scene when player presses the button
+        panelButton.clicked += () => {
+            SceneManager.LoadScene("KirjahyllyScene");
+        };
     }
 
     public void SetFeedback(bool result)
     {
-        // Get the right/wrong click stats and score
-        int[] stats = score.GetStats();
         int points = GameManager.totalPoints;
+        Label RightOrWrongLabel;
 
-        // If a breakable jar was clicked, check for streak bonus points and update score UI
-        if (result == true) 
+        // If a breakable jar was clicked, check for streak bonus points
+        if (result) 
         {
-            if (GameManager.streak >= score.minStreakValue) {
+            if (GameManager.streak >= minimumSteakValue) {
                 DisplayStreakImage();
             }
-            scoreLabel = root.Q<Label>("score-label");
-            scoreLabel.text = ("" + points);
-            clickedRight.visible = true;
-            StartCoroutine(FeedbackTurnOffDelay(clickedRight));
+            RightOrWrongLabel = clickedRight;
+            RightOrWrongLabel.visible = true;
         }
 
+        // If a wrong jar was clicked, turn score color back to normal 
         else
         {
             if (uiUtils.isStreakColoringOn)
             {
                 uiUtils.ScoreLabelToNormalColoring(scoreLabel);
             }
-
-            scoreLabel = root.Q<Label>("score-label");
-            scoreLabel.text = ("" + points);
-            clickedWrong.visible = true;
-            StartCoroutine(FeedbackTurnOffDelay(clickedWrong));
+            RightOrWrongLabel = clickedWrong;
+            RightOrWrongLabel.visible = true;
         }
+        
+        scoreLabel = root.Q<Label>("score-label");
+        scoreLabel.text = ("" + points);
+        StartCoroutine(FeedbackTurnOffDelay(RightOrWrongLabel));
     }
 
     private IEnumerator FeedbackTurnOffDelay(Label feedbackMsg)
@@ -227,7 +195,7 @@ public class HillopurkitUIManager : MonoBehaviour
         feedbackMsg.visible = false;
     }
 
-    //asettaa streak imagen käymään näkyvissä
+    // Shows the streak-image for a moment.
     private void DisplayStreakImage()
     {
         if (!uiUtils.isStreakColoringOn)
@@ -242,14 +210,14 @@ public class HillopurkitUIManager : MonoBehaviour
 
         streakImage.style.display = DisplayStyle.Flex;
         streakImage.ToggleInClassList("streak-image-transition");
-        AudioSource.PlayClipAtPoint(soundObject.streakSound, cam.transform.position);
-        Invoke("ToggleStreakClassList", 3f);
+        AudioSource.PlayClipAtPoint(soundObject.streakSound, Camera.main.transform.position);
+        StartCoroutine(ToggleStreakClassList());
     }
 
-
-    //hävittää streak imagen näkyvistä ja asettaa classlistin alkuperäiseen asentoon
-    private void ToggleStreakClassList()
+    // Hides the streak-image.
+    private IEnumerator ToggleStreakClassList()
     {
+        yield return new WaitForSeconds(3f);
         streakImage.ClearClassList();
         streakImage.style.display = DisplayStyle.None;
     }
