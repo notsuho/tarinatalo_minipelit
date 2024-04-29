@@ -50,7 +50,10 @@ public class BookRack : BookHolderBase
 
     bool BooksAreCorrect()
     {
-        int firstCategory = this.bookStack[0].GetComponent<Book>().word_category;
+        int? firstCategory = this.bookStack[0].GetComponent<Book>().word_category;
+        if (firstCategory == null) {
+            return false;
+        }
         return this.bookStack.All(b => b.GetComponent<Book>().word_category == firstCategory);
     }
 
