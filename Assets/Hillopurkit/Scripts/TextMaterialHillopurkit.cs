@@ -8,6 +8,6 @@ public static class TextMaterialHillopurkit
     public const string winningHeadline = "Läpäisit pelin!";
     public const string winningText = "Hienoa! Rikoit kaikki väärät purkit!";
     public const string instructionText = "Kaappi on täynnä synonyymipurkkeja, mutta joukkoon on eksynyt yksi väärä sana."
-                                            + "\n\nEtsi purkki, joka ei kuulu joukkoon ja riko se!"
-                                            + "\n\nOle tarkkana, sillä väärät arvaukset vähentävät pisteitä.";
+                                            + "\n\nEtsi purkki, joka ei kuulu joukkoon, ja riko se!"
+                                            + "\n\nOle tarkkana, sillä väärät vastaukset vähentävät pisteitä.";
 }

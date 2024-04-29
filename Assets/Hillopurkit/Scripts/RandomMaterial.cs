@@ -19,7 +19,7 @@ public class RandomMaterial : MonoBehaviour
             return;
         }
         
-        if(!gameObject.GetComponent<MeshRenderer>())
+        if (!gameObject.GetComponent<MeshRenderer>())
         {
             Debug.Log("Game object is missing a mesh renderer");
             return;
