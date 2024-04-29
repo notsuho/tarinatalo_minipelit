@@ -14,7 +14,7 @@ public class Score : MonoBehaviour
     {
         ui = GameObject.Find("UIDocument").GetComponent<HillopurkitUIManager>();
 
-        totalRounds = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().GetTotalRounds();
+        totalRounds = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>().roundsTotal;
         progressPerCorrectAnswer = (33 / totalRounds);
     }
 
