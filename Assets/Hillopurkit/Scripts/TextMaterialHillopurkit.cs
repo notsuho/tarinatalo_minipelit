@@ -1,6 +1,5 @@
 public static class TextMaterialHillopurkit
 {
-    public const string continueButtonText = "<allcaps>jatka</allcaps>";
     public const string gotItButtonText = "<allcaps>selvä!</allcaps>";
     public const string endGameButtonText = "<allcaps>palaa pääpeliin</allcaps>";
     public const string nextGameButtonText = "<allcaps>seuraava peli</allcaps>";
