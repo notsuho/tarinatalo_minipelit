@@ -50,5 +50,22 @@ Mikäli synonyymijoukkoa halutaan muokata huomioikaa seuraavat seikat.
 
 
 ### Arkku
-haskdfhalkfj
 
+Arkku-pelissä pelaaja saa eteensä lauseen, josta puuttuu yksi sana, sekä kaksi sanavaihtoehtoa. Hänen täytyy valita, kumpi sanoista sopii lauseeseen merkitykseltään paremmin .
+
+Lauseet ja sanat haetaan json-tiedostosta, jonka sijainti on `Assets/Arkku/Resources/exerciseMaterial.json`
+
+Json-tiedostossa on array `exercises`, jossa on tehtävämatriaali seuraavanalaisessa muodossa:
+```json
+    {
+        "sentence": "Lääkärin täytyi tehdä <sprite name=\"line\"> leikkaus.",
+        "word1": "kiireellinen",
+        "word2": "kiireinen",
+        "correctAnswer": "kiireellinen",
+        "explanation": "Leikkauksella oli kiire, lääkärillä ei.<br><br><mark=#77432e40>Kiireinen</mark> viittaa ihmiseen tai ajanjaksoon.<br><br><mark=#77432e40>Kiireellinen</mark> viittaa asiaan, joka täytyy hoitaa nopeasti."
+    }
+```
+
+`sentence` sisältää lauseen, johon sanaa sovitetetaan. `<sprite name=\"line\">` merkitsee arvattavan sanan kohtaa eli tyhjää viivaa. `word1` ja `word2` ovat kaksi sanaa, joita arvuutellaan lauseeseen. `correctAnswer` on oikea vastaus eli lauseeseen paremmin sopiva sana. `explanation` on selitys, siitä mitä sanat tarkoittavat.
+
+LevelManager.Start()-metodissa haetaan json-tiedostosta harjoitukset ja arvotaan niistä muuttujalla säädeltävä määrä mukaan peliin. Jsoniin voi lisätä vapaasti vastaavan sisältöistä materiaalia. 
