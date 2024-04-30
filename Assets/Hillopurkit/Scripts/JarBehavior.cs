@@ -38,7 +38,7 @@ public class JarBehavior : MonoBehaviour
             
             // Move out of the way and spawn in broken jar
             Vector3 currentPosition = transform.position;
-            gameObject.transform.position = currentPosition + new Vector3 (30, 0, 0);
+            gameObject.transform.position = currentPosition + new Vector3 (0, 0, 50);
             GameObject breakingJar = Instantiate(brokenJar, currentPosition, Quaternion.identity);
 
             // Play sound for clicking correct jar
