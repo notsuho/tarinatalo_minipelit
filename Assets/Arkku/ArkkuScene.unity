@@ -1188,6 +1188,7 @@ MonoBehaviour:
   uiUtils: {fileID: 0}
   RenderTimeForCorrectAnswerFeedpack: 3.3
   RenderTimeForDeclareWinFeedpack: 2
+  TimeForStreakImageClassListToBeSetToOriginalStateAfterTransition: 3
   cam: {fileID: 963194227}
   soundObject: {fileID: -6518006508135062176, guid: 9a5089aa72c2f194cb271b33950c7004, type: 3}
   leftWord: 

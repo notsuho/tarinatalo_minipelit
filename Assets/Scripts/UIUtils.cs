@@ -5,16 +5,24 @@ using UnityEngine.UIElements;
 
 public class UIUtils : MonoBehaviour
 {
-    public bool isStreakColoringOn = false;
+    private string yesButtonText = "kyll‰";
+    private string noButtonText = "ei";
+    private string exitQuestionText  = "Suljetaanko synonyymipeli?";
 
+    public bool isStreakColoringOn = false;
+    
+    //pistelaskurin tekstin v‰ri, kun streak on p‰‰ll‰
     private Color streakScoreLabelColor = new Color(0.81f, 0.57f, 0.24f);
+    
+    //pistelaskurin tekstin varjo, kun streak on p‰‰ll‰
     private TextShadow streakShadow = new TextShadow
     {
         color = Color.white,
         blurRadius = 3f,
         offset = new Vector2(2f, 2f)
     };
-
+    
+    //pistelaskurin tekstin varjo, kun streak ei ole p‰‰ll‰
     private TextShadow normalShadow = new TextShadow
     {
         color = new Color(0.466f, 0.26f, 0.18f),
@@ -43,18 +51,19 @@ public class UIUtils : MonoBehaviour
         return gameScore;
     }
 
+    // asettaa varmistuskysymyspaneelin, kun pelaaja on sulkemassa pelin
     public void SetConfirmationPanel(VisualElement root)
     {
         VisualElement exitConfirmationPanelSection = root.Q<VisualElement>("exit-confirmation-panel-section");
 
         Button yesButton = exitConfirmationPanelSection.Q<Button>("exit-yes-button");
-        yesButton.text = "kyll‰";
+        yesButton.text = yesButtonText;
 
         Button noButton = exitConfirmationPanelSection.Q<Button>("exit-no-button");
-        noButton.text = "ei";
+        noButton.text = noButtonText;
 
         Label exitQuestion = exitConfirmationPanelSection.Q<Label>("exit-text");
-        exitQuestion.text = "Suljetaanko synonyymipeli?";
+        exitQuestion.text = exitQuestionText;
 
         exitConfirmationPanelSection.style.display = DisplayStyle.Flex;
 
