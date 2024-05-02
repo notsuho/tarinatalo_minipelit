@@ -552,72 +552,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 125.94101, y: 360.246, z: 186.222}
---- !u!1 &796132440
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 796132442}
-  - component: {fileID: 796132441}
-  - component: {fileID: 796132443}
-  m_Layer: 0
-  m_Name: animatorController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &796132441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796132440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 154c53ff93b1be84498bad116237cf2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &796132442
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796132440}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5869516, y: 2.2060022, z: 3.830989}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &796132443
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796132440}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 96ae99eb6dcd77e4bb003bd61a1d1c90, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &897123179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1186,7 +1120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelManager: {fileID: 1671395770}
   uiUtils: {fileID: 0}
-  RenderTimeForCorrectAnswerFeedpack: 3.3
+  RenderTimeForCorrectAnswerFeedpack: 2.9
   RenderTimeForDeclareWinFeedpack: 2
   TimeForStreakImageClassListToBeSetToOriginalStateAfterTransition: 3
   cam: {fileID: 963194227}
@@ -1285,6 +1219,8 @@ MonoBehaviour:
     exercises: []
   ui: {fileID: 1617662936}
   numberOfExercisesToLoop: 7
+  delayForOpeningChest: 1
+  delayForClosingChest: 2.8
   progressBarValue: 0
   progBarValueUpPerCorrectAnswer: 6.66
   progBarValueToWinRound: 33
@@ -1748,4 +1684,3 @@ SceneRoots:
   - {fileID: 221885996}
   - {fileID: 1054770083}
   - {fileID: 1617662935}
-  - {fileID: 796132442}
