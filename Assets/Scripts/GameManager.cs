@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public static int totalPoints;
     public static uint streak = 0;
 
+    private static double streakCoefficient = 0.1;
+
 
     //cont ilmaisee jatkuuko (true) vai katkeaako (false) streak. 
     //basicPoints on paljonko tehtävästä annetaan oletuksena pisteitä
@@ -19,7 +21,7 @@ public class GameManager : MonoBehaviour
         
         if(cont == true) {
             streak++;
-            totalPoints += (int)Math.Round(basicPoints * (1+(0.1*(streak))));
+            totalPoints += (int)Math.Round(basicPoints * (1+(streakCoefficient*(streak))));
             
         } else {
             streak = 0;
