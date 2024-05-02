@@ -17,6 +17,8 @@ public class LevelManager : MonoBehaviour
     private Exercise currentExercise;
     private Exercise previousExercise;
 
+    public float delayForOpeningChest;
+    public float delayForClosingChest;
 
     public float progressBarValue;
     public float progBarValueUpPerCorrectAnswer;
@@ -76,6 +78,7 @@ public class LevelManager : MonoBehaviour
                     currentExercise = exercisesToAnswer[randomExerciseIndex];
                 }
             }
+            //asettaa sanat UIManagerille renderöitäväksi
             ui.SetSentence(currentExercise.sentence);
             ui.SetLeftWord(currentExercise.word1);
             ui.SetRightWord(currentExercise.word2);
@@ -105,18 +108,17 @@ public class LevelManager : MonoBehaviour
             if (ui.rightWord.Equals(currentExercise.correctAnswer))
             {
                 rightKey.GetComponent<Animator>().SetTrigger("OikeaAvainAvaus");
-                //AudioSource.PlayClipAtPoint(soundObject.keytwistSound, cam.transform.position);
                 //Tehty erillisinä funktioina ajastustoiminnon takia
-                Invoke("OpenChest", 1f);
-                Invoke("CloseChest", 4f);
+                Invoke("OpenChest", delayForOpeningChest);
+                Invoke("CloseChest", delayForClosingChest);
             }
 
             //animaatio vasemmalle puolelle
             if (ui.leftWord.Equals(currentExercise.correctAnswer))
             {
                 leftKey.GetComponent<Animator>().SetTrigger("VasenAvainAvaus");
-                Invoke("OpenChest", 1f);
-                Invoke("CloseChest", 4f);
+                Invoke("OpenChest", delayForOpeningChest);
+                Invoke("CloseChest", delayForClosingChest);
             }
 
             GameManager.AddPoints(true, ScoreArkku.pointPerCorrectAnswer);

@@ -41,7 +41,7 @@
             "word1": "painostaa",
             "word2": "panostaa",
             "correctAnswer": "panostaa",
-            "explanation": "Opiskeluun panostaminen kannattaa aina, kun taas painostamisella tuskin saa hyviä tuloksia.<br><br><mark=#77432e40>Panostaa</mark> tarkoittaa, että näkee vaivaa jonkun asian eteen.<br><br><mark=#77432e40>Painostaminen</mark> on sitä, että yrittää saada jonkun toisen toimimaan tietyllä tavalla."
+            "explanation": "Opiskeluun panostaminen kannattaa aina, kun taas painostamisella tuskin saa hyviä tuloksia.<br><br><mark=#77432e40>Panostaminen</mark> tarkoittaa, että näkee vaivaa jonkun asian eteen.<br><br><mark=#77432e40>Painostaminen</mark> on sitä, että yrittää saada jonkun toisen toimimaan tietyllä tavalla."
         },
         {
             "sentence": "Muistan hyvin sanaluokat, sillä opiskelimme niitä <sprite name=\"line\"> koulussa.",
@@ -55,7 +55,7 @@
             "word1": "arvostella",
             "word2": "arvostaa",
             "correctAnswer": "arvostella",
-            "explanation": "Toisten valintojen arvosteleminen voi tuntua vastapuolesta ikävältä, mutta arvostaminen tuntuu aina hyvältä.<br><br><mark=#77432e40>Arvostaa</mark> tarkoittaa sitä, että pitää jotakin tärkeänä. <br><br><mark=#77432e40>Arvosteleminen</mark> tarkoittaa jonkun asian negatiivista arviointia."
+            "explanation": "Toisten valintojen arvosteleminen voi tuntua vastapuolesta ikävältä, mutta arvostaminen tuntuu aina hyvältä.<br><br><mark=#77432e40>Arvostaminen</mark> tarkoittaa sitä, että pitää jotakin tärkeänä. <br><br><mark=#77432e40>Arvosteleminen</mark> tarkoittaa jonkun asian negatiivista arviointia."
         }, 
         {
             "sentence": "Taikinan nostatus on tärkeä <sprite name=\"line\"> pullan leipomisessa.",

@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public UIUtils uiUtils;
     public float RenderTimeForCorrectAnswerFeedpack;
     public float RenderTimeForDeclareWinFeedpack;
+    public float TimeForStreakImageClassListToBeSetToOriginalStateAfterTransition;
 
     public Camera cam;
 
@@ -43,7 +44,6 @@ public class UIManager : MonoBehaviour
     void Start()
     {
 
-        //IMPLENTOI gameScoren väri streakissa: uiUtils gameObject talteen
         uiUtils = GetComponent<UIUtils>();
 
         progressBar = root.Q<ProgressBar>("progress-bar");
@@ -72,7 +72,6 @@ public class UIManager : MonoBehaviour
         gameScore = root.Q<Label>("score-label");
 
         SetGameIntro();
-        /*SetLevelInstructions();*/
 
         leftButton.clicked += () => CheckAnswer(leftWord);
         rightButton.clicked += () => CheckAnswer(rightWord);
@@ -245,14 +244,13 @@ public class UIManager : MonoBehaviour
         if (levelManager.IsAnswerCorrect(answer))
         {
            FreezeButtons();
-            //IMPLEMENTOI STREAKIT: Kutsu sreak-kuvaketta, jos streakin arvo on tarpeeksi suuri           
+        
            //asetetaan streak-kuvake, jos streak-arvo on tarpeeksi suuri 
            if (GameManager.streak >= ScoreArkku.minStreakValue)
             {
                 DisplayStreakImage();
-               
             }
-            //---------------------------------------------
+            
 
             SetFeedpack(TextMaterialArkku.correctAnswerFeedpackText, levelManager.GetCurrentExplanation(), true);
             Invoke("SetFeedpackPanelVisible", RenderTimeForCorrectAnswerFeedpack);
@@ -260,7 +258,6 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            //IMPLEMENTOI scoreLabelin muuttuminen perusväriin
             //poistaa scoreLabelin streak-värityksen
             if (uiUtils.isStreakColoringOn)
             {
@@ -272,22 +269,18 @@ public class UIManager : MonoBehaviour
 
             panelSection.style.display = DisplayStyle.Flex;
             AudioSource.PlayClipAtPoint(soundObject.wrongAnswerSound, cam.transform.position, 1f);
-
         }
-
     }
 
-    //IMPLEMENTOI STREAKIT: Ota tämä funktio
+
     //asettaa streak imagen käymään näkyvissä
     private void DisplayStreakImage ()
     {
 
-        //IMPLEMENTOI scoreLabelin väri streakissa:
         //asettaa score labeliin uuden värin, joka ilmaisee, että streak on päällä
         if (!uiUtils.isStreakColoringOn) { 
             uiUtils.ScoreLabelToStreakColoring(gameScore);
         }
-        //-------------------------------------------------
 
         streakImage = root.Q<VisualElement>("streak-image");
 
@@ -300,20 +293,17 @@ public class UIManager : MonoBehaviour
 
         AudioSource.PlayClipAtPoint(soundObject.streakSound, cam.transform.position);
 
-        Invoke("ToggleStreakClassList", 3f);
+        Invoke("ToggleStreakClassList", TimeForStreakImageClassListToBeSetToOriginalStateAfterTransition);
        
     }
 
-    //IMPLEMENTOI STREAKIT: Ota tämä funktio
-    //hävittää streak imagen näkyvistä ja asettaa classlistin alkuperäiseen asentoon
+    //hävittää streak imagen näkyvistä ja asettaa classlistin alkuperäiseen asentoon sen jälkeen, kun transitio on tapahtunut
     private void ToggleStreakClassList()
     {
         streakImage.ClearClassList();
         streakImage.style.display = DisplayStyle.None;
     }
-    //------------------------------------------------------------
-
-
+   
 
     public void DeclareWin()
     {
@@ -342,14 +332,11 @@ public class UIManager : MonoBehaviour
         {
             VisualElement star1 = root.Q<VisualElement>("star1");
             star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-
-            //IMPLEMENTOI TÄHDEN SUURENTUMINEN: Ota nämä rivit oman tähden värinvaihdon jälkeen
+           
             //tähti suurenee ja pienenee    
             star1.ToggleInClassList("star-scale-transition");
             root.schedule.Execute(() => star1.ToggleInClassList("star-scale-transition")).StartingIn(500);
-            //----------------------------------------------------------------
-
-            //IMPLEMENTOI TÄHDEN SYTTYMISÄÄNI:
+           
             AudioSource.PlayClipAtPoint(soundObject.starSound, cam.transform.position);
 
         }
