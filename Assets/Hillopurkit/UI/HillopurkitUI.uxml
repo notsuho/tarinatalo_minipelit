@@ -17,14 +17,6 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="game-progress-container">
-            <ui:VisualElement name="progress-bar-container">
-                <ui:ProgressBar name="progress-bar" />
-                <ui:VisualElement name="star-container">
-                    <ui:VisualElement name="star3" />
-                    <ui:VisualElement name="star2" />
-                    <ui:VisualElement name="star1" />
-                </ui:VisualElement>
-            </ui:VisualElement>
             <ui:VisualElement name="score-container">
                 <ui:Label name="score-label" text="1234" />
                 <ui:VisualElement name="streak-image">
@@ -44,8 +36,8 @@
         <ui:VisualElement name="exit-confirmation-panel-section">
             <ui:VisualElement name="exit-confirmation-panel">
                 <ui:Label name="exit-text" />
-                <ui:Button name="exit-yes-button"/>
-                <ui:Button name="exit-no-button"/>
+                <ui:Button name="exit-yes-button" />
+                <ui:Button name="exit-no-button" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

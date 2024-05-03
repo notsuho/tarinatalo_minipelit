@@ -12,14 +12,11 @@ public class HillopurkitUIManager : MonoBehaviour
     private Label panelText;
     private Button panelButton;
     private VisualElement instructions;
-    private ProgressBar progressBar;
     private Label scoreLabel;
     private Label clickedWrong;
     private Label clickedRight;
     private VisualElement streakImage;
     private UIUtils uiUtils;
-    private readonly int progressAtBeginning = 33;
-    private readonly int progressAtEnd = 66;
     public SoundObject soundObject;
     
     [Tooltip("Streak starts increasing points after this streak is reached.")]
@@ -51,58 +48,11 @@ public class HillopurkitUIManager : MonoBehaviour
             uiUtils.ScoreLabelToNormalColoring(this.scoreLabel);
         }
 
-        ResetProgressBar(progressAtBeginning);
         SetInstructions();
 
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => SetPanelExit();
         exitButton.clicked += () => uiUtils.SetConfirmationPanel(root);
-    }
-
-    public void ResetProgressBar(int resetValue)
-    {
-        progressBar = root.Q<ProgressBar>("progress-bar");
-        UpProgressBar(resetValue);
-    }
-
-    public void UpProgressBar(int currentPoints)
-    {
-        VisualElement star1 = root.Q<VisualElement>("star1");
-        VisualElement star2 = root.Q<VisualElement>("star2");
-        VisualElement star3 = root.Q<VisualElement>("star3");
-
-        progressBar = root.Q<ProgressBar>("progress-bar");
-        progressBar.value = currentPoints;
-
-        // Star 1 is allways lit
-        star1.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-
-        // Star 2 lights up at the end of the minigame
-        if (progressBar.value < progressAtEnd)
-            UnlightStar(star2);
-        else
-        {
-            star2.style.backgroundImage = Resources.Load<Texture2D>("Images/star");
-            StarScaleTransition(star2);
-        }
-
-        // Star 3 is never lit
-        UnlightStar(star3);
-    }
-
-    // Twinkle effect when the star is filled
-    private void StarScaleTransition(VisualElement star)
-    {
-        star.ToggleInClassList("star-scale-transition");
-        root.schedule.Execute(() => star.ToggleInClassList("star-scale-transition")).StartingIn(500);
-
-        AudioSource.PlayClipAtPoint(soundObject.starSound, Camera.main.transform.position);
-    }
-
-    // Makes star go back to blank
-    private void UnlightStar(VisualElement star)
-    {
-        star.style.backgroundImage = Resources.Load<Texture2D>("Images/star_blank");
     }
 
     // <summary>
@@ -148,13 +98,15 @@ public class HillopurkitUIManager : MonoBehaviour
         panelHeadline.text = TextMaterialHillopurkit.winningHeadline;
         panelText.text = TextMaterialHillopurkit.winningText + ("\n\nPisteesi: " + GameManager.totalPoints);
 
-        panelButton.text = TextMaterialHillopurkit.nextGameButtonText;
+        panelButton.text = TextMaterialHillopurkit.endGameButtonText;
 
         panelSection.style.display = DisplayStyle.Flex;
 
-        // Load next minigame scene when player presses the button
+        AudioSource.PlayClipAtPoint(soundObject.victorySound, Camera.main.transform.position);
+
+        // Close the minigame when player presses the button
         panelButton.clicked += () => {
-            SceneManager.LoadScene("KirjahyllyScene");
+            Application.Quit();       
         };
     }
 
