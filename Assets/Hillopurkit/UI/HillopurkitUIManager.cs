@@ -40,7 +40,7 @@ public class HillopurkitUIManager : MonoBehaviour
         clickedWrong = root.Q<Label>("feedback-wrong");
 
         scoreLabel = root.Q<Label>("score-label");
-        scoreLabel.text = "" + GameManager.totalPoints;
+        scoreLabel.text = "PISTEET\n" + GameManager.totalPoints;
 
         if (GameManager.streak > 2) {
             uiUtils.ScoreLabelToStreakColoring(this.scoreLabel);
@@ -137,7 +137,7 @@ public class HillopurkitUIManager : MonoBehaviour
         }
         
         scoreLabel = root.Q<Label>("score-label");
-        scoreLabel.text = ("" + points);
+        scoreLabel.text = ("PISTEET\n" + points);
         StartCoroutine(FeedbackTurnOffDelay(RightOrWrongLabel));
     }
 
