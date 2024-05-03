@@ -102,9 +102,7 @@
 }
 
 .word-button:hover {
-    
     color: var(--color-lt-text);
-     
 }
 
 .word-button:disabled {
@@ -114,7 +112,6 @@
 #sentence-section {
     height: 120px;
     align-items: center;
-   
 }
 
 #sentence {
@@ -133,7 +130,7 @@
     -unity-slice-scale: 0.5px;
 }
 
-#panel-section, #exit-confirmation-panel-section {
+#panel-section {
     display: none;
     position: absolute;
     height: 100%;
@@ -141,7 +138,15 @@
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-#panel, #exit-confirmation-panel {
+#exit-confirmation-panel-section {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#panel {
     flex-direction: column;
     align-self: center;
     align-items: center;
@@ -156,7 +161,29 @@
     padding: 60px;
 }
 
-#panel-headline, #exit-text {
+#exit-confirmation-panel {
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    position: absolute;
+    width: 643px;
+    top: 13%;
+    background-image: resource('Images/T_Frame_PaperPages001_GUI');
+    -unity-slice-left: 70;
+    -unity-slice-right: 70;
+    -unity-slice-top: 70;
+    -unity-slice-bottom: 70;
+    padding: 60px;
+}
+
+#panel-headline {
+    color: var(--color-lt-text);
+    font-size: 180%;
+    margin-bottom: 20px;
+    -unity-font: resource('Fonts/Nunito-Bold');
+}
+
+#exit-text {
     color: var(--color-lt-text);
     font-size: 180%;
     margin-bottom: 20px;
@@ -184,13 +211,13 @@
     -unity-text-align: upper-center;
 }
 
-#panel-button, #exit-yes-button {
+#panel-button {
     width: 309px;
     height: 60px;
     border-radius: 8px;
     font-size: 20px;
     -unity-font: resource('Fonts/Nunito-Black');
-    color: #EFDFC6;
+    color: rgb(239, 223, 198);
     background-image: resource('Images/T_Frame_Button_Red_GUI');
     border-color: rgba(0, 0, 0, 0);
     -unity-slice-left: 32;
@@ -202,17 +229,43 @@
     margin-top: 40px;
 }
 
-#panel-button:hover, #exit-no-button:hover, #exit-yes-button:hover {
-    color: white;
-}
-
-#exit-no-button {
-     width: 309px;
+#exit-yes-button {
+    width: 309px;
     height: 60px;
     border-radius: 8px;
     font-size: 20px;
     -unity-font: resource('Fonts/Nunito-Black');
-    color: #EFDFC6;
+    color: rgb(239, 223, 198);
+    background-image: resource('Images/T_Frame_Button_Red_GUI');
+    border-color: rgba(0, 0, 0, 0);
+    -unity-slice-left: 32;
+    -unity-slice-right: 32;
+    -unity-slice-bottom: 1;
+    -unity-slice-top: 1;
+    -unity-background-image-tint-color: var(--color-lt-accent);
+    background-color: rgba(0, 0, 0, 0);
+    margin-top: 40px;
+}
+
+#panel-button:hover {
+    color: white;
+}
+
+#exit-no-button:hover {
+    color: white;
+}
+
+#exit-yes-button:hover {
+    color: white;
+}
+
+#exit-no-button {
+    width: 309px;
+    height: 60px;
+    border-radius: 8px;
+    font-size: 20px;
+    -unity-font: resource('Fonts/Nunito-Black');
+    color: rgb(239, 223, 198);
     background-image: resource('Images/T_Frame_Button_White_GUI');
     border-color: rgba(0, 0, 0, 0);
     -unity-slice-left: 32;
@@ -224,7 +277,6 @@
     margin-top: 10px;
     margin-bottom: 20px;
 }
-
 
 #instructions-section {
     display: none;
@@ -255,7 +307,6 @@
     flex-grow: 1;
 }
 
-
 #game-progress-container {
     position: absolute;
     top: 12%;
@@ -285,7 +336,6 @@
     min-height: 100%;
     min-width: 100%;
     border-radius: 10px;
-    
 }
 
 .unity-progress-bar__background {
@@ -346,30 +396,29 @@
     scale: 1.2 1.2;
 }
 
-
 #score-container {
     position: relative;
-    top: 72%;
+    top: 10%;
+    left: -40px;
 }
 
 #score-label {
     color: rgb(255, 255, 255);
     -unity-text-align: upper-center;
     transition: 0.3s linear 0.2s;
-    color: white; 
-    font-size: 35px; 
-    -unity-font-style: bold; 
-     text-shadow: 3px 3px 0px var(--color-dk-text);
-    letter-spacing: 12px; 
-    -unity-text-outline-width: 1px; 
+    color: white;
+    font-size: 35px;
+    -unity-font-style: bold;
+    text-shadow: 3px 3px 0 var(--color-dk-text);
+    letter-spacing: 12px;
+    -unity-text-outline-width: 1px;
 }
-
 
 .score-label-streak {
     text-shadow: 3px 3px 0 red;
     -unity-text-outline-color: white;
     scale: 1.5;
-    color: #CF923E;
+    color: rgb(207, 146, 62);
 }
 
 #streak-image {
@@ -379,11 +428,11 @@
     position: relative;
     height: 95px;
     width: 75px;
-    right: auto;
-    top: auto;
+    right: 0;
+    top: 12px;
     display: none;
     bottom: 90%;
-    left: 15%;
+    left: 35%;
 }
 
 .streak-image-transition {
@@ -401,7 +450,6 @@
     left: 45%;
     -unity-font-style: bold;
     color: white;
-    
 }
 
 .divider {
