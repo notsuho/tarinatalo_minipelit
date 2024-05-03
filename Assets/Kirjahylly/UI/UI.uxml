@@ -17,23 +17,6 @@
             </ui:VisualElement>
             <ui:VisualElement name="sentence-section" />
         </ui:VisualElement>
-        <ui:VisualElement name="game-progress-container">
-            <ui:VisualElement name="progress-bar-container">
-                <ui:ProgressBar name="progress-bar" />
-                <ui:VisualElement name="star-container">
-                    <ui:VisualElement name="star3" />
-                    <ui:VisualElement name="star2" />
-                    <ui:VisualElement name="star1" />
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="score-container">
-                <ui:Label name="score-label" text="1234" />
-                <ui:VisualElement name="streak-image">
-                    <ui:Image name="streak-icon" />
-                    <ui:Label name="streak-count" text="+3" />
-                </ui:VisualElement>
-            </ui:VisualElement>
-        </ui:VisualElement>
         <ui:VisualElement name="panel-section">
             <ui:VisualElement name="panel">
                 <ui:Label name="panel-headline" />

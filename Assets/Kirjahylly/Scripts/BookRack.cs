@@ -34,14 +34,10 @@ public class BookRack : BookHolderBase
             MakeBooksGlow();
             this.OnCompletion();
             manager.PlayCorrectSound();
-            if (GameManager.streak > 2){
-                ui.DisplayStreakImage();
-            }
         }
         else
         {
             GameManager.AddPoints(false, manager.pointsForWrongAnswer);
-            ui.UpdateScoreLabel();
             MakeBooksRed();
             manager.PlayWrongSound();
         }
