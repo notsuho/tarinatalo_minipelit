@@ -3,7 +3,9 @@
 ## Ajaminen
 Peli koostuu kolmesta tasosta: Arkusta, Purkeista ja kirjahyllystä. Kukin on omassa scenessään, joille löytyy oma kansio `Assets`-kansiosta. Kun taso on läpäisty, peli siirtyy automaatisesti seuraavaan sceneen. Koko pelin voi pelata avaamalla Arkku-scenen Unity Editorissa. Repo ei sisällä buildeja. 
 
-Tasot on jaettu omiksi minipeleikseen `erillisetMinipelit`-branchissa. Näistä versioista on poistettu esimerkiksi edistymistä seuraava progress bar. 
+Tasot on jaettu omiksi minipeleikseen `erillisetMinipelit`-branchissa. Näistä versioista on poistettu esimerkiksi edistymistä seuraava progress bar.
+
+WebGL versio pelistä pelattavissa osoitteessa: https://jaleksi.github.io/tarinatalo_minipelit/
 
 ## Pelien sanojen muokkaus
 ### Arkku
